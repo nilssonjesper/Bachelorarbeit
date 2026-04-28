@@ -1,0 +1,305 @@
+\documentclass[journal,compsoc,10pt]{IEEEtran}
+
+% Load some possibly useful packages. You can remove the ones you don't need or
+% add other packages that you need in your paper.
+\usepackage{graphicx}                   % required to include graphics
+\usepackage{amsfonts,amssymb,amsmath}   % mathsymbols etc
+\usepackage{mathtools}                  % includes some fixes to amsmath, and adds convenience macros
+\usepackage{bm}                         % make any letter boldface in math
+\usepackage{algpseudocode}              % aka `algorithmicx`: same look `algorithmic`, but more flexible
+\usepackage{array}                      % for better looking arrays
+\usepackage{booktabs}                   % for better looking tables
+\usepackage[usenames]{xcolor}           % colors for highlighting etc.
+\usepackage{url}                        % for urls
+\usepackage[%pdftitle=,                 % define the PDF metadata
+            %pdfauthor=,
+            colorlinks=true, linkcolor=purple, urlcolor=blue, citecolor=cyan,
+            anchorcolor=black   % make links/references 'clickable' without ugly frames
+            ]{hyperref}            
+\usepackage[capitalise]{cleveref}                   % smart references to figures, equations etc.
+
+% some packages which may be useful when drafting, but should be removed before submission
+\usepackage{todonotes}
+
+%own packages
+\usepackage{amsthm}
+\usepackage{float}
+%\usepackage{subcaption}
+\usepackage{stmaryrd}
+
+% You can define your own commands. This is useful for shorthands, for example
+\newcommand{\Exp}{\mathbb{E}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\MC}{\mathcal{M}} %Markov Chain
+\newcommand{\IMC}{\mathcal{I}} %Interval MC
+\newcommand{\tT}{\mathcal{T}} %Transition Matrix
+\newcommand{\eE}{\mathcal{E}} 
+\newcommand{\gG}{\mathcal{G}} %graph
+\newcommand{\gS}{\mathcal{S}} %sinks
+\newcommand{\nN}{\mathcal{N}}
+\newcommand{\PF}{\mathbf{P}} % Probability function
+\newcommand{\PFupper}{\mathbf{\overline{P}}}
+\newcommand{\PFlower}{\mathbf{\underline{P}}}
+\newcommand{\Initupper}{\mathbf{\overline{\iota}}_{init}}
+\newcommand{\Initlower}{\mathbf{\underline{\iota}}_{init}}
+\newcommand{\cCircle}{\bigcirc} % Probability function
+\newcommand{\Path}{Paths^{\MC}_{inf}} % Probability function
+\newcommand{\lnorm}[1]{\ell_{#1}\text{-norm}}
+
+% Commands are also useful to ensure standardized notation, such as how to display vectors and matrices.
+% The point is to replace formatting commands with semantic ones.
+% This both makes the source more semantic, and also makes it easier to change formatting choices later
+% IMPORTANT: In TeX, all commands share a global namespace. You need to be careful therefore not to overwrite an existing command.
+%            Use \newcommand to ensure you don't accidentally overwrite an important macro
+%            Use \renewcommand if you *do* want to overwrite a macro, have checked what the original does,
+%            and have made sure the redefinition is safe.
+\newcommand{\T}{\mathsf{T}}            % transpose
+\renewcommand{\vec}[1]{\bm{#1}}        % redefine \vec to produce boldface instead of adding an arrow
+\newcommand{\mat}[1]{\bm{#1}}          % define \vec to produce boldface
+\newcommand{\ones}{\bm{1}}             % all-ones vector
+\newcommand{\zeros}{\bm{0}}             % all-ones vector
+\newcommand{\zerosmatr}{\bm{0_{n\times n}}}
+\newcommand{\onessmatr}{\bm{1_{n\times n}}}     % all-zeros matrix
+\newcommand{\eye}{\bm{I}}              % identity matrix
+\newcommand{\ei}{\bm{e}_i}             % standard basis vector e_i
+\newcommand{\ej}{\bm{e}_j}             % standard basis vector e_j
+    % TIP: Resist the temptation to be too clever with macros
+    %   - \ei and \ej are easier to type than e.g. \ee[i]  (note that \e is a low-level command and should not be redefined)
+    %   - While you can define macros in terms of other macros  (eg we could define \ei in terms of \vec),
+    %     many journals won’t accept this. Recursive macros also produce more frequent and more complicated compilation errors
+
+% eigene libs
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{definition}{Definition}[section]
+\usepackage{enumitem}
+
+% Commands like \sin and \exp ensure proper fonts and spacing for math operators.
+% Use the dedicated \DeclareMathOperator to define new operators
+\DeclareMathOperator{\diag}{diag}
+
+\begin{document}%[tikz,border=3mm]{standalone}
+%\usetikzlibrary{arrows.meta,positioning,quotes}
+
+\title{Expected Visiting Times of Interval Markov Chains}
+
+% author information
+% COMMENT OUT THESE LINES FOR YOUR CONFERENCE SUBMISSION!
+\author{Jesper Nilsson, 457057}
+
+\maketitle
+\thispagestyle{plain}
+\pagestyle{plain}
+
+\begin{abstract}
+    test
+\end{abstract}
+
+
+\section{Introduction}
+Thema einführen 
+
+\section{Preliminaries}
+\subsection{Notation}\label{sec:notation}
+We denote the entry in the $i$-th row and $j$-th column of a matrix $\tT$, as $(\tT)_{ij}$. We will use the notation $\underline{n} = {1, 2, \dots, n}$ with $n\in \NN$ for sets.
+Cardinality of set $S$ as $|S|$.
+
+$\cCircle$
+$\Diamond$
+
+\subsection{Matheteil}
+Linear Order
+Measurable set (used in \cref{def:next_step_probability})
+Iverson Brackets
+%Matrix Theory
+\begin{definition}[Row-Stochastic Matrix]\label{def:row-stoch_matrix}
+    A square matrix $\tT \in \RR^{n\times n}$ is row-stochastic, if and only if $\sum_{j=0}^n(\tT)_{ij} = 1$ for all rows $i \in \underline{n}$
+\end{definition}
+When considering each row as a function $f_i(j)=(\tT)_{ij}$, these functions are discrete probability distributions.
+%Probability Theory
+Expected Values
+\begin{definition}[Discrete Probability Distribution]
+    A function $P$ is a discrete probability distribution, if $P: X \rightarrow [0,1]$ where X is a countable set and $\sum_{x\in X}P(x) = 1$.
+\end{definition}
+
+
+\subsection{Markov Chains}
+OMISSION OF $^\MC$
+
+In this Section, we provide definitions and ... for Markov Chains, as well as Interval Markov Chains. The notation is based on \cite{Bibel}, \cite{Semantics_Model-Checking_omega-Regular}...
+\subsubsection{Discrete-Time (Interval) Markov Chain}
+\begin{definition}[DTMC]\label{def:DTMCs}
+    A discrete-time Markov chain (DTMC) is a tuple $\MC = (S, \PF,\iota_{init})$, where
+    \begin{enumerate}[label=(\roman*)]
+        \item $S$ is a countable, nonempty set of states,
+        \item $\PF: S \times S \rightarrow [0,1]$ is the transition probability function, such that $\sum_{s'\in S}\PF(s,s') = 1$ for all states $s \in S$, and
+        \item $\iota_{init}: S \rightarrow [0,1]$ is the initial distribution, such that $\sum_{s\in S}\iota_{init}(s)=1$.
+    \end{enumerate}
+\end{definition}
+We assume in this thesis, that the DTMCs are finite, i.e., that the set of states $S$ is finite. Furthermore, we assume an arbitrary but fixed linear order $\prec$ on the set $S$, such that the states $s\in S$ can be indexed. Thus, $s_i \prec s_j$ if $s,s' \in S$ and $i < j$.
+Due to the conditions (i) and (ii) provided in \cref{def:DTMCs}, the transition probability function $\PF$ and the initial distribution $\iota_{init}$ are discrete probability distributions.
+
+??(notion of a current state)
+Moreover, if $\PF(s,s')>0$ for two given $s,s' \in S$, then it is possible to move from $s$ to $s'$ in one step. We refer to these states $s'$ as direct successors of $s$ and to $s$ as a direct predecessor of all states $s'$. Additionally, we define a neighbour set $N$, with $s' \in N(s)$, if and only if 
+
+PROBABILITY SPACE OF DTMC
+
+\begin{definition}[Transition Matrix]\label{def:transition_matrix}
+    The transition matrix $\tT^{\MC}$ of a DTMC $\MC$ is a square matrix with size $S \times S$ \todo{gemeintes S klar?}, such that $(\tT^{\MC})_{ij} = \PF(s_i,s_j)$.
+\end{definition}
+Notice that due to the condition, given in (ii) of \cref{def:DTMCs}, that $\sum_{s_j\in S}\PF(s_i,s_j) = 1$ for all states $s \in S$, by defintion $\sum_{j=0}^{|S|}(\tT)_{ij} = 1$ for all rows $i \in \underline{n}$. Thus, the transition matrix $\tT$ of a DTMC $\MC$ is row-stochastic, see \cref{def:row-stoch_matrix}.
+
+\begin{definition}
+    Every DTMC $\MC$ induces a directed weigthed graph $\gG^{\MC} = (V,E,f)$, with the nodes $V = S^{\MC}$, the edges $(s,s')\in E$ if and only if $\PF(s,s')>0$, and the weight function $f(s,s') = \PF(s,s')$\todo{simply use $\PF$ instead of f?}
+\end{definition}
+
+\begin{definition}[Path]
+    An \textit{infinite path} $\pi$ in a DTMC $\MC$ is a sequence $\pi = s_i \rightarrow s_j \rightarrow \dots$ of states with $s_i,s_j \in S$, such that $\PF(\pi[k],\pi[k+1]) > 0$, where $\pi[k]\in S$ denotes the $k$-th element of the sequence/path for all $k\in \NN_0$. A \textit{finite path} is a finite prefix of an \textit{infinite path}.
+\end{definition}
+Prob distr. of paths
+
+
+\begin{definition}[(Step-Bounded) Constrained Reachability (Probabilities?)]
+    Let $T,R \subseteq S^{\MC}$ be two sets of states in a DTMC $\MC$. We now define the probability of only visiting states in R until eventually a state in T is visited as $Pr(R\cup T)$, where
+    \[R\cup T = \{\pi \in \Path|\exists k\in \NN: \pi[k]\in T\land \forall i <k: \pi [i]\in R\}\]
+    Furthermore, the probability of only visint states in $R$ until a state in $T$ is visited at step $k\in \NN$ is given by $Pr(R\cup^{=k})$ \dots (step-bounded defs necessary?)
+\end{definition}
+
+\begin{definition}[Reachability Probability]
+    The reachability probability of a set $T \subseteq S^{\MC}$ in a DTMC $\MC$ is given by $Pr(\Diamond T)$, where $\Diamond T = S\cup T$
+\end{definition}
+As $S^{\MC}$ defines all states in $\MC$, this simply defines the probability of visiting a state $t\in T$ at an arbitrary step in the future, i.e. if $Pr(\Diamond T) >0$ at least one state $t\in T$ is reachable. \todo{how to define/denote initial state. Unterscheiden, wenn t initial oder nicht}
+In case $T = \{t\}$ is a singleton set, we omit the braces and denote $\Diamond t$ instead of $\Diamond \{t\}$ (and $S \cup t$ instead of $S\cup T$)
+
+$\sum_{\Path}$ DEFINIEREN (?)
+
+We use the LTL unary prefix operator $\cCircle$ to denote the temporal modality "next", meaning 
+\begin{definition}[Next Step Probability]\label{def:next_step_probability}
+    Let $\MC$ be a DTMC and let $E\in {\Path}$ be a (countable) set of infinite paths in $\MC$.\todo{Difference Paths and $\sum_Paths$. What is necessary here, seems to be that both were used in MA} 
+    We now define:
+    \[\cCircle E = \{\pi[2] \rightarrow \dots \in \Path|\pi[1]\rightarrow \pi[2] \rightarrow \dots \in E\}\]
+    The next step probability with respect to $E$ is then defined as 
+    \[Pr(\cCircle E) = Pr()\]
+    \todo{Pr(OE) muss Pr sein und nicht set von paths oder (falsch in MA?)}
+\end{definition}
+
+\begin{definition}[(Bottom) Strongly Connected Component]
+    A set of states $C \subseteq S^{\MC}$ of a DTMC $\MC$ is strongly connected if and only if for every pair of states $s,t\in S$, there exists a path $\pi \in \Path$, such that $\pi[0]=s$ and $\pi[k]$ for some $k\in \NN$. \todo{use induced graph notation additionally}\\
+    If $C$ is strongly connected and no proper subset, i.e. $C' \subset C$, is strongly connected, then $C$ is called a strongly connected component (SCC).\\
+    Furthermore, an SCC $C$ is called a bottom stronlgy connected component (BSCC) if there exists no $k\in \NN$ and no path $\pi[0] \rightarrow \dots \rightarrow \pi[k] \in \Path$ such that $\pi[0]\in C$ and $\pi[k] \notin C$.
+\end{definition}
+In other words, once the model enters a BSCC, it cannot leave it again.
+
+
+SCC (minimal amount of states of set such that still strongly connec)
+(Acyclic DTMC)
+
+The states can be classified \dots
+\begin{definition}[Transient and recurrent states]\label{def:transient_and_recurrent_states}
+    A state $s \in S$ is called recurrent if and only if $Pr_s(\cCircle \Diamond s)=1$.\todo{explain: meaning of notation $Pr_s$} All states that are not recurrent are called transient.
+\end{definition}
+In other words, a state is recurrent precisely when we are guaranteed to reach it from all of its direct successors, meaning once we reach a recurrent state, we are bound to return to it. (Thus reaching it infinitely often) Using these definitions, we can split the states $S$ of a DTMC into two sets with $S_{tr}$ containing all of the transient states and $S_{re}$ containing all of the recurrent states.
+
+\begin{definition}[Absorbing state]
+    A states $s$ of a DTMC $\MC$ is refered to as an absorbing state if and only if $\PF^{\MC}(s,s) = 1$.
+\end{definition}
+This means, once the model enters an absorbing state, it cannot leave it. Notice, that absorbing states are a special type of recurrent states, as the only direct successor of an absorbing state $s\in S$ is the $s$ itself which trivially has $Pr_s(\Diamond s)=1$.
+
+Using BSCCs we can define a special class of DTMCs.
+\begin{definition}[Absorbing DTMC]
+    A DTMC $\MC$ is called absorbing if and only if all BSSCs are singleton sets consisting of an absorbing state.    
+\end{definition}
+
+\begin{definition}[Reducible DTMC]
+    A DTMC $\MC$ is called reducible if and only if 
+\end{definition}
+
+\begin{theorem}
+    For any DTMC $\MC$, $s\in S$ with $\iota_{init}(s) > 0$ it holds that $Pr(\Diamond S_{re})=1$
+\end{theorem}
+(Limit Behaviour?)
+
+Canonical Form
+
+(Reward Structure)  
+
+\subsubsection{Expected Visiting Times}
+Intuitively, the notion of EVTs describes how often we expect the model to be in a given state. To formally introduce EVTs, we fix a DTMC $\MC$ and start by introducing \textit{visiting times} along paths.
+\begin{definition}[Visiting Times of Infinite Paths]
+    The function $vt_s:\Path \rightarrow \RR$ describes the \textit{visiting time} of a state $s\in S$ along infinite paths in $\MC$, where for $\pi\in \Path$
+    \[vt_s(\pi)=\sum_{k=0}^{\infty}\llbracket \pi[k]=s \rrbracket\]
+\end{definition}
+
+Borel Measurability
+
+\begin{definition}[Expected Visiting Times in DTMCs]
+    For a state $s\in S$, the \textit{expected visiting time} of $s$ is given by
+    \[\Exp^{\MC}[vt_s]=\int_{\pi\in\Path}vt_s(\pi)dPr^{\MC}(\pi)\]   
+\end{definition}
+OMSSION OF $^{\MC}$
+
+Using the aforementioned classification of the states of $\MC$ into transient and recurrent states in \cref{def:transient_and_recurrent_states}, we can already give an expression for the latter.
+
+\begin{lemma}[EVT of Recurrent State]
+    For all recurrent states $s\in S_{re}$ in $\MC$, it holds that
+    \[\Exp[vt_s] = 
+    \begin{cases*}
+        \infty & if s is reachable,\\
+        0 & else.
+    \end{cases*}\]
+\end{lemma}
+(Proof??)
+Thus, we will focus on finding the non-trivial expected visiting times of the transient states of DTMCs.
+
+
+
+EVTs Def.
+--> Wie berechnen
+
+\subsubsection{Interval Markov Chains}  
+In this thesis, we will focus on Interval Markov Chains. These are defined as follows.
+\begin{definition}[Interval Markov Chain]
+    An Interval-valued Discrete-time Markov chain (IDTMC) is a tuple $\IMC=(S,\PFupper,\PFlower,\Initupper,\Initlower)$, where
+    \begin{enumerate}[label=(\roman*)]
+        \item $S$ is a countable, nonempty set of states,
+        \item $\PFupper: S \times S \rightarrow [0,1]$ is the transition probability function, where $\PFupper(s,s')$ gives the upper bound on the transition probability from state s to s',
+        \item $\PFlower: S \times S \rightarrow [0,1]$ is the transition probability function, where $\PFlower(s,s')$ gives the lower bound on the transition probability from state s to s',
+        \item $\Initupper: S \rightarrow [0,1]$ is the upper bound on the initial distribution, and
+        \item $\Initlower: S \rightarrow [0,1]$ is the upper bound on the initial distribution.
+    \end{enumerate}
+\end{definition}
+\todo{IDTMC: Interval-valued DTMC}
+IMC Def
+
+There are two commonly used semantics, which we will consider in this paper. The first one is the \textit{once-and-for-all}, see \cite{Semantics_Quant-Analysis,Semantics_Model-Checking_omega-Regular,Semantics_LTL_Model_Checking}. 
+
+EVTs für IMCs
+
+\begin{definition}[Once-and-for-all Semantic]
+    An arbitrary DTMC $\MC$ satisfies an IDTMC $\IMC$ if and only if $\PFlower^{\IMC}(s,s')\leq\PF^{\MC}(s,s')\leq\PFupper^{\IMC}(s,s')$ and $\Initlower^{\IMC}(s,s')\leq\iota_{init}^{\MC}(s,s')\leq\Initupper^{\IMC}(s,s')$.
+\end{definition}
+Thus, any DTMC whose initial distribution and transition probabilities lie in the intervals defined by the IDTMC is satisfactory.
+
+\begin{definition}[IMDP semantic]
+    An arbitrary DTMC $\MC=(T,\PF,\iota_{init})$ satisfies an IDTMC $\IMC = (S,\PFupper,\PFlower,\Initupper,\Initlower)$ if and only if there exists an injective mapping $\tau: T\rightarrow S$ such that
+    \begin{enumerate}[label=(\roman*)]
+        \item $\tau(t) = s\in S$ for all $t\in T \implies \Initlower(s) \leq \iota_{init}(t)\leq \Initupper(s)$
+        \item $\tau(t) = s\in S$ for all $t\in T \implies \PFlower(s) \leq \PF(t)\leq \PFupper(s)$
+    \end{enumerate}
+\end{definition}
+\dots examples & intuition
+
+(Explain how they describe/define it: the minor differences between them)
+
+
+\section{Conclusion and Outlook}
+
+
+% The list of references is provided as `references.bib`
+\bibliographystyle{unsrt}
+\bibliography{IEEEabrv,references}
+
+\end{document}

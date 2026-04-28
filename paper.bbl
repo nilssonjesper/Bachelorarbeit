@@ -1,0 +1,23 @@
+\begin{thebibliography}{1}
+
+\bibitem{Bibel}
+Christal Baier and \{Joost P.\} Katoen.
+\newblock {\em Principles of Model Checking}.
+\newblock MIT Press, United States, May 2008.
+
+\bibitem{Semantics_Model-Checking_omega-Regular}
+Krishnendu Chatterjee, Koushik Sen, and Thomas~A. Henzinger.
+\newblock Model-checking $\omega$-regular properties of interval markov chains.
+\newblock In Roberto Amadio, editor, {\em Foundations of Software Science and Computational Structures}, pages 302--317, Berlin, Heidelberg, 2008. Springer Berlin Heidelberg.
+
+\bibitem{Semantics_Quant-Analysis}
+Giovanni Bacci, Beno{\^i}t Delahaye, Kim~G. Larsen, and Anders Mariegaard.
+\newblock {\em Quantitative Analysis of Interval Markov Chains}, pages 57--77.
+\newblock Springer International Publishing, Cham, 2021.
+
+\bibitem{Semantics_LTL_Model_Checking}
+Michael Benedikt, Rastislav Lenhardt, and James Worrell.
+\newblock Ltl model checking of interval markov chains.
+\newblock In Nir Piterman and Scott~A. Smolka, editors, {\em Tools and Algorithms for the Construction and Analysis of Systems}, pages 32--46, Berlin, Heidelberg, 2013. Springer Berlin Heidelberg.
+
+\end{thebibliography}
