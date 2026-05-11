@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.11.18)  28 APR 2026 15:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.11.18)  8 MAY 2026 17:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -656,28 +656,28 @@ Package: enumitem 2025/02/06 v3.11 Customized lists
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count346
 \l__pdf_internal_box=\box73
-)
-No file paper.aux.
+) (./paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+
 -- Lines per column: 61 (exact).
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -698,261 +698,56 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 84.
+Package hyperref Info: Link coloring ON on input line 86.
+ (./paper.out) (./paper.out)
 \@outlinefile=\write4
 \openout4 = `paper.out'.
 
 
 
-Package todonotes Warning: The length marginparwidth is less than 2cm and will most likely cause issues with the appearance of inserted todonotes. The issue can be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to loading the todonotes package. on input line 84.
+Package todonotes Warning: The length marginparwidth is less than 2cm and will most likely cause issues with the appearance of inserted todonotes. The issue can be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to loading the todonotes package. on input line 86.
 
-LaTeX Font Info:    Trying to load font information for OT1+phv on input line 94.
+LaTeX Font Info:    Trying to load font information for OT1+phv on input line 96.
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
 )
-LaTeX Font Info:    Calculating math sizes for size <11.04124> on input line 94.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 94.
+LaTeX Font Info:    Calculating math sizes for size <11.04124> on input line 96.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 96.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 94.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 96.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+stmry on input line 94.
+LaTeX Font Info:    Trying to load font information for U+stmry on input line 96.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
-LaTeX Font Info:    Trying to load font information for U+pzd on input line 94.
+LaTeX Font Info:    Trying to load font information for U+pzd on input line 96.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/upzd.fd
 File: upzd.fd 2001/06/04 font definitions for U/pzd.
 )
-LaTeX Font Info:    Calculating math sizes for size <9.53561> on input line 107.
+LaTeX Font Info:    Calculating math sizes for size <9.53561> on input line 109.
 
 
-LaTeX Warning: Reference `def:next_step_probability' on page 1 undefined on input line 115.
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 167.
 
-
-LaTeX Warning: Citation `Bibel' on page 1 undefined on input line 132.
-
-
-LaTeX Warning: Citation `Semantics_Model-Checking_omega-Regular' on page 1 undefined on input line 132.
-
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <9.53561> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 133.
-
-LaTeX Warning: Reference `def:DTMCs' on page 1 undefined on input line 143.
-
-
-
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 151.
-
-Overfull \hbox (31.0555pt too wide) in paragraph at lines 151--151
-[][][]\OT1/ppl/m/n/9.53561 gemeintes 
+Overfull \hbox (6.95938pt too wide) in paragraph at lines 167--167
+[][][]\OT1/ppl/m/n/9.53561 wiki 
  []
 
 
-Overfull \hbox (9.00002pt too wide) in paragraph at lines 151--151
-\OT1/ppl/m/n/9.53561 klar?[]  
+Overfull \hbox (13.92972pt too wide) in paragraph at lines 167--167
+\OT1/ppl/m/n/9.53561 quelle[]  
  []
 
 
-Overfull \hbox (31.0555pt too wide) in paragraph at lines 151--151
-[][][]\OT1/ppl/m/n/9.53561 gemeintes 
+Overfull \hbox (6.95938pt too wide) in paragraph at lines 167--167
+[][][]\OT1/ppl/m/n/9.53561 wiki 
  []
 
 
-Overfull \hbox (9.00002pt too wide) in paragraph at lines 151--151
-\OT1/ppl/m/n/9.53561 klar?[]  
- []
-
-
-LaTeX Warning: Reference `def:DTMCs' on page 1 undefined on input line 153.
-
-
-LaTeX Warning: Reference `def:row-stoch_matrix' on page 1 undefined on input line 153.
-
-
-Overfull \hbox (17.20047pt too wide) in paragraph at lines 156--156
-[][][]\OT1/ppl/m/n/9.53561 simply 
- []
-
-
-Overfull \hbox (2.51587pt too wide) in paragraph at lines 156--156
-\OT1/ppl/m/n/9.53561 use 
- []
-
-
-Overfull \hbox (10.46854pt too wide) in paragraph at lines 156--156
-\OT1/ppl/m/n/9.53561 stead 
- []
-
-
-Overfull \hbox (17.20047pt too wide) in paragraph at lines 156--156
-[][][]\OT1/ppl/m/n/9.53561 simply 
- []
-
-
-Overfull \hbox (2.51587pt too wide) in paragraph at lines 156--156
-\OT1/ppl/m/n/9.53561 use 
- []
-
-
-Overfull \hbox (10.46854pt too wide) in paragraph at lines 156--156
-\OT1/ppl/m/n/9.53561 stead 
- []
-
-
-Overfull \hbox (6.04398pt too wide) detected at line 167
-\OML/cmm/m/it/10 R \OMS/cmsy/m/n/10 [ \OML/cmm/m/it/10 T \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 ^^Y \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 Paths[]\OMS/cmsy/m/n/10 j9\OML/cmm/m/it/10 k \OMS/cmsy/m/n/10 2 \U/msb/m/n/9.53561 N \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 ^^Y\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 k\OT1/cmr/m/n/10 ] \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 T \OMS/cmsy/m/n/10 ^ 8\OML/cmm/m/it/10 i < k \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 ^^Y\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 i\OT1/cmr/m/n/10 ] \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 R\OMS/cmsy/m/n/10 g
- []
-
-
-Overfull \hbox (6.86417pt too wide) in paragraph at lines 174--174
-[][][]\OT1/ppl/m/n/9.53561 how 
- []
-
-
-Overfull \hbox (1.72449pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 de- 
- []
-
-
-Overfull \hbox (38.64581pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 fine/denote 
- []
-
-
-Overfull \hbox (2.42996pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 ini- 
- []
-
-
-Overfull \hbox (1.58127pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 tial 
- []
-
-
-Overfull \hbox (10.13467pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 state. 
- []
-
-
-Overfull \hbox (4.29904pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 Un- 
- []
-
-
-Overfull \hbox (2.60165pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 ter- 
- []
-
-
-Overfull \hbox (12.4995pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 schei- 
- []
-
-
-Overfull \hbox (6.48273pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 den, 
- []
-
-
-Overfull \hbox (11.77492pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 wenn 
- []
-
-
-Overfull \hbox (2.42996pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 ini- 
- []
-
-
-Overfull \hbox (1.58127pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 tial 
- []
-
-
-Overfull \hbox (7.52206pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 oder 
- []
-
-
-Overfull \hbox (9.37178pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 nicht[]  
- []
-
-
-Overfull \hbox (6.86417pt too wide) in paragraph at lines 174--174
-[][][]\OT1/ppl/m/n/9.53561 how 
- []
-
-
-Overfull \hbox (1.72449pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 de- 
- []
-
-
-Overfull \hbox (38.64581pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 fine/denote 
- []
-
-
-Overfull \hbox (2.42996pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 ini- 
- []
-
-
-Overfull \hbox (1.58127pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 tial 
- []
-
-
-Overfull \hbox (10.13467pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 state. 
- []
-
-
-Overfull \hbox (4.29904pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 Un- 
- []
-
-
-Overfull \hbox (2.60165pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 ter- 
- []
-
-
-Overfull \hbox (12.4995pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 schei- 
- []
-
-
-Overfull \hbox (6.48273pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 den, 
- []
-
-
-Overfull \hbox (11.77492pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 wenn 
- []
-
-
-Overfull \hbox (2.42996pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 ini- 
- []
-
-
-Overfull \hbox (1.58127pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 tial 
- []
-
-
-Overfull \hbox (7.52206pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 oder 
- []
-
-
-Overfull \hbox (9.37178pt too wide) in paragraph at lines 174--174
-\OT1/ppl/m/n/9.53561 nicht[]  
+Overfull \hbox (13.92972pt too wide) in paragraph at lines 167--167
+\OT1/ppl/m/n/9.53561 quelle[]  
  []
 
 
@@ -961,245 +756,460 @@ Overfull \hbox (9.37178pt too wide) in paragraph at lines 174--174
 
 
 ]
-Overfull \hbox (31.57057pt too wide) in paragraph at lines 181--181
-[][][]\OT1/ppl/m/n/9.53561 Difference 
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <9.53561> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 195.
+
+Underfull \hbox (badness 1776) in paragraph at lines 197--198
+[]\OT1/ppl/b/n/9.53561 Definition 2.10 \OT1/ppl/m/n/9.53561 (DTMC)\OT1/ppl/b/n/9.53561 . []\OT1/ppl/m/it/9.53561 A discrete-time Markov chain
  []
 
 
-Overfull \hbox (11.38391pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 Paths 
+Overfull \hbox (31.0555pt too wide) in paragraph at lines 213--213
+[][][]\OT1/ppl/m/n/9.53561 gemeintes 
  []
 
 
-Overfull \hbox (4.29916pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 and 
+Overfull \hbox (9.00002pt too wide) in paragraph at lines 213--213
+\OT1/ppl/m/n/9.53561 klar?[]  
  []
 
 
-Overfull \hbox (28.28516pt too wide) in paragraph at lines 181--181
-[][] \OML/cmm/m/it/10 aths$\OT1/ppl/m/n/9.53561 . 
+Overfull \hbox (31.0555pt too wide) in paragraph at lines 213--213
+[][][]\OT1/ppl/m/n/9.53561 gemeintes 
  []
 
 
-Overfull \hbox (11.11702pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 What 
+Overfull \hbox (9.00002pt too wide) in paragraph at lines 213--213
+\OT1/ppl/m/n/9.53561 klar?[]  
  []
 
 
-Overfull \hbox (5.68166pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 nec- 
+Overfull \hbox (17.20047pt too wide) in paragraph at lines 218--218
+[][][]\OT1/ppl/m/n/9.53561 simply 
  []
 
 
-Overfull \hbox (6.03458pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 sary 
+Overfull \hbox (2.51587pt too wide) in paragraph at lines 218--218
+\OT1/ppl/m/n/9.53561 use 
  []
 
 
-Overfull \hbox (8.81888pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 here, 
+Overfull \hbox (10.46854pt too wide) in paragraph at lines 218--218
+\OT1/ppl/m/n/9.53561 stead 
  []
 
 
-Overfull \hbox (13.79643pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 seems 
+Overfull \hbox (17.20047pt too wide) in paragraph at lines 218--218
+[][][]\OT1/ppl/m/n/9.53561 simply 
  []
 
 
-Overfull \hbox (4.6899pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 that 
+Overfull \hbox (2.51587pt too wide) in paragraph at lines 218--218
+\OT1/ppl/m/n/9.53561 use 
  []
 
 
-Overfull \hbox (7.29308pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 both 
+Overfull \hbox (10.46854pt too wide) in paragraph at lines 218--218
+\OT1/ppl/m/n/9.53561 stead 
  []
 
 
-Overfull \hbox (8.83798pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 were 
+
+
+Overfull \hbox (6.04398pt too wide) detected at line 234
+\OML/cmm/m/it/10 R \OMS/cmsy/m/n/10 [ \OML/cmm/m/it/10 T \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 ^^Y \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 Paths[]\OMS/cmsy/m/n/10 j9\OML/cmm/m/it/10 k \OMS/cmsy/m/n/10 2 \U/msb/m/n/9.53561 N \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 ^^Y\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 k\OT1/cmr/m/n/10 ] \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 T \OMS/cmsy/m/n/10 ^ 8\OML/cmm/m/it/10 i < k \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 ^^Y\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 i\OT1/cmr/m/n/10 ] \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 R\OMS/cmsy/m/n/10 g
  []
 
 
-Overfull \hbox (8.34212pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 used 
+Overfull \hbox (6.86417pt too wide) in paragraph at lines 241--241
+[][][]\OT1/ppl/m/n/9.53561 how 
  []
 
 
-Overfull \hbox (4.5947pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 MA[]  
+Overfull \hbox (1.72449pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 de- 
  []
 
 
-Overfull \hbox (31.57057pt too wide) in paragraph at lines 181--181
-[][][]\OT1/ppl/m/n/9.53561 Difference 
+Overfull \hbox (38.64581pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 fine/denote 
  []
 
 
-Overfull \hbox (11.38391pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 Paths 
+Overfull \hbox (2.42996pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 ini- 
  []
 
 
-Overfull \hbox (4.29916pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 and 
+Overfull \hbox (1.58127pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 tial 
  []
 
 
-Overfull \hbox (28.28516pt too wide) in paragraph at lines 181--181
-[][] \OML/cmm/m/it/10 aths$\OT1/ppl/m/n/9.53561 . 
+Overfull \hbox (10.13467pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 state. 
  []
 
 
-Overfull \hbox (11.11702pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 What 
+Overfull \hbox (4.29904pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 Un- 
  []
 
 
-Overfull \hbox (5.68166pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 nec- 
+Overfull \hbox (2.60165pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 ter- 
  []
 
 
-Overfull \hbox (6.03458pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 sary 
+Overfull \hbox (12.4995pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 schei- 
  []
 
 
-Overfull \hbox (8.81888pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 here, 
+Overfull \hbox (6.48273pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 den, 
  []
 
 
-Overfull \hbox (13.79643pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 seems 
+Overfull \hbox (11.77492pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 wenn 
  []
 
 
-Overfull \hbox (4.6899pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 that 
+Overfull \hbox (2.42996pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 ini- 
  []
 
 
-Overfull \hbox (7.29308pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 both 
+Overfull \hbox (1.58127pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 tial 
  []
 
 
-Overfull \hbox (8.83798pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 were 
- []
-
-
-Overfull \hbox (8.34212pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 used 
- []
-
-
-Overfull \hbox (4.5947pt too wide) in paragraph at lines 181--181
-\OT1/ppl/m/n/9.53561 MA[]  
- []
-
-
-LaTeX Warning: Marginpar on page 2 moved.
-
-
-Overfull \hbox (17.35326pt too wide) in paragraph at lines 186--186
-[][][]\OT1/ppl/m/n/9.53561 Pr(OE) 
- []
-
-
-Overfull \hbox (10.41136pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 muss 
- []
-
-
-Overfull \hbox (5.09042pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 sein 
- []
-
-
-Overfull \hbox (5.28123pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 und 
- []
-
-
-Overfull \hbox (9.37178pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 nicht 
- []
-
-
-Overfull \hbox (4.29901pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 von 
- []
-
-
-Overfull \hbox (11.35527pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 paths 
- []
-
-
-Overfull \hbox (7.52206pt too wide) in paragraph at lines 186--186
+Overfull \hbox (7.52206pt too wide) in paragraph at lines 241--241
 \OT1/ppl/m/n/9.53561 oder 
  []
 
 
-Overfull \hbox (15.87515pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 (falsch 
+Overfull \hbox (9.37178pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 nicht[]  
  []
 
 
-Overfull \hbox (12.00377pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 MA?)[]  
+Overfull \hbox (6.86417pt too wide) in paragraph at lines 241--241
+[][][]\OT1/ppl/m/n/9.53561 how 
  []
 
 
-Overfull \hbox (17.35326pt too wide) in paragraph at lines 186--186
-[][][]\OT1/ppl/m/n/9.53561 Pr(OE) 
+Overfull \hbox (1.72449pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 de- 
  []
 
 
-Overfull \hbox (10.41136pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 muss 
+Overfull \hbox (38.64581pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 fine/denote 
  []
 
 
-Overfull \hbox (5.09042pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 sein 
+Overfull \hbox (2.42996pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 ini- 
  []
 
 
-Overfull \hbox (5.28123pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 und 
+Overfull \hbox (1.58127pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 tial 
  []
 
 
-Overfull \hbox (9.37178pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 nicht 
+Overfull \hbox (10.13467pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 state. 
  []
 
 
-Overfull \hbox (4.29901pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 von 
+Overfull \hbox (4.29904pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 Un- 
  []
 
 
-Overfull \hbox (11.35527pt too wide) in paragraph at lines 186--186
-\OT1/ppl/m/n/9.53561 paths 
+Overfull \hbox (2.60165pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 ter- 
  []
 
 
-Overfull \hbox (7.52206pt too wide) in paragraph at lines 186--186
+Overfull \hbox (12.4995pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 schei- 
+ []
+
+
+Overfull \hbox (6.48273pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 den, 
+ []
+
+
+Overfull \hbox (11.77492pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 wenn 
+ []
+
+
+Overfull \hbox (2.42996pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 ini- 
+ []
+
+
+Overfull \hbox (1.58127pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 tial 
+ []
+
+
+Overfull \hbox (7.52206pt too wide) in paragraph at lines 241--241
 \OT1/ppl/m/n/9.53561 oder 
  []
 
 
-Overfull \hbox (15.87515pt too wide) in paragraph at lines 186--186
+Overfull \hbox (9.37178pt too wide) in paragraph at lines 241--241
+\OT1/ppl/m/n/9.53561 nicht[]  
+ []
+
+
+Overfull \hbox (31.57057pt too wide) in paragraph at lines 248--248
+[][][]\OT1/ppl/m/n/9.53561 Difference 
+ []
+
+
+Overfull \hbox (11.38391pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 Paths 
+ []
+
+
+Overfull \hbox (4.29916pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 and 
+ []
+
+
+Overfull \hbox (28.28516pt too wide) in paragraph at lines 248--248
+[][] \OML/cmm/m/it/10 aths$\OT1/ppl/m/n/9.53561 . 
+ []
+
+
+Overfull \hbox (11.11702pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 What 
+ []
+
+
+Overfull \hbox (5.68166pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 nec- 
+ []
+
+
+Overfull \hbox (6.03458pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 sary 
+ []
+
+
+Overfull \hbox (8.81888pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 here, 
+ []
+
+
+Overfull \hbox (13.79643pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 seems 
+ []
+
+
+Overfull \hbox (4.6899pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 that 
+ []
+
+
+Overfull \hbox (7.29308pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 both 
+ []
+
+
+Overfull \hbox (8.83798pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 were 
+ []
+
+
+Overfull \hbox (8.34212pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 used 
+ []
+
+
+Overfull \hbox (4.5947pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 MA[]  
+ []
+
+
+Overfull \hbox (31.57057pt too wide) in paragraph at lines 248--248
+[][][]\OT1/ppl/m/n/9.53561 Difference 
+ []
+
+
+Overfull \hbox (11.38391pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 Paths 
+ []
+
+
+Overfull \hbox (4.29916pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 and 
+ []
+
+
+Overfull \hbox (28.28516pt too wide) in paragraph at lines 248--248
+[][] \OML/cmm/m/it/10 aths$\OT1/ppl/m/n/9.53561 . 
+ []
+
+
+Overfull \hbox (11.11702pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 What 
+ []
+
+
+Overfull \hbox (5.68166pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 nec- 
+ []
+
+
+Overfull \hbox (6.03458pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 sary 
+ []
+
+
+Overfull \hbox (8.81888pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 here, 
+ []
+
+
+Overfull \hbox (13.79643pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 seems 
+ []
+
+
+Overfull \hbox (4.6899pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 that 
+ []
+
+
+Overfull \hbox (7.29308pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 both 
+ []
+
+
+Overfull \hbox (8.83798pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 were 
+ []
+
+
+Overfull \hbox (8.34212pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 used 
+ []
+
+
+Overfull \hbox (4.5947pt too wide) in paragraph at lines 248--248
+\OT1/ppl/m/n/9.53561 MA[]  
+ []
+
+
+LaTeX Warning: Marginpar on page 2 moved.
+
+
+Overfull \hbox (17.35326pt too wide) in paragraph at lines 253--253
+[][][]\OT1/ppl/m/n/9.53561 Pr(OE) 
+ []
+
+
+Overfull \hbox (10.41136pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 muss 
+ []
+
+
+Overfull \hbox (5.09042pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 sein 
+ []
+
+
+Overfull \hbox (5.28123pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 und 
+ []
+
+
+Overfull \hbox (9.37178pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 nicht 
+ []
+
+
+Overfull \hbox (4.29901pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 von 
+ []
+
+
+Overfull \hbox (11.35527pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 paths 
+ []
+
+
+Overfull \hbox (7.52206pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 oder 
+ []
+
+
+Overfull \hbox (15.87515pt too wide) in paragraph at lines 253--253
 \OT1/ppl/m/n/9.53561 (falsch 
  []
 
 
-Overfull \hbox (12.00377pt too wide) in paragraph at lines 186--186
+Overfull \hbox (12.00377pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 MA?)[]  
+ []
+
+
+Overfull \hbox (17.35326pt too wide) in paragraph at lines 253--253
+[][][]\OT1/ppl/m/n/9.53561 Pr(OE) 
+ []
+
+
+Overfull \hbox (10.41136pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 muss 
+ []
+
+
+Overfull \hbox (5.09042pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 sein 
+ []
+
+
+Overfull \hbox (5.28123pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 und 
+ []
+
+
+Overfull \hbox (9.37178pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 nicht 
+ []
+
+
+Overfull \hbox (4.29901pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 von 
+ []
+
+
+Overfull \hbox (11.35527pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 paths 
+ []
+
+
+Overfull \hbox (7.52206pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 oder 
+ []
+
+
+Overfull \hbox (15.87515pt too wide) in paragraph at lines 253--253
+\OT1/ppl/m/n/9.53561 (falsch 
+ []
+
+
+Overfull \hbox (12.00377pt too wide) in paragraph at lines 253--253
 \OT1/ppl/m/n/9.53561 MA?)[]  
  []
 
@@ -1207,82 +1217,82 @@ Overfull \hbox (12.00377pt too wide) in paragraph at lines 186--186
 LaTeX Warning: Marginpar on page 2 moved.
 
 
-Overfull \hbox (2.51587pt too wide) in paragraph at lines 190--190
+Overfull \hbox (2.51587pt too wide) in paragraph at lines 257--257
 [][][]\OT1/ppl/m/n/9.53561 use 
  []
 
 
-Overfull \hbox (14.35904pt too wide) in paragraph at lines 190--190
+Overfull \hbox (14.35904pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 duced 
  []
 
 
-Overfull \hbox (13.27196pt too wide) in paragraph at lines 190--190
+Overfull \hbox (13.27196pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 graph 
  []
 
 
-Overfull \hbox (2.08682pt too wide) in paragraph at lines 190--190
+Overfull \hbox (2.08682pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 no- 
  []
 
 
-Overfull \hbox (4.79475pt too wide) in paragraph at lines 190--190
+Overfull \hbox (4.79475pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 tion 
  []
 
 
-Overfull \hbox (1.92482pt too wide) in paragraph at lines 190--190
+Overfull \hbox (1.92482pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 ad- 
  []
 
 
-Overfull \hbox (7.97008pt too wide) in paragraph at lines 190--190
+Overfull \hbox (7.97008pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 tion- 
  []
 
 
-Overfull \hbox (3.77452pt too wide) in paragraph at lines 190--190
+Overfull \hbox (3.77452pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 ally[]  
  []
 
 
-Overfull \hbox (2.51587pt too wide) in paragraph at lines 190--190
+Overfull \hbox (2.51587pt too wide) in paragraph at lines 257--257
 [][][]\OT1/ppl/m/n/9.53561 use 
  []
 
 
-Overfull \hbox (14.35904pt too wide) in paragraph at lines 190--190
+Overfull \hbox (14.35904pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 duced 
  []
 
 
-Overfull \hbox (13.27196pt too wide) in paragraph at lines 190--190
+Overfull \hbox (13.27196pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 graph 
  []
 
 
-Overfull \hbox (2.08682pt too wide) in paragraph at lines 190--190
+Overfull \hbox (2.08682pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 no- 
  []
 
 
-Overfull \hbox (4.79475pt too wide) in paragraph at lines 190--190
+Overfull \hbox (4.79475pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 tion 
  []
 
 
-Overfull \hbox (1.92482pt too wide) in paragraph at lines 190--190
+Overfull \hbox (1.92482pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 ad- 
  []
 
 
-Overfull \hbox (7.97008pt too wide) in paragraph at lines 190--190
+Overfull \hbox (7.97008pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 tion- 
  []
 
 
-Overfull \hbox (3.77452pt too wide) in paragraph at lines 190--190
+Overfull \hbox (3.77452pt too wide) in paragraph at lines 257--257
 \OT1/ppl/m/n/9.53561 ally[]  
  []
 
@@ -1290,139 +1300,803 @@ Overfull \hbox (3.77452pt too wide) in paragraph at lines 190--190
 LaTeX Warning: Marginpar on page 2 moved.
 
 
-Overfull \hbox (21.6249pt too wide) in paragraph at lines 202--202
+Overfull \hbox (21.6249pt too wide) in paragraph at lines 269--269
 [][][]\OT1/ppl/m/n/9.53561 explain: 
  []
 
 
-Overfull \hbox (14.6356pt too wide) in paragraph at lines 202--202
+Overfull \hbox (14.6356pt too wide) in paragraph at lines 269--269
 \OT1/ppl/m/n/9.53561 mean- 
  []
 
 
-Overfull \hbox (1.78162pt too wide) in paragraph at lines 202--202
+Overfull \hbox (1.78162pt too wide) in paragraph at lines 269--269
 \OT1/ppl/m/n/9.53561 ing 
  []
 
 
-Overfull \hbox (2.08682pt too wide) in paragraph at lines 202--202
+Overfull \hbox (2.08682pt too wide) in paragraph at lines 269--269
 \OT1/ppl/m/n/9.53561 no- 
  []
 
 
-Overfull \hbox (4.79475pt too wide) in paragraph at lines 202--202
+Overfull \hbox (4.79475pt too wide) in paragraph at lines 269--269
 \OT1/ppl/m/n/9.53561 tion 
  []
 
 
-Overfull \hbox (4.75038pt too wide) in paragraph at lines 202--202
+Overfull \hbox (4.75038pt too wide) in paragraph at lines 269--269
 \OML/cmm/m/it/10 Pr[]$[]  
  []
 
 
-Overfull \hbox (21.6249pt too wide) in paragraph at lines 202--202
+Overfull \hbox (21.6249pt too wide) in paragraph at lines 269--269
 [][][]\OT1/ppl/m/n/9.53561 explain: 
  []
 
 
-Overfull \hbox (14.6356pt too wide) in paragraph at lines 202--202
+Overfull \hbox (14.6356pt too wide) in paragraph at lines 269--269
 \OT1/ppl/m/n/9.53561 mean- 
  []
 
 
-Overfull \hbox (1.78162pt too wide) in paragraph at lines 202--202
+Overfull \hbox (1.78162pt too wide) in paragraph at lines 269--269
 \OT1/ppl/m/n/9.53561 ing 
  []
 
 
-Overfull \hbox (2.08682pt too wide) in paragraph at lines 202--202
+Overfull \hbox (2.08682pt too wide) in paragraph at lines 269--269
 \OT1/ppl/m/n/9.53561 no- 
  []
 
 
-Overfull \hbox (4.79475pt too wide) in paragraph at lines 202--202
+Overfull \hbox (4.79475pt too wide) in paragraph at lines 269--269
 \OT1/ppl/m/n/9.53561 tion 
  []
 
 
-Overfull \hbox (4.75038pt too wide) in paragraph at lines 202--202
+Overfull \hbox (4.75038pt too wide) in paragraph at lines 269--269
 \OML/cmm/m/it/10 Pr[]$[]  
  []
 
 
 LaTeX Warning: Marginpar on page 2 moved.
-
-
-
-
-LaTeX Warning: Reference `def:transient_and_recurrent_states' on page 1 undefined on input line 244.
-
-
-Underfull \hbox (badness 1430) in paragraph at lines 265--266
-[]\OT1/ppl/b/n/9.53561 Definition 2.17 \OT1/ppl/m/n/9.53561 (In-ter-val Markov Chain)\OT1/ppl/b/n/9.53561 . []\OT1/ppl/m/it/9.53561 An Interval-
- []
-
-
-Overfull \hbox (22.75995pt too wide) in paragraph at lines 274--274
-[][][]\OT1/ppl/m/n/9.53561 IDTMC: 
- []
-
-
-Overfull \hbox (24.46648pt too wide) in paragraph at lines 274--274
-\OT1/ppl/m/n/9.53561 Interval- 
- []
-
-
-Overfull \hbox (17.22913pt too wide) in paragraph at lines 274--274
-\OT1/ppl/m/n/9.53561 valued 
- []
-
-
-Overfull \hbox (17.16257pt too wide) in paragraph at lines 274--274
-\OT1/ppl/m/n/9.53561 DTMC[]  
- []
-
-
-Overfull \hbox (22.75995pt too wide) in paragraph at lines 274--274
-[][][]\OT1/ppl/m/n/9.53561 IDTMC: 
- []
-
-
-Overfull \hbox (24.46648pt too wide) in paragraph at lines 274--274
-\OT1/ppl/m/n/9.53561 Interval- 
- []
-
-
-Overfull \hbox (17.22913pt too wide) in paragraph at lines 274--274
-\OT1/ppl/m/n/9.53561 valued 
- []
-
-
-Overfull \hbox (17.16257pt too wide) in paragraph at lines 274--274
-\OT1/ppl/m/n/9.53561 DTMC[]  
- []
-
-
-LaTeX Warning: Citation `Semantics_Quant-Analysis' on page 2 undefined on input line 277.
-
-
-LaTeX Warning: Citation `Semantics_Model-Checking_omega-Regular' on page 2 undefined on input line 277.
-
-
-LaTeX Warning: Citation `Semantics_LTL_Model_Checking' on page 2 undefined on input line 277.
 
 
 
 [2]
-/Users/tapptop/Library/CloudStorage/OneDrive-StudentsRWTHAachenUniversity/Uni/S6/Bachelor/paper/Bachelorarbeit/paper.tex:293: Misplaced alignment tab character &.
-l.293 \dots examples &
-                       intuition
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
+Overfull \hbox (10.22134pt too wide) detected at line 328
+\U/msb/m/n/9.53561 E[]\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 vt[]\OT1/cmr/m/n/10 ] = [][] \OML/cmm/m/it/10 ^^S[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 s[]\OT1/cmr/m/n/10 ) [] \OML/cmm/m/it/10 :
+ []
+
+
+
+
+Overfull \hbox (14.38765pt too wide) in paragraph at lines 365--365
+[][][]\OT1/ppl/m/n/9.53561 where 
+ []
+
+
+Overfull \hbox (7.96626pt too wide) in paragraph at lines 365--365
+\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 F\OT1/cmr/m/n/10 )[]$ 
+ []
+
+
+Overfull \hbox (4.90942pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 row 
+ []
+
+
+Overfull \hbox (5.5195pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 vec- 
+ []
+
+
+Overfull \hbox (1.72449pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 de- 
+ []
+
+
+Overfull \hbox (4.04155pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 fine 
+ []
+
+
+Overfull \hbox (4.62323pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 (en- 
+ []
+
+
+Overfull \hbox (5.5195pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 vec- 
+ []
+
+
+Overfull \hbox (3.41216pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 tor)[]  
+ []
+
+
+Overfull \hbox (14.38765pt too wide) in paragraph at lines 365--365
+[][][]\OT1/ppl/m/n/9.53561 where 
+ []
+
+
+Overfull \hbox (7.96626pt too wide) in paragraph at lines 365--365
+\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 F\OT1/cmr/m/n/10 )[]$ 
+ []
+
+
+Overfull \hbox (4.90942pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 row 
+ []
+
+
+Overfull \hbox (5.5195pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 vec- 
+ []
+
+
+Overfull \hbox (1.72449pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 de- 
+ []
+
+
+Overfull \hbox (4.04155pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 fine 
+ []
+
+
+Overfull \hbox (4.62323pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 (en- 
+ []
+
+
+Overfull \hbox (5.5195pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 vec- 
+ []
+
+
+Overfull \hbox (3.41216pt too wide) in paragraph at lines 365--365
+\OT1/ppl/m/n/9.53561 tor)[]  
+ []
+
+
+Overfull \hbox (5.77693pt too wide) detected at line 370
+\U/msb/m/n/9.53561 E[]\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 vt[]\OT1/cmr/m/n/10 ] = [][] \OML/cmm/m/it/10 ^^S[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 s[]\OT1/cmr/m/n/10 ) [][] \OML/cmm/m/it/10 vt[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^Y\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 dPr[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^Y\OT1/cmr/m/n/10 )
+ []
+
+
+
+[3]
+Overfull \hbox (41.16335pt too wide) in paragraph at lines 386--386
+[][][]\OT1/ppl/m/n/9.53561 Umformung 
+ []
+
+
+Overfull \hbox (14.8834pt too wide) in paragraph at lines 386--386
+\OT1/ppl/m/n/9.53561 l[]anger 
+ []
+
+
+Overfull \hbox (35.13689pt too wide) in paragraph at lines 386--386
+\OT1/ppl/m/n/9.53561 ausf[]uhren?[]  
+ []
+
+
+Overfull \hbox (41.16335pt too wide) in paragraph at lines 386--386
+[][][]\OT1/ppl/m/n/9.53561 Umformung 
+ []
+
+
+Overfull \hbox (14.8834pt too wide) in paragraph at lines 386--386
+\OT1/ppl/m/n/9.53561 l[]anger 
+ []
+
+
+Overfull \hbox (35.13689pt too wide) in paragraph at lines 386--386
+\OT1/ppl/m/n/9.53561 ausf[]uhren?[]  
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 385--393
+
+ []
+
+
+Underfull \hbox (badness 1430) in paragraph at lines 409--410
+[]\OT1/ppl/b/n/9.53561 Definition 2.27 \OT1/ppl/m/n/9.53561 (In-ter-val Markov Chain)\OT1/ppl/b/n/9.53561 . []\OT1/ppl/m/it/9.53561 An Interval-
+ []
+
+
+Overfull \hbox (22.75995pt too wide) in paragraph at lines 418--418
+[][][]\OT1/ppl/m/n/9.53561 IDTMC: 
+ []
+
+
+Overfull \hbox (24.46648pt too wide) in paragraph at lines 418--418
+\OT1/ppl/m/n/9.53561 Interval- 
+ []
+
+
+Overfull \hbox (17.22913pt too wide) in paragraph at lines 418--418
+\OT1/ppl/m/n/9.53561 valued 
+ []
+
+
+Overfull \hbox (17.16257pt too wide) in paragraph at lines 418--418
+\OT1/ppl/m/n/9.53561 DTMC[]  
+ []
+
+
+Overfull \hbox (22.75995pt too wide) in paragraph at lines 418--418
+[][][]\OT1/ppl/m/n/9.53561 IDTMC: 
+ []
+
+
+Overfull \hbox (24.46648pt too wide) in paragraph at lines 418--418
+\OT1/ppl/m/n/9.53561 Interval- 
+ []
+
+
+Overfull \hbox (17.22913pt too wide) in paragraph at lines 418--418
+\OT1/ppl/m/n/9.53561 valued 
+ []
+
+
+Overfull \hbox (17.16257pt too wide) in paragraph at lines 418--418
+\OT1/ppl/m/n/9.53561 DTMC[]  
+ []
+
+
+
+
+Overfull \hbox (18.86931pt too wide) in paragraph at lines 445--445
+[][][]\OT1/ppl/m/n/9.53561 discuss 
+ []
+
+
+Overfull \hbox (3.63144pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 this 
+ []
+
+
+Overfull \hbox (13.5676pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 some- 
+ []
+
+
+Overfull \hbox (14.38765pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 where 
+ []
+
+
+Overfull \hbox (8.76158pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 prev. 
+ []
+
+
+Overfull \hbox (6.3968pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 sub- 
+ []
+
+
+Overfull \hbox (6.3968pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 sub- 
+ []
+
+
+Overfull \hbox (4.17506pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 sec- 
+ []
+
+
+Overfull \hbox (4.79475pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 tion[]  
+ []
+
+
+Overfull \hbox (18.86931pt too wide) in paragraph at lines 445--445
+[][][]\OT1/ppl/m/n/9.53561 discuss 
+ []
+
+
+Overfull \hbox (3.63144pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 this 
+ []
+
+
+Overfull \hbox (13.5676pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 some- 
+ []
+
+
+Overfull \hbox (14.38765pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 where 
+ []
+
+
+Overfull \hbox (8.76158pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 prev. 
+ []
+
+
+Overfull \hbox (6.3968pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 sub- 
+ []
+
+
+Overfull \hbox (6.3968pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 sub- 
+ []
+
+
+Overfull \hbox (4.17506pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 sec- 
+ []
+
+
+Overfull \hbox (4.79475pt too wide) in paragraph at lines 445--445
+\OT1/ppl/m/n/9.53561 tion[]  
+ []
+
+
+Overfull \hbox (16.69508pt too wide) in paragraph at lines 468--468
+[][][]\OT1/ppl/m/n/9.53561 extend 
+ []
+
+
+Overfull \hbox (11.06926pt too wide) in paragraph at lines 468--468
+\OT1/ppl/m/n/9.53561 proof 
+ []
+
+
+Overfull \hbox (13.52956pt too wide) in paragraph at lines 468--468
+\OT1/ppl/m/n/9.53561 IDMP 
+ []
+
+
+Overfull \hbox (10.06813pt too wide) in paragraph at lines 468--468
+\OT1/ppl/m/n/9.53561 man- 
+ []
+
+
+Overfull \hbox (16.69508pt too wide) in paragraph at lines 468--468
+[][][]\OT1/ppl/m/n/9.53561 extend 
+ []
+
+
+Overfull \hbox (11.06926pt too wide) in paragraph at lines 468--468
+\OT1/ppl/m/n/9.53561 proof 
+ []
+
+
+Overfull \hbox (13.52956pt too wide) in paragraph at lines 468--468
+\OT1/ppl/m/n/9.53561 IDMP 
+ []
+
+
+Overfull \hbox (10.06813pt too wide) in paragraph at lines 468--468
+\OT1/ppl/m/n/9.53561 man- 
+ []
+
+
+Overfull \hbox (14.43527pt too wide) in paragraph at lines 474--474
+[][][]\OT1/ppl/m/n/9.53561 define 
+ []
+
+
+Overfull \hbox (7.54117pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 rank 
+ []
+
+
+Overfull \hbox (11.06926pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 proof 
+ []
+
+
+Overfull \hbox (1.4003pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 LU 
+ []
+
+
+Overfull \hbox (1.72449pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 de- 
+ []
+
+
+Overfull \hbox (15.98001pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 comp? 
+ []
+
+
+Overfull \hbox (25.02905pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 (generell 
+ []
+
+
+Overfull \hbox (3.45035pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 wie 
+ []
+
+
+Overfull \hbox (1.37166pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 ba- 
+ []
+
+
+Overfull \hbox (14.56877pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 mathe 
+ []
+
+
+Overfull \hbox (16.86688pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 sachen 
+ []
+
+
+Overfull \hbox (12.31824pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 tieren 
+ []
+
+
+Overfull \hbox (6.07275pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 o.[]a.)[]  
+ []
+
+
+Overfull \hbox (14.43527pt too wide) in paragraph at lines 474--474
+[][][]\OT1/ppl/m/n/9.53561 define 
+ []
+
+
+Overfull \hbox (7.54117pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 rank 
+ []
+
+
+Overfull \hbox (11.06926pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 proof 
+ []
+
+
+Overfull \hbox (1.4003pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 LU 
+ []
+
+
+Overfull \hbox (1.72449pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 de- 
+ []
+
+
+Overfull \hbox (15.98001pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 comp? 
+ []
+
+
+Overfull \hbox (25.02905pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 (generell 
+ []
+
+
+Overfull \hbox (3.45035pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 wie 
+ []
+
+
+Overfull \hbox (1.37166pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 ba- 
+ []
+
+
+Overfull \hbox (14.56877pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 mathe 
+ []
+
+
+Overfull \hbox (16.86688pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 sachen 
+ []
+
+
+Overfull \hbox (12.31824pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 tieren 
+ []
+
+
+Overfull \hbox (6.07275pt too wide) in paragraph at lines 474--474
+\OT1/ppl/m/n/9.53561 o.[]a.)[]  
+ []
+
+
+LaTeX Warning: Marginpar on page 4 moved.
+
+
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 498--505
+
+ []
+
+
+Overfull \hbox (14.28265pt too wide) in paragraph at lines 517--517
+[][][]\OT1/ppl/m/n/9.53561 nutze, 
+ []
+
+
+Overfull \hbox (6.83565pt too wide) in paragraph at lines 517--517
+\OT1/ppl/m/n/9.53561 dass 
+ []
+
+
+Overfull \hbox (19.4529pt too wide) in paragraph at lines 517--517
+\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 L\OT1/cmr/m/n/10 )[] = 
+ []
+
+
+Overfull \hbox (14.28265pt too wide) in paragraph at lines 517--517
+[][][]\OT1/ppl/m/n/9.53561 nutze, 
+ []
+
+
+Overfull \hbox (6.83565pt too wide) in paragraph at lines 517--517
+\OT1/ppl/m/n/9.53561 dass 
+ []
+
+
+Overfull \hbox (19.4529pt too wide) in paragraph at lines 517--517
+\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 L\OT1/cmr/m/n/10 )[] = 
+ []
+
+
+Overfull \hbox (43.43253pt too wide) in paragraph at lines 521--521
+[][][]\OT1/ppl/m/n/9.53561 Assoziativt[]at 
+ []
+
+
+Overfull \hbox (23.2841pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 gegeben 
+ []
+
+
+Overfull \hbox (7.52206pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 oder 
+ []
+
+
+Overfull \hbox (4.08926pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 iwo 
+ []
+
+
+Overfull \hbox (30.9221pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 definieren 
+ []
+
+
+Overfull \hbox (5.50053pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 (um 
+ []
+
+
+Overfull \hbox (12.31842pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 U(Le) 
+ []
+
+
+Overfull \hbox (6.2918pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 statt 
+ []
+
+
+Overfull \hbox (15.49374pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 (UL)e)[]  
+ []
+
+
+Overfull \hbox (43.43253pt too wide) in paragraph at lines 521--521
+[][][]\OT1/ppl/m/n/9.53561 Assoziativt[]at 
+ []
+
+
+Overfull \hbox (23.2841pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 gegeben 
+ []
+
+
+Overfull \hbox (7.52206pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 oder 
+ []
+
+
+Overfull \hbox (4.08926pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 iwo 
+ []
+
+
+Overfull \hbox (30.9221pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 definieren 
+ []
+
+
+Overfull \hbox (5.50053pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 (um 
+ []
+
+
+Overfull \hbox (12.31842pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 U(Le) 
+ []
+
+
+Overfull \hbox (6.2918pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 statt 
+ []
+
+
+Overfull \hbox (15.49374pt too wide) in paragraph at lines 521--521
+\OT1/ppl/m/n/9.53561 (UL)e)[]  
+ []
+
+
+LaTeX Warning: Marginpar on page 5 moved.
+
+
+Underfull \vbox (badness 2644) has occurred while \output is active []
+
+
+
+
+Overfull \hbox (2.50975pt too wide) in paragraph at lines 567--567
+[][][]$\OML/cmm/m/it/10 S[]$ 
+ []
+
+
+Overfull \hbox (4.72807pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 rekt 
+ []
+
+
+Overfull \hbox (2.9546pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 ILP 
+ []
+
+
+Overfull \hbox (28.30933pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 schreiben 
+ []
+
+
+Overfull \hbox (2.32521pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 um 
+ []
+
+
+Overfull \hbox (16.5044pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 Zeitar- 
+ []
+
+
+Overfull \hbox (3.87926pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 beit 
+ []
+
+
+Overfull \hbox (24.87668pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 sparen?? 
+ []
+
+
+Overfull \hbox (4.35617pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 halt 
+ []
+
+
+Overfull \hbox (6.53032pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 aber 
+ []
+
+
+Overfull \hbox (9.37178pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 nicht 
+ []
+
+
+Overfull \hbox (0.84715pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 f[]ur 
+ []
+
+
+Overfull \hbox (19.6703pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 Berech- 
+ []
+
+
+Overfull \hbox (10.3064pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 nung 
+ []
+
+
+Overfull \hbox (33.99255pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 notwendig[]  
+ []
+
+
+Overfull \hbox (2.50975pt too wide) in paragraph at lines 567--567
+[][][]$\OML/cmm/m/it/10 S[]$ 
+ []
+
+
+Overfull \hbox (4.72807pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 rekt 
+ []
+
+
+Overfull \hbox (2.9546pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 ILP 
+ []
+
+
+Overfull \hbox (28.30933pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 schreiben 
+ []
+
+
+Overfull \hbox (2.32521pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 um 
+ []
+
+
+Overfull \hbox (16.5044pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 Zeitar- 
+ []
+
+
+Overfull \hbox (3.87926pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 beit 
+ []
+
+
+Overfull \hbox (24.87668pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 sparen?? 
+ []
+
+
+Overfull \hbox (4.35617pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 halt 
+ []
+
+
+Overfull \hbox (6.53032pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 aber 
+ []
+
+
+Overfull \hbox (9.37178pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 nicht 
+ []
+
+
+Overfull \hbox (0.84715pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 f[]ur 
+ []
+
+
+Overfull \hbox (19.6703pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 Berech- 
+ []
+
+
+Overfull \hbox (10.3064pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 nung 
+ []
+
+
+Overfull \hbox (33.99255pt too wide) in paragraph at lines 567--567
+\OT1/ppl/m/n/9.53561 notwendig[]  
+ []
 
 (./paper.bbl
 LaTeX Font Info:    Trying to load font information for OMS+ppl on input line 4.
@@ -1434,44 +2108,27 @@ LaTeX Font Info:    Font shape `OMS/ppl/m/n' in size <8.03> not available
 LaTeX Font Info:    Calculating math sizes for size <8.03> on input line 10.
 )
 
-
-
-[3
-
-] (./paper.aux)
+[5] (./paper.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `paper.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `paper.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  36BEC556A13416E6694F2417AEBD1E8F;1427.
+Package rerunfilecheck Info: File `paper.out' has not changed.
+(rerunfilecheck)             Checksum: 44A679ECD73E37F63601A46840B45C79;1917.
  ) 
 Here is how much of TeX's memory you used:
- 25693 strings out of 473190
- 481379 string characters out of 5715799
- 874706 words of memory out of 5000000
- 48458 multiletter control sequences out of 15000+600000
- 609447 words of font info for 161 fonts, out of 8000000 for 9000
+ 25885 strings out of 473190
+ 485076 string characters out of 5715799
+ 891437 words of memory out of 5000000
+ 48601 multiletter control sequences out of 15000+600000
+ 611770 words of font info for 168 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,9n,101p,735b,1015s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on paper.pdf (3 pages, 234283 bytes).
+ 99i,10n,101p,735b,1015s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on paper.pdf (5 pages, 298595 bytes).
 PDF statistics:
- 201 PDF objects out of 1000 (max. 8388607)
- 150 compressed objects within 2 object streams
- 57 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 339 PDF objects out of 1000 (max. 8388607)
+ 277 compressed objects within 3 object streams
+ 98 named destinations out of 1000 (max. 500000)
+ 109 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -29,6 +29,8 @@
 
 % You can define your own commands. This is useful for shorthands, for example
 \newcommand{\Exp}{\mathbb{E}}
+\newcommand{\ExpUpper}{\mathbb{\overline{E}}}
+\newcommand{\ExpLower}{\mathbb{\underline{E}}}
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\NN}{\mathbb{N}}
@@ -115,10 +117,70 @@ Linear Order
 Measurable set (used in \cref{def:next_step_probability})
 Iverson Brackets
 %Matrix Theory
+\begin{definition}[Gershgorin circle theorem]\label{def:gershgorin_theorem}
+    Let $\tT\in \CC^{n\times n}$ be a square complex matrix, then for every eigenvalue $\lambda$ of $\tT$ it is true that 
+    \[|\lambda-(\tT)_{ii}|\leq\sum_{j=1\land i\neq j}^n|(\tT)_{ij}|\ ,\] 
+    for any $i\in \underline{n}$ and where $|\cdot|$ denotes the absolute value, i.e. magnitude.\\
+    In other words, all eigenvalues of $\tT$ lie on a disk in the complex plane centered at $(\tT)_{ii}$ with radius $\sum_{j=1\land i\neq j}^n|(\tT)_{ij}|$.
+\end{definition}
+Matrix invertible if 1 not eigenvalue
+
 \begin{definition}[Row-Stochastic Matrix]\label{def:row-stoch_matrix}
     A square matrix $\tT \in \RR^{n\times n}$ is row-stochastic, if and only if $\sum_{j=0}^n(\tT)_{ij} = 1$ for all rows $i \in \underline{n}$
 \end{definition}
 When considering each row as a function $f_i(j)=(\tT)_{ij}$, these functions are discrete probability distributions.
+
+\begin{definition}[Row-Substochastic Matrix]\label{def:row-substoch_matrix}
+    A square matrix $\tT \in \RR^{n\times n}$ is row-stochastic, if and only if $\sum_{j=0}^n(\tT)_{ij} \leq 1$ for all rows $i \in \underline{n}$
+\end{definition}
+
+\begin{theorem}\label{th:row-substoch_eigenvalue_0}
+    If a matrix $\tT$ is row-substochastic, then it has no eigenvalue $\lambda = 1$.
+\end{theorem}
+
+\begin{proof}
+    Let us assume that $1$ is an eigenvalue of $\tT$. As $(\tT)_{ij}\in \RR$, using \cref{def:gershgorin_theorem}
+    \[
+    |1-(\tT)_{ii}| \leq \sum_{j=1\land j\neq i}^n(\tT)_{ij} \iff 1 \leq (\tT)_{ii}+\sum_{j=1\land j\neq i}^n(\tT)_{ij}\ .
+    \]
+    However, as $\tT$ is row-substochastic, we know that $(\tT)_{ii}+\sum_{j=1\land j\neq i}^n(\tT)_{ij} < 1$.
+    Thus, 1 is not an eigenvalue of $\tT$.
+\end{proof}
+
+\begin{definition}[Irreducible and Reducible Matrix]
+    A non-negative squared matrix $\tT\in \RR_{\geq 0}^{n\times n}>0$ with $n\geq 2$ is irreducible if and only if $\sum_{k=0}^{n-1}\tT^k$. If $\tT$ is not irreducible, it is reducible.
+\end{definition}
+
+\begin{definition}[Permutation Matrix]
+    A binary square matrix $P\in\{0,1\}^{n\times n}$ is a permutation matrix if and only if
+    \begin{enumerate}[label=(\roman*)]
+        \item $(P)_{ij} = 1 = (P)_{i'j}$ with $i\neq i'$       \item $(P)_{ij} = 1 = (P)_{ij'}$ with $j\neq j'$
+    \end{enumerate}
+    ($P^{-1} = P^\T$)
+\end{definition}
+In other words exactly one entry of $P$ is 1 per row and column.8
+
+\begin{definition}[LU-decomposition of Reducible Matrices]\label{def:LU_decomposition}
+    Let $\tT$ be a regular matrix, then (and only then) there exists a permutation matrix $P\in \{0,1\}^{n\times n}$ such that the matrix product $P\tT P^\T$ is a block upper triangular matrix
+    \[P\cdot A = L\cdot U\ .\]
+    L \& U invertible: all triangular matrices inv. (if all $a_ii\neq 0$)
+    \todo{wiki quelle}
+\end{definition}
+\begin{definition}[Conjugation of Reducible Matrices]\label{def:conjugation_of_reducible_matrix}
+    Let $\tT$ be a reducible matrix, then (and only then) there exists a permutation matrix $P\in \{0,1\}^{n\times n}$ such that the matrix product $P\tT P^\T$ is a block upper triangular matrix
+    \[\tT = \begin{bmatrix}
+        \tT_{11} & \tT_{12} & \dots & \tT_{1m}\\
+        0 & \tT_{22} & \dots & \tT_{2m}\\
+        \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & \dots & \tT_{mm}
+    \end{bmatrix}\]
+    m submatrices
+\end{definition}
+Blocks $\tT_{ii}$ communicating groups/classes (in graph) + $_{ij}$ communicating between groups i\&j??
+\begin{definition}\label{def:full_rank_of_inv_matrices}
+    Invertible matrices have full rank
+\end{definition}
+
 %Probability Theory
 Expected Values
 \begin{definition}[Discrete Probability Distribution]
@@ -152,11 +214,16 @@ PROBABILITY SPACE OF DTMC
 \end{definition}
 Notice that due to the condition, given in (ii) of \cref{def:DTMCs}, that $\sum_{s_j\in S}\PF(s_i,s_j) = 1$ for all states $s \in S$, by defintion $\sum_{j=0}^{|S|}(\tT)_{ij} = 1$ for all rows $i \in \underline{n}$. Thus, the transition matrix $\tT$ of a DTMC $\MC$ is row-stochastic, see \cref{def:row-stoch_matrix}.
 
-\begin{definition}
+\begin{definition}[Induced weighted graph]
     Every DTMC $\MC$ induces a directed weigthed graph $\gG^{\MC} = (V,E,f)$, with the nodes $V = S^{\MC}$, the edges $(s,s')\in E$ if and only if $\PF(s,s')>0$, and the weight function $f(s,s') = \PF(s,s')$\todo{simply use $\PF$ instead of f?}
 \end{definition}
+If $\tT^{\MC}$ is reducible, then $\gG^{\MC}$ is not strongly connected.
+\begin{proof}
+    In the other direction, if $(\mat A^{k+1})_{ij}>0$, then there must be at least one $l\in \underline{n}$, such that $(\mat A^k)_{il}\cdot (\mat A)_{lj} >0$. Thus, using the induction hypothesis, there must exist a path of length $k$ from $i$ to $l$ and $(l,j)\in E(\gG)$. Therefore, there exists a path of length $k+1$ from $i$ to $j$ over $l$.
+    It trivially suffices to ensure this property for $k<n$, as if a path of length $k \geq n$ exists, then at least $n + 1$ nodes are visited, i.e., at least one node is visited multiple times.
+\end{proof}
 
-\begin{definition}[Path]
+\begin{definition}[Path of a DTMC]
     An \textit{infinite path} $\pi$ in a DTMC $\MC$ is a sequence $\pi = s_i \rightarrow s_j \rightarrow \dots$ of states with $s_i,s_j \in S$, such that $\PF(\pi[k],\pi[k+1]) > 0$, where $\pi[k]\in S$ denotes the $k$-th element of the sequence/path for all $k\in \NN_0$. A \textit{finite path} is a finite prefix of an \textit{infinite path}.
 \end{definition}
 Prob distr. of paths
@@ -198,7 +265,7 @@ SCC (minimal amount of states of set such that still strongly connec)
 (Acyclic DTMC)
 
 The states can be classified \dots
-\begin{definition}[Transient and recurrent states]\label{def:transient_and_recurrent_states}
+\begin{definition}[Transient and Recurrent states]\label{def:transient_and_recurrent_states}
     A state $s \in S$ is called recurrent if and only if $Pr_s(\cCircle \Diamond s)=1$.\todo{explain: meaning of notation $Pr_s$} All states that are not recurrent are called transient.
 \end{definition}
 In other words, a state is recurrent precisely when we are guaranteed to reach it from all of its direct successors, meaning once we reach a recurrent state, we are bound to return to it. (Thus reaching it infinitely often) Using these definitions, we can split the states $S$ of a DTMC into two sets with $S_{tr}$ containing all of the transient states and $S_{re}$ containing all of the recurrent states.
@@ -213,20 +280,40 @@ Using BSCCs we can define a special class of DTMCs.
     A DTMC $\MC$ is called absorbing if and only if all BSSCs are singleton sets consisting of an absorbing state.    
 \end{definition}
 
-\begin{definition}[Reducible DTMC]
-    A DTMC $\MC$ is called reducible if and only if 
+\begin{definition}[Regular DTMC]
+    (?)
 \end{definition}
 
-\begin{theorem}
+\begin{definition}[Reducible DTMC]
+    A DTMC $\MC$ is called reducible if and only if its transition matrix $\tT$ is reducible.
+\end{definition}
+As aforementioned, the induced graph of a DTMC with a reducible transition matrix is not strongly connected
+Reachability in graph (not strongly connected describes precisely markov chain that can be split in non empty recurrent and transient sets)
+$\tT$ reducible --> upper triangle \cref{def:conjugation_of_reducible_matrix} (--> proof for canonical form)
+
+\begin{theorem}[Limit Behaviour of DTMCs(?)]
     For any DTMC $\MC$, $s\in S$ with $\iota_{init}(s) > 0$ it holds that $Pr(\Diamond S_{re})=1$
 \end{theorem}
-(Limit Behaviour?)
 
-Canonical Form
+\begin{definition}[Canonical Form]\label{def:canonical_form}
+    For a DTMC $\MC$, its transition matrix $\tT$ is said to be in canonical form if and only if
+    \[\tT = \begin{bmatrix}
+        Q & R\\
+        0 & S
+    \end{bmatrix}\]
+    where 
+    \begin{enumerate}[label=(\roman*)]
+        \item $Q = (\PF(s,t))_{s,t\in S_{tr}}$ contains the transition probabilities between the transient states
+        \item $R = (\PF(s,t))_{s\in S_{tr},t\in S_{re}}$ contains the transition probabilities between transient and recurrent state pairs
+        \item $S = (\PF(s,t))_{s,t\in S_{re}}$ contains the transition probabilities between the transient states
+    \end{enumerate}
+\end{definition}
+For absorbing DTMCs $S = \eye$.
+As mentioned in \cref{def:conjugation_of_reducible_matrix}, this is precisely possible for 
 
 (Reward Structure)  
 
-\subsubsection{Expected Visiting Times}
+\subsubsection{Expected Visiting Times for DTMCs}
 Intuitively, the notion of EVTs describes how often we expect the model to be in a given state. To formally introduce EVTs, we fix a DTMC $\MC$ and start by introducing \textit{visiting times} along paths.
 \begin{definition}[Visiting Times of Infinite Paths]
     The function $vt_s:\Path \rightarrow \RR$ describes the \textit{visiting time} of a state $s\in S$ along infinite paths in $\MC$, where for $\pi\in \Path$
@@ -235,15 +322,17 @@ Intuitively, the notion of EVTs describes how often we expect the model to be in
 
 Borel Measurability
 
-\begin{definition}[Expected Visiting Times in DTMCs]
+\begin{definition}[Expected Visiting Times in DTMCs]\label{def:EVTs_in_DTMCs}
     For a state $s\in S$, the \textit{expected visiting time} of $s$ is given by
-    \[\Exp^{\MC}[vt_s]=\int_{\pi\in\Path}vt_s(\pi)dPr^{\MC}(\pi)\]   
+    \[\Exp^{\MC}[vt_s]=\int_{\pi\in\Path}vt_s(\pi)dPr^{\MC}(\pi).\]
+    Moreover, \[ \Exp^{\MC}[vt_s]=\int_{s'\in S} \iota_{init}(s')\underbrace{\int_{\pi\in\Path\land \pi[0]=s'}vt_s(\pi)dPr^{\MC}(\pi)}_{=: \Exp_s'[vt_s]}.\]
 \end{definition}
 OMSSION OF $^{\MC}$
+Define EVTs from fixed starting point
 
 Using the aforementioned classification of the states of $\MC$ into transient and recurrent states in \cref{def:transient_and_recurrent_states}, we can already give an expression for the latter.
 
-\begin{lemma}[EVT of Recurrent State]
+\begin{lemma}[EVTs of Recurrent States]
     For all recurrent states $s\in S_{re}$ in $\MC$, it holds that
     \[\Exp[vt_s] = 
     \begin{cases*}
@@ -252,47 +341,241 @@ Using the aforementioned classification of the states of $\MC$ into transient an
     \end{cases*}\]
 \end{lemma}
 (Proof??)
-Thus, we will focus on finding the non-trivial expected visiting times of the transient states of DTMCs.
+Thus, we will focus on finding the non-trivial expected visiting times of the transient states.
 
+We, will now see how the expected visiting times can be calculated through a linear equation system. For this, we will first define the \textit{fundamental matrix} which was introduced by Kemeny and Snell \cite{KemenySnellBook}.
 
+\[(I-Q)^{-1} = \sum_{k=0}^\infty Q^k\]
 
+\begin{definition}[Fundamental Matrix]\label{def:fundamental_matrix}
+    For a DTMC $\MC$ with the matrix $Q = (\PF^\MC(s,t))_{s,t\in S_{tr}}$ containing the transition probabilities between the transient states (defined in \cref{def:canonical_form}), the fundamental matrix $F$ is defined as,
+    \[F = (I - Q)^{-1}\].
+\end{definition}
+(neumann series)
+
+In \cite{KemenySnellBook}, Kemeny and Snell prove that each entry $(F)_{ij} = \Exp_{j}[vt_i]$.
+
+From this equation it intuitively follows that transient states are only visited a finite amount of times.
+
+Moreover, we can use this result to define a general characterization using the initial distribution.
+\begin{theorem}[Calculating EVTs using the Fundamental Matrix]\label{th:calc_EVTs_fund_matrix}
+    Given a DTMC $\MC$ and the corresponding matrix $Q$, we can define 
+    \[\Exp[vt_i] = \sum_{j=0}^n(F)_{ij} \cdot \iota_{init}(j)% = \sum_{j=0}^{|S_{tr}|}(F)_{ij}\cdot(\iota_{init})_j
+    \]
+    \todo{where $(F)_j$ is row vector + define $v_j$ (entry of vector)}
+\end{theorem}
+\begin{proof}
+    As defined in \cref{def:EVTs_in_DTMCs},
+    \[\Exp^{\MC}[vt_s]=\int_{s'\in S} \iota_{init}(s')\int_{\pi\in\Path\land \pi[0]=s'}vt_s(\pi)dPr^{\MC}(\pi)
+    \]
+    \[
+    = \sum_{s'\in S}\iota_{init}(s')\cdot \Exp_{s'}[vt_s]
+    \]
+    \[
+    = \Exp_{s'}[vt_s]\cdot \iota_{init}
+    \]
+    \[
+    = (F)_{j}\cdot \iota_{init}
+    \]
+    \[
+    = \sum_{j=0}^n(F)_{sj}\cdot \iota_{init}(j)
+    \]
+\end{proof}
+
+As $(F)_s = ((I-Q)^{-1})_s$, see \cref{def:fundamental_matrix}, we can rewrite \cref{th:calc_EVTs_fund_matrix}, such that \[\Exp[vt_s] = ((I-Q)^{-1})_s \cdot \iota_{init} \iff \Exp[vt_s] = \Exp[vt_s]\cdot Q + \iota_{init}.\]
+\todo{Umformung länger ausführen?}
+Thus, 
+\\
+$e = (\Exp[vt_{s_1}], \dots, \Exp[vt_{s_n}])^\T$\\
+$e = (I-Q^\T)^{-1}\cdot \iota_{init}$\\
+$(I-Q^\T)\cdot e = \iota_{init}$\\
+$e-Q^\T\cdot e = \iota_{init}$\\
+\begin{equation}\label{::temp_quote}
+    e = \iota_{init}+Q^\T\cdot e
+\end{equation}
+$\Exp[vt_s] = \iota_{init}(s)+\sum_{t\in S_{tr}}\PF(t,s)\cdot \Exp[vt_t]$\\
+Because of line 3 --> e has unique solution (otherwise derive from invertability etc.)
+
+EINFACH DAS VON HANNAH NEHMEN??
+1. Invbarkeit --> 2. Eind. Lösung für GLS --> Zeigen x ist E
+
+GLS: Intuitively, this is true, as 
 EVTs Def.
 --> Wie berechnen
 
-\subsubsection{Interval Markov Chains}  
+\subsubsection{Interval Markov Chains}\label{sec:IMCs}  
 In this thesis, we will focus on Interval Markov Chains. These are defined as follows.
-\begin{definition}[Interval Markov Chain]
-    An Interval-valued Discrete-time Markov chain (IDTMC) is a tuple $\IMC=(S,\PFupper,\PFlower,\Initupper,\Initlower)$, where
+\begin{definition}[Interval Markov Chain]\label{def:IMC}
+    An Interval-valued Discrete-time Markov chain (IDTMC) is a tuple $\IMC=(S,\PFlower,\PFupper,\Initlower,\Initupper)$, where
     \begin{enumerate}[label=(\roman*)]
         \item $S$ is a countable, nonempty set of states,
-        \item $\PFupper: S \times S \rightarrow [0,1]$ is the transition probability function, where $\PFupper(s,s')$ gives the upper bound on the transition probability from state s to s',
         \item $\PFlower: S \times S \rightarrow [0,1]$ is the transition probability function, where $\PFlower(s,s')$ gives the lower bound on the transition probability from state s to s',
-        \item $\Initupper: S \rightarrow [0,1]$ is the upper bound on the initial distribution, and
+        \item $\PFupper: S \times S \rightarrow [0,1]$ is the transition probability function, where $\PFupper(s,s')$ gives the upper bound on the transition probability from state s to s',
         \item $\Initlower: S \rightarrow [0,1]$ is the upper bound on the initial distribution.
+        \item $\Initupper: S \rightarrow [0,1]$ is the upper bound on the initial distribution, and
     \end{enumerate}
 \end{definition}
 \todo{IDTMC: Interval-valued DTMC}
-IMC Def
 
+However, an IDTMC itself not usable. Interested in DTMCs that satisfy IDTMC (we denote as $\MC \models \IMC$)
 There are two commonly used semantics, which we will consider in this paper. The first one is the \textit{once-and-for-all}, see \cite{Semantics_Quant-Analysis,Semantics_Model-Checking_omega-Regular,Semantics_LTL_Model_Checking}. 
 
 EVTs für IMCs
 
-\begin{definition}[Once-and-for-all Semantic]
+\begin{definition}[Once-and-for-all Semantic]\label{def:once-and-for-all}
     An arbitrary DTMC $\MC$ satisfies an IDTMC $\IMC$ if and only if $\PFlower^{\IMC}(s,s')\leq\PF^{\MC}(s,s')\leq\PFupper^{\IMC}(s,s')$ and $\Initlower^{\IMC}(s,s')\leq\iota_{init}^{\MC}(s,s')\leq\Initupper^{\IMC}(s,s')$.
 \end{definition}
 Thus, any DTMC whose initial distribution and transition probabilities lie in the intervals defined by the IDTMC is satisfactory.
 
 \begin{definition}[IMDP semantic]
-    An arbitrary DTMC $\MC=(T,\PF,\iota_{init})$ satisfies an IDTMC $\IMC = (S,\PFupper,\PFlower,\Initupper,\Initlower)$ if and only if there exists an injective mapping $\tau: T\rightarrow S$ such that
+    An arbitrary DTMC $\MC=(T,\PF,\iota_{init})$ satisfies an IDTMC $\IMC = (S,\PFlower,\PFupper,\Initlower,\Initupper)$ if and only if there exists an injective mapping $\tau: T\rightarrow S$ such that
     \begin{enumerate}[label=(\roman*)]
         \item $\tau(t) = s\in S$ for all $t\in T \implies \Initlower(s) \leq \iota_{init}(t)\leq \Initupper(s)$
         \item $\tau(t) = s\in S$ for all $t\in T \implies \PFlower(s) \leq \PF(t)\leq \PFupper(s)$
     \end{enumerate}
 \end{definition}
-\dots examples & intuition
+\dots examples \& intuition
 
 (Explain how they describe/define it: the minor differences between them)
+
+Define EVTs for different semantics (or for all at once, if possible)
+
+\subsubsection{Expected Visiting Times for IDTMCs}
+As, we have discussed 
+\todo{discuss this somewhere in prev. subsubsection}
+, in the previous subsection \cref{sec:IMCs}, IDTMCs can be seen as a collection of DTMCs that satisfy the interval constraints defined by the IDTMC. As only the satisfying DTMCs can be properly interpreted \dots
+When defining EVTs for IDTMCs it is thus useful to define them as bounds for the EVTs of the satisfying DTMCs.
+\begin{definition}[EVTs of IDTMCs]
+    For a IDTMC $\IMC$, we define the \textit{upper expected visiting time} (UEVT) $\ExpUpper^\IMC[vt_s]$ and \textit{lower expected visiting time} (LEVT) $\ExpLower^\IMC[vt_s]$ for all states $s\in S^\IMC$, as follows
+    \begin{enumerate}[label=(\roman*)]
+        \item $\ExpUpper^\IMC[vt_s] = \Exp^\MC[vt_s]$, where $\MC \models \IMC$ and $\Exp^\MC[vt_s] \geq \Exp^{\MC'}[vt_s]$ for all $\MC'\models \IMC$.
+        \item $\ExpLower^\IMC[vt_s] = \Exp^\MC[vt_s]$, where $\MC \models \IMC$ and $\Exp^\MC[vt_s] \leq \Exp^{\MC'}[vt_s]$ for all $\MC'\models \IMC$.
+    \end{enumerate}
+\end{definition}
+
+\section{Calculating EVTs of IDTMCs}
+Most intuitive upper and lower bounds for UEVTs and LEVTs of IDTMCs can be derived by using equation (CITE) and the upper and lower transition probability functions and initial distributions defined in \cref{def:IMC}.
+
+\begin{theorem}[Upper/Lower Bounds for UEVTs/LEVTs]
+    For any IDTMC $\IMC$, the UEVT is bounded from above by $\Initupper+\sum_{t\in S_{tr}}\PFupper(t,s)^\T\cdot \Exp[vt_t]$ and the LEVT is bounded from below by $\Initlower+\sum_{t\in S_{tr}}\PFlower(t,s)^\T\cdot \Exp[vt_t]$
+\end{theorem}
+\begin{proof}
+    For any IDTMC $\IMC$ there exists a DTMC $\MC$ that satisfies $\IMC$, i.e. $\MC \models \IMC$, and $\Exp^\MC[vt_s] = \ExpUpper^\IMC[vt_s]$. As $\MC \models \IMC$ it follows that $\PF(s,s')\leq \PFupper(s,s')$ for all $s,s'\in S$.
+
+    Thus, $\Exp^\MC[vt_s] = \iota_{init}+\sum_{t\in S_{tr}}\PF(t,s)^\T\cdot \Exp[vt_t] \leq \Initupper+\sum_{t\in S_{tr}}\PFupper(t,s)^\T\cdot \Exp[vt_t] = \ExpUpper^\IMC[vt_s]$.
+    The identical argument can be made to prove that lower bound for the LEVT.
+\end{proof}
+\todo{extend proof for IDMP semantic}
+
+While these bounds can be computed easily, they are note very tight. Therefore, we will now take a look at how we can define the precise values of the UEVTs and LEVTs.
+
+\begin{lemma}[Gauss]\label{lem:upper_triangle_for_LGS}
+    For any given system of linear equations $Ax = b$, where A is a reducible matrix, we can construct $Ux = y$, with $y = L^{-1}b$ and $A = LU$, such that $U$ is an upper triangular matrix.
+    \todo{define rank + proof for LU decomp? (generell wie basic mathe sachen zitieren o.ä.)}
+\end{lemma}
+We provide a short proof.
+\begin{proof}
+    For such a system of linear equations $Ax = b$, let us consider the LU-decomposition of $A$, defined as $A = LU$ (see \cref{def:LU_decomposition}). Now consider
+    \[
+    Ax=b \iff LUx = b \iff Ux = L^{-1}b \iff Ux = y
+    \]
+    (L invertible see def of LU)
+    As $U$ is an upper triangular matrix, we can conlude the proof
+\end{proof}
+\cref{def:full_rank_of_inv_matrices}
+
+Using \cref{lem:upper_triangle_for_LGS}, we can redefine \cref{::temp_quote}.
+\begin{theorem}[Calculating EVTs of DTMCs with an upper triangular matrix]
+    $x = U^{-1}y \iff x = U^{-1}L^{-1}b \iff x = (LU)^{-1}b$
+
+    $R=LU$\\
+    $e = (I-R^{-1})\cdot \iota_{init}$\\
+    $e = (I-R)^{-1}\cdot \iota_{init}$\\
+    $(I-R) \cdot e = \iota_{init}$\\
+    --> $e = \iota_{init}+R\cdot e$\\
+    $\Exp[vt_s] = \iota_{init}+\sum_{t\in S_{tr}}(R)_{st}\cdot \Exp[vt_t]$
+\end{theorem}
+text ------------\\
+$x=U^{-1}y$\\
+$e=U^{-1}(L^{-1}\cdot \iota_{init})$\\
+$\iota^{L}_{init} = L^{-1}\cdot \iota_{init}$\\
+$(I-(LU)^\T)\cdot x = \iota_{init}$\\
+$x - (LU)^\T x = \iota_{init}$\\
+$x = \iota_{init}(x) + U^\T L^\T x$\\
+
+Since $U$ and $L$ are triangular matrix, we can easily show, that this computation is finite.
+
+\[L^\T = \begin{bmatrix}
+        1 & (L)_{12} & \dots & (L)_{1n}\\
+        0 & 1 & \dots & \vdots\\
+        \vdots & \vdots & \ddots & (L)_{(n-1)n}\\
+        0 & 0 & \dots & 1
+    \end{bmatrix}
+\]
+\begin{proof}
+    Since $L^\T$ is an upper triangular matrix, we can define $(L^\T e)_i = \sum_{i=j}^n (L^\T)_ij \cdot e_j = e_i + \sum_{j=i+1}(L^\T)_{ij} \cdot e_j$. 
+    \todo{nutze, dass $(L)_{ii} = 1$}
+    
+    And thus since $U^\T$ is a lower triangular matrix, $e_i = \iota_{init}(s_i)+\sum_{j=1}^i (U^\T)_{ij}\cdot (L^\T e)_j = \iota_{init}(s_i)+\sum_{j=1}^i (U^\T)_{ij}\cdot (e_j + \sum_{k=j+1}(L^\T)_{kj} \cdot e_k)$.
+\end{proof}
+\todo{Assoziativtät gegeben oder iwo definieren (um U(Le) statt (UL)e)}
+In the rest of this thesis, we will use the shorter vector notation $\Exp[vt_s] = \iota_{init}(s)+(U^\T\cdot(L^\T\cdot e))_s$
+NOTICE THAT ONLY $S_{tr}$ USED (as only those necessary for calc.) --> Others irrelevant
+
+Show LU constructed from Q --> such that connection between LU and Q defined
+\begin{theorem}[Calculating UEVTs with ILPs]
+    For any IDTMC $\IMC$, the UEVTs and LEVTs of all states $s\in S^\IMC$ can be calculated as follows
+    \[
+    \begin{aligned}
+        \max \quad & \iota_{init}(s)+(U^\T\cdot(L^\T\cdot e))_s\\
+        \text{s.t.} \quad & \sum_{s_i\in N(s)} P(s',s_i) = 1 && \forall s'\in S_{tr} \\
+        & \sum_{s'\in S} \iota_{init}(s') = 1 && \\
+        & P(s',\hat{s}) \in [0,1] && \forall s',\hat{s}\in S^\IMC
+    \end{aligned}
+    \]
+\end{theorem}
+
+ALTERNATIV Definition
+\begin{theorem}[Calculating UEVTs with ILPs]
+    For any IDTMC $\IMC$, the UEVTs and LEVTs of all states $s\in S^\IMC$ can be calculated as follows
+    \[
+   \begin{aligned}
+        \max \quad & \iota(s)+(U^\T\cdot(L^\T\cdot e))_s\\
+        \text{s.t.} \quad & \sum_{s_i\in N(s)} q_{s's_i} = 1 && \forall s'\in S_{tr} & (1)\\
+        & \sum_{s'\in S} \iota(s') = 1 && & (2)\\
+        & \PFlower^\IMC(s',\hat{s}) \leq q_{s'\hat{s}} \leq \PFupper^\IMC(s',\hat{s}) && \forall s',\hat{s}\in S_{tr}^\IMC & (3)\\
+        & \Initlower^\IMC (s') \leq \iota(s') \leq \Initupper^\IMC (s') && \forall s'\in S_{tr}^\IMC & (4)
+    \end{aligned}
+    \]
+    Values for $S_{re}$ chosen arbitrarily but correctly (bounds)
+\end{theorem}
+
+\begin{theorem}[Calculating LEVTs with ILPs]
+    For any IDTMC $\IMC$, the UEVTs and LEVTs of all states $s\in S^\IMC$ can be calculated as follows
+    \[
+    \begin{aligned}
+        \min \quad & \sum_{i=1}^n c_i x_i \\
+        \text{s.t.} \quad & \sum_{s_i\in N(s)} P(s,s_i) = 1 && \forall s\in S_{tr} \\
+        & \sum_{s\in S} \iota_{init}(s) = 1 && \\
+        & P(s,s') \in [0,1] && \forall s,s'\in S^\IMC
+    \end{aligned}
+    \]
+\end{theorem}
+
+We will now prove the optimality of these ILPs.
+\begin{proof}
+    \todo{$S_{re}$ direkt in ILP schreiben um Zeitarbeit zu sparen?? Ist halt aber nicht für Berechnung notwendig}
+    We will have a look at the calculation of the UEVTs through ILPs first.
+    First, we will prove "correctness" (??) (Continue with optimality). For this, let $x$ be a given valid (not necessarily optimal) solution of the ILP for the UEVT of a state $s$ for a IDTMC $\IMC$ and $\MC$ a DTMC that satisfies $\IMC$, i.e. $\MC models \IMC$, where $\PF^\MC(s,s') = q_{s,s'}$ and $\iota_{init}^\MC (s) = \iota(s)$ for all $s,s'\in S_{tr}$.
+
+    Thus, if $x$ is a solution, then $\sum_{\hat{s}\in N(s')} \PF(s', \hat{s}) = 1$ for all $s'\in S_{tr}$.
+    
+    Moreover, $\PFlower^\IMC(s',\hat{s}) \leq \PF^\MC(s,s') \leq \PFupper^\IMC(s',\hat{s})$ and $\Initlower^\IMC (s') \leq \iota_{init}^\MC \leq \Initupper^\IMC (s')$ for all transitive states $s',\hat{s}\in S_{tr}$ and by definition also for all recurrent states $S_{re}$.
+
+    \dots
+    
+\end{proof}
+
 
 
 \section{Conclusion and Outlook}

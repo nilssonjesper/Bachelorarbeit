@@ -10,6 +10,11 @@ Krishnendu Chatterjee, Koushik Sen, and Thomas~A. Henzinger.
 \newblock Model-checking $\omega$-regular properties of interval markov chains.
 \newblock In Roberto Amadio, editor, {\em Foundations of Software Science and Computational Structures}, pages 302--317, Berlin, Heidelberg, 2008. Springer Berlin Heidelberg.
 
+\bibitem{KemenySnellBook}
+John~G. Kemeny and J.~Laurie Snell.
+\newblock {\em Finite Markov Chains}.
+\newblock Undergraduate Texts in Mathematics. Springer, 1976.
+
 \bibitem{Semantics_Quant-Analysis}
 Giovanni Bacci, Beno{\^i}t Delahaye, Kim~G. Larsen, and Anders Mariegaard.
 \newblock {\em Quantitative Analysis of Interval Markov Chains}, pages 57--77.
