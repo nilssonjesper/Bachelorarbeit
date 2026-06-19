@@ -25,4 +25,22 @@ Michael Benedikt, Rastislav Lenhardt, and James Worrell.
 \newblock Ltl model checking of interval markov chains.
 \newblock In Nir Piterman and Scott~A. Smolka, editors, {\em Tools and Algorithms for the Construction and Analysis of Systems}, pages 32--46, Berlin, Heidelberg, 2013. Springer Berlin Heidelberg.
 
+\bibitem{reachability_in_pIMCs_using_constraints}
+Anicet Bart, Benoit Delahaye, Didier Lime, Eric Monfroy, and Charlotte Truchet.
+\newblock Reachability in parametric interval markov chains using constraints, 2017.
+
+\bibitem{QuadraticP_Pardalos}
+Panos~M. Pardalos and Stephen~A. Vavasis.
+\newblock Quadratic programming with one negative eigenvalue is np-hard.
+\newblock {\em Journal of Global Optimization}, 1:15--22, 1991.
+
+\bibitem{Model-Checking_presence_Uncertainties}
+Koushik Sen, Mahesh Viswanathan, and Gul Agha.
+\newblock Model-checking markov chains in the presence of uncertainties.
+\newblock In Holger Hermanns and Jens Palsberg, editors, {\em Tools and Algorithms for the Construction and Analysis of Systems}, pages 394--410, Berlin, Heidelberg, 2006. Springer Berlin Heidelberg.
+
+\bibitem{AIMC_reduction_reachability}
+Ventsislav Chonev.
+\newblock Reachability in augmented interval markov chains, 2017.
+
 \end{thebibliography}

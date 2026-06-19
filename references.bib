@@ -75,3 +75,54 @@ isbn="978-3-642-36742-7"
   publisher = {Springer},
   year      = {1976}
 }
+
+// Quadratic Programming
+@article{QuadraticP_Pardalos,
+  title={Quadratic programming with one negative eigenvalue is NP-hard},
+  author={Panos M. Pardalos and Stephen A. Vavasis},
+  journal={Journal of Global Optimization},
+  year={1991},
+  volume={1},
+  pages={15-22},
+  url={https://api.semanticscholar.org/CorpusID:12602885}
+}
+
+// MDPs (using IMDP semantic)
+// 1. Reduktion IMC --> MDP
+@InProceedings{Model-Checking_presence_Uncertainties,
+author="Sen, Koushik
+and Viswanathan, Mahesh
+and Agha, Gul",
+editor="Hermanns, Holger
+and Palsberg, Jens",
+title="Model-Checking Markov Chains in the Presence of Uncertainties",
+booktitle="Tools and Algorithms for the Construction and Analysis of Systems",
+year="2006",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="394--410",
+abstract="We investigate the problem of model checking Interval-valued Discrete-time Markov Chains (IDTMC). IDTMCs are discrete-time finite Markov Chains for which the exact transition probabilities are not known. Instead in IDTMCs, each transition is associated with an interval in which the actual transition probability must lie. We consider two semantic interpretations for the uncertainty in the transition probabilities of an IDTMC. In the first interpretation, we think of an IDTMC as representing a (possibly uncountable) family of (classical) discrete-time Markov Chains, where each member of the family is a Markov Chain whose transition probabilities lie within the interval range given in the IDTMC. This semantic interpretation we call Uncertain Markov Chains (UMC). In the second semantics for an IDTMC, which we call Interval Markov Decision Process (IMDP), we view the uncertainty as being resolved through non-determinism. In other words, each time a state is visited, we adversarially pick a transition distribution that respects the interval constraints, and take a probabilistic step according to the chosen distribution. We show that the PCTL model checking problem for both Uncertain Markov Chain semantics and Interval Markov Decision Process semantics is decidable in PSPACE. We also prove lower bounds for these model checking problems.",
+isbn="978-3-540-33057-8"
+}
+
+// Quantitative Reachability
+@misc{reachability_in_pIMCs_using_constraints,
+      title={Reachability in Parametric Interval Markov Chains using Constraints}, 
+      author={Anicet Bart and Benoit Delahaye and Didier Lime and Eric Monfroy and Charlotte Truchet},
+      year={2017},
+      eprint={1706.00270},
+      archivePrefix={arXiv},
+      primaryClass={cs.LO},
+      url={https://arxiv.org/abs/1706.00270}, 
+}
+
+// AIMC
+@misc{AIMC_reduction_reachability,
+      title={Reachability in Augmented Interval Markov Chains}, 
+      author={Ventsislav Chonev},
+      year={2017},
+      eprint={1701.02996},
+      archivePrefix={arXiv},
+      primaryClass={cs.CC},
+      url={https://arxiv.org/abs/1701.02996}, 
+}
