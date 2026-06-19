@@ -1,0 +1,179 @@
+%%%%%%%%%%%%%%%%%%%Macros
+
+%%%%%%%%%%%%%%%%%%% Layout related %%%%%%%%%%%%%%%%
+
+% Clear double page without any header or footer at end of chapters
+\newcommand{\emptydoublepage}{\clearpage\thispagestyle{empty}\cleardoublepage}
+
+% Global scaling parameters
+\newlength{\rulethickness}
+\setlength{\rulethickness}{0.4pt}
+
+%%%%%%%%%%%%%%%% Colors %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\colorlet{goodArea}{green!50}
+\colorlet{badArea}{red!50}
+
+
+%%%%%%%%%%%%%%%%%% TikZ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tikzset{
+state/.style={draw,circle, inner sep=0pt, minimum size=20pt},
+action/.style={draw, circle,  inner sep=0.75pt, fill},
+probabilistic/.style={->},
+markovian/.style={dashed, ->},
+}
+
+%%%%%%%%%%%%%%%% algorithmicx %%%%%%%%%%%%%%%%%%%%%%%%
+\algnewcommand\algorithmicinput{\textbf{Input:}}
+\algnewcommand\INPUT{\item[\algorithmicinput]}
+\algnewcommand\algorithmicoutput{\textbf{Output:}}
+\algnewcommand\OUTPUT{\item[\algorithmicoutput]}
+\newcommand{\setLineNumber}[1]{\makeatletter\setcounter{ALG@line}{#1}\addtocounter{ALG@line}{-1}\makeatother}
+\newcommand{\StateNoLineBreak}{\!;\ \ }
+\newcommand{\StateSmallEmptyLine}{\Statex \vspace{-7pt}}
+\renewcommand{\algorithmiccomment}[1]{/\!/ \textit{#1}}
+
+
+%%%%%%%%%%%%%%%%%% Misc Math stuff $$$$$$$$$$$$$$$$$$$$
+
+
+\newcounter{claimcounter}
+\newcommand{\tagclaim}{\stepcounter{claimcounter}\tag{Claim~\arabic{claimcounter}}}
+
+% xdashrightarrow
+% http://tex.stackexchange.com/questions/136772/dotted-or-dashed-xrightarrow
+\makeatletter
+\newcommand*{\da@rightarrow}{\mathchar"0\hexnumber@\symAMSa 4B }
+\newcommand*{\da@leftarrow}{\mathchar"0\hexnumber@\symAMSa 4C }
+\newcommand*{\xdashrightarrow}[2][]{%
+	\mathrel{%
+		\mathpalette{\da@xarrow{#1}{#2}{}\da@rightarrow{\,}{}}{}%
+	}%
+}
+\newcommand{\xdashleftarrow}[2][]{%
+	\mathrel{%
+		\mathpalette{\da@xarrow{#1}{#2}\da@leftarrow{}{}{\,}}{}%
+	}%
+}
+\newcommand*{\da@xarrow}[7]{%
+	% #1: below
+	% #2: above
+	% #3: arrow left
+	% #4: arrow right
+	% #5: space left 
+	% #6: space right
+	% #7: math style 
+	\sbox0{$\ifx#7\scriptstyle\scriptscriptstyle\else\scriptstyle\fi#5#1#6\m@th$}%
+	\sbox2{$\ifx#7\scriptstyle\scriptscriptstyle\else\scriptstyle\fi#5#2#6\m@th$}%
+	\sbox4{$#7\dabar@\m@th$}%
+	\dimen@=\wd0 %
+	\ifdim\wd2 >\dimen@
+	\dimen@=\wd2 %   
+	\fi
+	\count@=2 %
+	\def\da@bars{\dabar@\dabar@}%
+	\@whiledim\count@\wd4<\dimen@\do{%
+		\advance\count@\@ne
+		\expandafter\def\expandafter\da@bars\expandafter{%
+			\da@bars%
+			\dabar@%
+		}%
+	}%  
+	\mathrel{#3}%
+	\mathrel{%   
+		\mathop{\da@bars}\limits
+		\ifx\\#1\\%
+		\else%
+		_{\copy0}%
+		\fi
+		\ifx\\#2\\%
+		\else%
+%		^{\copy2}%
+		  \ifx#7\scriptstyle%
+		    ^{\smash{\substack{\\[0pt]\copy2}}} %adjust vertical positioning of superscript
+		  \else%		
+		     ^{\smash{\substack{\\[2pt]\copy2}}} %adjust vertical positioning of superscript
+		  \fi
+		\fi
+	}%   
+	\mathrel{#4}%
+\ifx#7\scriptstyle{}\else{\!\!}\fi% remove some space after the arrow
+}
+\makeatother
+
+% \cupdot and bigcupdot. See http://tex.stackexchange.com/questions/110976/is-a-cupdot-symbol-available-in-amsmath
+\makeatletter
+\providecommand*{\cupdot}{%
+  \mathbin{%
+    \mathpalette\@cupdot{}%
+  }%
+}
+\newcommand*{\@cupdot}[2]{%
+  \ooalign{%
+    $\m@th#1\cup$\cr
+    \sbox0{$#1\cup$}%
+    \dimen@=\ht0 %
+    \sbox0{$\m@th#1\cdot$}%
+    \advance\dimen@ by -\ht0 %
+    \dimen@=.5\dimen@
+    \hidewidth\raise\dimen@\box0\hidewidth
+  }%
+}
+\providecommand*{\bigcupdot}{%
+  \mathop{%
+    \vphantom{\bigcup}%
+    \mathpalette\@bigcupdot{}%
+  }%
+}
+\newcommand*{\@bigcupdot}[2]{%
+  \ooalign{%
+    $\m@th#1\bigcup$\cr
+    \sbox0{$#1\bigcup$}%
+    \dimen@=\ht0 %
+    \advance\dimen@ by -\dp0 %
+    \sbox0{\scalebox{2}{$\m@th#1\cdot$}}%
+    \advance\dimen@ by -\ht0 %
+    \dimen@=.5\dimen@
+    \hidewidth\raise\dimen@\box0\hidewidth
+  }%
+}
+\makeatother
+
+\newcommand{\RR}{\ensuremath{\mathbb{R}}}
+\newcommand{\RRnn}{\ensuremath{\mathbb{R}_{\ge 0}}}
+\newcommand{\RRgz}{\ensuremath{\mathbb{R}_{> 0}}}
+\newcommand{\RRnp}{\ensuremath{\mathbb{R}_{\le 0}}}
+\newcommand{\RRlz}{\ensuremath{\mathbb{R}_{< 0}}}
+\newcommand{\RRinfty}{\ensuremath{\mathbb{R}^\infty}}
+\newcommand{\NN}{\ensuremath{\mathbb{N}}}
+\newcommand{\NNgz}{\ensuremath{\mathbb{N}_{> 0}}}
+
+\newcommand{\powerset}[1]{\ensuremath{2^{#1}}}
+
+\newcommand{\diff}{\ensuremath{\,\mathrm{d}}}
+
+\newcommand{\equalityMarker}{\ensuremath{\ast}}
+\newcommand{\eqInductionHypothesis}{\ensuremath{\overset{\mathclap{\mathit{IH}}}{=}}}
+\newcommand{\geInductionHypothesis}{\ensuremath{\overset{\mathclap{\mathit{IH}}}{\ge}}}
+\newcommand{\leInductionHypothesis}{\ensuremath{\overset{\mathclap{\mathit{IH}}}{\le}}}
+
+\newcommand{\true}{\ensuremath{\mathit{true}}}
+\newcommand{\false}{\ensuremath{\mathit{false}}}
+
+%%%%%%%%%%%%%% Probability Theory
+
+\newcommand{\dist}{\ensuremath{\mu}}
+\newcommand{\Dist}[1]{\ensuremath{\mathit{Dist}(#1)}}
+
+\newcommand{\SampleSpace}{\ensuremath{\Omega}}
+\newcommand{\Events}{\ensuremath{\mathcal{E}}}
+\newcommand{\event}{\ensuremath{{E}}}
+
+\newcommand{\rv}{\ensuremath{X}}
+
+%%%%%%%%%%%% experiments
+\newcommand{\tool}[1]{\texttt{#1}\xspace}
+\newcommand{\prism}{\tool{PRISM}}
+\newcommand{\storm}{\tool{Storm}}
+\newcommand{\mrmc}{\tool{MRMC}}
+
+\newcommand{\TO}{{\centering TO}}

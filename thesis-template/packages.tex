@@ -1,0 +1,114 @@
+\usepackage[utf8]{inputenc}
+
+%pagelayout
+\usepackage[twoside, bindingoffset=5mm]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RE]{\slshape \nouppercase{\leftmark}}    % Even page header: "page   chapter"
+\fancyhead[LO]{\slshape \nouppercase{\rightmark}}   % Odd  page header: "section   page"
+\fancyhead[RO,LE]{\thepage} 
+\renewcommand{\headrulewidth}{0.4pt}    % Underline headers
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+%\renewcommand{\chaptername}{}
+\usepackage{parskip} %no indention for new paragraphs.. some vspace instead
+%\setlength{\emergencystretch}{1em} %avoid overfull hboxes
+
+%other layout-related packages
+\usepackage{enumitem}
+\usepackage{varioref} % Has to be included BEFORE hyperref!
+
+%math related packages
+
+%amsPackages
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{marvosym}
+%equation numbers
+%\makeatletter
+%\long\def\theequation{\@arabic \c@equation}
+%\makeatother
+\usepackage{xspace}
+\usepackage{nicefrac}
+%\usepackage{bm} % bold math symbols
+
+%Definitions, Theorems
+%http://mirror.jmu.edu/pub/CTAN/macros/latex/contrib/ntheorem/ntheorem.pdf
+\usepackage[amsmath,thmmarks,framed]{ntheorem}
+\usepackage{thmtools}
+\usepackage{thm-restate}
+
+%Algorithms
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+%graphic related packages
+\usepackage{graphicx}
+\usepackage{subfigure}
+%\usepackage[usenames,dvipsnames]{color}
+\usepackage[dvipsnames]{xcolor}
+%tikz:
+\usepackage{tikz}
+\usetikzlibrary{arrows,arrows.meta,decorations.pathmorphing,positioning,fit,trees,shapes,shadows,automata,calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+%tables
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{multicol}
+\usepackage{tablefootnote}
+\usepackage{titlesec}
+\usepackage{booktabs}
+
+%captions
+\usepackage{caption}
+
+%misc
+\usepackage{url}
+\usepackage{appendix}
+\usepackage{footnote}
+\usepackage{twoopt}
+\usepackage{pdfpages}
+\usepackage{pgffor}
+
+%quotation
+\usepackage{csquotes}
+
+%hyperrefs
+\usepackage[colorlinks, linkcolor=black, citecolor=black, urlcolor=black]{hyperref}
+
+\usepackage{cleveref}
+\Crefname{equation}{Eq.}{Eqs.}
+\Crefname{figure}{Fig.}{Figs.}
+\Crefname{tabular}{Tab.}{Tabs.}
+\Crefname{remark}{Rem.}{Rems.}
+\Crefname{section}{Sec.}{Secs.}
+\Crefname{subsection}{Sec.}{Secs.}
+\Crefname{proposition}{Prop.}{Props.}
+\Crefname{definition}{Def.}{Defs.}
+\Crefname{example}{Example}{Examples}
+
+%custom styling
+\usepackage{thesisstyle}
+
+%regarding todonotes...
+\setlength{\marginparwidth}{3cm} %fixes the position of the todo notes
+\usepackage[backgroundcolor=white, linecolor=blue, bordercolor=blue]{todonotes}
+\usepackage{letltxmacro}
+\LetLtxMacro{\oldtodo}{\todo}
+\renewcommand{\todo}[2][]{\oldtodo[fancyline,#1]{\textbf{TODO:}\newline{#2}}}
+\newcommand{\fdbk}[2][]{%
+  \oldtodo[
+    fancyline,
+    backgroundcolor=yellow!20,
+    linecolor=red,
+    bordercolor=red,
+    #1
+  ]{\textbf{Feedback:}\newline #2}%
+}
+ %if you enable access to the overleaf for your supervisor, your supervisor can use this todonote for feedback

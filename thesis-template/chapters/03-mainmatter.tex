@@ -1,0 +1,103 @@
+\chapter{\textit{Main Contribution}}
+\label{ch:mainmatter}
+
+This chapter contains the main theoretical (and possibly technical) contribution of the thesis.
+It should present a coherent body of new results, organized into sections.
+
+For a theory-focused thesis: introduce new notions, state lemmas/theorems,
+provide proofs, and illustrate results with examples.
+For an implementation-focused thesis: additionally describe the algorithm,
+key design decisions, and data structures.
+
+The opening paragraph of this chapter should cover the following points:
+\begin{enumerate}
+    \item State what new objects, criteria, or techniques this chapter introduces.
+    \item Introduce a running example that will be used throughout to illustrate
+          each new definition and result.
+    \item Outline the chapter structure by referencing the main sections.
+\end{enumerate}
+
+%-----------------------------------------------------------------------
+\section{[\textit{Central Definitions / New Framework}]}\label{sec:main-definitions}
+%-----------------------------------------------------------------------
+
+% Introduce the key new notions.
+% Follow the style of \cref{ch:preliminaries}: state each definition formally,
+% add a brief intuitive explanation, and accompany it with at least one example.
+% Move from simple to complex.
+
+For self-introduced notions it is even more important to explain everything
+and use multiple examples to illustrate everything.
+Use one running example (\Cref{ex01}) that can be used through the whole section 
+and maybe some additional small examples to highlight special cases.
+
+Each result in this section should be presented as follows:
+\begin{enumerate}
+    \item State and prove all auxiliary lemmas before the main theorem.
+    \item State the main theorem.  Typical statements are:
+          \begin{itemize}
+              \item \textbf{Soundness:} If the technique returns \textsc{Yes},
+                    then the property holds.
+              \item \textbf{Completeness:} If the property holds, the technique
+                    returns \textsc{Yes}.
+              \item \textbf{Equivalence:} The new criterion holds if and only if
+                    an existing criterion holds.
+          \end{itemize}
+    \item Provide a complete proof, structured into numbered cases for long
+          arguments.  Reference definitions and earlier results by label.
+    \item Apply the theorem to the running example from \Cref{ex01},
+          walking through every step explicitly.
+\end{enumerate}
+
+\section{Example Section}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit \cite{Doe2024Example}. \todo{Rephrase this.}
+\fdbk{Further details required.}
+
+% In the following, you can see a concrete example as if we would define our own new type of DTMCs
+
+A My discrete-time Markov chain (MDTMC) models a system that moves between states in discrete steps, where the probability of the next state depends only on the current state and one state in the state space is absorbing.
+
+\begin{definition}[My Discrete-time Markov chain (MDTMC)]
+A \emph{My discrete-time Markov chain (MDTMC)} is a stochastic process $(X_n)_{n\in\mathbb{N}}$ on a (countable) state space $S$ such that for all $n$ and $s_0,\dots,s_{n},s'\in S$:
+$$
+\Pr(X_{n+1}=s' \mid X_n=s_n, X_{n-1}=s_{n-1},\dots,X_0=s_0)
+=\Pr(X_{n+1}=s' \mid X_n=s_n).
+$$
+
+Moreover, there exists a transition matrix $P=(p_{s,s'})_{s,s'\in S}$ with
+$p_{s,s'}=\Pr(X_{n+1}=s'\mid X_n=s)$ (independent of $n$) and
+$\sum_{s'\in S} p_{s,s'}=1$ for all $s\in S$.
+We assume that the underlying DTMC has exactly one absorbing state, i.e.\ there exists at most one $s\in S$ with
+$p_{s,s}=1$.
+\end{definition}
+
+\begin{example}[A small MDTMC Example]
+\label{ex01}
+Let $S=\{0,1,2\}$.
+From state $0$, the chain stays in $0$ with probability $0.7$ and moves to $1$ with probability $0.3$.
+From state $1$, it moves to $2$ with probability $0.5$ and to $0$ with probability $0.5$.
+State $2$ is absorbing.
+\Cref{tab01} shows the corresponding transition matrix.
+\end{example}
+
+\begin{table}[H]
+\centering
+\caption{Transition matrix $P$ of the example MDTMC from \Cref{ex01}.}
+\begin{tabular}{c|ccc}
+$P$ & 0 & 1 & 2\\ \hline
+0 & 0.7 & 0.3 & 0.0\\
+1 & 0.5 & 0.0 & 0.5\\
+2 & 0.0 & 0.0 & 1.0\\
+\end{tabular}
+\label{tab01}
+\end{table}
+
+\begin{theorem}[Key Theorem]
+    \label{keythm}
+    Every MDTMC has an absorving state.
+\end{theorem}
+
+\begin{proof}
+    The proof is left as an exercise for the reader.
+\end{proof}

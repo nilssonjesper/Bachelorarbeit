@@ -1,0 +1,102 @@
+\ProvidesPackage{thesisstyle}
+
+\RequirePackage{xcolor}
+\definecolor{RWTHblack}{RGB}{0,0,0}
+\definecolor{RWTHred}{RGB}{204,7,30}
+\definecolor{RWTHlightgrey}{RGB}{204,204,204}
+\definecolor{RWTHgreen}{RGB}{87,171,39}
+\definecolor{RWTHorange}{RGB}{235,171,59}
+\definecolor{RWTHblue}{RGB}{142,186,229}
+\definecolor{RWTHpurple}{RGB}{120, 111, 168}
+
+\colorlet{colorBoxDefinition}{RWTHblue}
+\colorlet{colorBoxDefinitionFill}{colorBoxDefinition!8!white}
+\colorlet{colorBoxTheorem}{RWTHred}
+\colorlet{colorBoxTheoremFill}{colorBoxTheorem!8!white}
+\colorlet{colorBoxLemma}{RWTHred}
+\colorlet{colorBoxProof}{RWTHorange}
+\colorlet{colorBoxExample}{RWTHgreen}
+\colorlet{colorBoxExampleFill}{colorBoxExample!8!white}
+\colorlet{colorBoxCorollary}{RWTHred}
+\colorlet{colorBoxAssumption}{RWTHred}
+
+%different citation colors
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,          % internal links (sections/figures/tables) stay black
+  citecolor=RWTHpurple,     % citations stay colored
+  pdfborder={0 0 1},        % box thickness (last number)
+  linkbordercolor={1 0 0},  % red box for internal links
+  citebordercolor={1 1 1},  % invisible box for citations (white)
+  urlbordercolor={1 1 1}    % invisible box for URLs (white)
+}
+
+% Theorem frames using ntheorem + mdframed
+\RequirePackage{mdframed}
+\RequirePackage[amsmath,thmmarks,framed]{ntheorem}
+
+% Avoid double vertical spacing (frame handles spacing)
+\theorempreskip{0pt}
+\theorempostskip{0pt}
+\theorembodyfont{\normalfont}
+\theoremstyle{break}
+
+% Base mdframed style: only left line, optionally background; breakable by default
+\mdfdefinestyle{rwthBaseFrame}{%
+  leftline=true,rightline=false,topline=false,bottomline=false,%
+  linewidth=2pt,%
+  innerleftmargin=8pt,innerrightmargin=8pt,%
+  innertopmargin=6pt,innerbottommargin=6pt,%
+  skipabove=2\parskip,skipbelow=\parskip,%
+  splittopskip=\parskip,splitbottomskip=\parskip%
+}
+
+\mdfdefinestyle{rwthDef}{style=rwthBaseFrame,linecolor=colorBoxDefinition,backgroundcolor=colorBoxDefinitionFill}
+\mdfdefinestyle{rwthThm}{style=rwthBaseFrame,linecolor=colorBoxTheorem,backgroundcolor=colorBoxTheoremFill}
+\mdfdefinestyle{rwthLem}{style=rwthBaseFrame,linecolor=colorBoxLemma,backgroundcolor=white}
+\mdfdefinestyle{rwthCor}{style=rwthBaseFrame,linecolor=colorBoxCorollary,backgroundcolor=white}
+\mdfdefinestyle{rwthEx}{style=rwthBaseFrame,linecolor=colorBoxExample,backgroundcolor=colorBoxExampleFill}
+\mdfdefinestyle{rwthPrf}{style=rwthBaseFrame,linecolor=colorBoxProof,backgroundcolor=white}
+\mdfdefinestyle{rwthAsm}{style=rwthBaseFrame,linecolor=colorBoxAssumption,backgroundcolor=white}
+
+% --- theorem environments (defined ONCE here) ---
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{example}[definition]{Example}
+
+% Proof (ntheorem-style proof)
+\theoremheaderfont{\itshape}
+\theoremsymbol{\ensuremath{\square}}
+\newtheorem{proof}{Proof}
+\theoremsymbol{} % reset for later envs
+
+\theoremheaderfont{\bfseries}
+\theoremseparator{:}
+\newtheorem{assumption}{Assumption}
+
+% --- wrap environments with breakable mdframed ---
+\surroundwithmdframed[style=rwthDef]{definition}
+\surroundwithmdframed[style=rwthLem]{lemma}
+\surroundwithmdframed[style=rwthCor]{corollary}
+\surroundwithmdframed[style=rwthThm]{theorem}
+\surroundwithmdframed[style=rwthEx]{example}
+\surroundwithmdframed[style=rwthPrf]{proof}
+\surroundwithmdframed[style=rwthAsm]{assumption}
+
+% Add gray hline to section titles
+\RequirePackage{titlesec}
+\newcommand{\sectionrule}{\color{RWTHlightgrey}\titlerule[0.5pt]}
+\titleformat{\section}
+  {\normalfont\Large\bfseries}%
+  {\thesection}{1em}{}%
+  [\vspace{0.3ex}\sectionrule]%
+
+% caption styling
+\DeclareCaptionFormat{figrule}{%
+  {\color{RWTHlightgrey}\hrulefill}\par\smallskip
+  #1#2#3%
+}
+\captionsetup[figure]{format=figrule, labelfont=bf}
+\captionsetup[table]{labelfont=bf}

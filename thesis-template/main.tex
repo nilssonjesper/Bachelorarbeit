@@ -1,0 +1,30 @@
+\documentclass[11pt, a4paper]{book}
+
+\input{packages}
+\input{macros.tex}
+
+\begin{document}
+\frontmatter
+\input{chapters/00-frontmatter.tex}
+\emptydoublepage
+\mainmatter
+\input{chapters/01-introduction.tex}
+\emptydoublepage
+\input{chapters/02-preliminaries.tex}
+\emptydoublepage
+\input{chapters/03-mainmatter.tex}
+\emptydoublepage
+%\input{...}
+\input{chapters/04-evaluation.tex}
+\emptydoublepage
+\input{chapters/05-conclusion.tex}
+\emptydoublepage
+
+\appendix
+\input{appendix/A-appendix.tex}
+\emptydoublepage
+\backmatter
+%\nocite{*} %show all references
+\bibliographystyle{alpha2} % like alpha but keeps capitalization from .bib file
+\bibliography{literature}
+\end{document}

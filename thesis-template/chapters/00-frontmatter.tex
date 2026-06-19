@@ -1,0 +1,56 @@
+%titlepage
+\begin{titlepage}
+\setlength{\rulethickness}{1pt}
+
+% RWTH Logo - you can comment this out if you dont want to use the logo
+\noindent\makebox[\dimexpr\textwidth+2.5mm\relax][r]{%
+  \hfill\includegraphics[height=1.7cm]{images/rwth_i2_logo_rgb2025}%
+}\par\vspace{-0.5cm}
+
+\noindent\rule{\textwidth}{\rulethickness}\par
+\begin{center}
+
+\large
+\textbf{Master Thesis} at the\\
+Software Modeling and Verification Group (MOVES)\\
+
+\LARGE
+\vspace{3cm}
+\textbf{Your Thesis\linebreak Title}\\
+
+\vspace{4cm}
+\Large
+by\\
+{\textbf{author}}\\
+
+\vfill
+\normalsize
+\textit{This written work was submitted to}\\
+Lehrstuhl für Informatik 2, RWTH Aachen University.\\
+\vspace{5mm}
+\parbox{0cm}{ %workaround to center tabbing enviroment
+\begin{tabbing}
+Registration Date: \= \kill
+Submission Date:   \> \today \\
+\\
+First examiner:    \> insert text\\
+Second examiner:   \> insert text\\
+Thesis advisor:    \> insert text\\
+\end{tabbing}
+}
+\end{center}
+\end{titlepage}
+
+\emptydoublepage
+
+\input{chapters/00-abstract.tex}
+\emptydoublepage
+
+\input{chapters/00-acknowledgements.tex}
+\emptydoublepage
+
+%table of contents
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+  \tableofcontents
+\thispagestyle{empty}
+% Note: This supresses page numbers on the first and the last page of the TOC. Hence, this looks weird if your TOC is >2 pages long.

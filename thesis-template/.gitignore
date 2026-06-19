@@ -1,0 +1,16 @@
+.vscode
+.DS_Store
+
+*.fdb_latexmk
+*.synctex.gz
+main-blx.bib
+
+*.fls
+*.aux
+*.log
+*.bbl
+*.blg
+*.toc
+*.lof
+*.lot
+*.out
