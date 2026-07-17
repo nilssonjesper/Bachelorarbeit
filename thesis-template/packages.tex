@@ -98,10 +98,14 @@
 
 %regarding todonotes...
 \setlength{\marginparwidth}{3cm} %fixes the position of the todo notes
-\usepackage[backgroundcolor=white, linecolor=blue, bordercolor=blue]{todonotes}
+\usepackage[
+  disable,
+  backgroundcolor=white, 
+  linecolor=blue, 
+  bordercolor=blue]{todonotes}
 \usepackage{letltxmacro}
 \LetLtxMacro{\oldtodo}{\todo}
-\renewcommand{\todo}[2][]{\oldtodo[fancyline,#1]{\textbf{TODO:}\newline{#2}}}
+\renewcommand{\todo}[2][]{\oldtodo[inline,fancyline,#1]{\textbf{TODO:}\newline{#2}}}
 \newcommand{\fdbk}[2][]{%
   \oldtodo[
     fancyline,
@@ -112,3 +116,12 @@
   ]{\textbf{Feedback:}\newline #2}%
 }
  %if you enable access to the overleaf for your supervisor, your supervisor can use this todonote for feedback
+
+\usepackage{stmaryrd}
+\usepackage{float}
+\usepackage{bm}
+\usepackage{tikz}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usetikzlibrary{arrows.meta,positioning}
+\usetikzlibrary{fit,backgrounds,positioning}

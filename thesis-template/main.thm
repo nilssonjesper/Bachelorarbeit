@@ -1,0 +1,78 @@
+\contentsline {definition}{{Definition}{2.{1}}{Convergence of Geometric Series}}{3}{definition.1}%
+\contentsline {definition}{{Definition}{2.{2}}{Gershgorin circle theorem}}{3}{definition.2}%
+\contentsline {definition}{{Definition}{2.{3}}{Row-Stochastic Matrix}}{4}{definition.3}%
+\contentsline {definition}{{Definition}{2.{4}}{(Strictly) Row-Substochastic Matrix}}{4}{definition.4}%
+\contentsline {theorem}{{Theorem}{2.{5}}{}}{4}{theorem.5}%
+\contentsline {proof}{{Proof}{1}{}}{4}{proof.1}%
+\contentsline {definition}{{Definition}{2.{6}}{Jordan normal form}}{4}{definition.6}%
+\contentsline {theorem}{{Theorem}{2.{7}}{Convergence of strictly row-substochastic matrices}}{5}{theorem.7}%
+\contentsline {proof}{{Proof}{2}{}}{5}{proof.2}%
+\contentsline {definition}{{Definition}{2.{8}}{Matrix inversion by the Neumann Series}}{5}{definition.8}%
+\contentsline {definition}{{Definition}{2.{9}}{Irreducible and Reducible Matrix}}{5}{definition.9}%
+\contentsline {definition}{{Definition}{2.{10}}{Permutation Matrix}}{5}{definition.10}%
+\contentsline {definition}{{Definition}{2.{11}}{Upper and Lower Triangular Matrix}}{6}{definition.11}%
+\contentsline {definition}{{Definition}{2.{12}}{LU-decomposition}}{6}{definition.12}%
+\contentsline {definition}{{Definition}{2.{13}}{}}{6}{definition.13}%
+\contentsline {definition}{{Definition}{2.{14}}{Discrete Probability Distribution}}{6}{definition.14}%
+\contentsline {definition}{{Definition}{2.{15}}{Conditional Probability}}{6}{definition.15}%
+\contentsline {definition}{{Definition}{2.{16}}{Monotone Convergence Theorem}}{6}{definition.16}%
+\contentsline {definition}{{Definition}{2.{17}}{DTMC}}{7}{definition.17}%
+\contentsline {definition}{{Definition}{2.{18}}{Transition Matrix}}{7}{definition.18}%
+\contentsline {theorem}{{Theorem}{2.{19}}{k-step Transition Probability}}{7}{theorem.19}%
+\contentsline {definition}{{Definition}{2.{20}}{Path of a DTMC}}{7}{definition.20}%
+\contentsline {definition}{{Definition}{2.{21}}{Probability Space of a DTMC}}{8}{definition.21}%
+\contentsline {proof}{{Proof}{3}{}}{8}{proof.3}%
+\contentsline {definition}{{Definition}{2.{22}}{Until Operator}}{8}{definition.22}%
+\contentsline {definition}{{Definition}{2.{23}}{Reachability Probability}}{9}{definition.23}%
+\contentsline {definition}{{Definition}{2.{24}}{Next Step Probability}}{9}{definition.24}%
+\contentsline {definition}{{Definition}{2.{25}}{(Bottom) Strongly Connected Component}}{9}{definition.25}%
+\contentsline {definition}{{Definition}{2.{26}}{Transient and Recurrent states}}{10}{definition.26}%
+\contentsline {definition}{{Definition}{2.{27}}{Absorbing state}}{10}{definition.27}%
+\contentsline {theorem}{{Theorem}{2.{28}}{Limit Behaviour}}{10}{theorem.28}%
+\contentsline {definition}{{Definition}{2.{29}}{Acyclic DTMC}}{10}{definition.29}%
+\contentsline {definition}{{Definition}{2.{30}}{Stopping Time}}{10}{definition.30}%
+\contentsline {definition}{{Definition}{2.{31}}{Strong Markov Property}}{10}{definition.31}%
+\contentsline {definition}{{Definition}{2.{32}}{Canonical Form}}{10}{definition.32}%
+\contentsline {definition}{{Definition}{2.{33}}{Visiting Times of Infinite Paths}}{11}{definition.33}%
+\contentsline {definition}{{Definition}{2.{34}}{Expected Visiting Times in DTMCs}}{11}{definition.34}%
+\contentsline {lemma}{{Lemma}{2.{35}}{EVTs of Recurrent States}}{12}{lemma.35}%
+\contentsline {definition}{{Definition}{2.{36}}{Fundamental Matrix}}{12}{definition.36}%
+\contentsline {theorem}{{Theorem}{2.{37}}{}}{12}{theorem.37}%
+\contentsline {proof}{{Proof}{4}{}}{12}{proof.4}%
+\contentsline {lemma}{{Lemma}{2.{38}}{Reachability of Transient States}}{13}{lemma.38}%
+\contentsline {proof}{{Proof}{5}{}}{13}{proof.5}%
+\contentsline {theorem}{{Theorem}{2.{39}}{Calculating EVTs using the Fundamental Matrix}}{14}{theorem.39}%
+\contentsline {proof}{{Proof}{6}{}}{14}{proof.6}%
+\contentsline {proof}{{Proof}{7}{}}{16}{proof.7}%
+\contentsline {lemma}{{Lemma}{2.{40}}{}}{16}{lemma.40}%
+\contentsline {lemma}{{Lemma}{2.{41}}{}}{16}{lemma.41}%
+\contentsline {proof}{{Proof}{8}{}}{16}{proof.8}%
+\contentsline {theorem}{{Theorem}{2.{42}}{}}{17}{theorem.42}%
+\contentsline {proof}{{Proof}{9}{}}{17}{proof.9}%
+\contentsline {definition}{{Definition}{3.{1}}{Interval Markov Chain}}{19}{definition.1}%
+\contentsline {definition}{{Definition}{3.{2}}{Once-and-for-all/UMC Semantic}}{19}{definition.2}%
+\contentsline {definition}{{Definition}{3.{3}}{IMDP semantic}}{20}{definition.3}%
+\contentsline {definition}{{Definition}{3.{4}}{EVTs of IDTMCs}}{21}{definition.4}%
+\contentsline {theorem}{{Theorem}{3.{5}}{}}{22}{theorem.5}%
+\contentsline {proof}{{Proof}{10}{}}{22}{proof.10}%
+\contentsline {theorem}{{Theorem}{3.{6}}{Upper/Lower Bounds for uEVTs/lEVTs}}{23}{theorem.6}%
+\contentsline {proof}{{Proof}{11}{}}{23}{proof.11}%
+\contentsline {theorem}{{Theorem}{3.{7}}{Calculating uEVTs with NLPs}}{24}{theorem.7}%
+\contentsline {proof}{{Proof}{12}{}}{24}{proof.12}%
+\contentsline {definition}{{Definition}{3.{8}}{Trace of a matrix}}{24}{definition.8}%
+\contentsline {definition}{{Definition}{3.{9}}{Nonzero eigenvalues}}{24}{definition.9}%
+\contentsline {definition}{{Definition}{3.{10}}{NP-hard quadratic programming (QP)}}{25}{definition.10}%
+\contentsline {definition}{{Definition}{3.{11}}{Markov Descision Process (MDP)}}{26}{definition.11}%
+\contentsline {theorem}{{Theorem}{3.{12}}{Basic feasible solution (BFS) for $PC(s)$}}{27}{theorem.12}%
+\contentsline {theorem}{{Theorem}{3.{13}}{BFS for $IC$}}{27}{theorem.13}%
+\contentsline {lemma}{{Lemma}{3.{14}}{}}{29}{lemma.14}%
+\contentsline {proof}{{Proof}{13}{}}{29}{proof.13}%
+\contentsline {lemma}{{Lemma}{3.{15}}{}}{30}{lemma.15}%
+\contentsline {proof}{{Proof}{14}{}}{30}{proof.14}%
+\contentsline {lemma}{{Lemma}{3.{16}}{}}{30}{lemma.16}%
+\contentsline {proof}{{Proof}{15}{}}{30}{proof.15}%
+\contentsline {definition}{{Definition}{3.{17}}{Acyclic IDTMC}}{30}{definition.17}%
+\contentsline {definition}{{Definition}{3.{18}}{Augmented Interval Markov Chains}}{31}{definition.18}%
+\contentsline {definition}{{Definition}{3.{19}}{Stationary Distribution}}{31}{definition.19}%
+\contentsline {theorem}{{Theorem}{3.{20}}{}}{31}{theorem.20}%
+\contentsline {proof}{{Proof}{16}{}}{32}{proof.16}%
