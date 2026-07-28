@@ -52,40 +52,53 @@
 \contentsline {theorem}{{Theorem}{3.{28}}{}}{19}{theorem.28}%
 \contentsline {proof}{{Proof}{8}{}}{19}{proof.8}%
 \contentsline {definition}{{Definition}{4.{1}}{Interval Markov Chain}}{21}{definition.1}%
-\contentsline {definition}{{Definition}{4.{2}}{Once-and-for-all/UMC Semantic}}{21}{definition.2}%
-\contentsline {definition}{{Definition}{4.{3}}{IMDP semantic 1}}{22}{definition.3}%
-\contentsline {definition}{{Definition}{4.{4}}{IMDP semantic 2}}{22}{definition.4}%
-\contentsline {definition}{{Definition}{4.{5}}{Markov Descision Process (MDP)}}{22}{definition.5}%
-\contentsline {definition}{{Definition}{4.{6}}{EVTs of IDTMCs}}{24}{definition.6}%
-\contentsline {theorem}{{Theorem}{4.{7}}{}}{25}{theorem.7}%
-\contentsline {proof}{{Proof}{9}{}}{25}{proof.9}%
-\contentsline {theorem}{{Theorem}{4.{8}}{Upper and Lower Bounds for uEVTs and lEVTs}}{26}{theorem.8}%
+\contentsline {definition}{{Definition}{4.{2}}{Once-and-for-all/UMC Semantic}}{22}{definition.2}%
+\contentsline {example}{{Example}{4.{3}}{}}{22}{example.3}%
+\contentsline {definition}{{Definition}{4.{4}}{IMDP semantic 1}}{23}{definition.4}%
+\contentsline {definition}{{Definition}{4.{5}}{IMDP semantic 2}}{23}{definition.5}%
+\contentsline {example}{{Example}{4.{6}}{}}{23}{example.6}%
+\contentsline {definition}{{Definition}{4.{7}}{Markov Descision Process (MDP)}}{24}{definition.7}%
+\contentsline {definition}{{Definition}{4.{8}}{EVTs of IDTMCs}}{25}{definition.8}%
+\contentsline {theorem}{{Theorem}{4.{9}}{}}{26}{theorem.9}%
+\contentsline {proof}{{Proof}{9}{}}{26}{proof.9}%
+\contentsline {theorem}{{Theorem}{4.{10}}{Upper and Lower Bounds for uEVTs and lEVTs}}{26}{theorem.10}%
 \contentsline {proof}{{Proof}{10}{}}{26}{proof.10}%
-\contentsline {theorem}{{Theorem}{4.{9}}{NLPs for uEVT and lEVT}}{27}{theorem.9}%
+\contentsline {example}{{Example}{4.{11}}{}}{27}{example.11}%
+\contentsline {theorem}{{Theorem}{4.{12}}{NLPs for uEVT and lEVT}}{27}{theorem.12}%
 \contentsline {proof}{{Proof}{11}{}}{28}{proof.11}%
 \contentsline {proof}{{Proof}{12}{}}{28}{proof.12}%
-\contentsline {definition}{{Definition}{4.{10}}{Trace of a matrix}}{28}{definition.10}%
-\contentsline {definition}{{Definition}{4.{11}}{Nonzero eigenvalues}}{28}{definition.11}%
-\contentsline {definition}{{Definition}{4.{12}}{NP-hard quadratic programming (QP)}}{29}{definition.12}%
-\contentsline {theorem}{{Theorem}{4.{13}}{}}{30}{theorem.13}%
-\contentsline {definition}{{Definition}{4.{14}}{Intermediate state}}{30}{definition.14}%
-\contentsline {lemma}{{Lemma}{4.{15}}{Recursive Formula for Reachability Probability}}{30}{lemma.15}%
-\contentsline {proof}{{Proof}{13}{}}{30}{proof.13}%
-\contentsline {theorem}{{Theorem}{4.{16}}{}}{31}{theorem.16}%
-\contentsline {proof}{{Proof}{14}{}}{31}{proof.14}%
-\contentsline {theorem}{{Theorem}{4.{17}}{}}{32}{theorem.17}%
-\contentsline {proof}{{Proof}{15}{}}{32}{proof.15}%
-\contentsline {theorem}{{Theorem}{4.{18}}{}}{32}{theorem.18}%
-\contentsline {proof}{{Proof}{16}{}}{32}{proof.16}%
-\contentsline {theorem}{{Theorem}{4.{19}}{}}{33}{theorem.19}%
-\contentsline {lemma}{{Lemma}{4.{20}}{}}{34}{lemma.20}%
-\contentsline {proof}{{Proof}{17}{}}{34}{proof.17}%
-\contentsline {lemma}{{Lemma}{4.{21}}{}}{36}{lemma.21}%
-\contentsline {proof}{{Proof}{18}{}}{36}{proof.18}%
-\contentsline {lemma}{{Lemma}{4.{22}}{}}{36}{lemma.22}%
-\contentsline {proof}{{Proof}{19}{}}{36}{proof.19}%
-\contentsline {definition}{{Definition}{4.{23}}{Acyclic IDTMC}}{36}{definition.23}%
-\contentsline {definition}{{Definition}{4.{24}}{Augmented Interval Markov Chains}}{36}{definition.24}%
-\contentsline {definition}{{Definition}{4.{25}}{Stationary Distribution}}{37}{definition.25}%
-\contentsline {theorem}{{Theorem}{4.{26}}{}}{37}{theorem.26}%
-\contentsline {proof}{{Proof}{20}{}}{37}{proof.20}%
+\contentsline {definition}{{Definition}{4.{13}}{Trace of a matrix}}{29}{definition.13}%
+\contentsline {definition}{{Definition}{4.{14}}{Nonzero eigenvalues}}{29}{definition.14}%
+\contentsline {definition}{{Definition}{4.{15}}{NP-hard quadratic programming (QP)}}{29}{definition.15}%
+\contentsline {definition}{{Definition}{4.{16}}{Intermediate state}}{30}{definition.16}%
+\contentsline {lemma}{{Lemma}{4.{17}}{Recursive Formula for Reachability Probability}}{31}{lemma.17}%
+\contentsline {proof}{{Proof}{13}{}}{31}{proof.13}%
+\contentsline {theorem}{{Theorem}{4.{18}}{}}{31}{theorem.18}%
+\contentsline {proof}{{Proof}{14}{}}{32}{proof.14}%
+\contentsline {theorem}{{Theorem}{4.{19}}{}}{32}{theorem.19}%
+\contentsline {proof}{{Proof}{15}{}}{33}{proof.15}%
+\contentsline {theorem}{{Theorem}{4.{20}}{}}{33}{theorem.20}%
+\contentsline {theorem}{{Theorem}{4.{21}}{One-state Extension}}{33}{theorem.21}%
+\contentsline {proof}{{Proof}{16}{}}{33}{proof.16}%
+\contentsline {theorem}{{Theorem}{4.{22}}{}}{34}{theorem.22}%
+\contentsline {example}{{Example}{4.{23}}{}}{35}{example.23}%
+\contentsline {lemma}{{Lemma}{4.{24}}{}}{35}{lemma.24}%
+\contentsline {proof}{{Proof}{17}{}}{35}{proof.17}%
+\contentsline {lemma}{{Lemma}{4.{25}}{}}{37}{lemma.25}%
+\contentsline {proof}{{Proof}{18}{}}{37}{proof.18}%
+\contentsline {lemma}{{Lemma}{4.{26}}{}}{37}{lemma.26}%
+\contentsline {proof}{{Proof}{19}{}}{37}{proof.19}%
+\contentsline {definition}{{Definition}{4.{27}}{Acyclic IDTMC}}{37}{definition.27}%
+\contentsline {definition}{{Definition}{4.{28}}{Augmented Interval Markov Chains}}{38}{definition.28}%
+\contentsline {definition}{{Definition}{4.{29}}{Stationary Distribution}}{38}{definition.29}%
+\contentsline {theorem}{{Theorem}{4.{30}}{}}{38}{theorem.30}%
+\contentsline {proof}{{Proof}{20}{}}{39}{proof.20}%
+\contentsline {definition}{{Definition}{4.{31}}{Intermediate sets are closed under composition}}{40}{definition.31}%
+\contentsline {proof}{{Proof}{21}{}}{40}{proof.21}%
+\contentsline {corollary}{{Corollary}{4.{32}}{}}{40}{corollary.32}%
+\contentsline {lemma}{{Lemma}{4.{33}}{Persistence on a closed region}}{40}{lemma.33}%
+\contentsline {proof}{{Proof}{22}{}}{40}{proof.22}%
+\contentsline {lemma}{{Lemma}{4.{34}}{One-state extension}}{40}{lemma.34}%
+\contentsline {proof}{{Proof}{23}{}}{41}{proof.23}%
+\contentsline {theorem}{{Theorem}{4.{35}}{}}{42}{theorem.35}%
+\contentsline {proof}{{Proof}{24}{}}{42}{proof.24}%
