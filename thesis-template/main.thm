@@ -75,30 +75,30 @@
 \contentsline {proof}{{Proof}{13}{}}{31}{proof.13}%
 \contentsline {theorem}{{Theorem}{4.{18}}{}}{31}{theorem.18}%
 \contentsline {proof}{{Proof}{14}{}}{32}{proof.14}%
-\contentsline {theorem}{{Theorem}{4.{19}}{}}{32}{theorem.19}%
+\contentsline {corollary}{{Corollary}{4.{19}}{}}{32}{corollary.19}%
 \contentsline {proof}{{Proof}{15}{}}{33}{proof.15}%
-\contentsline {theorem}{{Theorem}{4.{20}}{}}{33}{theorem.20}%
-\contentsline {theorem}{{Theorem}{4.{21}}{One-state Extension}}{33}{theorem.21}%
+\contentsline {theorem}{{Theorem}{4.{20}}{One-state Extension}}{33}{theorem.20}%
 \contentsline {proof}{{Proof}{16}{}}{33}{proof.16}%
-\contentsline {theorem}{{Theorem}{4.{22}}{}}{34}{theorem.22}%
-\contentsline {example}{{Example}{4.{23}}{}}{35}{example.23}%
-\contentsline {lemma}{{Lemma}{4.{24}}{}}{35}{lemma.24}%
-\contentsline {proof}{{Proof}{17}{}}{35}{proof.17}%
-\contentsline {lemma}{{Lemma}{4.{25}}{}}{37}{lemma.25}%
-\contentsline {proof}{{Proof}{18}{}}{37}{proof.18}%
-\contentsline {lemma}{{Lemma}{4.{26}}{}}{37}{lemma.26}%
+\contentsline {theorem}{{Theorem}{4.{21}}{}}{34}{theorem.21}%
+\contentsline {proof}{{Proof}{17}{}}{34}{proof.17}%
+\contentsline {example}{{Example}{4.{22}}{}}{35}{example.22}%
+\contentsline {lemma}{{Lemma}{4.{23}}{}}{35}{lemma.23}%
+\contentsline {proof}{{Proof}{18}{}}{36}{proof.18}%
+\contentsline {lemma}{{Lemma}{4.{24}}{}}{37}{lemma.24}%
 \contentsline {proof}{{Proof}{19}{}}{37}{proof.19}%
-\contentsline {definition}{{Definition}{4.{27}}{Acyclic IDTMC}}{37}{definition.27}%
-\contentsline {definition}{{Definition}{4.{28}}{Augmented Interval Markov Chains}}{38}{definition.28}%
-\contentsline {definition}{{Definition}{4.{29}}{Stationary Distribution}}{38}{definition.29}%
-\contentsline {theorem}{{Theorem}{4.{30}}{}}{38}{theorem.30}%
-\contentsline {proof}{{Proof}{20}{}}{39}{proof.20}%
-\contentsline {definition}{{Definition}{4.{31}}{Intermediate sets are closed under composition}}{40}{definition.31}%
-\contentsline {proof}{{Proof}{21}{}}{40}{proof.21}%
-\contentsline {corollary}{{Corollary}{4.{32}}{}}{40}{corollary.32}%
-\contentsline {lemma}{{Lemma}{4.{33}}{Persistence on a closed region}}{40}{lemma.33}%
+\contentsline {lemma}{{Lemma}{4.{25}}{}}{37}{lemma.25}%
+\contentsline {proof}{{Proof}{20}{}}{37}{proof.20}%
+\contentsline {definition}{{Definition}{4.{26}}{Acyclic IDTMC}}{37}{definition.26}%
+\contentsline {definition}{{Definition}{4.{27}}{Augmented Interval Markov Chains}}{38}{definition.27}%
+\contentsline {definition}{{Definition}{4.{28}}{Stationary Distribution}}{38}{definition.28}%
+\contentsline {theorem}{{Theorem}{4.{29}}{}}{39}{theorem.29}%
+\contentsline {proof}{{Proof}{21}{}}{39}{proof.21}%
+\contentsline {definition}{{Definition}{4.{30}}{Intermediate sets are closed under composition}}{40}{definition.30}%
 \contentsline {proof}{{Proof}{22}{}}{40}{proof.22}%
-\contentsline {lemma}{{Lemma}{4.{34}}{One-state extension}}{40}{lemma.34}%
-\contentsline {proof}{{Proof}{23}{}}{41}{proof.23}%
-\contentsline {theorem}{{Theorem}{4.{35}}{}}{42}{theorem.35}%
-\contentsline {proof}{{Proof}{24}{}}{42}{proof.24}%
+\contentsline {corollary}{{Corollary}{4.{31}}{}}{40}{corollary.31}%
+\contentsline {lemma}{{Lemma}{4.{32}}{Persistence on a closed region}}{40}{lemma.32}%
+\contentsline {proof}{{Proof}{23}{}}{40}{proof.23}%
+\contentsline {lemma}{{Lemma}{4.{33}}{One-state extension}}{40}{lemma.33}%
+\contentsline {proof}{{Proof}{24}{}}{41}{proof.24}%
+\contentsline {theorem}{{Theorem}{4.{34}}{}}{42}{theorem.34}%
+\contentsline {proof}{{Proof}{25}{}}{42}{proof.25}%

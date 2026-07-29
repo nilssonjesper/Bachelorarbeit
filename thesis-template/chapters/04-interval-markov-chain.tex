@@ -649,6 +649,14 @@ Thus after
 \end{definition}
 We denote the set of these intermediate states as $I^\MC_{Ts}$ and $I_{Ts}$ if the DTMC is clear from the context. Moreover, if $T$ is a singleton set, i.e., $T =\{t\}$, then we simply denote the set of intermediate states as $I_{ts}$.
 
+% \begin{lemma}[Intermediate sets are closed under composition]
+%     Given any DTMC $\MC$ and transient states $t,s,u,w \in S_{tr}$, if $u\in I^\MC_{ts}$ and $w\in I^\MC_{us}$, then $w\in I_{ts}\cup \{t\}$.
+% \end{lemma}
+
+% \begin{proof}
+    
+% \end{proof}
+
 \begin{lemma}[Recursive Formula for Reachability Probability]\label{lem:recursive_formula_for_reachability_prob}
     UMC semantic:
 
@@ -715,11 +723,11 @@ $\MC\models_U\IMC$ with $Pr_t^\MC(\Diamond s) = \operatorname{sup}_{\MC_i\models
     % This leaves us with (1). 
 \end{proof}
 
-\begin{theorem}\label{th:two_DTMCs_compatible_for_max_reach}
+\begin{corollary}\label{th:two_DTMCs_compatible_for_max_reach}
     Given an IDTMC $\IMC$, two transient state $t_1, t_2\in S^\IMC$, a (goal) state $s\in S^\IMC$, and two DTMCs $\MC_1,\MC_2$ with $\MC_1,\MC_2\models_U \IMC$ and $Pr^{\MC_1}_{t_1}(\Diamond s) = \operatorname{sup}_{\MC \models_U \IMC}Pr^{\MC}_{t_1}(\Diamond s)$ and $Pr^{\MC_2}_{t_2}(\Diamond s) = \operatorname{sup}_{\MC \models_U \IMC}Pr^{\MC}_{t_2}(\Diamond s)$. In other words the DTMCs have a maximum reachability probability for $t_1$ and $t_2$, respectively.
 
     For all $u\in I^{\MC_1}_{t_1s} \cap I^{\MC_2}_{t_2s}$, the reachability probabilities $Pr^{\MC_1}_u(\Diamond s) = Pr^{\MC_2}_u(\Diamond s)$ are identical.
-\end{theorem}
+\end{corollary}
 
 
 \begin{proof}
@@ -727,24 +735,31 @@ $\MC\models_U\IMC$ with $Pr_t^\MC(\Diamond s) = \operatorname{sup}_{\MC_i\models
     Using \cref{th:max_reach_prob_for_intermediate_states}, we can conclude that $Pr^{\MC_1}_{u}(\Diamond s) = \operatorname{sup}_{\MC_i \models_U \IMC}Pr^{\MC_i}_{u}(\Diamond s)$ for all $u \in I^{\MC_1}_{t_1s}$ and $Pr^{\MC_2}_{u}(\Diamond s) = \operatorname{sup}_{\MC_i \models_U \IMC}Pr^{\MC_i}_{u}(\Diamond s)$ for all $u \in I^{\MC_2}_{t_2s}$. Thus, $Pr^{\MC_1}_u(\Diamond s) = Pr^{\MC_2}_u(\Diamond s)$ for all $u\in I^{\MC_1}_{t_1s} \cap I^{\MC_2}_{t_2s}$.
 \end{proof}
 
-\begin{theorem}
-    Given an IDTMC $\IMC$, a (goal) state $s\in S$, and any two transient states $t_1,t_2 \in S_{tr}$, there exists a DTMC $\MC \models_U \IMC$ such that $Pr^{\MC}_{t_1}(\Diamond s) = \operatorname{sup}_{\MC_i \models_U \IMC}Pr^{\MC_i}_{t_1}(\Diamond s)$ and $Pr^{\MC}_{t_2}(\Diamond s) = \operatorname{sup}_{\MC_i \models_U \IMC}Pr^{\MC_i}_{t_2}(\Diamond s)$
-\end{theorem}
+% \begin{theorem}
+%     Given an IDTMC $\IMC$, a (goal) state $s\in S$, and any two transient states $t_1,t_2 \in S_{tr}$, there exists a DTMC $\MC \models_U \IMC$ such that $Pr^{\MC}_{t_1}(\Diamond s) = \operatorname{sup}_{\MC_i \models_U \IMC}Pr^{\MC_i}_{t_1}(\Diamond s)$ and $Pr^{\MC}_{t_2}(\Diamond s) = \operatorname{sup}_{\MC_i \models_U \IMC}Pr^{\MC_i}_{t_2}(\Diamond s)$
+% \end{theorem}
 
 \begin{theorem}[One-state Extension]
-    Given a set $T \subset S_{tr}$, a transient state $t \notin T$, and a (goal) state s, assume that $\MC_T \models_U \IMC$ with $\Prupper_u^\MC(\Diamond s) = Pr_u^\MC(\Diamond s)$ for all $u\in T$ and $\MC_t \models_U \IMC$ with $\Prupper_t^\MC(\Diamond s) = Pr_t^\MC(\Diamond s)$. Define $\MC'$ by
-    \[\PF^{\MC'}(w,v) = 
+    Given a set $T \subset S_{tr}$, a transient state $t \notin T$, and a (goal) state s, assume that $\MC_T \models_U \IMC$ with $\Prupper_u^\IMC(\Diamond s) = Pr_u^{\MC_T}(\Diamond s)$ for all $u\in T$ and $\MC_t \models_U \IMC$ with $\Prupper_t^\IMC(\Diamond s) = Pr_t^{\MC_t}(\Diamond s)$. Define $\MC'$ by
+    \[\PF^{\MC_{cmb}}(w,v) = 
     \begin{cases*}
         \PF^{\MC_t}(w,v) & if $w\in I^{\MC_t}_{ts}\backslash I^{\MC_T}_{Ts}$ \\
         \PF^{\MC_T}(w,v) & else.
     \end{cases*}\]
-    Then, $\Prupper^{\MC'}_{u}(\Diamond s) = Pr^{\MC'}_u(\Diamond s)$ for all $u \in T \cup \{t\}$, i.e., $\MC'$ has the maximum reachability probability for all states in $T\cup \{t\}$.
+    Then, $\Prupper^{\MC_{cmb}}_{u}(\Diamond s) = Pr^{\MC_{cmb}}_u(\Diamond s)$ for all $u \in T \cup \{t\}$, i.e., $\MC_{cmb}$ has the maximum reachability probability for all states in $T\cup \{t\}$.
 \end{theorem}
 
 \begin{proof}
-    % Here I need the fact, that if reach prob identical, there exists a maximizing DTMC that has same outgoing $\PF$s
+    As $\PF^{\MC_{cmb}}(w,v) = \PF^{\MC_{T}}(w,v)$ for all $w \in I^{\MC_T}_{Ts}$, clearly $\Prupper^{\IMC}_{u}(\Diamond s) = Pr^{\MC_{cmb}}_u(\Diamond s)$ for all $u\in T$, see \cref{lem:recursive_formula_for_reachability_prob}.
+
+    Thus, we need to show that $Pr^{\MC_{cmb}}_t(\Diamond s) = \Prupper^{\IMC}_{t}(\Diamond s)$. As we know that $Pr^{\MC_{t}}_t(\Diamond s) = \Prupper^{\IMC}_{t}(\Diamond s)$, we will prove that $Pr^{\MC_{cmb}}_t(\Diamond s) = Pr^{\MC_{t}}_t(\Diamond s)$.
+    Notice, that if $I^{\MC_t}_{ts} \cap I^{\MC_T}_{Ts} = \emptyset$, then the proof concludes using the same argument as for $u\in T$. Furthermore, if $I^{\MC_t}_{ts}\subseteq I^{\MC_T}_{Ts}$, then the proof concludes directly using \cref{th:max_reach_prob_for_intermediate_states}.
+
+    % For any $\pi \in \Diamond_t s$ in $\MC_{cmb}$, if there exists a $k\in \NN$, such that $\pi[k] \in I_{Ts}$, then $\pi[k']\in I_{Ts}$ for all $k' > k$. We will shortly prove this. If $\pi[k] \in I_{Ts}$, then there exists some $\hat{t}\in T$ such that $\hat{\pi}[\hat{k}] = \pi[k]$ for some path $\hat{\pi} \in \Diamond_{\hat{t}} s$. Now, assume that there exists some $k' > k$ such that $\pi[k']\notin I_{Ts}$. Thus, there exists no path fragment $\pi' \in \Diamond_{\hat{t}} s$
     
-    Consider the DTMC $\MC_{cmb}$ for which $\PF^{\MC_{cmb}}(u,w) = \PF^{\MC_1}(u,w)$ for all $u,w\in I^{\MC_1}_{t_1s} \cap \{t_1,s\}$ and $\PF^{\MC_{cmb}}(u,w) = \PF^{\MC_2}(u,w)$ for all $u,w \in I^{\MC_2}_{t_2s} \cap \{t_2,s\}$. Other transition probabilities can be picked at random, as long as they satisfy the constraints of $\IMC$, as they do not change the reachability probabilities $Pr_{t_1}(\Diamond s)$ and $Pr_{t_2}(\Diamond s)$, see \cref{lem:recursive_formula_for_reachability_prob}.
+    Just use previous argument
+
+    -------------------------------------------------
 
     This assignment might have conflictions for $u,w \in I^{\MC_1}_{t_1s} \cap I^{\MC_2}_{t_2s}$. For these conflictions we assign the value of $\PF^{\MC_1}(u,w)$. 
     Clearly, $\MC_{cmb}$ has the maximum reachability probability for $Pr_{t_1}(\Diamond s)$. 
@@ -762,6 +777,12 @@ Crucially, this theorem can be extended to all transient states.
 \begin{theorem}
     Given an IDTMC $\IMC$ and a (goal) state $s\in S$ there exists a DTMC $\MC \models_U \IMC$ such that $Pr_t^\MC(\Diamond s) = \operatorname{sup}_{\MC_i \models_U \IMC} Pr_t^{\MC_i}(\Diamond s)$ for all transient states $t\in S_{tr}$.
 \end{theorem}
+
+\begin{proof}
+    Consider any given enumeration $t_1, t_2, \dots$ of $S_{tr}$. Clearly this enumeration is finite, since $S_{tr}$ is finite, see \cref{sec:consideration_for_limiting_the_state_size}.
+
+    \emph{Construction.} Now, let $D^{(1)}\models_U \IMC$ with $Pr_{t_1}^{\MC^{(1)}}(\Diamond s) = \Prupper^\IMC_{t_1}$
+\end{proof}
 
 Konstruktion: jeweils zusammengefasste init states und direct successors von s. --> zeigen, dass das die selben EVTs hat (Bijektion für DTMCs). Zeigen das IDTMC Konstruktion nach lemma DTMC mit max EVT hat (beide max reach probs) (vllt reicht es auch zu zeigen dass es für diesen DTMC ein Äquivalent im ursprünglichen IDTMC gibt das selbe EVTs hat (für s halt))
 
@@ -806,7 +827,7 @@ To solve this problem, we propose a remapping/reduction (state augmentation).
 % , while $\Initlower^{\IMC_{aug}^s}(t) = \Initupper^{\IMC_{aug}^s}(t) = 0$ for all $t\in S_{st2}\backslash S_{re}$.
 % --------------------------------------------------------------
 
-Given an IDTMC $\IMC = (S,\PFlower,\PFupper,\Initlower,\Initupper)$, the previously defined $\MC_{s_{in}\rightarrow s}$, $\MC_{s\rightarrow s}$ (corresponding to either the suprema or infima) and a state $s$ (for which we want to calculate the EVT), 
+\emph{Construction.} Given an IDTMC $\IMC = (S,\PFlower,\PFupper,\Initlower,\Initupper)$, the previously defined $\MC_{s_{in}\rightarrow s}$, $\MC_{s\rightarrow s}$ (corresponding to either the suprema or infima) and a state $s$ (for which we want to calculate the EVT), 
 we define $\MC_{aug}^s$, with $S^{\MC_{aug}^s}=S_{st1}\cup S_{st2}$, where the state set for stage 1 is $S_{st1}=\{s^{(1)} \mid s\in S^{\IMC}_{tr}\}$ (transient states in $\IMC$) and the state set for stage 2 is $S_{st2} = \{s^{(2)}\mid s\in S^\IMC$\}. 
 Furthermore, $\PF^{\MC_{aug}^s}(s_1^{(1)},s_2^{(1)})=\PF^{\MC_{s_{in}\rightarrow s}}(s_1,s_2)$ for all $s_1^{(1)}\in S_{st1}$, $s_2^{(1)}\in S_{st1}\backslash \{s\}$ and $\PF^{\MC_{aug}^s}(s_1^{(1)},s_2^{(2)})=\PF^{\MC_{s_{in}\rightarrow s}}(s_1,s_2)$ for $s_1^{(1)} \in S_{st1}$, $s_2^{(2)}\in S_{st2}\cap S_{re}^\IMC$.
 Similarily, $\PF^{\MC_{aug}^s}(s_1^{(2)},s_2^{(2)})=\PF^{\MC_{s\rightarrow s}}(s_1,s_2)$ for all $s_1^{(2)},s_2^{(2)}\in S_{st2}$. \todo{how to refer to $s_1$/$s_2$ Gegenstücke in original S (right now just using identical name)}
@@ -1072,7 +1093,7 @@ Lastly, $\iota_{init}^{\MC_{aug}^s}(t^{(1)})=\iota_{init}^{\MC_{s_{in}\rightarro
 \end{proof}
 \todo{clean up proof}
 
-For a given DTMC $\MC$ and a state $s\in S$, consider the DTMC $\MC_{abs} = (S^{\MC_{abs}},\PF^{\MC_{abs}},\iota_{init}^{\MC})$ with the set of states $S^{\MC_{abs}} = S^\MC_{tr} \cup \{s_{re}\}$. Moreover, the probability function $\PF_{abs}$ is identical to $\PF^\MC$, except the transitions $\PF_{abs}(s,s') = 0$ for all $s'\in S$ and $\PF_{abs}(s,s)=1$, as well as $\PF^\MC(s_1,s_2) = \PF^{\MC_{abs}}(s_1,s_{re})$, for all $s_1\in S^\MC_{tr}$, $s_2\in S^\MC_{re}$ and further $\PF^{\MC_{abs}}(s_{re},s_{re}) = 1$. In other words, $\MC_{abs}$ is modified only in such a way that $s$ is absorbing and all recurrent states are summarized into one state.
+\emph{Construction.} For a given DTMC $\MC$ and a state $s\in S$, consider the DTMC $\MC_{abs} = (S^{\MC_{abs}},\PF^{\MC_{abs}},\iota_{init}^{\MC})$ with the set of states $S^{\MC_{abs}} = S^\MC_{tr} \cup \{s_{re}\}$. Moreover, the probability function $\PF_{abs}$ is identical to $\PF^\MC$, except the transitions $\PF_{abs}(s,s') = 0$ for all $s'\in S$ and $\PF_{abs}(s,s)=1$, as well as $\PF^\MC(s_1,s_2) = \PF^{\MC_{abs}}(s_1,s_{re})$, for all $s_1\in S^\MC_{tr}$, $s_2\in S^\MC_{re}$ and further $\PF^{\MC_{abs}}(s_{re},s_{re}) = 1$. In other words, $\MC_{abs}$ is modified only in such a way that $s$ is absorbing and all recurrent states are summarized into one state.
 \begin{lemma}\label{lem:reach_prob_dependency_on_s_trans}
     The reachability probabilities $Pr^\MC(\Diamond s) = Pr^{\MC_{abs}}(\Diamond s)$ are equal.
 \end{lemma}
@@ -1174,7 +1195,11 @@ Clearly also BSCC
 (Bridge: recurrent groups are BSCC \& BSCC is irreducible DTMC (perhaps prove this shortly))
 We denote stationary distribution of a DTMC $\MC$ restricted to a BSCC $B$ as $\theta^{\MC|_B}$.
 
-As proven in \cite{modeling_and_analysis_stochastic_systems}, the stationary distribution $\theta^\MC$ of the recurrent states of a DTMC $\MC$ is characterized by $\theta^\MC(s) = Pr^\MC(\Diamond B) \cdot \theta^{\MC|_B}(s)$ for all $s\in S_{re}$. Moreover, in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, it is shown that the stationary distribution within a BSCC can be computed through its EVTs. For this they construct a DTMC $\mathcal{B}\!\Rsh^{\hat{v}}$ for every BSCC $B$ with any arbitrary state $v\in S^{\MC|_B}$ in which all incoming transitions of $v$ are redirected to the fresh absorbing state $\hat{v}$. More precisely, $\mathcal{B}\!\Rsh^{\hat{v}} = (S^{\MC|_B} \cup \{\hat{v}\},\PF^{\mathcal{B}\Rsh^{\hat{v}}},\iota_{init}^{\mathcal{B}\Rsh^{\hat{v}}})$, where $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(\hat{v},\hat{v}) = 1$, $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,\hat{v}) = \PF(s,v)$ and $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,v) = 0$ for all $s\in S^{\MC|_B}$, $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,t) = \PF(s,t)$ for all $s\in S$, $t\in S\backslash\{v\}$, and $\iota_{init}^{\mathcal{B}\Rsh^{\hat{v}}}(v) = 1$. The stationary distribution within a DTMC is then given by $\theta^{\MC|_B} = \frac{\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_s]}{\sum_{t\in S}\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_t]}$, as proven in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
+As proven in \cite{modeling_and_analysis_stochastic_systems}, the stationary distribution $\theta^\MC$ of the recurrent states of a DTMC $\MC$ is characterized by $\theta^\MC(s) = Pr^\MC(\Diamond B) \cdot \theta^{\MC|_B}(s)$ for all $s\in S_{re}$. Moreover, in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, it is shown that the stationary distribution within a BSCC can be computed through its EVTs. For this they construct a DTMC $\mathcal{B}\!\Rsh^{\hat{v}}$ for every BSCC $B$ with any arbitrary state $v\in S^{\MC|_B}$ in which all incoming transitions of $v$ are redirected to the fresh absorbing state $\hat{v}$. 
+
+\emph{Construction.} More precisely, $\mathcal{B}\!\Rsh^{\hat{v}} = (S^{\MC|_B} \cup \{\hat{v}\},\PF^{\mathcal{B}\Rsh^{\hat{v}}},\iota_{init}^{\mathcal{B}\Rsh^{\hat{v}}})$, where $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(\hat{v},\hat{v}) = 1$, $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,\hat{v}) = \PF(s,v)$ and $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,v) = 0$ for all $s\in S^{\MC|_B}$, $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,t) = \PF(s,t)$ for all $s\in S$, $t\in S\backslash\{v\}$, and $\iota_{init}^{\mathcal{B}\Rsh^{\hat{v}}}(v) = 1$. 
+
+The stationary distribution within a DTMC is then given by $\theta^{\MC|_B} = \frac{\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_s]}{\sum_{t\in S}\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_t]}$, as proven in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
 
 (Trivially then uppper bound for stationary distribution given by uEVT and lower bound given by lEVT)
 

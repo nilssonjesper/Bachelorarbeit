@@ -39,7 +39,7 @@ We prove this theorem after introducing further concepts/definitions in \cref{pr
 % \end{proof}
 
 \begin{definition}[Path of a DTMC]
-    An \textit{infinite path} $\pi$ in a DTMC $\MC$ is a sequence $\pi = (s_0, s_1, \dots$) of states with $s_0,s_1,\dots \in S$, such that $\iota_{init}(\pi[k]) > 0$ \todo{(vllt $s_0$ statt $\pi[k]$ schreiben)} and $\PF(\pi[k],\pi[k+1]) > 0$, where $\pi[k]\in S$ denotes the $k$-th element of the sequence/path for all $k\in \NN_0$, i.e. $\pi[k] = s_k$. A \textit{finite path} is a finite prefix of an \textit{infinite path}.
+    An \textit{infinite path} $\pi$ in a DTMC $\MC$ is a sequence $\pi = (s_0, s_1, \dots$) of states with $s_0,s_1,\dots \in S$, such that $\iota_{init}(\pi[0]) > 0$ \todo{(vllt $s_0$ statt $\pi[0]$ schreiben)} and $\PF(\pi[k],\pi[k+1]) > 0$, where $\pi[k]\in S$ denotes the $k$-th element of the sequence/path for all $k\in \NN_0$, i.e. $\pi[k] = s_k$. A \textit{finite path} is a finite prefix of an \textit{infinite path}.
 \end{definition}
 
 Furthermore, we define the length $|\pi|$ of a finite path $\pi = (s_0,\dots,s_k) \in Paths_{fin}^\MC$ to be equal to $k$ and for an infinite path $\pi \in \Path$ to be $|\pi| = \infty$.
@@ -60,7 +60,8 @@ Further, we construct the probability space of a DTMC as follows. \todo{cylinder
 Additionally, we will use the notation $Pr_s(\pi)$ to denote the probability measure on the measurable space induced by fixing $s\in S$ as the unique initial state.
 
 \begin{definition}[Path Fragment]
-    Given a path $\pi$ in a DTMC, a path fragment $\pi'$ is an infix of $\pi$.
+    Given a path $\pi$ in a DTMC, a path fragment $\pi'$ is an infix of $\pi$. In other words, a path fragment is a path with an arbitrary value for $\iota_{init}(\pi'[0])$.
+    \todo{i.e. iota can be zero for the first state}
 \end{definition}
 
 \begin{definition}[Until Operator]\label{def:constrained_reachability_probabilities}
@@ -74,7 +75,8 @@ With the "until" operator, we define the reachability probability.
 \begin{definition}[Reachability Probability]
     The reachability probability of a set $T \subseteq S^{\MC}$ in a DTMC $\MC$ is given by $Pr(\Diamond T)$, where $\Diamond T = S\cup T$. The operator $\Diamond$ is also called the "eventually" operator.
 \end{definition}
-As $S^{\MC}$ defines all states in $\MC$, this simply defines the probability of visiting a state $t\in T$ at an arbitrary step in the future, i.e. if $Pr(\Diamond T) >0$ at least one state $t\in T$ is reachable. Furthermore, notice that every $\pi' \in \Diamond T$ is a path fragment of a path in $\MC$.
+As $S^{\MC}$ defines all states in $\MC$, this simply defines the probability of visiting a state $t\in T$ at an arbitrary step in the future, i.e. if $Pr(\Diamond T) >0$ at least one state $t\in T$ is reachable. 
+% Furthermore, notice that every $\pi' \in \Diamond T$ is a path fragment of a path in $\MC$.
 %\todo{how to define/denote initial state. Unterscheiden, wenn t initial oder nicht} 
 In case $T = \{t\}$ is a singleton set, we omit the braces and denote $\Diamond t$ instead of $\Diamond \{t\}$ (and $S \cup t$ instead of $S\cup T$). Lastly, we denote $\Diamond_t T = \{\pi\in \Diamond T \mid \pi[0] = t\}$
 
