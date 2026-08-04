@@ -64,6 +64,14 @@ Additionally, we will use the notation $Pr_s(\pi)$ to denote the probability mea
     \todo{i.e. iota can be zero for the first state}
 \end{definition}
 
+\begin{definition}[Intermediate state]\label{def:intermediate_state}
+    Given a DTMC $\MC$, a set of states $T$, and a (goal) state $t \in S^\MC$, then $u\in S^\MC$ is intermediate if and only if there exists path fragment $\tilde{\pi}$ with $|\tilde{\pi}| = n$, see \dots, such  that $\tilde{\pi}[0]\in T, \tilde{\pi}[n] = s$ and $\tilde{\pi}[k] = u$ for some $k\in \underline{n}$. In other words there exists a path fragment from some $t\in T$ to $s$ in $\MC$ that contains $u$.
+    
+    
+    \todo{define path fragment}
+\end{definition}
+We denote the set of these intermediate states as $I^\MC_{Ts}$ and $I_{Ts}$ if the DTMC is clear from the context. Moreover, if $T$ is a singleton set, i.e., $T =\{t\}$, then we simply denote the set of intermediate states as $I_{ts}$.
+
 \begin{definition}[Until Operator]\label{def:constrained_reachability_probabilities}
     Let $R,T \subseteq S^{\MC}$ be two sets of states of a DTMC $\MC$. For these two sets, we define the "until" Operator as follows,
     \[R\cup T = \{\pi \in \Path\mid\exists k\in \NN: \pi[k]\in T\land \forall i <k: \pi [i]\in R\} \ .\]
@@ -87,6 +95,27 @@ $\sum_{\Path}$ DEFINIEREN (?)
     \[Pr_t^\MC(\Diamond S) = \sum_{\pi\in \Diamond_t S}\prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])\]
     % \[Pr_t^\MC(\Diamond S) = \frac{\sum_{\pi\in \Diamond_t S}\prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])}{|\Diamond S|}\]
 \end{definition}
+
+\begin{lemma}[Recursive Formula for Reachability Probability]\label{lem:recursive_formula_for_reachability_prob}
+    UMC semantic:
+    For states $t,s \in S$:
+    \[Pr_t(\Diamond s) = \sum_{u\in N(t)\cap I_{ts}}\PF(t,u) \cdot Pr_u(\Diamond s)\]
+\end{lemma}
+
+\begin{proof}
+    According to \cref{def:characterizing_reachability_probability_for_path_fragments}, 
+    
+    \begin{align}
+        Pr_t^\MC(\Diamond s)
+        & = \sum_{\pi\in \Diamond_t s}\prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1]) \notag\\
+        & = \sum_{\pi\in \Diamond_t s}\PF^\MC(\pi[0],\pi[1])\cdot \prod_{k=1}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1]) \qquad & (\pi[0] = t \text{ and } \notag \\[-3ex]
+        & & \pi[1]\in N(t)) \notag \\
+        & = \sum_{u\in N(t)} \underbrace{\PF(t,u)}_{\vspace{2pt}= 0 \text{, for all } u \notin I_{ts}^\MC} \cdot \sum_{\pi\in\Diamond_u s} \prod_{k=1}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])\notag \\
+        & = \sum_{u\in N(t)\cap I^\MC_{ts}} \PF(t,u) \cdot \sum_{\pi\in\Diamond_u s} \prod_{k=1}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])\notag \\
+        & = \sum_{u\in N(t) \cap I^\MC_{ts}} \PF(t,u) \cdot Pr_u(\Diamond s) \notag
+    \end{align}
+    \todo{schritt 2 -> 3 könnte noch besser/richtiger gemacht werden; make underbrace further apart}
+\end{proof}
 
 Now that we have defined the probability space for DTMCs, we can prove \cref{th:k-step_transition_probability}.
 
@@ -167,6 +196,17 @@ Notice further, that intuitively the Markov Chain almost surely reaches a recurr
 
 \end{definition}
 
+\begin{definition}[Markov Descision Process (MDP)]\label{def:MDP}\cite{Bibel}\todo{größtenteils übernommen}
+    A \textit{Markov Decision Process} (MDP) is a tuple $D = (S,Act,A,\PF,\iota_{init})$, where
+    \begin{enumerate}[label=(\roman*)]
+        \item $S$ is a countable set of states
+        \item Act is a set of actions
+        \item $A(s)\subseteq Act$ denotes the applicable actions for all states $s\in S$ 
+        \item $\PF: S\times Act\times S \rightarrow [0,1]$ is the transition probability function such that $\sum_{s'\in S}\PF(s,\alpha, s') = 1$ for all $s\in S$ and $\alpha\in A(s)$
+        \item $\iota_{init}: S \rightarrow [0,1]$ is the initial distribution such that $\sum_{s\in S}\iota_{init}(s)=1$
+    \end{enumerate}
+\end{definition}
+
 \begin{definition}[Canonical Form]\label{def:canonical_form}
     For a DTMC $\MC$, its transition matrix $\tT$ is said to be in canonical form if and only if
     \[\tT = \begin{bmatrix}
@@ -177,7 +217,7 @@ Notice further, that intuitively the Markov Chain almost surely reaches a recurr
     \begin{enumerate}[label=(\roman*)]
         \item $Q = (\PF(s,t))_{s,t\in S_{tr}}$ contains the transition probabilities between the transient states
         \item $R = (\PF(s,t))_{s\in S_{tr},t\in S_{re}}$ contains the transition probabilities between transient and recurrent state pairs
-        \item $S = (\PF(s,t))_{s,t\in S_{re}}$ contains the transition probabilities between the transient states
+        \item $S = (\PF(s,t))_{s,t\in S_{re}}$ contains the transition probabilities between the recurrent states
     \end{enumerate}
 \end{definition}
 For absorbing DTMCs $S = \eye$.
@@ -345,6 +385,7 @@ For this, we rewrite the equation $\eE = (I-Q^\T)^{-1} \cdot \tau_{init}$ to $\e
 
 % \section{Relating Expected Visiting Times and Expected Total Rewards}
 \subsection{Relating Expected Visiting Times and Quantitative Reachability}\label{sec:MC_Quantitative_Reachability}
+We will now relate \textit{expected visiting times} to \textit{quantitave reachability} for DTMCs.
 \begin{lemma}\label{lem:quantitative_reachability_F_ts}
     Given a DTMC $\MC$ and its fundamental matrix $F$, we can define
     \[(F)_{ts} = Pr_t(\Diamond s) \cdot (F)_{ss}\]
@@ -391,35 +432,37 @@ Finally, using \cref{th:calc_EVTs_fund_matrix},
     && \text{(by \cref{lem:quantitative_reachability_F_ss})}
     \label{eq:EVT_via_quant_reach_sum}
 \end{align}
-Notice, that for any given DTMC $\MC$ we can construct $\MC_{uni} = (S^\MC\cup\{s_{in}\},\PF^{\MC_{uni}},\iota_{init}^{\MC_{uni}})$, where $\PF^{\MC_{uni}}(s,s') = \PF{^\MC}(s,s')$, $\PF^{\MC_{uni}}(s_{in},s)=\iota_{init}^\MC(s)$ for all $s,s'\in S{^\MC}$ and $\iota_{init}^{\MC_{uni}}(s_{in}) = 1$. Essentially, $\MC_{uni}$ is a copy of $\MC$, where instead of using $\iota_{init}$ as an initial distribution, we simply have an initial state $s_{in}$. 
+Notice, that for any given DTMC $\MC$ we can construct $\MC_{uni}^s = (S^\MC\cup\{s_{in},s_{suc}\},\PF^{\MC_{uni}^s},\iota_{init}^{\MC_{uni}^s})$, where $\PF^{\MC_{uni}^s}(s_i,s_j) = \PF{^\MC}(s_i,s_j)$, $\PF^{\MC_{uni}^s}(s,s_j) = 0$, $\PF^{\MC_{uni}^s}(s,s_{suc}) = 1$, $\PF^{\MC_{uni}^s}(s_{suc},s_j) = \PF{^\MC}(s,s_j)$, $\PF^{\MC_{uni}^s}(s_{in},s_j)=\iota_{init}^\MC(s_j)$ for all $s_i \in S^\MC\backslash \{s\}$ and $s_j\in S{^\MC}$, and $\iota_{init}^{\MC_{uni}^s}(s_{in}) = 1$. Essentially, $\MC_{uni}^s$ is a copy of $\MC$, where instead of using $\iota_{init}$ as an initial distribution, we simply have a single initial state $s_{in}$ and $s$ has only one direct successor $s_{suc}$, which has the same probability distribution as $s$ in $\MC$.
 \begin{theorem}
-    The reachability probabilities and thus also EVTs in $\MC$ and the corresponding $\MC_{uni}$ are identical.
+    The reachability probabilities and thus also EVTs in $\MC$ and the corresponding $\MC_{uni}^s$ are identical.
 \end{theorem}
 \begin{proof}
-    First, we show that the reachability probabilities are equal (see \cref{def:constrained_reachability_probabilities}) $Pr^\MC(\Diamond T) = Pr^{\MC_{uni}}(\Diamond T)$ for all $T\in S^\MC\backslash \{s_{in}\}$.
+    First, we show that the reachability probabilities are equal (see \cref{def:constrained_reachability_probabilities}) $Pr^\MC(\Diamond T) = Pr^{\MC_{uni}^s}(\Diamond T)$ for all $T\in S^\MC$.
     \todo{$\cup$ Symbol ist überladen}
-    For this, we define the bijection $\phi: Paths_{inf}^{\MC_{uni}} \rightarrow Paths_{inf}^\MC, \pi = (s_{in},s_1,s_2,\dots) \mapsto (s_1,s_2,\dots)$. This bijection is well defined, as $\PF^{\MC_{uni}}(s,s') = \PF^{\MC}(s,s')$ for all $s,s'\in S^\MC$ and $N(s_{in}) = \{s \mid \iota^\MC_{init}(s)>0\}$.
+    For this, we define the bijection $\phi: Paths_{inf}^{\MC_{uni}^s} \rightarrow Paths_{inf}^\MC, \pi = (s_{in},s_1,s_2,\dots, s_{k-1}, s_{suc}, s_k,\dots) \mapsto (s_1,s_2,\dots,s_{k-1},s_k,\dots)$, i.e., the bijection $\phi$ removes $s_{in}$ and all $s_{suc}$. This bijection is well defined, as $N(s_{in}) = \{s \mid \iota^\MC_{init}(s)>0\}$, $\PF^{\MC_{uni}^s}(s_i,s_{suc}) > 0$ only for $s_i = s$, and $\PF^{\MC_{uni}^s}(s_{suc},s_i) = \PF^{\MC}(s,s_i)$ ($\rightarrow$ thus same (amount of) paths).
     \todo{Thus they have the same paths}
-    Moreover, 
+    
+    Moreover, assume a given $\pi \in Paths_{inf}^{\MC_{uni}}$ has $\pi[k_i] = s_{suc}$ with $i \in \underline{j}$ for some $j\in \NN$ and $\phi(\pi) = \hat{\pi}$.
     \begin{align}
         Pr^{\MC_{uni}}(\pi) 
         & = \underbrace{\iota^{\MC_{uni}}_{init}(\pi[0])}_{=1} \cdot \prod_{k=0}^{|\pi|-1}\PF^{\MC_{uni}}(\pi[k],\pi[k+1])\notag\\
-        & = \PF^{\MC_{uni}}(\pi[0],\pi[1]) \cdot \prod_{k=1}^{|\pi|-1}\PF^{\MC_{uni}}(\pi[k],\pi[k+1])\notag\\
-        & = \iota^\MC_{init}(\phi(\pi)[1]) \cdot \prod_{k=1}^{|\pi|-1}\PF^{\MC}(\phi(\pi)[k],\phi(\pi)[k+1])\notag\\
+        & = \PF^{\MC_{uni}}(\pi[0],\pi[1]) \cdot \underbrace{\prod_{i=1}^{j-1}\PF^{\MC_{uni}}(\pi[\underbrace{k_i-1}_{=s}],\pi[\underbrace{k_{i}}_{=s_{suc}}])}_{=1} \cdot \prod_{k=1}^{k_1-2}\PF^{\MC_{uni}}(\pi[k],\pi[k+1]) \notag \\
+        &\ \ \  \cdot \prod_{k=k_1}^{k_2-2}\PF^{\MC_{uni}}(\pi[k],\pi[k+1]) \cdot \ldots \cdot \prod_{k_j}^{|\pi|-1}\PF^{\MC_{uni}}(\pi[k=k_j],\pi[k+1])\notag\\
+        & = \iota^\MC_{init}(\phi(\pi)[1]) \cdot \prod_{k=1}^{|\hat{\pi}|-1}\PF^{\MC}(\phi(\pi)[k],\phi(\pi)[k+1]) \qquad (\text{as, }\pi[k_i+1] = \hat{\pi}[k_i])\notag\\
         & = \iota^\MC_{init}(\hat{\pi}[0]) \cdot \prod_{k=0}^{|\hat{\pi}|-1}\PF^{\MC}(\hat{\pi}[k],\hat{\pi}[k+1])\notag\\
-        & = Pr^\MC(\hat{\pi})\notag
+        & = Pr^\MC(\hat{\pi})\ .\notag
     \end{align}
-    for all $\pi \in Paths_{inf}^{\MC_{uni}}$ with $\phi(\pi) = \hat{\pi}$.
     \todo{perhaps better/clearer notation needed then $\phi(\pi)$}
     Therefore, we can conclude $Pr^{\MC_{uni}}(\Diamond T) = Pr^\MC(\Diamond T)$, as $\Diamond T \subseteq Paths_{inf}^{\MC_{uni}}$. Using \cref{eq:EVT_via_quant_reach_sum}, we can then also conclude that the EVTs of $\MC$ and $\MC_{uni}$ must be equal.
 \end{proof}
-Thus, the reachability probabilities $Pr^{\MC_{uni}}_{s_{in}}(\Diamond s)=\sum_{t\in S_{tr}}Pr^{\MC}_t(\Diamond s)$ are equal. 
-Thus, we can simply the previous expression,
+Thus, the reachability probabilities $Pr^{\MC_{uni}}_{s_{in}}(\Diamond s)= \sum_{t\in S_{in}}Pr^{\MC}_t(\Diamond s) = \sum_{t\in \Strin}Pr^{\MC}_t(\Diamond s)$ are equal and we can simplify the previous expression,
 \begin{equation}\label{eq:EVT_via_quant_reach}
-    \Exp^\MC[vt_s] = \frac{Pr^{\MC_{uni}}_{s_{in}}(\Diamond s)}{1-Pr^{\MC_{uni}}_s(\cCircle\Diamond s)}\cdot \iota_{init}(s_{in}) (= \frac{Pr^{\MC}(\Diamond s)}{1-Pr^{\MC}_s(\cCircle\Diamond s)}\cdot \iota_{init}(s_{in}))
+    \Exp^\MC[vt_s] = \frac{Pr^{\MC_{uni}}_{s_{in}}(\Diamond s)}{1-Pr^{\MC_{uni}}_{s_{suc}}(\Diamond s)}\cdot \tau_{init}(s_{in}) \left(= \frac{Pr^{\MC}(\Diamond s)}{1-Pr^{\MC}_{s}(\cCircle\Diamond s)}\cdot \tau_{init}(s_{in})\right)\ .
 \end{equation}
+\todo{maybe explain again what tau_init is; maybe explain explicitly why $Pr_s(\cCircle\Diamond s) = Pr_{s_{suc}}(\cCircle\Diamond s)$}
+In other words, we can calculate the EVT of a DTMC $\MC$ with only two reachability probabilities using the corresponding DTMC $\MC_{uni}$.
 
-Moreover, using \cref{lem:quantitative_reachability_F_ts} and the construction $\MC_{uni}$, we can calculate the quantitative reachability of a given state with $Pr(\Diamond s) = \frac{(F^{\MC_{uni}})_{ts}}{(F)_{ss}}$. 
+Moreover, using \cref{lem:quantitative_reachability_F_ts} and the construction $\MC_{uni}$, we can calculate the quantitative reachability of a given state with $Pr(\Diamond s) = \frac{(F^{\MC_{uni}})_{s_{in}s}}{(F)_{ss}}$. 
 % To calculate the quantitative reachability of a given state without a restriction of the initial state: $Pr_t(\Diamond s) = \frac{1}{(F)_{ss}}\cdot\sum_{t\in S_{tr}}(F)_{ts}\cdot \iota_{init}(t)$ 
 % \todo{perhaps need to change based on how \cref{th:calc_EVTs_fund_matrix} formulated after correction/improvement}
 
