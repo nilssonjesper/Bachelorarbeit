@@ -81,38 +81,39 @@ We denote the set of these intermediate states as $I^\MC_{Ts}$ and $I_{Ts}$ if t
 
 With the "until" operator, we define the reachability probability.
 \begin{definition}[Reachability Probability]
-    The reachability probability of a set $T \subseteq S^{\MC}$ in a DTMC $\MC$ is given by $Pr(\Diamond T)$, where $\Diamond T = S\cup T$. The operator $\Diamond$ is also called the "eventually" operator.
+    The reachability probability of a set $T \subseteq S^{\MC}$ in a DTMC $\MC$ is given by $Pr(\lozenge T)$, where $\lozenge T = S\cup T$. The operator $\lozenge$ is also called the "eventually" operator.
 \end{definition}
-As $S^{\MC}$ defines all states in $\MC$, this simply defines the probability of visiting a state $t\in T$ at an arbitrary step in the future, i.e. if $Pr(\Diamond T) >0$ at least one state $t\in T$ is reachable. 
-% Furthermore, notice that every $\pi' \in \Diamond T$ is a path fragment of a path in $\MC$.
+As $S^{\MC}$ defines all states in $\MC$, this simply defines the probability of visiting a state $t\in T$ at an arbitrary step in the future, i.e. if $Pr(\lozenge T) >0$ at least one state $t\in T$ is reachable. 
+% Furthermore, notice that every $\pi' \in \lozenge T$ is a path fragment of a path in $\MC$.
 %\todo{how to define/denote initial state. Unterscheiden, wenn t initial oder nicht} 
-In case $T = \{t\}$ is a singleton set, we omit the braces and denote $\Diamond t$ instead of $\Diamond \{t\}$ (and $S \cup t$ instead of $S\cup T$). Lastly, we denote $\Diamond_t T = \{\pi\in \Diamond T \mid \pi[0] = t\}$
+In case $T = \{t\}$ is a singleton set, we omit the braces and denote $\lozenge t$ instead of $\lozenge \{t\}$ (and $S \cup t$ instead of $S\cup T$). Lastly, we denote $\Diamond_t T = \{\pi\in \lozenge T \mid \pi[0] = t\}$
 
 $\sum_{\Path}$ DEFINIEREN (?)
 
 \begin{definition}[Characterizing Reachability Probability for Path Fragments]\label{def:characterizing_reachability_probability_for_path_fragments}
-    For some set of paths $\Diamond S$ and an intial state $t$.
-    \[Pr_t^\MC(\Diamond S) = \sum_{\pi\in \Diamond_t S}\prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])\]
-    % \[Pr_t^\MC(\Diamond S) = \frac{\sum_{\pi\in \Diamond_t S}\prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])}{|\Diamond S|}\]
+    For some set of paths $\lozenge S$ and an intial state $t$.
+    \[Pr_t^\MC(\lozenge S) = \sum_{\pi\in \Diamond_t S}\prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])\]
+    % \[Pr_t^\MC(\lozenge S) = \frac{\sum_{\pi\in \Diamond_t S}\prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])}{|\lozenge S|}\]
 \end{definition}
 
 \begin{lemma}[Recursive Formula for Reachability Probability]\label{lem:recursive_formula_for_reachability_prob}
-    UMC semantic:
-    For states $t,s \in S$:
-    \[Pr_t(\Diamond s) = \sum_{u\in N(t)\cap I_{ts}}\PF(t,u) \cdot Pr_u(\Diamond s)\]
+    For states $t \in S$ and $T\subseteq S$:
+    \[Pr_t(\lozenge T) = \sum_{u\in N(t)\cap I_{tT}}\PF(t,u) \cdot Pr_u(\lozenge T)\]
+
+    with $Pr_t(\lozenge T) = 1$ for all $t\in T$
 \end{lemma}
 
 \begin{proof}
     According to \cref{def:characterizing_reachability_probability_for_path_fragments}, 
     
     \begin{align}
-        Pr_t^\MC(\Diamond s)
-        & = \sum_{\pi\in \Diamond_t s}\prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1]) \notag\\
-        & = \sum_{\pi\in \Diamond_t s}\PF^\MC(\pi[0],\pi[1])\cdot \prod_{k=1}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1]) \qquad & (\pi[0] = t \text{ and } \notag \\[-3ex]
+        Pr_t^\MC(\lozenge T)
+        & = \sum_{\pi\in \Diamond_t T}\prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1]) \notag\\
+        & = \sum_{\pi\in \Diamond_t T}\PF^\MC(\pi[0],\pi[1])\cdot \prod_{k=1}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1]) \qquad & (\pi[0] = t \text{ and } \notag \\[-3ex]
         & & \pi[1]\in N(t)) \notag \\
-        & = \sum_{u\in N(t)} \underbrace{\PF(t,u)}_{\vspace{2pt}= 0 \text{, for all } u \notin I_{ts}^\MC} \cdot \sum_{\pi\in\Diamond_u s} \prod_{k=1}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])\notag \\
-        & = \sum_{u\in N(t)\cap I^\MC_{ts}} \PF(t,u) \cdot \sum_{\pi\in\Diamond_u s} \prod_{k=1}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])\notag \\
-        & = \sum_{u\in N(t) \cap I^\MC_{ts}} \PF(t,u) \cdot Pr_u(\Diamond s) \notag
+        & = \sum_{u\in N(t)} \underbrace{\PF(t,u)}_{\vspace{2pt}= 0 \text{, for all } u \notin I_{tT}^\MC} \cdot \sum_{\pi\in\Diamond_u T} \prod_{k=1}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])\notag \\
+        & = \sum_{u\in N(t)\cap I^\MC_{tT}} \PF(t,u) \cdot \sum_{\pi\in\Diamond_u T} \prod_{k=1}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])\notag \\
+        & = \sum_{u\in N(t) \cap I^\MC_{tT}} \PF(t,u) \cdot Pr_u(\lozenge T) \notag
     \end{align}
     \todo{schritt 2 -> 3 könnte noch besser/richtiger gemacht werden; make underbrace further apart}
 \end{proof}
@@ -140,7 +141,7 @@ We use the LTL unary prefix operator $\cCircle$ to denote the temporal modality 
     Moreover, the next step probability is defined as $Pr(\cCircle E) = \sum_{s' \in N(s)}\PF(s,s')\cdot Pr_{s'}(E)$.
 \end{definition}
 
-In this thesis, we will use the "next step" operator $\cCircle$ in combination with the "eventually" operator $\Diamond$. Specifically, we use them to denote the return probability $Pr_s(\cCircle\Diamond s)$, i.e., the probability to reach $s$ from all of its successors.
+In this thesis, we will use the "next step" operator $\cCircle$ in combination with the "eventually" operator $\lozenge$. Specifically, we use them to denote the return probability $Pr_s(\cCircle\lozenge s)$, i.e., the probability to reach $s$ from all of its successors.
 
 \begin{definition}[(Bottom) Strongly Connected Component]\label{def:(B)SCC}
     A set of states $C \subseteq S^{\MC}$ of a DTMC $\MC$ is strongly connected if and only if for every pair of states $s,t\in S$, there exists a path $\pi \in \Path$, such that $\pi[0]=s$ and $\pi[k]$ for some $k\in \NN$. \todo{use induced graph notation additionally}
@@ -156,19 +157,19 @@ SCC (minimal amount of states of set such that still strongly connec)
 
 The states can be classified \dots
 \begin{definition}[Transient and Recurrent states]\label{def:transient_and_recurrent_states}
-    A state $s \in S$ is called recurrent if and only if $Pr_s(\cCircle \Diamond s)=1$. All states that are not recurrent are called transient.
+    A state $s \in S$ is called recurrent if and only if $Pr_s(\cCircle \lozenge s)=1$. All states that are not recurrent are called transient.
 \end{definition}
 In other words, a state is recurrent precisely when we are guaranteed to reach it from all of its direct successors, meaning once we reach a recurrent state, we are bound to return to it. (Thus reaching it infinitely often) Using these definitions, we can split the states $S$ of a DTMC into two sets with $S_{tr}$ containing all of the transient states and $S_{re}$ containing all of the recurrent states. Furthermore, we define $\Strin \subseteq S_{in}$ with $\Strin = S_{in}\cap S_{tr}$. Additionally, we define an absorbing state.
 
 \begin{definition}[Absorbing state]
     A states $s$ of a DTMC $\MC$ is refered to as an absorbing state if and only if $\PF^{\MC}(s,s) = 1$.
 \end{definition}
-This means, once the model enters an absorbing state, it cannot leave it. Notice, that absorbing states are a special type of recurrent states, as the only direct successor of an absorbing state $s\in S$ is $s$ itself and therefore trivially $Pr_s(\Diamond s)=1$.
+This means, once the model enters an absorbing state, it cannot leave it. Notice, that absorbing states are a special type of recurrent states, as the only direct successor of an absorbing state $s\in S$ is $s$ itself and therefore trivially $Pr_s(\lozenge s)=1$.
 
 Notice further, that intuitively the Markov Chain almost surely reaches a recurrent state in any DTMC.
 \todo{Explain almost surely}
 \begin{theorem}[Limit Behaviour]
-    For any DTMC $\MC$, $s\in S$ with $\iota_{init}(s) > 0$ it holds that $Pr(\Diamond S_{re})=1$
+    For any DTMC $\MC$, $s\in S$ with $\iota_{init}(s) > 0$ it holds that $Pr(\lozenge S_{re})=1$
 \end{theorem}
 
 \begin{definition}[Acyclic DTMC]\label{def:acyclic_DTMC}
@@ -197,7 +198,7 @@ Notice further, that intuitively the Markov Chain almost surely reaches a recurr
 \end{definition}
 
 \begin{definition}[Markov Descision Process (MDP)]\label{def:MDP}\cite{Bibel}\todo{größtenteils übernommen}
-    A \textit{Markov Decision Process} (MDP) is a tuple $D = (S,Act,A,\PF,\iota_{init})$, where
+    A \textit{Markov Decision Process} (MDP) is a tuple $\MDP = (S,Act,A,\PF,\iota_{init})$, where
     \begin{enumerate}[label=(\roman*)]
         \item $S$ is a countable set of states
         \item Act is a set of actions
@@ -273,18 +274,18 @@ We, will now see how the expected visiting times of the transient states can be 
     \[F = (I - Q)^{-1}\ .\]
 \end{definition}
 
-\begin{theorem}
-    The matrix $Q$, see \cref{def:canonical_form}, is strictly row-substochastic.
-\end{theorem}
-\begin{proof}
-    % First: there always needs to be recurrent state (reachable)
-    First, notice that there always needs to exist at least one recurrent state. We will prove this through a proof by contradiction. Assume that a Markov Chain $\MC$ consists only of transient states. According to \cref{def:transient_and_recurrent_states} this means, that $Pr_s(\cCircle\Diamond s) < 1$ for all states $s\in S$. Thus there exists a path $\pi\in Paths^\MC_{inf}$ for all $s\in S$ such that for some $k\in \NN$ $Pr_{\pi[k]}(\cCircle\Diamond s) = 0$, i.e. after step k it is impossible to return to state $s$. However, as the state $\pi[k]$, by our assumption, is transient as well, there need to exist $\pi'\in Paths^\MC_{inf}$ and $k'\in \NN$ such that $Pr_{\pi'[k']}(\cCircle\Diamond \pi[k]) = 0$. By repeating this argument (at most $|S|$ times), we arrive at an contradiction, where we necessarily transition to a state that is no longer reachable. Thus the statement is proven. \todo{perhaps do induction argument instead, maybe cleaner?}
-    % Second: show that needs to be one connection transient --> recurrent
-    Next, notice that there always needs to exist a $s\in S_{tr}$ and $s' \in S_{re}$ such that $\PF(s,s')>0$ \todo{(if $S_{tr}\neq \emptyset$, else Q = 0 and trivially strictly row-substoch.; perhaps mention at beginnign)}, i.e. there exists at least one transient state that as an edge to a recurrent state. By assumption \todo{perhaps quote} all states in any given DTMC $\MC$ are reachable and thus also a transient state $s\in S_{tr}$. Using the same argument as \underline{for the first step}, we can conclude that a recurrent state $s'\in S_{re}$ must be reachable from $s$, i.e. $Pr_s(\cCircle\Diamond) = 1$. Thus there necessarily exists an edge from transient to recurrent.
-    % Conclude the proof
-    Through condition (ii) of \cref{def:DTMCs}, we know that $\sum_{j=0}^n(Q)_{ij} \leq 1$ for all $i\in \underline{|S_{tr}|}$, i.e. $Q$ is row-substochastic. As at least one transient state $s$ has an edge $\PF(s,s')>0$, with $s'\in S_{re}$, it follows that $\sum_{j=0}^n (Q)_{sj} < 1$,i.e. $Q$ is strictly row-substochastic.
-    \todo{how to do enumeration over states (mixing up indices and states)}
-\end{proof}
+% \begin{theorem}
+%     The matrix $Q$, see \cref{def:canonical_form}, is strictly row-substochastic.
+% \end{theorem}
+% \begin{proof}
+%     % First: there always needs to be recurrent state (reachable)
+%     First, notice that there always needs to exist at least one recurrent state. We will prove this through a proof by contradiction. Assume that a Markov Chain $\MC$ consists only of transient states. According to \cref{def:transient_and_recurrent_states} this means, that $Pr_s(\cCircle\lozenge s) < 1$ for all states $s\in S$. Thus there exists a path $\pi\in Paths^\MC_{inf}$ for all $s\in S$ such that for some $k\in \NN$ $Pr_{\pi[k]}(\cCircle\lozenge s) = 0$, i.e. after step k it is impossible to return to state $s$. However, as the state $\pi[k]$, by our assumption, is transient as well, there need to exist $\pi'\in Paths^\MC_{inf}$ and $k'\in \NN$ such that $Pr_{\pi'[k']}(\cCircle\lozenge \pi[k]) = 0$. By repeating this argument (at most $|S|$ times), we arrive at an contradiction, where we necessarily transition to a state that is no longer reachable. Thus the statement is proven. \todo{perhaps do induction argument instead, maybe cleaner?}
+%     % Second: show that needs to be one connection transient --> recurrent
+%     Next, notice that there always needs to exist a $s\in S_{tr}$ and $s' \in S_{re}$ such that $\PF(s,s')>0$ \todo{(if $S_{tr}\neq \emptyset$, else Q = 0 and trivially strictly row-substoch.; perhaps mention at beginnign)}, i.e. there exists at least one transient state that as an edge to a recurrent state. By assumption \todo{perhaps quote} all states in any given DTMC $\MC$ are reachable and thus also a transient state $s\in S_{tr}$. Using the same argument as \underline{for the first step}, we can conclude that a recurrent state $s'\in S_{re}$ must be reachable from $s$, i.e. $Pr_s(\cCircle\lozenge) = 1$. Thus there necessarily exists an edge from transient to recurrent.
+%     % Conclude the proof
+%     Through condition (ii) of \cref{def:DTMCs}, we know that $\sum_{j=0}^n(Q)_{ij} \leq 1$ for all $i\in \underline{|S_{tr}|}$, i.e. $Q$ is row-substochastic. As at least one transient state $s$ has an edge $\PF(s,s')>0$, with $s'\in S_{re}$, it follows that $\sum_{j=0}^n (Q)_{sj} < 1$,i.e. $Q$ is strictly row-substochastic.
+%     \todo{how to do enumeration over states (mixing up indices and states)}
+% \end{proof}
 
 As $Q$ is strictly row-substochastic, we can thus conclude using \cref{th:convergence_strictly_row-substoch}, that $Q$ is also convergent. Therefore, the Neumann series of $Q$ converges with $\sum^\infty_{k=0}Q^k = (\eye - Q)^{-1}$, i.e. the fundamental matrix (see \cref{def:fundamental_matrix}) is well-defined.
 
@@ -296,75 +297,74 @@ With this characterization of EVTs for transient states, we can prove the follow
 \end{lemma}
 We provide a short proof by contradiction
 \begin{proof}
-    Assume that a transient state $s_{tr}$ is reachable from a recurrent state $s_{re}$, i.e. $Pr_{s_{re}}(\cCircle\Diamond s_{tr}) > 0$. As $Pr_{s_{re}}(\cCircle\Diamond s_{re}) = 1$, see \cref{def:transient_and_recurrent_states}, necessarily $s_{re}$ is reachable from $s_{tr}$ as well and crucially $Pr_{s_{tr}}(\cCircle\Diamond s_{re}) = 1$. We now view each visit of $s_{re}$ as an indepenent trial, due to the strong Markov property \cref{def:strong_markov_property}. We can then describe the probability of not reaching $s_{tr}$ as $\lim_{N\rightarrow\infty} (1-Pr_{s_{re}}(\cCircle\Diamond s_{tr}))^N = 0$, as $s_{re}$ is visited infinitely often, see \cref{lem:EVTs_of_recurrent_states}. Thus, we are guarenteed to visit $s_{tr}$, when starting in $s_{re}$. As $Pr_{s_{tr}}(\cCircle\Diamond s_{re}) = 1$, this process repeats each time $s_{tr}$ is visited. Therefore, $s_{tr}$ is visited infinitely often as well, i.e. $\Exp[vt_{s_{tr}}] = \infty$. This contradicts the characterization of the EVTs of transient states, proven by \cite{KemenySnellBook}.
+    Assume that a transient state $s_{tr}$ is reachable from a recurrent state $s_{re}$, i.e. $Pr_{s_{re}}(\cCircle\lozenge s_{tr}) > 0$. As $Pr_{s_{re}}(\cCircle\lozenge s_{re}) = 1$, see \cref{def:transient_and_recurrent_states}, necessarily $s_{re}$ is reachable from $s_{tr}$ as well and crucially $Pr_{s_{tr}}(\cCircle\lozenge s_{re}) = 1$. We now view each visit of $s_{re}$ as an indepenent trial, due to the strong Markov property \cref{def:strong_markov_property}. We can then describe the probability of not reaching $s_{tr}$ as $\lim_{N\rightarrow\infty} (1-Pr_{s_{re}}(\cCircle\lozenge s_{tr}))^N = 0$, as $s_{re}$ is visited infinitely often, see \cref{lem:EVTs_of_recurrent_states}. Thus, we are guarenteed to visit $s_{tr}$, when starting in $s_{re}$. As $Pr_{s_{tr}}(\cCircle\lozenge s_{re}) = 1$, this process repeats each time $s_{tr}$ is visited. Therefore, $s_{tr}$ is visited infinitely often as well, i.e. $\Exp[vt_{s_{tr}}] = \infty$. This contradicts the characterization of the EVTs of transient states, proven by \cite{KemenySnellBook}.
     Thus, we conclude that transient states cannot be reachable from recurrent states, i.e. can only be reached from other transient states.
 \end{proof}
 \todo{ist der proof so sauber/schön genug + soll das ein lemma oder proof sein? + notion eines current state einführen?}
 
 Moreover, we can use this result to define a general characterization for the EVTs of transient states using the initial distribution.
-\begin{theorem}[Calculating EVTs using the Fundamental Matrix]\label{th:calc_EVTs_fund_matrix}
-    Given a DTMC $\MC$ and the corresponding matrix $Q$, we can define 
-    \[\Exp[vt_s] = \sum_{t\in \Strin}(F)_{ts} \cdot  \iota_{init}(t)% = \sum_{j=0}^{|S_{tr}|}(F)_{ij}\cdot(\iota_{init})_j
-    \]
-    \todo{hier n nur die transient states; den fehler habe ich wahrscheinlich mehrfach gemacht; vllt lösen durch $\sum_{t\in S_{tr}}$}
-    \todo{does this definition work?; bec. my Ax definition from seminar is wrong (should be xA, i.e. $\iota F$)}
-\end{theorem}
+% \begin{theorem}[Calculating EVTs using the Fundamental Matrix]\label{th:calc_EVTs_fund_matrix}
+%     Given a DTMC $\MC$ and the corresponding matrix $Q$, we can define 
+%     \[\Exp[vt_s] = \sum_{t\in \Strin}(F)_{ts} \cdot  \iota_{init}(t)% = \sum_{j=0}^{|S_{tr}|}(F)_{ij}\cdot(\iota_{init})_j
+%     \]
+%     \todo{hier n nur die transient states; den fehler habe ich wahrscheinlich mehrfach gemacht; vllt lösen durch $\sum_{t\in S_{tr}}$}
+%     \todo{does this definition work?; bec. my Ax definition from seminar is wrong (should be xA, i.e. $\iota F$)}
+% \end{theorem}
 
-\begin{proof}
-As defined in \cref{def:EVTs_in_DTMCs},
-    \[\Exp^{\MC}[vt_s]=\int_{\pi\in\Path}vt_s(\pi)dPr^{\MC}(\pi)\ .\]
-    We now substitute the visit time function $vt_s(\pi)$, using \cref{def:visiting_times_of_infinite_paths}.
-    \[
-    \begin{aligned}
-    \Exp^{\MC}[vt_s]
-    &= \int_{\pi\in\Path}\sum_{k=0}^\infty
-        \llbracket \pi[k]=s \rrbracket\, dPr^{\MC}(\pi) \\
-    &= \sum_{k=0}^\infty
-        \int_{\pi\in\Path}
-        \llbracket \pi[k]=s \rrbracket\, dPr^{\MC}(\pi),
-    & \text{(by \cref{def:monotone_convergence_theorem} and since}\\[-3ex]
-    & & \text{$vt_s$ is non-negative).}
-    \end{aligned}
-    \]
-    \todo{add monot. conv. th. to matheteil}
-    Since $\int_{\pi\in\Path} \llbracket \pi[k]=s \rrbracket dPr^{\MC}(\pi) = Pr^\MC(\pi[k] = s)$, we can thus conclude that
-    \[\Exp^\MC[vt_s]= \sum_{k=0}^\infty Pr^\MC(\pi[k] = s)\ .\]
-    \todo{here $Pr^\MC(\pi[k] = s)$ means: prob that that some path in s at step k}
+% \begin{proof}
+% As defined in \cref{def:EVTs_in_DTMCs},
+%     \[\Exp^{\MC}[vt_s]=\int_{\pi\in\Path}vt_s(\pi)dPr^{\MC}(\pi)\ .\]
+%     We now substitute the visit time function $vt_s(\pi)$, using \cref{def:visiting_times_of_infinite_paths}.
+%     \[
+%     \begin{aligned}
+%     \Exp^{\MC}[vt_s]
+%     &= \int_{\pi\in\Path}\sum_{k=0}^\infty
+%         \llbracket \pi[k]=s \rrbracket\, dPr^{\MC}(\pi) \\
+%     &= \sum_{k=0}^\infty
+%         \int_{\pi\in\Path}
+%         \llbracket \pi[k]=s \rrbracket\, dPr^{\MC}(\pi),
+%     & \text{(by \cref{def:monotone_convergence_theorem} and since}\\[-3ex]
+%     & & \text{$vt_s$ is non-negative).}
+%     \end{aligned}
+%     \]
+%     \todo{add monot. conv. th. to matheteil}
+%     Since $\int_{\pi\in\Path} \llbracket \pi[k]=s \rrbracket dPr^{\MC}(\pi) = Pr^\MC(\pi[k] = s)$, we can thus conclude that
+%     \[\Exp^\MC[vt_s]= \sum_{k=0}^\infty Pr^\MC(\pi[k] = s)\ .\]
+%     \todo{here $Pr^\MC(\pi[k] = s)$ means: prob that that some path in s at step k}
     
-    Using the \textit{Law of Total Probability}\todo{include in matheteil}, we can characterize the probability $Pr^\MC(\pi[k] = s)$ by conditioning it on the possible initial states. Thereby, $Pr^\MC(\pi[k] = s) = \sum_{t\in S_{in}} Pr^\MC(\pi[k] = s\mid\pi[0]=t)\cdot Pr^\MC(\pi[0] = t)$, where $Pr^\MC(\pi[0]=t)=\iota_{init}(t)$.
-    We now substitute $Pr^\MC(\pi[k] = s)$ with this term to get
-    \[
-    \begin{aligned}
-        \Exp^\MC[vt_s]
-        &= \sum_{k=0}^\infty
-            \sum_{t\in S_{in}}
-            Pr^\MC(\pi[k]=s\mid\pi[0]=t)\,
-            \iota_{init}(t) \\
-        &= \sum_{k=0}^\infty
-            \sum_{t\in\Strin}
-            Pr^\MC(\pi[k]=s\mid\pi[0]=t)\,
-            \iota_{init}(t),
-        & \text{(by \cref{lem:reachability_of_transient_states})} \\
-        &= \sum_{t\in\Strin}
-            \left(
-            \sum_{k=0}^\infty
-            Pr^\MC(\pi[k]=s\mid\pi[0]=t)
-            \right)
-            \iota_{init}(t),
-        & \text{(all terms are}\\[-3ex]
-        & & \text{non-negative)}\\
-        & = \sum_{t \in \Strin} \left(\sum_{k=0}^\infty  Pr^\MC(\pi[k] = s\mid\pi[0]=t)\right)\cdot \iota_{init}(t)
-        \end{aligned}
-    \]
-    \todo{s is transitive and trans. only reachable from trans.}
-    \todo{add to matheteil: non-neg. terms \& cond. probability notation}
-    Using \cref{th:k-step_transition_probability}, we can now substitute $Pr^\MC(\pi[k] = s\mid\pi[0]=t) = (Q^k)_{ts}$. Notice that this is true, as crucially $s$ can only be reached from paths that contain exclusively transient states, see \cref{lem:reachability_of_transient_states}. \todo{noch ausführlicher begründen?}
-    Thus, $\sum_{k=0}^\infty Pr^\MC(\pi[k] = s\mid\pi[0]=t)=\sum_{k=0}^\infty (Q^k)_{ts} = (F)_{ts}$.
-    Finally, we can derive the final equation
-    \[
-    \Exp[vt_s]= \sum_{t\in \Strin}(F)_{ts}\cdot \iota_{init}(t)\ .
-    \]
-\end{proof}
+%     Using the \textit{Law of Total Probability}\todo{include in matheteil}, we can characterize the probability $Pr^\MC(\pi[k] = s)$ by conditioning it on the possible initial states. Thereby, $Pr^\MC(\pi[k] = s) = \sum_{t\in S_{in}} Pr^\MC(\pi[k] = s\mid\pi[0]=t)\cdot Pr^\MC(\pi[0] = t)$, where $Pr^\MC(\pi[0]=t)=\iota_{init}(t)$.
+%     We now substitute $Pr^\MC(\pi[k] = s)$ with this term to get
+%     \[
+%     \begin{aligned}
+%         \Exp^\MC[vt_s]
+%         &= \sum_{k=0}^\infty
+%             \sum_{t\in S_{in}}
+%             Pr^\MC(\pi[k]=s\mid\pi[0]=t) \cdot
+%             \iota_{init}(t) \\
+%         &= \sum_{k=0}^\infty
+%             \sum_{t\in\Strin}
+%             Pr^\MC(\pi[k]=s\mid\pi[0]=t) \cdot
+%             \iota_{init}(t)
+%         & \text{(by \cref{lem:reachability_of_transient_states})} \\
+%         &= \sum_{t\in\Strin}
+%             \left(
+%             \sum_{k=0}^\infty
+%             Pr^\MC(\pi[k]=s\mid\pi[0]=t)
+%             \right) \cdot
+%             \iota_{init}(t)
+%         & \text{(all terms are}\\[-3ex]
+%         & & \text{non-negative)}
+%         \end{aligned}
+%     \]
+%     \todo{s is transitive and trans. only reachable from trans.}
+%     \todo{add to matheteil: non-neg. terms \& cond. probability notation}
+%     Using \cref{th:k-step_transition_probability}, we can now substitute $Pr^\MC(\pi[k] = s\mid\pi[0]=t) = (Q^k)_{ts}$. Notice that this is true, as crucially $s$ can only be reached from paths that contain exclusively transient states, see \cref{lem:reachability_of_transient_states}. \todo{noch ausführlicher begründen?}
+%     Thus, $\sum_{k=0}^\infty Pr^\MC(\pi[k] = s\mid\pi[0]=t)=\sum_{k=0}^\infty (Q^k)_{ts} = (F)_{ts}$.
+%     Finally, we can derive the final equation
+%     \[
+%     \Exp[vt_s]= \sum_{t\in \Strin}(F)_{ts}\cdot \iota_{init}(t)\ .
+%     \]
+% \end{proof}
 
 Let us now define $\tau_{init} = (\iota_{init}(s_1),\dots,\iota_{init}(s_n))^\T$ for all $s\in S_{tr}$, so that we can rewrite \cref{th:calc_EVTs_fund_matrix} to $\Exp[vt_s] = (F^\T)_s \cdot \tau_{init}$, where $(F^\T)_s$ denotes the row vector of $F^\T$ corresponding to the state $s$. As introduced in \cref{def:fundamental_matrix}, $(F)_s = ((I-Q)^{-1})_s$, from which we can conclude that $\Exp[vt_s] = ((I-Q^\T)^{-1})_s \cdot \tau_{init}$ or $\eE = (I-Q^\T)^{-1} \cdot \tau_{init}$, where $\eE = (\Exp[vt_{s_1}], \dots, \Exp[vt_{s_n}])^\T$.
 However, as the calculation of the inverse of a high-dimensional matrix becomes infeasible for large models, we will take a look at how the EVTs can be calculated without the fundamental matrix.
@@ -388,8 +388,9 @@ For this, we rewrite the equation $\eE = (I-Q^\T)^{-1} \cdot \tau_{init}$ to $\e
 We will now relate \textit{expected visiting times} to \textit{quantitave reachability} for DTMCs.
 \begin{lemma}\label{lem:quantitative_reachability_F_ts}
     Given a DTMC $\MC$ and its fundamental matrix $F$, we can define
-    \[(F)_{ts} = Pr_t(\Diamond s) \cdot (F)_{ss}\]
-    for all $s\neq t\in S_{tr}$
+    \[(F)_{ts} = Pr_t(\lozenge s) \cdot (F)_{ss}\ ,\]
+    for all $s\neq t\in S_{tr}$, and thus
+    \[\Exp[vt_s] = Pr(\lozenge s) \cdot (F)_{ss}\ .\]
 \end{lemma}
 \todo{define $Pr_t$}
 Trivially, all paths that reach $s$ from $t$ at least once visit $s$. Thus, intuitively, the \textit{expected visiting time} of $s$ starting in $t$ is simply the product of the probability of reaching $s$ and the \textit{expected visiting time} of $s$ starting in $s$.
@@ -397,47 +398,63 @@ Trivially, all paths that reach $s$ from $t$ at least once visit $s$. Thus, intu
 
 \begin{lemma}\label{lem:quantitative_reachability_F_ss}
     Given a DTMC $\MC$ and its fundamental matrix $F$, we can define
-    \[(F)_{ss} = \frac{1}{1-Pr_s(\cCircle\Diamond s)}\]
-    for all $s\in S_{tr}$, where $Pr_s(\cCircle\Diamond s) = \sum_{t\in N(s)} \PF(s,t)\cdot Pr_t(\Diamond s)$
+    \[(F)_{ss} = \frac{1}{1-Pr_s(\cCircle\lozenge s)}\]
+    for all $s\in S_{tr}$, where $Pr_s(\cCircle\lozenge s) = \sum_{t\in N(s)} \PF(s,t)\cdot Pr_t(\lozenge s)$
     
-    (The fraction is well-defined as $Pr_s(\cCircle\Diamond s)<1$, see \cref{def:transient_and_recurrent_states})
+    (The fraction is well-defined as $Pr_s(\cCircle\lozenge s)<1$, see \cref{def:transient_and_recurrent_states})
     \todo{This might be confusing because same notation used: $Pr_t$ two times with very different context/meaning}
 \end{lemma}
 
 \begin{proof}
     \todo{use strong markov property somewhere in this proof; to justify probability statements/construction}
-    As the only initial state is $s$, it is necessarily visited at least once. After that the probability that $s$ will be visited at least one more time is $Pr_s(\cCircle\Diamond s)$ and the probability that it will not, is accordingly $(1-Pr_s(\cCircle\Diamond s))$. Moreover, the probability of visiting $s$ exactly $k$ times is precisely the probability of returning $k-1$ times and not return again afterwards. Thus, $Pr_s(N_s = k) = Pr_s(\cCircle\Diamond s)^{k-1}(1-Pr_s(\cCircle\Diamond s))$ for $k\in \NN$, where $N_s$ is a random variable representing the total number of time $s$ is visited ($Pr_s$ means starting in $s$). Intuitively,
+    As the only initial state is $s$, it is necessarily visited at least once. After that the probability that $s$ will be visited at least one more time is $Pr_s(\cCircle\lozenge s)$ and the probability that it will not, is accordingly $(1-Pr_s(\cCircle\lozenge s))$. Moreover, the probability of visiting $s$ exactly $k$ times is precisely the probability of returning $k-1$ times and not return again afterwards. Thus, $Pr_s(N_s = k) = Pr_s(\cCircle\lozenge s)^{k-1}(1-Pr_s(\cCircle\lozenge s))$ for $k\in \NN$, where $N_s$ is a random variable representing the total number of time $s$ is visited ($Pr_s$ means starting in $s$). Intuitively,
     \begin{align}
         (F)_{ss}
         & = \sum_{k=1}^\infty k\cdot Pr_s(N_s=k) &\notag\\
-        & = \sum_{k=1}^\infty k\cdot Pr_s(\cCircle\Diamond s)^{k-1}(1-Pr_s(\cCircle\Diamond s)) &\notag\\
-        & = (1-Pr_s(\cCircle\Diamond s))\sum_{k=1}^\infty k\cdot Pr_s(\cCircle\Diamond s)^{k-1} &\notag\\
-        & = (1-Pr_s(\cCircle\Diamond s))\cdot \frac{1}{(1-Pr_s(\cCircle\Diamond s))^2} = \frac{1}{1-Pr_s(\cCircle\Diamond s)} \qquad& \text{(by geometric series.)} \notag 
+        & = \sum_{k=1}^\infty k\cdot Pr_s(\cCircle\lozenge s)^{k-1}(1-Pr_s(\cCircle\lozenge s)) &\notag\\
+        & = (1-Pr_s(\cCircle\lozenge s))\sum_{k=1}^\infty k\cdot Pr_s(\cCircle\lozenge s)^{k-1} &\notag\\
+        & = (1-Pr_s(\cCircle\lozenge s))\cdot \frac{1}{(1-Pr_s(\cCircle\lozenge s))^2} = \frac{1}{1-Pr_s(\cCircle\lozenge s)} \qquad& \text{(by geometric series.)} \notag 
     \end{align}
     \todo{more concrete proof/definitions?? + geometric series in matheteil?}
 \end{proof}
 Finally, using \cref{th:calc_EVTs_fund_matrix},
+% \begin{align}
+% \Exp[vt_s]
+%     &= \sum_{t\in\Strin}(F)_{ts}\cdot\iota_{init}(t)
+%     && \notag\\
+%     &= \sum_{t\in\Strin}
+%        Pr_t(\lozenge s)\cdot(F)_{ss}\cdot\iota_{init}(t)
+%     && \text{(by \cref{lem:quantitative_reachability_F_ts})}
+%     \notag\\
+%     &= \sum_{t\in\Strin}
+%        \frac{Pr_t(\lozenge s)}
+%             {1-Pr_s(\Circle\lozenge s)}
+%        \cdot\iota_{init}(t)
+%     && \text{(by \cref{lem:quantitative_reachability_F_ss})}
+%     \label{eq:EVT_via_quant_reach_sum}
+% \end{align}
+
 \begin{align}
 \Exp[vt_s]
-    &= \sum_{t\in\Strin}(F)_{ts}\cdot\iota_{init}(t)
-    && \notag\\
-    &= \sum_{t\in\Strin}
-       Pr_t(\Diamond s)\cdot(F)_{ss}\cdot\iota_{init}(t)
+    &= Pr(\lozenge s)\cdot(F)_{ss}
     && \text{(by \cref{lem:quantitative_reachability_F_ts})}
     \notag\\
-    &= \sum_{t\in\Strin}
-       \frac{Pr_t(\Diamond s)}
-            {1-Pr_s(\Circle\Diamond s)}
-       \cdot\iota_{init}(t)
+    &=  \frac{Pr(\lozenge s)}
+            {1-Pr_s(\Circle\lozenge s)}
     && \text{(by \cref{lem:quantitative_reachability_F_ss})}
-    \label{eq:EVT_via_quant_reach_sum}
+    \label{eq:EVT_via_quant_reach_sum}\\
+    &= \sum_{t\in\Strin}
+       \frac{Pr_t(\lozenge s)}
+            {1-Pr_s(\Circle\lozenge s)}
+       \cdot\iota_{init}(t) \notag
 \end{align}
+
 Notice, that for any given DTMC $\MC$ we can construct $\MC_{uni}^s = (S^\MC\cup\{s_{in},s_{suc}\},\PF^{\MC_{uni}^s},\iota_{init}^{\MC_{uni}^s})$, where $\PF^{\MC_{uni}^s}(s_i,s_j) = \PF{^\MC}(s_i,s_j)$, $\PF^{\MC_{uni}^s}(s,s_j) = 0$, $\PF^{\MC_{uni}^s}(s,s_{suc}) = 1$, $\PF^{\MC_{uni}^s}(s_{suc},s_j) = \PF{^\MC}(s,s_j)$, $\PF^{\MC_{uni}^s}(s_{in},s_j)=\iota_{init}^\MC(s_j)$ for all $s_i \in S^\MC\backslash \{s\}$ and $s_j\in S{^\MC}$, and $\iota_{init}^{\MC_{uni}^s}(s_{in}) = 1$. Essentially, $\MC_{uni}^s$ is a copy of $\MC$, where instead of using $\iota_{init}$ as an initial distribution, we simply have a single initial state $s_{in}$ and $s$ has only one direct successor $s_{suc}$, which has the same probability distribution as $s$ in $\MC$.
 \begin{theorem}
     The reachability probabilities and thus also EVTs in $\MC$ and the corresponding $\MC_{uni}^s$ are identical.
 \end{theorem}
-\begin{proof}
-    First, we show that the reachability probabilities are equal (see \cref{def:constrained_reachability_probabilities}) $Pr^\MC(\Diamond T) = Pr^{\MC_{uni}^s}(\Diamond T)$ for all $T\in S^\MC$.
+\begin{proof}\label{pr:reach_prob_MC_uni}
+    First, we show that the reachability probabilities are equal (see \cref{def:constrained_reachability_probabilities}) $Pr^\MC(\lozenge T) = Pr^{\MC_{uni}^s}(\lozenge T)$ for all $T\in S^\MC$.
     \todo{$\cup$ Symbol ist überladen}
     For this, we define the bijection $\phi: Paths_{inf}^{\MC_{uni}^s} \rightarrow Paths_{inf}^\MC, \pi = (s_{in},s_1,s_2,\dots, s_{k-1}, s_{suc}, s_k,\dots) \mapsto (s_1,s_2,\dots,s_{k-1},s_k,\dots)$, i.e., the bijection $\phi$ removes $s_{in}$ and all $s_{suc}$. This bijection is well defined, as $N(s_{in}) = \{s \mid \iota^\MC_{init}(s)>0\}$, $\PF^{\MC_{uni}^s}(s_i,s_{suc}) > 0$ only for $s_i = s$, and $\PF^{\MC_{uni}^s}(s_{suc},s_i) = \PF^{\MC}(s,s_i)$ ($\rightarrow$ thus same (amount of) paths).
     \todo{Thus they have the same paths}
@@ -453,23 +470,17 @@ Notice, that for any given DTMC $\MC$ we can construct $\MC_{uni}^s = (S^\MC\cup
         & = Pr^\MC(\hat{\pi})\ .\notag
     \end{align}
     \todo{perhaps better/clearer notation needed then $\phi(\pi)$}
-    Therefore, we can conclude $Pr^{\MC_{uni}}(\Diamond T) = Pr^\MC(\Diamond T)$, as $\Diamond T \subseteq Paths_{inf}^{\MC_{uni}}$. Using \cref{eq:EVT_via_quant_reach_sum}, we can then also conclude that the EVTs of $\MC$ and $\MC_{uni}$ must be equal.
+    Therefore, we can conclude $Pr^{\MC_{uni}}(\lozenge T) = Pr^\MC(\lozenge T)$, as $\lozenge T \subseteq Paths_{inf}^{\MC_{uni}}$. Using \cref{eq:EVT_via_quant_reach_sum}, we can then also conclude that the EVTs of $\MC$ and $\MC_{uni}$ must be equal.
 \end{proof}
-Thus, the reachability probabilities $Pr^{\MC_{uni}}_{s_{in}}(\Diamond s)= \sum_{t\in S_{in}}Pr^{\MC}_t(\Diamond s) = \sum_{t\in \Strin}Pr^{\MC}_t(\Diamond s)$ are equal and we can simplify the previous expression,
+Thus, the reachability probabilities $Pr^{\MC_{uni}}_{s_{in}}(\lozenge s)= \sum_{t\in S_{in}}Pr^{\MC}_t(\lozenge s) = \sum_{t\in \Strin}Pr^{\MC}_t(\lozenge s)$ are equal and we can simplify the previous expression,
 \begin{equation}\label{eq:EVT_via_quant_reach}
-    \Exp^\MC[vt_s] = \frac{Pr^{\MC_{uni}}_{s_{in}}(\Diamond s)}{1-Pr^{\MC_{uni}}_{s_{suc}}(\Diamond s)}\cdot \tau_{init}(s_{in}) \left(= \frac{Pr^{\MC}(\Diamond s)}{1-Pr^{\MC}_{s}(\cCircle\Diamond s)}\cdot \tau_{init}(s_{in})\right)\ .
+    \Exp^\MC[vt_s] = \frac{Pr^{\MC_{uni}}_{s_{in}}(\lozenge s)}{1-Pr^{\MC_{uni}}_{s_{suc}}(\lozenge s)}\cdot \tau_{init}(s_{in}) \left(= \frac{Pr^{\MC}(\lozenge s)}{1-Pr^{\MC}_{s}(\cCircle\lozenge s)}\cdot \tau_{init}(s_{in})\right)\ .
 \end{equation}
-\todo{maybe explain again what tau_init is; maybe explain explicitly why $Pr_s(\cCircle\Diamond s) = Pr_{s_{suc}}(\cCircle\Diamond s)$}
+\todo{maybe explain again what $tau_{init}$ is; maybe explain explicitly why $Pr_s(\cCircle\lozenge s) = Pr_{s_{suc}}(\cCircle\lozenge s)$}
 In other words, we can calculate the EVT of a DTMC $\MC$ with only two reachability probabilities using the corresponding DTMC $\MC_{uni}$.
 
-Moreover, using \cref{lem:quantitative_reachability_F_ts} and the construction $\MC_{uni}$, we can calculate the quantitative reachability of a given state with $Pr(\Diamond s) = \frac{(F^{\MC_{uni}})_{s_{in}s}}{(F)_{ss}}$. 
-% To calculate the quantitative reachability of a given state without a restriction of the initial state: $Pr_t(\Diamond s) = \frac{1}{(F)_{ss}}\cdot\sum_{t\in S_{tr}}(F)_{ts}\cdot \iota_{init}(t)$ 
+Moreover, using \cref{lem:quantitative_reachability_F_ts} and the construction $\MC_{uni}$, we can calculate the quantitative reachability of a given state with $Pr(\lozenge s) = \frac{(F^{\MC_{uni}})_{s_{in}s}}{(F)_{ss}}$. 
+% To calculate the quantitative reachability of a given state without a restriction of the initial state: $Pr_t(\lozenge s) = \frac{1}{(F)_{ss}}\cdot\sum_{t\in S_{tr}}(F)_{ts}\cdot \iota_{init}(t)$ 
 % \todo{perhaps need to change based on how \cref{th:calc_EVTs_fund_matrix} formulated after correction/improvement}
 
-\section{Consideration for limiting the state size}\label{sec:consideration_for_limiting_the_state_size}
-In \cref{sec:EVTs_for_DTMCs}, we concluded that due to \cref{lem:EVTs_of_recurrent_states}, only the transient states need to be considered for calculating EVTs. As we are interested in the calculation of EVTs, we will only consider DTMCs and IDTMCs with a finite amount of transient states.
-
-Moreover, we will only consider DTMCs (and IDTMCs) where all states are reachable, as if they are not the EVTs of those states are trivially 0 and have no impact on the EVTs of the other states
-
-\todo{Exception for infinite MCs with dependencies (probably not because still infinite calc.); Beweis, dass EVTs gleich ohne non-reachable states}
-\todo{Move these two notes somewhere else: too little content for a standalone block}
+%\section{Consideration for limiting the state size}\label{sec:consideration_for_limiting_the_state_size}

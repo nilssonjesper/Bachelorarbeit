@@ -33,7 +33,7 @@
 \contentsline {definition}{{Definition}{3.{12}}{Next Step Probability}}{13}{definition.12}%
 \contentsline {definition}{{Definition}{3.{13}}{(Bottom) Strongly Connected Component}}{13}{definition.13}%
 \contentsline {definition}{{Definition}{3.{14}}{Transient and Recurrent states}}{13}{definition.14}%
-\contentsline {definition}{{Definition}{3.{15}}{Absorbing state}}{13}{definition.15}%
+\contentsline {definition}{{Definition}{3.{15}}{Absorbing state}}{14}{definition.15}%
 \contentsline {theorem}{{Theorem}{3.{16}}{Limit Behaviour}}{14}{theorem.16}%
 \contentsline {definition}{{Definition}{3.{17}}{Acyclic DTMC}}{14}{definition.17}%
 \contentsline {definition}{{Definition}{3.{18}}{Stopping Time}}{14}{definition.18}%
@@ -44,53 +44,69 @@
 \contentsline {definition}{{Definition}{3.{23}}{Expected Visiting Times in DTMCs}}{15}{definition.23}%
 \contentsline {lemma}{{Lemma}{3.{24}}{EVTs of Recurrent States}}{16}{lemma.24}%
 \contentsline {definition}{{Definition}{3.{25}}{Fundamental Matrix}}{16}{definition.25}%
-\contentsline {theorem}{{Theorem}{3.{26}}{}}{16}{theorem.26}%
-\contentsline {proof}{{Proof}{5}{}}{16}{proof.5}%
-\contentsline {lemma}{{Lemma}{3.{27}}{Reachability of Transient States}}{17}{lemma.27}%
-\contentsline {proof}{{Proof}{6}{}}{17}{proof.6}%
-\contentsline {theorem}{{Theorem}{3.{28}}{Calculating EVTs using the Fundamental Matrix}}{18}{theorem.28}%
-\contentsline {proof}{{Proof}{7}{}}{18}{proof.7}%
-\contentsline {lemma}{{Lemma}{3.{29}}{}}{19}{lemma.29}%
-\contentsline {lemma}{{Lemma}{3.{30}}{}}{19}{lemma.30}%
-\contentsline {proof}{{Proof}{8}{}}{20}{proof.8}%
-\contentsline {theorem}{{Theorem}{3.{31}}{}}{21}{theorem.31}%
-\contentsline {proof}{{Proof}{9}{}}{21}{proof.9}%
-\contentsline {definition}{{Definition}{4.{1}}{Interval Markov Chain}}{23}{definition.1}%
-\contentsline {definition}{{Definition}{4.{2}}{Once-and-for-all/UMC Semantic}}{24}{definition.2}%
-\contentsline {example}{{Example}{4.{3}}{}}{24}{example.3}%
-\contentsline {definition}{{Definition}{4.{4}}{IMDP semantic}}{25}{definition.4}%
-\contentsline {definition}{{Definition}{4.{5}}{IMDP semantic old}}{25}{definition.5}%
-\contentsline {example}{{Example}{4.{6}}{}}{25}{example.6}%
-\contentsline {definition}{{Definition}{4.{7}}{Reachability Probability in IDTMCs}}{26}{definition.7}%
-\contentsline {definition}{{Definition}{4.{8}}{Transient and Recurrent states in IDTMCs}}{26}{definition.8}%
-\contentsline {theorem}{{Theorem}{4.{9}}{}}{27}{theorem.9}%
-\contentsline {proof}{{Proof}{10}{}}{27}{proof.10}%
-\contentsline {definition}{{Definition}{4.{10}}{EVTs of IDTMCs}}{27}{definition.10}%
-\contentsline {theorem}{{Theorem}{4.{11}}{}}{28}{theorem.11}%
-\contentsline {proof}{{Proof}{11}{}}{28}{proof.11}%
-\contentsline {corollary}{{Corollary}{4.{12}}{}}{29}{corollary.12}%
-\contentsline {proof}{{Proof}{12}{}}{29}{proof.12}%
-\contentsline {lemma}{{Lemma}{4.{13}}{One-state Extension}}{29}{lemma.13}%
-\contentsline {proof}{{Proof}{13}{}}{30}{proof.13}%
-\contentsline {theorem}{{Theorem}{4.{14}}{}}{30}{theorem.14}%
-\contentsline {proof}{{Proof}{14}{}}{30}{proof.14}%
-\contentsline {corollary}{{Corollary}{4.{15}}{P-hardness of EVT computation}}{31}{corollary.15}%
-\contentsline {proof}{{Proof}{15}{}}{31}{proof.15}%
-\contentsline {theorem}{{Theorem}{4.{16}}{Upper and Lower Bounds for uEVTs and lEVTs}}{32}{theorem.16}%
-\contentsline {proof}{{Proof}{16}{}}{32}{proof.16}%
-\contentsline {example}{{Example}{4.{17}}{}}{32}{example.17}%
-\contentsline {theorem}{{Theorem}{4.{18}}{NLPs for uEVT and $\ell $EVT}}{33}{theorem.18}%
-\contentsline {proof}{{Proof}{17}{}}{33}{proof.17}%
+\contentsline {lemma}{{Lemma}{3.{26}}{Reachability of Transient States}}{17}{lemma.26}%
+\contentsline {proof}{{Proof}{5}{}}{17}{proof.5}%
+\contentsline {lemma}{{Lemma}{3.{27}}{}}{17}{lemma.27}%
+\contentsline {lemma}{{Lemma}{3.{28}}{}}{18}{lemma.28}%
+\contentsline {proof}{{Proof}{6}{}}{18}{proof.6}%
+\contentsline {theorem}{{Theorem}{3.{29}}{}}{19}{theorem.29}%
+\contentsline {proof}{{Proof}{7}{}}{19}{proof.7}%
+\contentsline {definition}{{Definition}{4.{1}}{Interval Markov Chain}}{21}{definition.1}%
+\contentsline {definition}{{Definition}{4.{2}}{Path of an IDTMC}}{21}{definition.2}%
+\contentsline {assumption}{{Assumption}{1}{}}{22}{assumption.1}%
+\contentsline {definition}{{Definition}{4.{3}}{Once-and-for-all/UMC Semantic}}{22}{definition.3}%
+\contentsline {example}{{Example}{4.{4}}{}}{22}{example.4}%
+\contentsline {definition}{{Definition}{4.{5}}{IMDP semantic}}{23}{definition.5}%
+\contentsline {example}{{Example}{4.{6}}{}}{23}{example.6}%
+\contentsline {definition}{{Definition}{4.{7}}{Scheduler}}{24}{definition.7}%
+\contentsline {definition}{{Definition}{4.{8}}{Markov Chain of an MDP Induced by a Scheduler}}{24}{definition.8}%
+\contentsline {definition}{{Definition}{4.{9}}{Memoryless Scheduler}}{25}{definition.9}%
+\contentsline {definition}{{Definition}{4.{10}}{Markov Chain of an MDP Induced by a memoryless Scheduler}}{25}{definition.10}%
+\contentsline {definition}{{Definition}{4.{11}}{Reachability Probability in IDTMCs}}{26}{definition.11}%
+\contentsline {definition}{{Definition}{4.{12}}{Transient and Recurrent states in IDTMCs}}{26}{definition.12}%
+\contentsline {definition}{{Definition}{4.{13}}{BSCCs for IDTMCs}}{26}{definition.13}%
+\contentsline {definition}{{Definition}{4.{14}}{History-dependent Scheduler}}{26}{definition.14}%
+\contentsline {theorem}{{Theorem}{4.{15}}{}}{26}{theorem.15}%
+\contentsline {proof}{{Proof}{8}{}}{27}{proof.8}%
+\contentsline {definition}{{Definition}{4.{16}}{EVTs of IDTMCs}}{27}{definition.16}%
+\contentsline {theorem}{{Theorem}{4.{17}}{}}{28}{theorem.17}%
+\contentsline {proof}{{Proof}{9}{}}{28}{proof.9}%
+\contentsline {corollary}{{Corollary}{4.{18}}{}}{29}{corollary.18}%
+\contentsline {proof}{{Proof}{10}{}}{29}{proof.10}%
+\contentsline {lemma}{{Lemma}{4.{19}}{One-state Extension}}{29}{lemma.19}%
+\contentsline {proof}{{Proof}{11}{}}{29}{proof.11}%
+\contentsline {theorem}{{Theorem}{4.{20}}{}}{30}{theorem.20}%
+\contentsline {proof}{{Proof}{12}{}}{30}{proof.12}%
+\contentsline {example}{{Example}{4.{21}}{}}{31}{example.21}%
+\contentsline {theorem}{{Theorem}{4.{22}}{Upper and Lower Bounds for uEVTs and lEVTs}}{31}{theorem.22}%
+\contentsline {proof}{{Proof}{13}{}}{31}{proof.13}%
+\contentsline {example}{{Example}{4.{23}}{}}{32}{example.23}%
+\contentsline {theorem}{{Theorem}{4.{24}}{}}{32}{theorem.24}%
+\contentsline {proof}{{Proof}{14}{}}{32}{proof.14}%
+\contentsline {theorem}{{Theorem}{4.{25}}{}}{33}{theorem.25}%
+\contentsline {proof}{{Proof}{15}{}}{33}{proof.15}%
+\contentsline {theorem}{{Theorem}{4.{26}}{}}{33}{theorem.26}%
+\contentsline {lemma}{{Lemma}{4.{27}}{}}{33}{lemma.27}%
+\contentsline {theorem}{{Theorem}{4.{28}}{}}{34}{theorem.28}%
+\contentsline {lemma}{{Lemma}{4.{29}}{}}{34}{lemma.29}%
+\contentsline {proof}{{Proof}{16}{}}{34}{proof.16}%
+\contentsline {lemma}{{Lemma}{4.{30}}{}}{34}{lemma.30}%
+\contentsline {proof}{{Proof}{17}{}}{34}{proof.17}%
+\contentsline {lemma}{{Lemma}{4.{31}}{}}{34}{lemma.31}%
 \contentsline {proof}{{Proof}{18}{}}{34}{proof.18}%
-\contentsline {example}{{Example}{4.{19}}{}}{35}{example.19}%
-\contentsline {lemma}{{Lemma}{4.{20}}{}}{35}{lemma.20}%
-\contentsline {proof}{{Proof}{19}{}}{35}{proof.19}%
-\contentsline {lemma}{{Lemma}{4.{21}}{}}{37}{lemma.21}%
-\contentsline {proof}{{Proof}{20}{}}{37}{proof.20}%
-\contentsline {lemma}{{Lemma}{4.{22}}{}}{37}{lemma.22}%
-\contentsline {proof}{{Proof}{21}{}}{37}{proof.21}%
-\contentsline {definition}{{Definition}{4.{23}}{Acyclic IDTMC}}{37}{definition.23}%
-\contentsline {definition}{{Definition}{4.{24}}{Augmented Interval Markov Chains}}{38}{definition.24}%
-\contentsline {definition}{{Definition}{4.{25}}{Stationary Distribution}}{38}{definition.25}%
-\contentsline {theorem}{{Theorem}{4.{26}}{}}{38}{theorem.26}%
+\contentsline {proof}{{Proof}{19}{}}{34}{proof.19}%
+\contentsline {example}{{Example}{4.{32}}{}}{38}{example.32}%
+\contentsline {lemma}{{Lemma}{4.{33}}{}}{38}{lemma.33}%
+\contentsline {proof}{{Proof}{20}{}}{38}{proof.20}%
+\contentsline {lemma}{{Lemma}{4.{34}}{}}{38}{lemma.34}%
+\contentsline {proof}{{Proof}{21}{}}{39}{proof.21}%
+\contentsline {lemma}{{Lemma}{4.{35}}{}}{39}{lemma.35}%
 \contentsline {proof}{{Proof}{22}{}}{39}{proof.22}%
+\contentsline {definition}{{Definition}{4.{36}}{Acyclic IDTMC}}{39}{definition.36}%
+\contentsline {definition}{{Definition}{4.{37}}{Augmented Interval Markov Chains}}{40}{definition.37}%
+\contentsline {definition}{{Definition}{4.{38}}{Stationary Distributions in DTMCs}}{40}{definition.38}%
+\contentsline {definition}{{Definition}{4.{39}}{Stationary Distributions in IDTMCs}}{40}{definition.39}%
+\contentsline {theorem}{{Theorem}{4.{40}}{}}{41}{theorem.40}%
+\contentsline {proof}{{Proof}{23}{}}{41}{proof.23}%
+\contentsline {assumption}{{Assumption}{2}{}}{42}{assumption.2}%
+\contentsline {proof}{{Proof}{24}{}}{42}{proof.24}%

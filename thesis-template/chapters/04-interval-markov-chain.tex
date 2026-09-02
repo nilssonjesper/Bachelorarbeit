@@ -1,7 +1,7 @@
 \chapter{\textit{Interval Markov Chains}}
 \label{ch:Interval Markov Chains}
 
-The focus of this thesis are Interval Markov Chains. In the following sections we will mainly discuss how the expected visiting times can be calculated and shortly examine stationary distributions of Interval Markov Chains.
+The focus of this thesis are expected visiting times in Interval Markov Chains, which we will introduce in this chapter. In the following sections we will mainly discuss how the expected visiting times can be calculated and shortly examine stationary distributions of Interval Markov Chains.
  
 We start by introducing concepts which we will use in the following sections.
 \begin{definition}[Interval Markov Chain]\label{def:IMC}
@@ -9,16 +9,16 @@ We start by introducing concepts which we will use in the following sections.
     $\IMC=(S,\PFlower,\PFupper,\Initlower,\Initupper)$, where
     \begin{enumerate}[label=(\roman*)]
         \item $S$ is a countable, nonempty set of states,
-        \item $\PFlower: S \times S \rightarrow [0,1]$ is the transition probability function, where $\PFlower(s,s')$ gives the lower bound on the transition probability from state s to s',
-        \item $\PFupper: S \times S \rightarrow [0,1]$ is the transition probability function, where $\PFupper(s,s')$ gives the upper bound on the transition probability from state s to s',
+        \item $\PFlower: S \times S \rightarrow [0,1]$ is the lower transition probability function, where $\PFlower(s,s')$ gives the lower bound on the transition probability from state s to s',
+        \item $\PFupper: S \times S \rightarrow [0,1]$ is the upper transition probability function, where $\PFupper(s,s')$ gives the upper bound on the transition probability from state s to s',
         \item $\Initlower: S \rightarrow [0,1]$ is the lower bound on the initial distribution, and
         \item $\Initupper: S \rightarrow [0,1]$ is the upper bound on the initial distribution.
     \end{enumerate}
 \end{definition}
 
-% \begin{definition}[Path of an IDTMC]
-%     Similarily to DTMCs, an infinite path $\pi = (s_1,s_2,\dots)$ is a sequence of states in the IDTMC, such that $\PF(\pi[k],\pi[k+1])>0$ for all $k\in \NN$.
-% \end{definition}
+\begin{definition}[Path of an IDTMC]
+    Similarily to DTMCs, an \textit{infinite path} in an IDTMC $\IMC$ is a sequence $\pi = (s_0,s_1,\dots)$ of states with $s_0,s_1,\dots \in S^\IMC$, such that $\PFlower(\pi[k],\pi[k+1])>0$ for all $k\in \NN$.
+\end{definition}
 
 %IDTMC figure for semantics
 \begin{figure}[h]
@@ -48,7 +48,7 @@ We start by introducing concepts which we will use in the following sections.
 \node[state, fill=orange!30, right=2.5cm of s4] (s5) {$s_5$};
 
 % Initial distribution
-\draw[->] ($(s1)+(-2,0)$) -- node[edgelabel, above] {1} (s1);
+\draw[->] ($(s1)+(-1.5,0)$) -- node[edgelabel, above] {1} (s1);
 
 % Transitions
 \draw[->] (s1) -- node[edgelabel, sloped, above] {1} (s2);
@@ -83,6 +83,12 @@ We start by introducing concepts which we will use in the following sections.
 
 To resolve the uncertainty caused by the intervals, we need to define semantics to interpret the Interval Markov Chain. In other words we need to resolve an Interval Markov Chain to some set of Markov Chains that correspond to it. We say that all of these DTMCs $\MC_i$ satisfy the IDTMC $\IMC$ and denote it as $\MC_i \models \IMC$. We assume in this thesis that there exists at least one satisfying DTMC for every IDTMC.
 \todo{gut so mit der assumption?}
+
+\begin{assumption}\label{assmp:finiteness_(I)DTMCs}
+    In \cref{sec:EVTs_for_DTMCs}, we concluded that due to \cref{lem:EVTs_of_recurrent_states}, only the transient states need to be considered for calculating EVTs. As we are interested in the calculation of EVTs, we will only IDTMCs with a finite amount of transient states. Moreover, we will only consider IDTMCs where all states are reachable in at least one satisfying IDTMC, as if they are not the EVTs of those states are trivially 0 for all satisfying DTMCs and have no impact on the EVTs of other states.
+\end{assumption}
+
+\todo{Exception for infinite MCs with dependencies (probably not because still infinite calc.); Beweis, dass EVTs gleich ohne non-reachable states}
 
 In this paper, we will consider two popular semantics: the \textit{once-and-for-all}, also know as the \textit{Uncertain Markov Chain (UMC) semantic}, and the \textit{IMDP semantic}.
 We will first define the former, similar to \cite{Semantics_Quant-Analysis,Semantics_Model-Checking_omega-Regular,Semantics_LTL_Model_Checking}. 
@@ -126,7 +132,7 @@ In other words, any DTMC whose initial distribution and transition probabilities
 \node[state, fill=orange!30, right=2.5cm of s4] (s5) {$s_5$};
 
 % Initial distribution
-\draw[->] ($(s1)+(-2,0)$) -- node[edgelabel, above] {1} (s1);
+\draw[->] ($(s1)+(-1.5,0)$) -- node[edgelabel, above] {1} (s1);
 
 % Transitions
 \draw[->] (s1) -- node[edgelabel, sloped, above] {1} (s2);
@@ -159,23 +165,32 @@ In other words, any DTMC whose initial distribution and transition probabilities
 \label{fig:UMC_semantic}
 \end{figure}
 
-The second semantic which we will define, is the \textit{IMDP semantic}. There are two common definitions for this semantic. We will start by introducing the one that can be found in \cite{reachability_in_pIMCs_using_constraints} or \cite{Semantics_Quant-Analysis} and then continue with the other definition found in \cite{Model-Checking_presence_Uncertainties} or \cite{Semantics_Model-Checking_omega-Regular}.
+The second semantic which we will define, is the \textit{IMDP semantic}. There are two common definitions for this semantic. In this thesis, we will use the definition found in \cite{Model-Checking_presence_Uncertainties} and \cite{Semantics_Model-Checking_omega-Regular}.
 
 \begin{definition}[IMDP semantic]\label{def:IMDP_semantic}
-    We define $Steps(s)$ as the set of probability functions over $S$, i.e. $Steps(s) = \{\mu: S\rightarrow [0,1] \mid \sum_{t\in S} \mu(t) = 1 \text{ and } \PFlower(s,t) \leq \mu(t) \leq \PFupper(s,t) \text{ for all } t\in S\}$.
+    We define $Steps(s)$ as the set of probability functions over $S^\IMC$, i.e. $Steps(s) = \{\mu: S\rightarrow [0,1] \mid \sum_{t\in S} \mu(t) = 1 \text{ and } \PFlower(s,t) \leq \mu(t) \leq \PFupper(s,t) \text{ for all } t\in S\}$ for all $s\in S^\IMC$. Let $last(\pi)$ denote the last state of a finite path $\pi \in Paths^{\IMC}_{fin}$, i.e., if $|\pi| = n$, then $last(\pi) = \pi[n]$.
+    
+    The choice of a transition function is made by \textit{nature}. A \textit{nature} for an IDTMC $\IMC$ is a function $\eta: Paths^\IMC_{fin} \rightarrow Steps$ that assigns each finite path to a possible probability transition function, i.e., $\eta(\pi)\in Steps(last(\pi))$.
+
+    In other words, for any given finite path $\pi \in Paths_{fin}^\IMC$, the \textit{nature} chooses a probability distribution from $Steps(last(\pi))$ according to which the successor state is then sampled.
+    (Still need to define $Paths_{fin}$ for IDTMCs)
 \end{definition}
 
-\begin{definition}[IMDP semantic old]\label{def:IMDP_semantic_old}
-    An arbitrary DTMC $\MC=(T,\PF,\iota_{init})$ with $|T| \geq |S|$ (or $S \subseteq T$) satisfies an IDTMC $\IMC = (S,\PFlower,\PFupper,\Initlower,\Initupper)$ if and only if there exists a surjective mapping $\tau: T\rightarrow S$ such that
-    \begin{enumerate}[label=(\roman*)]
-        % \item $\tau(t) = s\in S \implies \Initlower(s) \leq \iota_{init}(t)\leq \Initupper(s)$
-        \item for every $s\in S$ there exists exactly one $t\in T$ with $\tau(t) = s$ such that $\Initlower(s) \leq \iota_{init}(t)\leq \Initupper(s)$. Thus, for all other $\tau(t_i)=s$ and $t_i \neq t \implies \iota_{init}(t_i)=0\ .$
-        \item $\PFlower(\tau(t),\tau(t')) \leq \PF(t,t')\leq \PFupper(\tau(t),\tau(t'))$ for all $t,t'\in T\ .$
-    \end{enumerate}
-    We will denote this as $\MC\models_{I}\IMC$.
-\end{definition}
+\todo{define Paths for IMC or rewrite it to paths of MC}
 
-Another common definition of the \textit{IMDP semantic}
+The other common definition can be found in \cite{reachability_in_pIMCs_using_constraints} and \cite{Semantics_Quant-Analysis}.
+
+% \begin{definition}[IMDP semantic old]\label{def:IMDP_semantic_old}
+%     An arbitrary DTMC $\MC=(T,\PF,\iota_{init})$ with $|T| \geq |S|$ (or $S \subseteq T$) satisfies an IDTMC $\IMC = (S,\PFlower,\PFupper,\Initlower,\Initupper)$ if and only if there exists a surjective mapping $\tau^\MC: T\rightarrow S$ such that
+%     \begin{enumerate}[label=(\roman*)]
+%         % \item $\tau(t) = s\in S \implies \Initlower(s) \leq \iota_{init}(t)\leq \Initupper(s)$
+%         \item for every $s\in S$ there exists exactly one $t\in T$ with $\tau(t) = s$ such that $\Initlower(s) \leq \iota_{init}(t)\leq \Initupper(s)$. Thus, for all other $\tau(t_i)=s$ and $t_i \neq t \implies \iota_{init}(t_i)=0\ .$
+%         \item $\PFlower(\tau(t),\tau(t')) \leq \PF(t,t')\leq \PFupper(\tau(t),\tau(t'))$ for all $t,t'\in T\ .$
+%     \end{enumerate}
+%     We will denote this as $\MC\models_{I}\IMC$.
+% \end{definition}
+
+% Another common definition of the \textit{IMDP semantic}
 
 % \begin{definition}[IMDP semantic 2]\label{def:IMDP_semantic}
     
@@ -183,7 +198,7 @@ Another common definition of the \textit{IMDP semantic}
 % \end{definition}
 
 \begin{example}
-    Consider the IDTMC $\IMC$ in \cref{fig:IMC_for_semantic}. The DTMC $\MC_I$ depicted in \cref{fig:IMDP_semantic} satisfies $\IMC$ under the UMC semantic, i.e., $\MC_I \models_I \IMC$.
+    Consider the IDTMC $\IMC$ in \cref{fig:IMC_for_semantic}. The DTMC $\MC_I$ depicted in \cref{fig:IMDP_semantic} satisfies $\IMC$ under the IMDP semantic, i.e., $\MC_I \models_I \IMC$.
 \end{example}
 
 % DTMC for IMDP semantic 
@@ -295,7 +310,7 @@ Another common definition of the \textit{IMDP semantic}
 ] (cluster) {};
 
 % Initial distribution
-\draw[->] ($(s1)+(-2,0)$) -- node[edgelabel, above] {1} (s1);
+\draw[->] ($(s1)+(-1.5,0)$) -- node[edgelabel, above] {1} (s1);
 
 % Transitions
 \draw[->] (s1) -- node[edgelabel, sloped, above] {1} (s2);
@@ -332,15 +347,60 @@ Another common definition of the \textit{IMDP semantic}
 \label{fig:IMDP_semantic}
 \end{figure}
 
-Intuitively, the IMDP semantic allows for a probability distribution to be chosen at every step in each state within the constraints/bounds set by the IDTMC. In contrast to the UMC semantic, where each state in the satisfying DTMCs have a corresponding state in the IDTMC and thus a fixed probability distribution, while the IMDP semantic allows for multiple states in the satisfying DTMCs with different fixed probability distributions to be mapped to the same corresponding state in the IDTMC. We can thus imagine an IDTMC under the IMDP semantic as a Markov Decision Process, see \cref{def:MDP}.
+% Intuitively, the IMDP semantic allows for a probability distribution to be chosen at every step in each state within the constraints/bounds set by the IDTMC. In contrast to the UMC semantic, where each state in the satisfying DTMCs have a singular corresponding state in the IDTMC and thus a fixed probability distribution, the IMDP semantic allows for multiple states in the satisfying DTMCs with different fixed probability distributions to be mapped to the same corresponding state in the IDTMC. We can thus imagine an IDTMC under the IMDP semantic as a Markov Decision Process, see \cref{def:MDP}.
 
-The most intuitive reduction from an IDTMC $\IMC$ under the IMDP semantic to a MDP $\MDP$ is to define $S^\MDP = S^\IMC$ and an uncoutable set $\cup_{s\in S} A(s) = Act$ of actions where each action $\alpha \in A(s)$ corresponds to a probability distribution \todo{that is admissable} $\PFlower^\IMC(s,s')\leq \PF^\MDP(s,\alpha,s')\leq \PFupper^\IMC(s,s')$ (for $s'\in N(s)$). In other words, the actions $\alpha\in A(s)$ in a given state $s\in S$ correspond to the probability distributions that can be chosen in $s$ in any given step. However, as even the subsets $A(s)$ can be uncoutable, this reduction is trivially not "usable", as no algorithm, such as value or policy iteration, would terminate.
+As the IMDP semantic allows for a probability distribution to be chosen in each state at every step, we can interpret an IDTMC under the IMDP semantic as a Markov Decision Process (MDP), see \cref{def:MDP}, as the notion of \textit{nature} is identical to the notion of \textit{schedulers} used to resolve the uncertainty in MDPs. 
 
-Instead, it is thus argued in \cite{Model-Checking_presence_Uncertainties} and \cite{Semantics_Model-Checking_omega-Regular}, that the local constraints of each state of these MDPs and IDTMCs, see in \cref{def:MDP} $(iv) - (v)$ and \cref{def:IMC} $(ii) - (v)$, can be used to limit the amount of probability distributions that need to be mapped(, as we only need to consider the most extreme "behaviour"). In the theory of linear programming, this is called a basic feasible solution (BFS) \todo{verschieben zu Matheteil?}. 
+As defined in \cite{Bibel}.
+\begin{definition}[Scheduler]
+    Let $\MDP = (S,Act,A,\PF,\iota_{init})$ be a MDP. A \textit{scheduler} for $\MDP$ is a function $\mathfrak{S}: Paths_{fin}^\MDP \rightarrow Act$ such that $\mathfrak{S}(s_0,\dots,s_n)\in A(s_n)$.
+\end{definition}
 
-(Satisfying DTMC is policy)
+By resolving the uncertainty of an MDP, a scheduler induces a Markov Chain. In \cite{Bibel} (Definition 10.92) these induced Markov Chains are defined as follows
+
+\begin{definition}[Markov Chain of an MDP Induced by a Scheduler]
+    For an MDP $\MDP = (S,Act,A,\PF,\iota_{init})$ and a scheduler $\mathfrak{S}$ on $\MDP$, the induced Markov Chain $\MC_{\mathfrak{S}}$ is given by
+    \[\MDP_{\mathfrak{S}} = (Paths^\MDP_{inf},\PF_{\mathfrak{S}},\iota_{init})\]
+    where for $\sigma = s_0,s_1,\dots,s_n$:
+    \[\PF_{\mathfrak{S}}(\sigma,\sigma s_n) = \PF(s_n,\mathfrak{S}(\sigma),s_{n+1})\ .\]
+\end{definition}
+\todo{vllt nicht notwendig; Paths^MDP definieren?; ist in Paths_inf alle paths drin (auch fin?)}
+
+These induced Markov Chains are precisely the satisfying Markov Chains. Notice, that even if the MDP is finite, any induced Markov Chain is infinite.
+
+The most intuitive reduction from an IDTMC $\IMC$ under the IMDP semantic to an MDP $\MDP$ is to define $S^\MDP = S^\IMC$ and an uncoutable set $\bigcup_{s\in S} A(s) = Act$ of actions where each action $\alpha \in A(s)$ corresponds to a probability distribution in $Steps(s)$. In other words, the actions $\alpha\in A(s)$ in a given state $s\in S$ correspond to the probability distributions that can be chosen in $s$ in any given step. However, as these subsets $A(s)$ can be uncoutable, this reduction is not useful (as no algorithm like value or policy iteration would terminate).
+
+Instead, it is thus argued in \cite{Model-Checking_presence_Uncertainties}, \cite{Semantics_Model-Checking_omega-Regular}, and \cite{complexity_model_checking_interval-valued_DTMCs}, that the local constraints of each state of these MDPs and IDTMCs, see in \cref{def:MDP} $(iv) - (v)$ and \cref{def:IMC} $(ii) - (v)$, can be used to limit the amount of probability distributions that need to be mapped. In the theory of linear programming, this is called a basic feasible solution (BFS). For this reduction, the sets $A(s)$ with $s\in S^\IMC$ are exponential in the size of $|S^\IMC|$.
+
+(Gleiche reach. prob. für diese Konstrukion in paper gezeigt (denke ich), weil reach prob $\subset$ PCTL. Und die Konstruktion ist für PCTL?)
+
+Important for this thesis are in particular memoryless schedulers. The following definition is taken from \cite{Bibel}.
+\begin{definition}[Memoryless Scheduler]
+    Let $\MDP$ be a MDP with state space $S$. Any scheduler $\mathfrak{S}$ on $\MDP$ is \textit{memoryless} if and only if for each sequence $(s_0,s_1,\dots,s_n)$ and $(t_0,t_1,\dots,t_m)$ with $s_n = t_m$
+    \[\MC(s_0,s_1,\dots,s_n) = \MC(t_0,t_1,\dots,t_m)\ . \]
+    Thus, in this case, $\mathfrak{S}$ can be viewed as a function $\mathfrak{S}: S \rightarrow Act$.
+\end{definition}
+
+In other words, if a scheduler is memoryless, then it always selects the same action in a given state. Notice, that in regards to the MDP construction in \cite{Model-Checking_presence_Uncertainties} and \cite{Semantics_Model-Checking_omega-Regular}, where the actions represent the chosen probability distribution, this describes precisely the UMC semantic. As a memoryless scheduler chooses the same action in a given state, it chooses the same probability distribution for a given state in the MDP construction.
+
+\begin{definition}[Markov Chain of an MDP Induced by a memoryless Scheduler]
+    For an MDP $\MDP = (S,Act,A,\PF,\iota_{init})$ and a scheduler $\mathfrak{S}$ on $\MDP$, the induced Markov Chain $\MC_{\mathfrak{S}}$ is given by
+    \[\MDP_{\mathfrak{S}} = (S,\PF_{\mathfrak{S}},\iota_{init})\]
+    where for any $s_i,s_j\in S$:
+    \[\PF_{\mathfrak{S}}(s_i,s_j) = \PF(s_i,\mathfrak{S}(s_i),s_j)\ .\]
+\end{definition}
+
+As $\PFlower(s_i,s_j)\leq\PF(s_i,\mathfrak{S}(s_i),s_j)\leq\PFupper(s_i,s_j)$ by construction, the induced Markov Chain of a memoryless scheduler on the MDP construction satisfies all conditions of \cref{def:once-and-for-all_semantic}.
+
+% 1. (Satisfying DTMC is policy)
+% 2. Beispiel für : IMDP erlaubt mehr "behaviour" (Beispiel auf GoodNotes)
+
 
 % In contrast to the UMC semantic, the IMDP semantic allows for satisfying DTMCs with larger state spaces than the IDTMC.
+
+Often in the literature, see for example \cite{complexity_model_checking_interval-valued_DTMCs} (continue list), the authors do not define a seperate probability function for the initial distribution, as we have done, but instead only define a singular initial state $s_0$. Notice however, that our definition can easily be fitted into this definition and vice versa, by mapping our initial distribution onto the transition probability function of the state $s_0$, similarly as in \cref{sec:MC_Quantitative_Reachability} with $\MC_{uni}$ and $s_{in}$. We will refer to this definition as the fixed-initial-state-definition.
+
+(\cref{pr:reach_prob_MC_uni} shown that reach prob identical --> and thus, as shown later, EVT; relevant??)
 
 If we want to emphasize that a DTMC $\MC$ satisfies the IDTMC $\IMC$ under both semantics, we write $\MC\models\IMC$. Furthermore, if two DTMCs $\MC_1$ and $\MC_2$ satisfy a given IDTMC $\IMC$, we write $\MC_1, \MC_2 \models \IMC$ for short.
 % In the following, we will extend the reduction from IDTMCs to MDPs (using the IMDP semantic) presented in \cite{Model-Checking_presence_Uncertainties} and \cite{Semantics_Model-Checking_omega-Regular}. We will refer to the constraints of the form $\sum_{s'\in N(s)}\PF (s,s')$, where $\PFlower(s,s')\leq\PF(s,s')\leq\PFupper(s,s')$ as $PC(s)$ (for all $s\in S_{tr}$) and those of the form $\sum_{s\in S}\iota_{init} = 1$, where $\Initlower(s) \leq \iota_{init}(s) \leq \Initupper(s)$ as $IC$ (notice not dependent on s, as only one set of inequations/constraints).
@@ -374,12 +434,33 @@ If we want to emphasize that a DTMC $\MC$ satisfies the IDTMC $\IMC$ under both 
 
 We use the definition of the quantitative reachability property in IDTMCs provided in \cite{reachability_in_pIMCs_using_constraints}. 
 \begin{definition}[Reachability Probability in IDTMCs]\label{def:reachability_probability_IDTMCs}
-    Given an IDTMC $\IMC$ and a set of states $T \subseteq S$, then a quantitative reachability property on $\IMC$ is defined as $Pr^\IMC(\Diamond T) \sim p$, where $0\leq p \leq 1$ and $\sim \in \{\leq, <, >, \geq\}$. This quantitative property is satisfied if and only if there exists a DTMC $\MC \models \IMC$ such that $Pr^\MC(\Diamond T) \sim p$.
+    Given an IDTMC $\IMC$ and a set of states $T \subseteq S$, then a quantitative reachability property on $\IMC$ is defined as $Pr^\IMC(\lozenge T) \sim p$, where $0\leq p \leq 1$ and $\sim \in \{\leq, <, >, \geq\}$. This quantitative property is satisfied if and only if there exists a DTMC $\MC \models \IMC$ such that $Pr^\MC(\lozenge T) \sim p$.
 \end{definition}
 
 \begin{definition}[Transient and Recurrent states in IDTMCs]\label{def:transient_recurrent_states_IDTMC}
-    Similar to DTMCs, a state $s\in S^\IMC$ is called transient if and only if $Pr^\IMC_s(\cCircle\Diamond s) < 1$, i.e., there exists a satisfying DTMC $\MC\models\IMC$ such that $Pr^\MC_s(\cCircle\Diamond s) < 1$. All states that are not transient are called recurrent.
+    Similar to DTMCs, a state $s\in S^\IMC$ is called recurrent if and only if $Pr^\IMC_s(\cCircle\lozenge s) = 1$, i.e., there exists a satisfying DTMC $\MC\models\IMC$ such that $Pr^\MC_s(\cCircle\lozenge s) = 1$. All states that are not recurrent are called transient.
 \end{definition}
+
+\begin{definition}[BSCCs for IDTMCs]
+    Let $\IMC$ be an IDTMC, then $B^\MC \subseteq S^\IMC$ is a BSSC, if $B^\MC$ is a BSCC in the DTMC $\MC$, see \cref{def:(B)SCC}, and $\MC \models \IMC$.
+\end{definition}
+
+
+
+As defined in \cite{Bibel}.
+\begin{definition}[History-dependent Scheduler]
+    
+\end{definition}
+
+% Notice that, importantly, if $s\in S_{tr}^\IMC$ for any given IDTMC $\IMC$, then $s$ is not reachable from any $t\in S_{re}^\IMC$ in any $\MC\models \IMC$. We express this observation in the following theorem.
+
+% \begin{theorem}
+%     For any given IDTMC $\IMC$ and satisfying DTMC $\MC\models \IMC$ if $s\in S_{tr}^\IMC$, $t\in S_{re}^\IMC$ and there exists a path $\pi \in \Path$ such that $\pi[k] = t, \pi[k'] =s$ with $k<k'$, i.e., $s$ is reachable from $t$ in $\MC$, then $t\notin S_{re}^\MC$.
+% \end{theorem}
+% % there must exist an actually recurrent state such that trans never reachable from it (and rec reachable from start/init)
+% \cref{lem:reachability_of_transient_states}
+
+% Non-reachable states --> lEVT 0 (and for recurrent uEVT 1)
 
 \subsection{Relation between the semantics}\label{sec:relation_between_the_semantics}
 Clearly, the IMDP semantic is more expressive than the UMC semantic \cite{Semantics_Quant-Analysis}. More specifically for any given IDTMC $\IMC$, a DTMC $\MC$ that satisfies $\IMC$ according to the UMC semantic, i.e. $\MC \models_U \IMC$, does also satisfy $\IMC$ according to the IMDP semantic, i.e. $\MC \models_I \IMC$ \cite{Semantics_Quant-Analysis}.
@@ -397,10 +478,15 @@ Importantly, the two semantics have the same maximum and minimum reachability pr
 \section{Expected Visiting Times in IDTMCs}
 We will now define \textit{expected visiting times} (EVTs) for IDTMCs. As we discussed in the previous section, IDTMCs can be seen as a set of DTMCs that satiesfy the IDTMC according to the given semantic. These different DTMCs can have varying EVTs for a given state $s$ in the IDTMC, thus we are interested in the upper and lower bound for the EVTs of $s$, i.e., in the highest and lowest EVT of $s$ among the satisfying DTMCs.
 \begin{definition}[EVTs of IDTMCs]
-    For a IDTMC $\IMC$, we define the \textit{upper expected visiting time} (uEVT) $\ExpUpper^\IMC[vt_s]$ and \textit{lower expected visiting time} ($\ell$EVT) $\ExpLower^\IMC[vt_s]$ for all states $s\in S^\IMC$, as follows
+    For a IDTMC $\IMC$, we define the \textit{upper expected visiting time} (uEVT) $\ExpUpper^\IMC[vt_s]$ and \textit{lower expected visiting time} ($\ell$EVT) $\ExpLower^\IMC[vt_s]$ for all states $s\in S^\IMC$, as follows for the UMC semantic
     \begin{enumerate}[label=(\roman*)]
-        \item $\ExpUpper^\IMC[vt_s] = \Exp^\MC[vt_s]$, where $\MC \models \IMC$ and $\Exp^\MC[vt_s] \geq \Exp^{\MC'}[vt_s]$ for all $\MC'\models \IMC$.
-        \item $\ExpLower^\IMC[vt_s] = \Exp^\MC[vt_s]$, where $\MC \models \IMC$ and $\Exp^\MC[vt_s] \leq \Exp^{\MC'}[vt_s]$ for all $\MC'\models \IMC$.
+        \item $\ExpLower^\IMC[vt_s] = \operatorname{inf}_{\MC\models_U\IMC} \Exp^\MC[vt_s]$
+        \item $\ExpUpper^\IMC[vt_s] = \operatorname{sup}_{\MC\models_U\IMC} \Exp^\MC[vt_s]$
+    \end{enumerate}
+    and the IMDP semantic
+    \begin{enumerate}[label=(\roman*)]
+        \item $\ExpLower^\IMC[vt_s] = \operatorname{inf}_{\MC\models_I\IMC} \sum_{t\in T \land \tau^\MC(t) = s}\Exp^\MC[vt_t]$
+        \item $\ExpUpper^\IMC[vt_s] = \operatorname{sup}_{\MC\models_I\IMC}\sum_{t\in T \land \tau^\MC(t) = s}\Exp^\MC[vt_t]$.
     \end{enumerate}
 \end{definition}
 
@@ -413,17 +499,17 @@ Similar to \cref{sec:MC_Quantitative_Reachability}, we will now relate \textit{e
 
 Given the quantitative reachabilities of the DTMCs that satisfy a certain IDTMC $\IMC$, we can calculate the corresponding EVTs of a given state $s$ in $\IMC$ and thus find the lEVTs and uEVTs using the results from \cref{sec:MC_Quantitative_Reachability}. 
 
-As we concluded in \cref{sec:MC_Quantitative_Reachability}, we can calculate the EVT of a given state $s$ in a DTMC $\MC$ via quantitative reachability, using the corresponding DTMC $\MC_{uni}$ and the \cref{eq:EVT_via_quant_reach_sum} $\Exp^\MC[vt_s] = \sum_{t\in\Strin} \frac{Pr^\MC_t(\Diamond s)}{1-Pr^\MC_s(\Circle\Diamond s)} \cdot\iota_{init}(t)$. Thus, the uEVT and $\ell$EVT of a given IDTMC $\IMC$ are given by the largest and smallest ratio of these quantitative reachability probabilites among the satisfying Markov Chains.
+As we concluded in \cref{sec:MC_Quantitative_Reachability}, we can calculate the EVT of a given state $s$ in a DTMC $\MC$ via quantitative reachability, using the corresponding DTMC $\MC_{uni}$ and the \cref{eq:EVT_via_quant_reach_sum} $\Exp^\MC[vt_s] = \sum_{t\in\Strin} \frac{Pr^\MC_t(\lozenge s)}{1-Pr^\MC_s(\Circle\lozenge s)} \cdot\iota_{init}(t)$. Thus, the uEVT and $\ell$EVT of a given IDTMC $\IMC$ are given by the largest and smallest ratio of these quantitative reachability probabilites among the satisfying Markov Chains.
 
 \emph{\textbf{Remark.} Existence of DTMC with optimal reachability.}\label{rem:existence}
 For every transient state $t\in S_{tr}$ there exists a DTMC
-$\MC\models_U\IMC$ with $Pr_t^\MC(\Diamond s) = \operatorname{sup}_{\MC_i\models_U \IMC}Pr_{t}^{\MC_i}(\Diamond s)$. This follows directly from the compactness and continuity of the polytope of DTMCs satisfying $\IMC$; it is not reproved here, only reused. To shorten the notation we will denote $\Prupper^\MC_t(\Diamond s) = \operatorname{sup}_{\MC_i\models_U \IMC}Pr_{t}^{\MC_i}(\Diamond s)$.
+$\MC\models_U\IMC$ with $Pr_t^\MC(\lozenge s) = \operatorname{sup}_{\MC_i\models_U \IMC}Pr_{t}^{\MC_i}(\lozenge s)$. This follows directly from the compactness and continuity of the polytope of DTMCs satisfying $\IMC$; it is not reproved here, only reused. To shorten the notation we will denote $\Prupper^\MC_t(\lozenge s) = \operatorname{sup}_{\MC_i\models_U \IMC}Pr_{t}^{\MC_i}(\lozenge s)$ and $\Prlower^\MC_t(\lozenge s) = \operatorname{inf}_{\MC_i\models_U \IMC}Pr_{t}^{\MC_i}(\lozenge s)$.
 
 \begin{theorem}\label{th:max_reach_prob_for_intermediate_states}
     Given an IDTMC $\IMC$, a transient state $t\in S^\IMC$, a (goal) state $s\in S^\IMC$, and a DTMCs $\MC$ with $\MC\models \IMC$. (Positive transition/reachability probability from t to s, i.e. there needs to exist a path fragment from t to s)
 
-    $\MC$ has the maximum reachability probability from $t$ to $s$, i.e., $Pr^{\MC}_{t}(\Diamond s) = \operatorname{sup}_{\MC_i \models \IMC}Pr^{\MC_i}_{t}(\Diamond s)$, if and only for all $u\in I^\MC_{ts}$:
-    \[Pr^{\MC}_{u}(\Diamond s) = \operatorname{sup}_{\MC_i \models \IMC}Pr^{\MC_i}_{u}(\Diamond s)\]
+    If $\MC$ has the maximum reachability probability from $t$ to $s$, i.e., $Pr^{\MC}_{t}(\lozenge s) = \Prupper^{\IMC}_{t}(\lozenge s)$, then for all $u\in I^\MC_{ts}$:
+    \[Pr^{\MC}_{u}(\lozenge s) = \Prupper^{\IMC}_{u}(\lozenge s)\]
 \end{theorem}
 
 \begin{proof}
@@ -431,121 +517,143 @@ $\MC\models_U\IMC$ with $Pr_t^\MC(\Diamond s) = \operatorname{sup}_{\MC_i\models
     
     As shown in \cite{Bibel} (Theorem 10.100, pg. 851), for any MDP $\MDP$ the maximum reachability probability is characterized by the equation
     \begin{equation}\label{eq:maximum_reach_prob_MDPs}
-        Pr^{\text{max}}_t(\Diamond s) = \max \left\{ \sum_{u\in N(t)} \PF(t,\alpha,u) \cdot Pr^{\text{max}}_u(\Diamond s) \mid \alpha\in Act(t) \right\} \ .
+        \Prupper^\IMC_t(\lozenge s) = \max \left\{ \sum_{u\in N(t)} \PF(t,\alpha,u) \cdot \Prupper^\IMC_u(\lozenge s) \mid \alpha\in Act(t) \right\} \ .
     \end{equation}
-    Clearly, the policies which solve this equation have the maximum reachability probability $Pr_u(\Diamond s)$ for all $u\in I^\MC_{ts}$, as shown in \cite{Bibel}.
-    As shown (not yet but later), an IDTMC under the IMDP semantic can be mapped to a MDP, where the policy represents a given satisfying DTMC (bzw. nach einer/der üblichen IMDP Semantiken ist eine policy/adversary das satisfying DTMC). Thus, this theorem is proven for the IMDP semantic. (Also importantly, the solution to the set of equations is unique, as shown in \cite{Bibel}. Thus, the maximum reachability probabilities of the states are unique)
+    Clearly, the policies which solve this equation have the maximum reachability probability $Pr_u(\lozenge s)$ for all $u\in I^\MC_{ts}$, as shown in \cite{Bibel}.
+    As shown in the previous section, an IDTMC under the IMDP semantic can be mapped to a MDP, where the policy represents a given satisfying DTMC (bzw. nach einer/der üblichen IMDP Semantiken ist eine policy/adversary das satisfying DTMC). Thus, this theorem is proven for the IMDP semantic. (Also importantly, the solution to the set of equations is unique, as shown in \cite{Bibel}. Thus, the maximum reachability probabilities of the states are unique)
 
     \todo{Maybe I also need to mention argument that there always is memoryless scheduler}
-
-    As mentioned in \cref{sec:relation_between_the_semantics}, \cite{reachability_in_pIMCs_using_constraints} and \cite{complexity_model_checking_interval-valued_DTMCs} prove that the maximum (\& minimum) reachability probability are identical under the UMC and IMDP semantic. Let $\MC_U \models_U \IMC$ and $\MC_I\models_I \IMC$, be two DTMCs with maximum reachability probability ($Pr_t(\Diamond s)$). As discussed in \cref{sec:relation_between_the_semantics}, every DTMC that satisfies an IDTMC under the UMC semantic, also satisfies it under the IMDP semantic. Thus, $\MC_U \models_I \IMC$ and because it has the maximum reachability probability $Pr_t(\Diamond s)$, it clearly satisfies \cref{eq:maximum_reach_prob_MDPs} (i.e. is a solution/policy for it). Thus, this theorem is proven for the UMC semantic.
     
-    % Using \cref{lem:recursive_formula_for_reachability_prob}, $\Pr^{\MC_U}_t(\Diamond s) = \sum_{u\in N(t)} \PF(t,u)\cdot Pr_u(\Diamond s)$.
+    % What I need to prove is: if the policy chose same "optimal" every time, then equation is satisfied (or rather reach from t to s is optimal)
+    % --> only pick one is same as UMC (motivate this inuition in some previous section)
+
+    % We will now show, that there exists a solution for \cref {eq:maximum_reach_prob_MDPs} such that the max-operator chooses the same $\alpha\in Act(t)$ for identical equations $Pr_t^{max}(\lozenge s) = \PF(t,\alpha,u)\cdot Pr_u^{max}(\lozenge s)$ in the recursion. In other words, for every \dots
+
+    As proven in \cite{Bibel} (Lemma 10.102 and Lemma 10.113), given any finite MDP $\MDP$ with state space $S$, and $T\subseteq S$, there exists \textit{memoryless} schedulers $\mathfrak{S}_{max}$ and $\mathfrak{S}_{min}$ for every $t\in S$, such that $\Prupper^\MDP_t(\lozenge T) = Pr_t^{\mathfrak{S}_{max}}(\lozenge T)$ and $\Prlower^\MDP_t(\lozenge T) = Pr_t^{\mathfrak{S}_{min}}(\lozenge T)$. In other words, for every MDP, there exist \textit{memoryless} schedulers that has maximum or minimum reachability to $T$ from $t$. As discussed, a memoryless scheduler on the MDP construction induces a DTMC that satisfies the IDTMC. Because this memoryless scheduler is optimal, clearly it satisfies \cref{eq:maximum_reach_prob_MDPs}. Thus, this theorem is proven for the UMC semantic.
+
+    % Let $\MC_U \models_U \IMC$ and $\MC_I\models_I \IMC$, be two DTMCs with maximum reachability probability ($Pr_t(\lozenge s)$). 
+    % As discussed in \cref{sec:relation_between_the_semantics}, every DTMC that satisfies an IDTMC under the UMC semantic, also satisfies it under the IMDP semantic. Thus, $\MC_U \models_I \IMC$ and because it has the maximum reachability probability $Pr_t(\lozenge s)$, it clearly satisfies \cref{eq:maximum_reach_prob_MDPs} (i.e. is a solution/policy for it). 
+    
+    % Using \cref{lem:recursive_formula_for_reachability_prob}, $\Pr^{\MC_U}_t(\lozenge s) = \sum_{u\in N(t)} \PF(t,u)\cdot Pr_u(\lozenge s)$.
     % Sematics have same max. reach. prob.
 
     % (Show (by basically writing) that recursively both semantics dependent on same states (for reach. prob.), which might be difficult because could take different ways (ig i need to argue then that this is case for every possible max DTMC). Then because one only has max. for $u$ states the other needs to have it to because otherwise would not have max. reach. for $t$. conclude proof)
     % ----------------------------------------------------
-    % Using \cref{lem:recursive_formula_for_reachability_prob}, we can conclude that $Pr_t(\Diamond s) = \sum_{u\in N(t)}\PF(t,u) \cdot Pr_u(\Diamond s) = \sum_{u\in N(t)\cap I^\MC_{ts}}\PF(t,u) \cdot Pr_u(\Diamond s)$, as for $u\in N(t)\backslash I^\MC_{ts}$, $\PF^\MC(t,u) = 0$. Let us now assume, for some $u\in N(t)\cap I^\MC_{ts}$, that $Pr_u(\Diamond s)$ is not maximum/(maximal?). This can be due to two reasons.
+    % Using \cref{lem:recursive_formula_for_reachability_prob}, we can conclude that $Pr_t(\lozenge s) = \sum_{u\in N(t)}\PF(t,u) \cdot Pr_u(\lozenge s) = \sum_{u\in N(t)\cap I^\MC_{ts}}\PF(t,u) \cdot Pr_u(\lozenge s)$, as for $u\in N(t)\backslash I^\MC_{ts}$, $\PF^\MC(t,u) = 0$. Let us now assume, for some $u\in N(t)\cap I^\MC_{ts}$, that $Pr_u(\lozenge s)$ is not maximum/(maximal?). This can be due to two reasons.
     % \begin{enumerate}
-    %     \item The reachability probabilities $Pr_w(\Diamond s)$, with $w\in N(u)$, are not maximum
-    %     \item The reachability probabilities of its succesors are maximum but the transition probabilities $\PF(u,w)$,with $w\in N(u)$, are not optimally chosen
+    %     \item The reachability probabilities $Pr_w(\lozenge s)$, with $w\in N(u)$, are not maximum
+    %     \item The reachability probabilities of its successors are maximum but the transition probabilities $\PF(u,w)$,with $w\in N(u)$, are not optimally chosen
     % \end{enumerate}
-    % As the transition probabilities $\PF(u,w)$ are constrained only locally, see \cref{def:once-and-for-all_semantic}, we could simply define a copy $\MC_{cop}$ of $\MC$, where we simply pick the $\PF$ optimally. \todo{explain "pick optimally" more in detail} However, this would contradict the maximality of $Pr_t(\Diamond s)$ in $\MC$. Thus the $\PF$ have to be picked optimally in $\MC$.
+    % As the transition probabilities $\PF(u,w)$ are constrained only locally, see \cref{def:once-and-for-all_semantic}, we could simply define a copy $\MC_{cop}$ of $\MC$, where we simply pick the $\PF$ optimally. \todo{explain "pick optimally" more in detail} However, this would contradict the maximality of $Pr_t(\lozenge s)$ in $\MC$. Thus the $\PF$ have to be picked optimally in $\MC$.
     % This leaves us with (1). 
 \end{proof}
 
 \begin{corollary}\label{th:two_DTMCs_compatible_for_max_reach}
-    Given an IDTMC $\IMC$, two transient state $t_1, t_2\in S^\IMC$, a (goal) state $s\in S^\IMC$, and two DTMCs $\MC_1,\MC_2$ with $\MC_1,\MC_2\models_U \IMC$ and $Pr^{\MC_1}_{t_1}(\Diamond s) = \operatorname{sup}_{\MC \models_U \IMC}Pr^{\MC}_{t_1}(\Diamond s)$ and $Pr^{\MC_2}_{t_2}(\Diamond s) = \operatorname{sup}_{\MC \models_U \IMC}Pr^{\MC}_{t_2}(\Diamond s)$. In other words the DTMCs have a maximum reachability probability for $t_1$ and $t_2$, respectively.
+    Given an IDTMC $\IMC$, two transient states $t_1, t_2\in S^\IMC$, a (goal) state $s\in S^\IMC$, and two DTMCs $\MC_1,\MC_2$ with $\MC_1,\MC_2\models_U \IMC$ and $Pr^{\MC_1}_{t_1}(\lozenge s) = \Prupper^\IMC_{t_1}(\lozenge s)$ and $Pr^{\MC_2}_{t_2}(\lozenge s) = \Prupper^{\IMC}_{t_2}(\lozenge s)$. In other words the DTMCs have a maximum reachability probability for $t_1$ and $t_2$, respectively.
 
-    For all $u\in I^{\MC_1}_{t_1s} \cap I^{\MC_2}_{t_2s}$, the reachability probabilities $Pr^{\MC_1}_u(\Diamond s) = Pr^{\MC_2}_u(\Diamond s)$ are identical.
+    For all $u\in I^{\MC_1}_{t_1s} \cap I^{\MC_2}_{t_2s}$, the reachability probabilities $Pr^{\MC_1}_u(\lozenge s) = Pr^{\MC_2}_u(\lozenge s)$ are identical.
 \end{corollary}
 
 
 \begin{proof}
-    This theorem follows from \cref{th:max_reach_prob_for_intermediate_states}.
-    Using \cref{th:max_reach_prob_for_intermediate_states}, we can conclude that $Pr^{\MC_1}_{u}(\Diamond s) = \operatorname{sup}_{\MC_i \models_U \IMC}Pr^{\MC_i}_{u}(\Diamond s)$ for all $u \in I^{\MC_1}_{t_1s}$ and $Pr^{\MC_2}_{u}(\Diamond s) = \operatorname{sup}_{\MC_i \models_U \IMC}Pr^{\MC_i}_{u}(\Diamond s)$ for all $u \in I^{\MC_2}_{t_2s}$. Thus, $Pr^{\MC_1}_u(\Diamond s) = Pr^{\MC_2}_u(\Diamond s)$ for all $u\in I^{\MC_1}_{t_1s} \cap I^{\MC_2}_{t_2s}$.
+    This corollary follows from \cref{th:max_reach_prob_for_intermediate_states}.
+    Using \cref{th:max_reach_prob_for_intermediate_states}, we can conclude that $Pr^{\MC_1}_{u}(\lozenge s) = \Prupper^{\IMC}_{u}(\lozenge s)$ for all $u \in I^{\MC_1}_{t_1s}$ and $Pr^{\MC_2}_{u}(\lozenge s) = \Prupper^{\IMC}_{u}(\lozenge s)$ for all $u \in I^{\MC_2}_{t_2s}$. Thus, $Pr^{\MC_1}_u(\lozenge s) = Pr^{\MC_2}_u(\lozenge s)$ for all $u\in I^{\MC_1}_{t_1s} \cap I^{\MC_2}_{t_2s}$.
 \end{proof}
 
 % \begin{theorem}
-%     Given an IDTMC $\IMC$, a (goal) state $s\in S$, and any two transient states $t_1,t_2 \in S_{tr}$, there exists a DTMC $\MC \models_U \IMC$ such that $Pr^{\MC}_{t_1}(\Diamond s) = \operatorname{sup}_{\MC_i \models_U \IMC}Pr^{\MC_i}_{t_1}(\Diamond s)$ and $Pr^{\MC}_{t_2}(\Diamond s) = \operatorname{sup}_{\MC_i \models_U \IMC}Pr^{\MC_i}_{t_2}(\Diamond s)$
+%     Given an IDTMC $\IMC$, a (goal) state $s\in S$, and any two transient states $t_1,t_2 \in S_{tr}$, there exists a DTMC $\MC \models_U \IMC$ such that $Pr^{\MC}_{t_1}(\lozenge s) = \operatorname{sup}_{\MC_i \models_U \IMC}Pr^{\MC_i}_{t_1}(\lozenge s)$ and $Pr^{\MC}_{t_2}(\lozenge s) = \operatorname{sup}_{\MC_i \models_U \IMC}Pr^{\MC_i}_{t_2}(\lozenge s)$
 % \end{theorem}
 
 \begin{lemma}[One-state Extension]\label{lem:one-state_extension}
-    Given a set $T \subset S_{tr}$, a transient state $t \notin T$, and a (goal) state s, assume that $\MC_T \models_U \IMC$ with $\Prupper_u^\IMC(\Diamond s) = Pr_u^{\MC_T}(\Diamond s)$ for all $u\in T$ and $\MC_t \models_U \IMC$ with $\Prupper_t^\IMC(\Diamond s) = Pr_t^{\MC_t}(\Diamond s)$. Define $\MC_{cmb}\models_U \IMC$ by
+    Given a set $T \subset S$, a state $t \notin T$, and a (goal) state s, assume that $\MC_T \models_U \IMC$ with $Pr_u^{\MC_T}(\lozenge s) = \Prupper_u^\IMC(\lozenge s)$ for all $u\in T$ and $\MC_t \models_U \IMC$ with $Pr_t^{\MC_t}(\lozenge s) = \Prupper_t^\IMC(\lozenge s)$. Define $\MC_{cmb}\models_U \IMC$ by
     \[\PF^{\MC_{cmb}}(w,v) = 
     \begin{cases*}
         \PF^{\MC_t}(w,v) & if $w\in I^{\MC_t}_{ts}\backslash I^{\MC_T}_{Ts}$ \\
         \PF^{\MC_T}(w,v) & else.
     \end{cases*}\]
-    Then, $\Prupper^{\MC_{cmb}}_{u}(\Diamond s) = Pr^{\MC_{cmb}}_u(\Diamond s)$ for all $u \in T \cup \{t\}$, i.e., $\MC_{cmb}$ has the maximum reachability probability for all states in $T\cup \{t\}$.
+    Stated in words, $\MC_{cmb}$ is constructed such that its probability distribution function is equal to that of $\MC_t$ in all states that are only intermediate states for $t$ and not $T$, while it is equal to that of $\MC_T$ in all other states.
+    
+    Then, $Pr^{\MC_{cmb}}_u(\lozenge s) = \Prupper^{\MC_{cmb}}_{u}(\lozenge s)$ for all $u \in T \cup \{t\}$, i.e., $\MC_{cmb}$ has the maximum reachability probability for all states in $T\cup \{t\}$.
 \end{lemma}
 
 \begin{proof}
-    As $\PF^{\MC_{cmb}}(w,v) = \PF^{\MC_{T}}(w,v)$ for all $w \in I^{\MC_T}_{Ts}$, clearly $\Prupper^{\IMC}_{u}(\Diamond s) = Pr^{\MC_{cmb}}_u(\Diamond s)$ for all $u\in T$, see \cref{lem:recursive_formula_for_reachability_prob}.
+    As $\PF^{\MC_{cmb}}(w,v) = \PF^{\MC_{T}}(w,v)$ for all $w \in I^{\MC_T}_{Ts}$, clearly $\Prupper^{\IMC}_{u}(\lozenge s) = Pr^{\MC_{cmb}}_u(\lozenge s)$ for all $u\in T$, see \cref{lem:recursive_formula_for_reachability_prob}.
 
-    Thus, we need to show that $Pr^{\MC_{cmb}}_t(\Diamond s) = \Prupper^{\IMC}_{t}(\Diamond s)$. As we know that $Pr^{\MC_{t}}_t(\Diamond s) = \Prupper^{\IMC}_{t}(\Diamond s)$, we will prove that $Pr^{\MC_{cmb}}_t(\Diamond s) = Pr^{\MC_{t}}_t(\Diamond s)$.
+    Thus, we need to show that $Pr^{\MC_{cmb}}_t(\lozenge s) = \Prupper^{\IMC}_{t}(\lozenge s)$. As we know that $Pr^{\MC_{t}}_t(\lozenge s) = \Prupper^{\IMC}_{t}(\lozenge s)$, we will prove that $Pr^{\MC_{cmb}}_t(\lozenge s) = Pr^{\MC_{t}}_t(\lozenge s)$.
     Notice, that if $I^{\MC_t}_{ts} \cap I^{\MC_T}_{Ts} = \emptyset$, then the proof concludes using the same argument as for $u\in T$. Furthermore, if $I^{\MC_t}_{ts}\subseteq I^{\MC_T}_{Ts}$, then the proof concludes directly using \cref{th:max_reach_prob_for_intermediate_states}.
 
-    Recall, that $Pr^{\MC_{cmb}}_{t}(\Diamond s) = \sum_{u\in N(t)\cap I^{\MC_{cmb}}_{ts}}\PF^{\MC_{cmb}}(t,u)\cdot Pr_u^{\MC_{cmb}}(\Diamond s)$, see \cref{lem:recursive_formula_for_reachability_prob}. For all $u\in I^{\MC_t}_{ts}\backslash I^{\MC_T}_{Ts}$, $\PF^{\MC_{cmb}}(u,w) = \PF^{\MC_{t}}(u,w)$ and for all $u\in I^{\MC_T}_{Ts} \cap I^{\MC_t}_{ts}$, $Pr^{\MC_{cmb}}_u(\Diamond s) = Pr^{\MC_t}_u(\Diamond s)$, as $\MC_T$ has maximum reachability probability for all states $u \in I^{\MC_T}_{Ts}$, see \cref{th:max_reach_prob_for_intermediate_states}. From this, we can conclude that $Pr^{\MC_{t}}_{t}(\Diamond s) = Pr^{\MC_{cmb}}_{t}(\Diamond s)$.
+    Recall, that $Pr^{\MC_{cmb}}_{t}(\lozenge s) = \sum_{u\in N(t)\cap I^{\MC_{cmb}}_{ts}}\PF^{\MC_{cmb}}(t,u)\cdot Pr_u^{\MC_{cmb}}(\lozenge s)$, see \cref{lem:recursive_formula_for_reachability_prob}. For all $u\in I^{\MC_t}_{ts}\backslash I^{\MC_T}_{Ts}$, $\PF^{\MC_{cmb}}(u,w) = \PF^{\MC_{t}}(u,w)$ and for all $u\in I^{\MC_T}_{Ts} \cap I^{\MC_t}_{ts}$, $Pr^{\MC_{cmb}}_u(\lozenge s) = Pr^{\MC_t}_u(\lozenge s)$, see \cref{th:two_DTMCs_compatible_for_max_reach}. From this, we can conclude that $Pr^{\MC_{t}}_{t}(\lozenge s) = Pr^{\MC_{cmb}}_{t}(\lozenge s)$.
+    Thus, we have shown that $Pr_u^{\MC_{cmb}}(\lozenge s) = \Prupper_u^{\MC_{cmb}}(\lozenge s)$ for all $u\in T \cup \{t\}$.
 
-
-    Clearly, $\MC_{cmb} \models_U \IMC$
-    Need to show also that 
+    Into only remains to show, that $\MC_{cmb} \models_U \IMC$. As $\MC_t,\MC_T \models_U \IMC$ it clearly follows from the construction that also $\MC_{cmb} \models \IMC$.
 \end{proof}
 
 Crucially, \cref{lem:one-state_extension} can be extended to all transient states.
 
 \begin{theorem}\label{th:existence_of_dtmc_with_universal_max_reach}
-    Given an IDTMC $\IMC$ and a (goal) state $s\in S$ there exists a DTMC $\MC \models_U \IMC$ such that $Pr_t^\MC(\Diamond s) = \operatorname{sup}_{\MC_i \models_U \IMC} Pr_t^{\MC_i}(\Diamond s)$ for all transient states $t\in S^\IMC_{tr}$.
+    Given an IDTMC $\IMC$ and a (goal) state $s\in S$ there exists a DTMC $\MC \models_U \IMC$ such that $Pr_t^\MC(\lozenge s) = \operatorname{sup}_{\MC_i \models_U \IMC} Pr_t^{\MC_i}(\lozenge s)$ for all transient states $t\in S^\IMC_{tr}$.
 \end{theorem}
 
 \begin{proof}
-    Consider any given enumeration $t_1, t_2, \dots$ of $S^\IMC_{tr}$. Clearly this enumeration is finite, since $S^\IMC_{tr}$ is finite, see \cref{sec:consideration_for_limiting_the_state_size}.
+    Consider any given enumeration $t_1, t_2, \dots$ of $S^\IMC$. Clearly, this enumeration is finite, since $S^\IMC$ is finite, see \cref{assmp:finiteness_(I)DTMCs}.
+
+    \todo{soll ich diese Referenz auf die Assumption: finiteness der (I)DTMCs, anders formulieren?}
     
-    \emph{Construction.} Now, let $\MC^{(1)}\models_U \IMC$ with $Pr_{t_1}^{\MC^{(1)}}(\Diamond s) = \Prupper^\IMC_{t_1}$ and $T_1 \coloneq I^{\MC^{(1)}}_{t_1s}$. By \cref{th:max_reach_prob_for_intermediate_states}, $Pr_u(\Diamond s) = \PFupper_u(\Diamond s)$.
+    \emph{Construction.} Now, let $\MC^{(1)}\models_U \IMC$ with $Pr_{t_1}^{\MC^{(1)}}(\lozenge s) = \Prupper^\IMC_{t_1}$ and $T_1 \coloneq I^{\MC^{(1)}}_{t_1s}$, trivially such a DTMC must exist. By \cref{th:max_reach_prob_for_intermediate_states}, $Pr_u(\lozenge s) = \PFupper_u(\lozenge s)$.
 
     Inductively, $\MC^{(n)} \models_U \IMC$ (and $s\in T_n$).
-    If $t_{n+1}\in T_n$, then we set $\MC^{(n+1)} \coloneq \MC^{(n)}$ and $T_{n+1} = T_n$. If not, we use \cref{lem:one-state_extension} with $T = T_n$, $\MC_T = \MC^{(n)}$, and $t = t_{n+1}$ to obtain $\MC^{(n+1)} \coloneq \MC_{cmb}$ with $\MC^{(n+1)}\models_U \IMC$. We set $T_{n+1} = T_n \cup I^{\MC^{(n+1)}}_{t_{n+1}s}$, thus and $Pr_{t_i}^{\MC^{(n+1)}}(\Diamond s) = \Prupper_{t_i}^\IMC(\Diamond s)$ for all $t_i \in T_{n+1}$, as $Pr_{t_i}^{\MC^{(n+1)}}(\Diamond s) = \Prupper_{t_i}^\IMC(\Diamond s)$ for all $t_i \in T_n$ (induction), $Pr_{t_{n+1}}^{\MC^{(n+1)}}(\Diamond s) = \Prupper_{t_{n+1}}^\IMC(\Diamond s)$ (see \cref{lem:one-state_extension}), and $Pr_{u}^{\MC^{(n+1)}}(\Diamond s) = \Prupper_{u}^\IMC(\Diamond s)$ for all $u\in I^{\MC^{(n+1)}}_{t_{n+1}s}$ (see \cref{th:max_reach_prob_for_intermediate_states}).
+    If $t_{n+1}\in T_n$, then we set $\MC^{(n+1)} \coloneq \MC^{(n)}$ and $T_{n+1} = T_n$. If not, we use \cref{lem:one-state_extension} with $T = T_n$, $\MC_T = \MC^{(n)}$, and $t = t_{n+1}$ to obtain $\MC^{(n+1)} \coloneq \MC_{cmb}$ with $\MC^{(n+1)}\models_U \IMC$. We set $T_{n+1} = T_n \cup I^{\MC^{(n+1)}}_{t_{n+1}s}$, thus and $Pr_{t_i}^{\MC^{(n+1)}}(\lozenge s) = \Prupper_{t_i}^\IMC(\lozenge s)$ for all $t_i \in T_{n+1}$, as $Pr_{t_i}^{\MC^{(n+1)}}(\lozenge s) = \Prupper_{t_i}^\IMC(\lozenge s)$ for all $t_i \in T_n$ (induction), $Pr_{t_{n+1}}^{\MC^{(n+1)}}(\lozenge s) = \Prupper_{t_{n+1}}^\IMC(\lozenge s)$ (see \cref{lem:one-state_extension}), and $Pr_{u}^{\MC^{(n+1)}}(\lozenge s) = \Prupper_{u}^\IMC(\lozenge s)$ for all $u\in I^{\MC^{(n+1)}}_{t_{n+1}s}$ (see \cref{th:max_reach_prob_for_intermediate_states}).
 \end{proof}
+Thus, to conclude, for any given IDTMC $\IMC$ and state $s$, there exists a $\MC$ with optimal reachability probability for all states $t\in S^\IMC$
 
-Thus, as there exists a DTMC $\MC_{max}\models_U \IMC$ for any IDTMC $\IMC$ with $Pr^\MC_t(\Diamond s) = \Prupper^\IMC_t(\Diamond s)$ for all $t\in S^\MC_{tr}$, see \cref{th:existence_of_dtmc_with_universal_max_reach}, we can conclude that $\ExpUpper^\IMC[vt_s] = \Exp^{\MC_{max}}[vt_s]$ under the UMC semantic, using \cref{eq:EVT_via_quant_reach_sum}. In other words, we can calculate the uEVT of a state $s$ in a given IDTMC by determining the maximum reachability probability of $Pr^\IMC_t(\Diamond s)$ for all $t\in \Strin$ and $Pr_s(\cCircle\Diamond s)$.
-% $\Exp^\MC[vt_s] = \frac{Pr_{s_{in}}^{\MC_{uni}}(\Diamond s)}{1 - Pr_{s_{suc}}^{\MC_{uni}}(\Diamond s)} \cdot \tau_{init}(s_{in})$
+\emph{\textbf{Remark.} Non-attainability of values in EVT intervals.}
+In general, not every value in $[\ExpLower[vt_s],\ExpUpper[vt_s]]$ is attainable. In other words, there exists an IDTMC with state $s$, such that there exists a $x\in [\ExpLower^\IMC[vt_s],\ExpUpper^\IMC[vt_s]]$ with $\Exp^\MC[vt_s] \neq x$ for all $\MC \models \IMC$. This holds even for $\ExpUpper[vt_s] < \infty$.
 
-As shown in \cite{complexity_model_checking_interval-valued_DTMCs}, computing the maximum or minimum reachability probability is P-complete for the IMDP semantic, and thus also for the UMC semantic.
+We provide a short example for this remark.
 
-!!! AS STATES, PF FUNCTION, ETC. IN INPUT OF ALGO IN CITED SOURCE
---> OUR ALGO FOR U/LEVTS IS ALSO IN PTIME
+% \begin{example}
+%     Consider the IDTMC $\IMC = (\{t,s_1,s_2\},\PFlower,\PFupper,\Initlower,\Initupper)$ shown in \cref{fig:attainable_values_non_infty}. Clearly, $\ExpLower^\IMC[vt_{s_1}] = \ExpLower^\IMC[vt_{s_2}] = 0$ and $\ExpUpper^\IMC[vt_{s_1}] = \ExpUpper^\IMC[vt_{s_2}] = \infty$. However, there exists no $\MC \models \IMC$ such that $\Exp^\MC[vt_s] = x$ for any $x \in (0,\infty)$, as $\Exp^\MC[vt_s] = 1$ if $\PF^\MC(t,s) > 0$ and $\Exp^\MC[vt_s] = 0$ else.
+% \end{example}
 
-ARGUE THAT BOTH SEMANTICS IDENTICAL FOR L/UEVT (WITH SOME ADDITIONAL INTUITION THROUGH EXAMPLE); and even identical for interval
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    >=Stealth,
+    node distance=2.8cm,
+    state/.style={
+        circle,
+        draw,
+        minimum size=1.2cm,
+        inner sep=0pt
+    }
+]
 
-We will now shortly show that computing $\ell$EVTs and uEVTs is P-complete, by reducing it to the computation of minimum and maximum reachability probabilities, which is P-complete.
+% Knoten
+\node[state] (t) {$t$};
+\node[state, right= of t] (s) {$s$};
+\node[state, right=of s] (bot) {$\bot$};
 
-\emph{Reduction.} Given an IDTMC $\IMC$ and a set of states $T\subseteq S$, we construct the IDTMC $\IMC_{red} = (S^\IMC \cup \{s,\bot\}, \PF^{\IMC_{red}},\iota_{init}^\IMC)$. We define $\PFupper^{\IMC_{red}}(u,w) = \PFupper^\IMC(u,w)$ and $\PFlower^{\IMC_{red}}(u,w) = \PFlower^\IMC(u,w)$ for all $u\in S^\IMC \backslash T$ and $w\in S^\IMC$. Moreover, $\PFupper^{\IMC_{red}}(u,w) = \PFlower^{\IMC_{red}}(u,w) = 0$ and $\PFupper^{\IMC_{red}}(u,s) = \PFlower^{\IMC_{red}}(u,s) = 1$ for $u\in T$ and $w\in S^\IMC$. Finally, $\PFupper^{\IMC_{red}}(s,\bot) = \PFlower^{\IMC_{red}}(s,\bot) = 1$ and $\PFupper^{\IMC_{red}}(\bot,\bot) = \PFlower^{\IMC_{red}}(\bot,\bot) = 1$\dots
+% Anfangspfeile
+\draw[->] ($(t)+(-1.5,0)$) -- node[above] {1} (t);
 
-\begin{corollary}[P-hardness of EVT computation]
-Computing $u\mathrm{EVT}$ (resp.\ $\ell\mathrm{EVT}$) of a given state in a given IDTMC is
-P-hard.
-\end{corollary}
-\begin{proof}
-$\IMC_{red}$ is computable from $(\IMC,T)$ in time linear in $|\IMC|$, and by the previous
-theorem $u\mathrm{EVT}^{\IMC_{red}}(s)$ equals $Pr^{\IMC,\max}(\Diamond T)$ exactly — in
-particular, for any threshold $p$, $u\mathrm{EVT}^{\IMC_{red}}(s) \ge p$ iff
-$Pr^{\IMC,\max}(\Diamond T) \ge p$. This is therefore a polynomial-time many-one reduction from
-maximum (resp.\ minimum) reachability probability computation to $u\mathrm{EVT}$ (resp.\
-$\ell\mathrm{EVT}$) computation. Since the former is P-hard
-\cite{reachability_in_pIMCs_using_constraints,complexity_model_checking_interval-valued_DTMCs},
-so is the latter.
-\end{proof}
+% Übergänge
+\draw[->] (t) -- node[above] {[0,1]} (s);
 
+\draw[->] (t) edge[loop above] node {[0,1]} ();
 
+\draw[->] (s) -- node[above] {1} (bot);
 
+\draw[->] (bot) edge[loop above] node {1} ();
 
-\emph{\textbf{Remark.}}
-Konstruktion: jeweils zusammengefasste init states und direct successors von s. --> zeigen, dass das die selben EVTs hat (Bijektion für DTMCs). Zeigen das IDTMC Konstruktion nach lemma DTMC mit max EVT hat (beide max reach probs) (vllt reicht es auch zu zeigen dass es für diesen DTMC ein Äquivalent im ursprünglichen IDTMC gibt das selbe EVTs hat (für s halt))
-\cref{eq:EVT_via_quant_reach}
-$\Exp^\MC[vt_s] = \frac{Pr_{s_{in}}^{\MC_{uni}}(\Diamond s)}{1 - Pr_{s_{suc}}^{\MC_{uni}}(\Diamond s)} \cdot \tau_{init}(s_{in})$
+\end{tikzpicture}
+\caption{An example of a DTMC.}
+\label{fig:attainable_values_non_infty}
+\end{figure}
 
-+ Zwei state Konstruktion schnelle Möglichkeit zugrunde liegende Struktur zu berechnen (einfach geaddete states in transitionen übersetzen)
+\begin{example}
+    Consider the IDTMC $\IMC = (\{t,s,\bot\},\PFlower,\PFupper,\Initlower,\Initupper)$ shown in \cref{fig:attainable_values_non_infty}. Clearly, $\ExpLower^\IMC[vt_s] = 0$ and $\ExpUpper^\IMC[vt_s] = 1$. However, there exists no $\MC \models_U \IMC$ such that $\Exp^\MC[vt_s] = x$ for any $x \in (0,1)$, as $\Exp^\MC[vt_s] = 1$ if $\PF^\MC(t,s) > 0$ and $\Exp^\MC[vt_s] = 0$ else.
+    % such that $\PFlower(t,t) = \PFlower(t,s) = 0$, $\PFupper(t,t) = \PFupper(t,s) = 1$ and $\PFlower(s,\bot) = \PFupper(s,\bot) = \PFlower(\bot,\bot) = \PFupper(\bot,\bot) = 1$. All others values are set to $0$. Moreover, $\Initlower(t) = \Initupper(t) = 1$.
+\end{example}
 
 \section{Calculating Expected Visiting Times of IDTMCs}
 We will now have a look at how the \textit{expected visiting times} for IDTMCs can be calculated
@@ -564,7 +672,10 @@ The most intuitive upper and lower bounds for the uEVTs and lEVTs of IDTMCs can 
 \end{proof}
 \todo{extend proof for IDMP semantic; through some notation $\PF(s,s')_k \leq$ ... ?}
 
-While these bounds can be computed as easily as \cref{eq:EVT_DTMC_iterative_characterization}, i.e., in PTIME, they are not very tight. 
+As we fix the transition probability functions to either $\PFlower$ or $\PFupper$, we remove the uncertainty of the IDTMCs and thus obtain a DTMC with a transition matrix that is not row-stochastic. Therefore, we can calculate these bounds by using \cref{eq:EVT_DTMC_iterative_characterization} in PTIME. Moreover, as the transition matrix corresponding to $\PFlower$ is row-substochastic, and thus convergent as shown in \cite{KemenySnellBook}, we can use value iteration to compute the lower bounds $\Exp_{low}$.
+\todo{Perhaps continue with constraints for $\Exp_{upp}$ with which VI possible as well; if I can find such constraints}
+
+However, while these bounds can be computed efficiently, they are not very tight. 
 \begin{example}
     For this take a look at the upper bound of the IDTMC provided in \cref{fig:tightness_of_bounds_evts}. Using \cref{th:loose_bounds_for_evts}, we can calculate that $\Exp_{upp}[vt_{s_4}] = 2$, as $\Exp_{upp}[vt_{s_1}]= \Exp_{upp}[vt_{s_2}] = \Exp_{upp}[vt_{s_3}] =  1$.
     However, as the IDTMC is acyclic, see \cref{def:acyclic_DTMC}, every state can be visited at most once. Thus, the upper bound $\Exp_{upp}[vt_{s_4}]$ is clearly not tight. Similarly, $\Exp_{low}[vt_{s_4}] = 0$, however $s_4$ needs to be visited at least once. Thus, this lower bound $\Exp_{low}[vt_{s_4}]$ is not tight either.    
@@ -592,7 +703,7 @@ While these bounds can be computed as easily as \cref{eq:EVT_DTMC_iterative_char
 \node[state, right=of s4] (s5) {$s_5$};
 
 % Anfangspfeile
-\draw[->] ($(s1)+(-2,0)$) -- node[above] {1} (s1);
+\draw[->] ($(s1)+(-1.5,0)$) -- node[above] {1} (s1);
 
 % Übergänge
 \draw[->] (s1) -- node[above] {[0,1]} (s2);
@@ -619,188 +730,329 @@ While these bounds can be computed as easily as \cref{eq:EVT_DTMC_iterative_char
 
 In the following, we will therefore take a look at how we can characterize the precise values of the uEVTs and lEVTs.
 
+\begin{theorem}
+    For a given state $s$ in an IDTMC $\IMC$, $\ExpUpper[vt_s] = \infty$ if and only if $s\in S_{re}^\IMC$.
+\end{theorem}
+
+\begin{proof}
+    By our \cref{assmp:finiteness_(I)DTMCs}, there exists a DTMC $\MC \models \IMC$ such that $s$ is reachable in $\MC$, i.e., $Pr^\MC(\lozenge s)>0$ and $\Prupper^\IMC(\lozenge s) > 0$. Moreover, as $s\in S_{re}^\IMC$, there exists a DTMC $\MC_{re}\models \IMC$ such that $Pr^{\MC_{re}}_s(\cCircle\lozenge s) = 1$, see \cref{def:transient_recurrent_states_IDTMC}, thus $\Prupper^{\IMC}_{s}(\cCircle\lozenge s) = 1$. Using \cref{th:existence_of_dtmc_with_universal_max_reach}, there exists a DTMC $\MC_{+re}\models\IMC$ such that $Pr^{\MC_{+re}}(\lozenge s)>0$ and $Pr^{\MC_{+re}}_{N(s)}(\lozenge s) = 1$, as $\Prupper^\IMC(\lozenge s) > 0$ and $\Prupper^{\IMC}_{s}(\cCircle\lozenge s) = 1$. Therefore, clearly $s\in S^{\MC_{+re}}_{re}$, see \cref{def:transient_and_recurrent_states} and using \cref{lem:EVTs_of_recurrent_states}, we can thus conclude that $\Exp^{\MC_{+re}}[vt_s] = \infty$ and thus $\ExpUpper^\IMC[vt_s] =\infty$.
+    
+    Conversely, if $\ExpUpper^\IMC[vt_s] =\infty$, then there exists a DTMC $\MC \models \IMC$ such that $\Exp^\MC[vt_s] = \infty$, i.e. $s\in S^\MC_{re}$, see \cref{lem:EVTs_of_recurrent_states}. Thus, it follows directly that $s\in S^\IMC_{re}$, see \cref{def:transient_recurrent_states_IDTMC}.
+\end{proof}
+
+\todo{define $N^\IMC(s)$}
+
+\begin{theorem}
+    For any $s\in S^\IMC$ in a given IDTMC $\IMC$, $\ExpLower[vt_s] = 0$ if and only if $\Prlower^\IMC(\lozenge s) = 0$, i.e., there exists a satisfying DTMC of $\IMC$, such that $s$ is not reachable.
+\end{theorem}
+
+\begin{proof}
+    If $\Prlower^\IMC(\lozenge s) = 0$, then there exists $\MC \models \IMC$ such that $Pr^\MC(\lozenge s) = 0$, i.e., there exists no path in $\MC$ that contains $s$. As therefore, $vt_s(\pi) = 0$ for all $\pi \in \Path$, we can conclude, using \cref{def:EVTs_in_DTMCs}, that $\Exp^\MC[vt_s] = 0$ and thus $\ExpLower^\IMC[vt_s] = 0$. 
+    
+    Conversely, if $\Prlower^\IMC(\lozenge s) > 0$, then there exists $\pi \in \Path$ with $vt_s(\pi) > 0$ for all $\MC \models \IMC$. Therefore, $\Exp^\MC[vt_s] > 0$ and thus $\ExpLower^\IMC[vt_s] > 0$.
+\end{proof}
+
+\todo{Vielleicht noch mehr dazu, wie sich bestimmen lässt, dass $s\in S_{re}^\IMC$ und $s$ not reachable, mittels verschiedener Grapheigenschaften?}
+
+As we showed in \cref{th:existence_of_dtmc_with_universal_max_reach} in \cref{sec:IMC_Quantitative_Reachability}, there exists a DTMC $\MC_{max}\models_U \IMC$ for any IDTMC $\IMC$ with $Pr^\MC_t(\lozenge s) = \Prupper^\IMC_t(\lozenge s)$ for all $t\in S^\MC$, see \cref{th:existence_of_dtmc_with_universal_max_reach}, we can conclude that $\ExpUpper^\IMC[vt_s] = \Exp^{\MC_{max}}[vt_s]$ under the UMC semantic, using \cref{eq:EVT_via_quant_reach_sum}. In other words, we can calculate the uEVT of a state $s$ in a given IDTMC by determining the maximum reachability probability of $Pr^\IMC_t(\lozenge s)$ for all $t\in \Strin$ and $Pr_s(\cCircle\lozenge s)$.
+% $\Exp^\MC[vt_s] = \frac{Pr_{s_{in}}^{\MC_{uni}}(\lozenge s)}{1 - Pr_{s_{suc}}^{\MC_{uni}}(\lozenge s)} \cdot \tau_{init}(s_{in})$
+
+As shown in \cite{complexity_model_checking_interval-valued_DTMCs}, computing the maximum or minimum reachability probability is P-complete for the IMDP semantic, and thus also for the UMC semantic.
+
+\todo{Muss ich erwähnen, dass die Berechnung zeitlich in poly(I) ist, wo I der "Input" für den IDTMC ist?}
+
+\todo{ARGUE THAT BOTH SEMANTICS IDENTICAL FOR L/UEVT (WITH SOME ADDITIONAL INTUITION THROUGH EXAMPLE); and even identical for interval}
+
+We will now shortly show that computing $\ell$EVTs and uEVTs is P-complete, by reducing it to the computation of minimum and maximum reachability probabilities, which is P-complete.
+
+\begin{theorem}\label{th:u/lEVTs_P-complete}
+    The problem of uEVTs and $\ell$EVTs is P-complete.
+\end{theorem}
+
+\emph{Reduction.} Given an IDTMC $\IMC$ and a set of states $T\subseteq S$, we construct the IDTMC $\IMC_{red} = (S^\IMC \cup \{s,\bot\}, \PF^{\IMC_{red}},\iota_{init}^\IMC)$. We define $\PFupper^{\IMC_{red}}(u,w) = \PFupper^\IMC(u,w)$ and $\PFlower^{\IMC_{red}}(u,w) = \PFlower^\IMC(u,w)$ for all $u\in S^\IMC \backslash T$ and $w\in S^\IMC$. Moreover, $\PFupper^{\IMC_{red}}(u,w) = \PFlower^{\IMC_{red}}(u,w) = 0$ and $\PFupper^{\IMC_{red}}(u,s) = \PFlower^{\IMC_{red}}(u,s) = 1$ for $u\in T$ and $w\in S^\IMC$. Finally, $\PFupper^{\IMC_{red}}(s,\bot) = \PFlower^{\IMC_{red}}(s,\bot) = 1$ and $\PFupper^{\IMC_{red}}(\bot,\bot) = \PFlower^{\IMC_{red}}(\bot,\bot) = 1$.
+
+\begin{lemma}
+    The mapping $(\IMC,T)\mapsto(\IMC_{red})$ is computable in logarithmic space.
+\end{lemma}
+
+\begin{theorem}\label{th:reduction_computes_reach_prob}
+    Let $\MC_{red}\models_U \IMC_{red}$ denote a DTMC such that $\Exp^{\MC_{red}}[vt_s] = \ExpUpper^{\IMC_{red}}[vt_s]$ and $\MC_{max} \models_U \IMC$ such that $Pr^{\MC_{max}}(\lozenge T) = \Prupper^\IMC(\lozenge T)$. Then, $\Exp^{\MC_{red}}[vt_s] = Pr^{\MC_{max}}(\lozenge T)$
+\end{theorem}
+
+% 1. Show Pr(\lozenge T) = Pr(\lozenge s)
+\begin{lemma}\label{lem:equal_reach_prob_for_state_extension}
+    $\Prupper^{\IMC_{red}}(\lozenge T) = \Prupper^{\IMC_{red}}(\lozenge s)$ and $Pr^{\MC_{red}}(\lozenge T) = Pr^{\MC_{red}}(\lozenge s)$
+\end{lemma}
+\begin{proof}
+    As $\PF^{\MC}(t,s)>0$ if and only if $t\in T$ for all $\MC \models_U \IMC_{red}$, it follows from \cref{lem:recursive_formula_for_reachability_prob} that $Pr^{\MC}(\lozenge s) = \sum_{t\in T}\PF(t,s)\cdot Pr^{\MC}(\lozenge T)$. Because, $\PF^{\MC}(t,s) = 1$ for all $t\in T$, we can conclude that $Pr^\MC(\lozenge T) = Pr^{\MC}(\lozenge s)$ for all $\MC \models_U \IMC_{red}$.
+    \todo{do i need to show this "follow" more thoroughly?}
+\end{proof}
+
+% 2. Show \Exp^\MC_{red}[vt_s] = Pr^{red}(\lozenge s) (weil F_ss = 0)
+\begin{lemma}\label{lem:EVT_equal_to_reach_prob_for_reduction}
+    $\Exp^{\IMC_{red}}[vt_s] = \Prupper^{\IMC_{red}}(\lozenge s)$ and $\Exp^{\MC_{red}}[vt_s] = Pr^{\MC_{red}}(\lozenge s)$
+\end{lemma}
+\begin{proof}
+    $\Exp^\MC[vt_s] = Pr(\lozenge s) \cdot (F)_{ss}$ for all $\MC \models_U \IMC_{red}$, see \cref{lem:quantitative_reachability_F_ts}. As, $\Prupper^{\IMC_{red}}(s,t)>0$ if and only if $t = \tau$ and $\tau$ is absorbing it follows that $(F)_{ss} = 1$ which concludes the proof.
+\end{proof}
+
+% 3. Show Pr\MC_{red}(\lozenge T) = \Pr\MC(\lozenge T)
+\begin{lemma}\label{lem:equal_reach_prob_for_reduction}
+    $Pr^{\MC_{red}}(\lozenge T) = Pr^{\MC_{max}}(\lozenge T)$
+\end{lemma}
+\begin{proof}
+    Firstly, if $\Exp^{\MC_{red}}[vt_s] = \ExpUpper^{\IMC_{red}}[vt_s]$, then $Pr^{\MC_{red}}(\lozenge s) = \Prupper^{\IMC_{red}}(\lozenge s)$, see \cref{lem:EVT_equal_to_reach_prob_for_reduction}. Moreover, $Pr^{\MC_{red}}(\lozenge T) = \Prupper^{\IMC_{red}}(\lozenge T)$, see \cref{lem:equal_reach_prob_for_state_extension}.
+    \todo{Wirklich trivial??}
+
+
+    As $Pr^{\MC_{red}}(\lozenge T)$ and $Pr^{\MC_{max}}(\lozenge T)$ are only dependent on $\PF^{\MC_{red}}(u,w)$ and $\PF^{\MC}(u,w)$ with $u\in S^\IMC\backslash T$ respectively, see \cref{lem:recursive_formula_for_reachability_prob}, and $\PFupper^{\IMC_{red}}(u,w) = \PFupper^\IMC(u,w)$ as well as $\PFlower^{\IMC_{red}}(u,w) = \PFlower^\IMC(u,w)$ for all $u\in S^\IMC \backslash T$ and $w\in S^\IMC$, thus trivially $\Prupper^\IMC(\lozenge T) = \Prupper^{\IMC_{red}}(\lozenge T)$ which concludes the proof.
+    \todo{last sentence more detailed?; right now needs combination with definition of max and with first paragraph of proof}
+\end{proof}
+
+% 4. Conclude proof
+We can now prove \cref{th:reduction_computes_reach_prob}.
+\begin{proof}
+    We simply need to combine the results of the lemmata. According to \cref{lem:equal_reach_prob_for_reduction} $Pr^{\MC_{max}}(\lozenge T) = Pr^{\MC_{red}}(\lozenge T)$. Furthermore, using \cref{lem:equal_reach_prob_for_state_extension}, $Pr^{\MC_{red}}(\lozenge T) = Pr^{\MC_{red}}(\lozenge s)$. Finally, \cref{lem:EVT_equal_to_reach_prob_for_reduction} shows that $Pr^{\MC_{red}}(\lozenge s) = \Exp^{\MC_{red}}[vt_s]$. Thus, combining these results $Pr^{\MC_{max}}(\lozenge T) = \Exp^{\MC_{red}}[vt_s]$. By definition $\Exp^{\MC_{red}}[vt_s] = \ExpUpper^{\IMC_{red}}[vt_s]$ and $Pr^{\MC_{max}}(\lozenge T) = \Prupper^\IMC(\lozenge T)$. Therefore, the given maximum reachability probability $\Prupper^\IMC(\lozenge T)$ of any IDTMC $\IMC$ can be determined through calculating uEVTs.
+\end{proof}
+
+
+
+
+\emph{\textbf{Remark.}}
+Konstruktion: jeweils zusammengefasste init states und direct successors von s. --> zeigen, dass das die selben EVTs hat (Bijektion für DTMCs). Zeigen das IDTMC Konstruktion nach lemma DTMC mit max EVT hat (beide max reach probs) (vllt reicht es auch zu zeigen dass es für diesen DTMC ein Äquivalent im ursprünglichen IDTMC gibt das selbe EVTs hat (für s halt))
+\cref{eq:EVT_via_quant_reach}
+$\Exp^\MC[vt_s] = \frac{Pr_{s_{in}}^{\MC_{uni}}(\lozenge s)}{1 - Pr_{s_{suc}}^{\MC_{uni}}(\lozenge s)} \cdot \tau_{init}(s_{in})$
+
++ Zwei state Konstruktion schnelle Möglichkeit zugrunde liegende Struktur zu berechnen (einfach geaddete states in transitionen übersetzen)
+
+UMC \& IMDP selbe max/min EVTs
+
+$\rightarrow$ Bsp zum verdeutlichen
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    >=Stealth,
+    node distance=2.8cm,
+    state/.style={
+        circle,
+        draw,
+        minimum size=1.2cm,
+        inner sep=0pt
+    },
+    edgelabel/.style={
+        midway
+    }
+]
+
+% Knoten
+\node[state] (s1) {$s_1$};
+\node[state, right=of s1] (t) {$t$};
+\node[state, right=of t] (s2) {$s_2$};
+
+% Anfangspfeil
+\draw[->] ($(t)+(0,1.5)$) -- node[right] {1} (t);
+
+% Übergänge
+\draw[->] (t)
+    to[bend left=20]
+    node[edgelabel, below] {[0,1]}
+    (s1);
+
+\draw[->] (s1)
+    to[bend left=20]
+    node[edgelabel, above] {[0,1]}
+    (t);
+
+\draw[->] (t)
+    to[bend left=20]
+    node[edgelabel, above] {[0,1]}
+    (s2);
+
+\draw[->] (s2)
+    to[bend left=20]
+    node[edgelabel, below] {[0,1]}
+    (t);
+
+\draw[->] (s1)
+    edge[loop above]
+    node {[0,1]}
+    ();
+
+\draw[->] (s2)
+    edge[loop above]
+    node {[0,1]}
+    ();
+
+\end{tikzpicture}
+\caption{An example of a DTMC.}
+\label{fig:attainable_values_non_infty}
+\end{figure}
+
+---------------------------------------------------
 
 \subsection{UMC semantic}
 In this section we examine how the precise values of the uEVTs and lEVTs can be calculated for IDTMCs under the UMC semantic.
 
 As defined, there can be multiple DTMCs $\MC_i$ that satisfy an IDTMC $\IMC$ with differing transition probability functions $\PF^{\MC_i}$ and initial distributions $\iota_{init}^{\MC_i}$. To determine the uEVT and $\ell$EVT for a given state $s\in S^\IMC$, we thus have to find the satisfying DTMCs that maximize and minimze \cref{eq:EVT_DTMC_iterative_characterization}, respectively.
 In other words, we need to solve the equations
+\[\Exp[vt_s] = \operatorname{opt}_{\MC\models\IMC} \left(\iota_{init}(s) + \sum_{t\in S_{tr}}\PF^\MC(t,s)\cdot\Exp[vt_t]\right), \qquad \operatorname{opt}\in\{\min,\max\}. \]
+
+As we concluded, the $\ell$EVT and uEVT of a given state $s$ in an IDTMC, can be calculated by computing the reachability probabilities $\Prupper^\IMC(\lozenge s)$ and $\Prupper^\IMC(\cCircle \lozenge s)$ or $\Prlower^\IMC(\lozenge s)$ and $\Prlower^\IMC(\cCircle \lozenge s)$. In \cite{complexity_model_checking_interval-valued_DTMCs}, the authors construct the following NLP to compute any maximum or minimum reachability, respectively, for a set of nodes $T\subseteq S$, using the fixed-initial-state-definition.
+
 \[
-\Exp[vt_s]
-=
-\operatorname{opt}_{\MC\models\IMC}
-\left(
-\iota_{init}(s)
-+
-\sum_{t\in S_{tr}}
-\PF^\MC(t,s)\cdot\Exp[vt_t]
-\right),
-\qquad
-\operatorname{opt}\in\{\min,\max\}.
-\]
-
-For this, we define two NLPs.
-\todo{define what a NLP is?}
-
-\begin{theorem}[NLPs for uEVT and $\ell$EVT]\label{th:calc_uEVT_with_NLP}
-    For any IDTMC $\IMC$, the uEVTs and lEVTs of all states $s\in S^\IMC$ can be calculated as follows
-    \[
    \begin{aligned}
-        \operatorname{opt} \quad & \iota_{init}(s) + \sum_{t\in S_{tr}} \PF^\MC(t,s)\cdot\Exp[vt_t] & & \operatorname{opt}\in\{\min,\max\}\\
-        \text{s.t.} \quad & \sum_{s_j\in N(s)} \PF(s_i,s_j) = 1 && \forall s_i\in S_{tr} & (1)\\
-        & \sum_{s_i\in S} \iota_{init}(s_i) = 1 && & (2)\\
-        & \PFlower^\IMC(s_i,s_j) \leq \PF(s_i,s_j) \leq \PFupper^\IMC(s_i,s_j) && \forall s_i,s_j\in S_{tr}^\IMC & (3)\\
-        & \Initlower^\IMC (s_i) \leq \iota_{init}(s_i) \leq \Initupper^\IMC (s_i) && \forall s_i\in S_{tr}^\IMC & (4)
+        \operatorname{opt} \quad & \sum_{s\in S\backslash T}x_s & & \operatorname{opt}\in\{\max,\min\}\\
+        \text{s.t.} \quad & x_s \sim \sum_{s'\in S\backslash T} \PF(s,s')x_{s'} + \sum_{s'\in T}\PF(s,s') && \forall s \in S\backslash T \text{ and } \sim \in \{\leq,\geq\}& (1)\\
+        & x_s = 1 && \forall s \in T & (2)\\
+        & \sum_{s_j\in N(s)} \PF(s_i,s_j) = 1 && \forall s_i\in S_{tr} & (3)\\
+        & \PFlower^\IMC(s_i,s_j) \leq \PF(s_i,s_j) \leq \PFupper^\IMC(s_i,s_j) && \forall s_i,s_j\in S_{tr}^\IMC & (4)\\
     \end{aligned}
-    \]
-    Values for $S_{re}$ chosen arbitrarily but correctly (bounds)
-\end{theorem}
-
-As the objective function is recursive, we will now briefly prove that the chain (?) is finite. For this, we will use LU-decomposition, see \cref{def:LU_decomposition}. Thus, we can rewrite
-\[\eE = \iota_{init}+Q^\T\cdot \eE = \iota_{init}+(LU)^\T\cdot \eE\]
-\[= \iota_{init}+U^\T\cdot L^\T\cdot \eE\]
-% $R=LU$\\
-% $e = (I-R^{-1})\cdot \iota_{init}$\\
-% $e = (I-R)^{-1}\cdot \iota_{init}$\\
-% $(I-R) \cdot e = \iota_{init}$\\
-% --> $e = \iota_{init}+R\cdot e$\\
-% $\Exp[vt_s] = \iota_{init}+\sum_{t\in S_{tr}}(R)_{st}\cdot \Exp[vt_t]$
-
-% text ------------\\
-% $x=U^{-1}y$\\
-% $e=U^{-1}(L^{-1}\cdot \iota_{init})$\\
-% $\iota^{L}_{init} = L^{-1}\cdot \iota_{init}$\\
-% $(I-(LU)^\T)\cdot x = \iota_{init}$\\
-% $x - (LU)^\T x = \iota_{init}$\\
-% $x = \iota_{init}(x) + U^\T L^\T x$\\
-
-Using the triangular property of $U$ and $L$, we can now show, that the computation is finite.
-
-% \[L^\T = \begin{bmatrix}
-%         1 & (L)_{12} & \dots & (L)_{1n}\\
-%         0 & 1 & \dots & \vdots\\
-%         \vdots & \vdots & \ddots & (L)_{(n-1)n}\\
-%         0 & 0 & \dots & 1
-%     \end{bmatrix}
-% \]
-\begin{proof}
-    Since $L^\T$ is an upper triangular matrix, we can define $(L^\T e)_i = \sum_{i=j}^n (L^\T)_ij \cdot e_j = e_i + \sum_{j=i+1}(L^\T)_{ij} \cdot e_j$ (making use of $(L_{ii}) = 0$, as L is unitriangular). 
-    \todo{nutze, dass $(L)_{ii} = 1$}
-    
-    And thus since $U^\T$ is a lower triangular matrix, $e_i = \iota_{init}(s_i)+\sum_{j=1}^i (U^\T)_{ij}\cdot (L^\T e)_j = \iota_{init}(s_i)+\sum_{j=1}^i (U^\T)_{ij}\cdot (e_j + \sum_{k=j+1}^n(L^\T)_{kj} \cdot e_k)$.
-\end{proof}
-\todo{Assoziativtät gegeben oder iwo definieren (um U(Le) statt (UL)e)}
-In the rest of this thesis, we will use the shorter vector notation $\Exp[vt_s] = \iota_{init}(s)+(Q)_s\cdot \eE$
-NOTICE THAT ONLY $S_{tr}$ USED (as only those necessary for calc.) --> Others irrelevant
-
-\todo{Show LU constructed from Q --> such that connection between LU and Q defined; not necessary because literally Q=LU}
-
-We will now prove the optimality of these NLPs.
-% Show that set feasible solutions of NLP is identical to set of satisfying DTMCs, i.e., there needs to exist/define some sort of bijective function that maps a solution to a satisfying DTMC 
-
-\begin{proof}
-    \todo{$S_{re}$ direkt in ILP schreiben um Zeitarbeit zu sparen?? Ist halt aber nicht für Berechnung notwendig}
-    We will have a look at the calculation of the uEVTs through ILPs first.
-    First, we will prove "correctness" (??) (Continue with optimality). For this, let $x$ be a given valid (not necessarily optimal) solution of the ILP for the uEVT of a state $s$ for a IDTMC $\IMC$ and $\MC$ a DTMC that satisfies $\IMC$, i.e. $\MC \models \IMC$, where $\PF^\MC(s,s') = q_{s,s'}$ and $\iota_{init}^\MC (s) = \iota(s)$ for all $s,s'\in S_{tr}$.
-    
-    Thus, if $x$ is a solution, then $\sum_{\hat{s}\in N(s')} \PF(s', \hat{s}) = 1$ for all $s'\in S_{tr}$.
-    
-    Moreover, $\PFlower^\IMC(s',\hat{s}) \leq \PF^\MC(s,s') \leq \PFupper^\IMC(s',\hat{s})$ and $\Initlower^\IMC (s') \leq \iota_{init}^\MC \leq \Initupper^\IMC (s')$ for all transitive states $s',\hat{s}\in S_{tr}$ and by definition also for all recurrent states $S_{re}$.
-
-    \dots
-    
-\end{proof}
-
-% \begin{definition}[Trace of a matrix]\label{def:trace_of_matrix}
-%     For a given matrix $M$, its trace is defined as $tr(M) = \sum_i (M)_{ii} = \sum_i \lambda_i$, where $\lambda_i$ denote the eigenvalues of $M$
-% \end{definition}
-
-% \begin{definition}[Nonzero eigenvalues]\label{def:nonzero_eigenvalues_of_matrix}
-%     For a given matrix $M$, if $M\neq 0$, then M has at least one nonzero eigenvalue
-% \end{definition}
+\]
+(Allowed only max + $\leq$ and min + $\geq$)
 
 
-% As shown before, the EVTs of a DTMC $\MC$ can be characterized by $e = (I-Q^\T)^{-1}\cdot \iota_{init}$. Let us know consider the subclass of this problem, where $Q^3 = 0$ (and $\iota_{init}(s)>0$ for at least one $s\in S_{tr}$). For this subclass it is necessarily true, that $Q^k = 0$, for all $k\geq 3$. As $\lim_{k\rightarrow\infty}Q^k=0$ for all $Q$ of our problem (as $Q$ is strictly row-substochastic and trivially especially for this subclass), we know that $(I-Q^\T)^{-1} = (\sum_{k=0}^\infty Q^k)^\T$. Thus, for our subclass $(I-Q^\T)^{-1} = (I + Q + Q^2)$ and therefore, $e = (I+Q+(Q^\T)^2)\cdot \iota_{init} = (I+Q^\T+(Q^2)^\T)\cdot \iota_{init}$.\\
-% % Intuitively, $Q^2 = 0$ means at least one path of length two in $Q$\\
-% Thus, $e = \iota_{init}
-% +\begin{bmatrix}
-%     \sum_{j=0}^n q_{j1}\cdot \iota_{init}(j)\\
-%     \vdots\\
-%     \sum_{j=0}^n q_{jn}\cdot \iota_{init}(j)
-% \end{bmatrix}
-% +\begin{bmatrix}
-%     \sum_{j=0}^n (\sum_{k=0}^n q_{jk}q_{k1})\iota_{init}(j)\\
-%     \vdots\\
-%     \sum_{j=0}^n (\sum_{k=0}^n q_{jk}q_{kn})\iota_{init}(j)
-% \end{bmatrix}$. 
+% For this, we define two NLPs.
+% \todo{define what a NLP is?}
 
-% Or for a single state: 
-% \begin{equation}\label{eq:EVT_of_state_time_comp}
-%     e_t = \iota_{init}(t)+\sum_{j=0}^n q_{j\hat{t}}\cdot \iota_{init}(j) + \sum_{j=0}^n (\sum_{k=0}^n q_{jk}q_{k\hat{t}})\iota_{init}(j)\ .
-% \end{equation}
-% To determine the uEVTs and lEVTs, we are trying to find the maximum and minimum for this equation, that satisfies the constraints of the IDTMC $\IMC$.
-% \\
-% (where $\hat{t}$ gives the index of state t in the ordering)
-% \begin{definition}[NP-hard quadratic programming (QP)]
-%     A quadratic programming problem with n variables and m constraints can be formulated as:
-%     \todo{find quote}
-%     \[\text{minimize}\ x^\T M x + c^\T x +d\]
-%     \[\text{s.t.}\ Ax \leq b\ ,\]
-%     where $c,x \in \RR^n$, $M \in \RR^{n\times n}$ and symmetric, $A\in \RR^{m\times n}$, $b\in \RR^m$, and $d\in \RR$.
-    
-%     The quadratic programming problem where $M$ is not positive definite, i.e. $M$ has a negative eigenvalue \cite{QuadraticP_Pardalos}, is NP-hard
-% \end{definition}
-
-% Thus, we can now rewrite \cref{eq:EVT_of_state_time_comp} to fit such a quadratic programming problem. For this, we further specify our subclass to only include IDTMCs with a fixed initial distribution for the transient states, i.e. $\Initlower(s)= \iota_{init}(s)= \Initupper(s)$ for all $s\in S_{tr}$. We can then define $d=\iota_{init}(t)$ and $x = (q_{00},q_{01},\dots,q_{0n},q_{10},\dots,q_{nn})^\T$. Furthermore, we then accordingly define $M_{p,q}= \frac{1}{2}\iota_{init}(j)$, where $p=j(n+1)+k$ and $q= k(n+1)+\hat{t}$, for all $j,k\in \underline{n}$ and all other entries as zero. Lastly, we define $c_{j(n+1)+\hat{t}} = \iota_{init}(j)$ and all other entries as zero.
-
-% We will now continue by briefly showing, that this formulation is correct, i.e. $x^\T M x + c^\T x +d = \iota_{init}(t)+\sum_{j=0}^n q_{j\hat{t}}\cdot \iota_{init}(j) + \sum_{j=0}^n (\sum_{k=0}^n q_{jk}q_{k\hat{t}})\iota_{init}(j)$. Firstly, trivially $d=\iota_{init}(t)$, (see its definition). Continuing, $c^\T x = \sum_{j=0}^n c_{j(n+1)+\hat{t}}\cdot x_{j(n+1)+\hat{t}}$, as all other entries of $c$ are defined as zero. As $c_{j(n+1)+\hat{t}} = \iota_{init}(j)$ and $x_{j(n+1)+\hat{t}} = q_{j\hat{t}}$, thus $c^\T x = \sum_{j=0}^n q_{j\hat{t}}\cdot \iota_{init}(j)$. Lastly, $x^\T M x = \sum_{pq} M_{pq} x_p x_q$. When substituing the nonzero entries of $M$, where $p=j(n+1)+k$ and $q=k(n+1)+\hat{t}$, we get $\sum_{j,k}M_{j(n+1)+k,k(n+1)+\hat{t}}\cdot x_{j(n+1)+k}\cdot x_{k(n+1)+\hat{t}} + \sum_{j,k}M_{k(n+1)+\hat{t},j(n+1)+k}\cdot x_{k(n+1)+\hat{t}}\cdot x_{j(n+1)+k}$. As $M$ is symmetrical and $M_{pq} = \iota_{init}(j)$ for these nonzero entries, we can simplify to: $\sum_{j,k}\iota_{init}(j)\cdot x_{j(n+1)+k}\cdot x_{k(n+1)+\hat{t}}$. Now, finally substituing back $x_{j(n+1)+k}=q_{jk}$ and $x_{k(n+1)+\hat{t}}=q_{k\hat{t}}$ gets us: $x^\T M x = \sum_{j,k}\iota_{init}(j)q_{jk}q_{k\hat{t}}=\sum_{j=0}^n (\sum_{k=0}^n q_{jk}q_{k\hat{t}})\iota_{init}(j)$.
-% This objective is then, similar to \cref{th:calc_uEVT_with_NLP}, subject to the constraints $\PFlower^\IMC(s',s'') \leq q_{s's''} \leq \PFupper^\IMC(s',s'')$ for all $s',s''\in S_{tr}^\IMC$. The soundness and completeness of this QP are identical to the NLP (and will thus be omitted). Thus, this subclass of the problem is NP-hard if and only if $M$ is not positive definite. For this we will further specify our subclass to only include IDTMCs $\IMC$ with $\Initlower(t) = \Initupper(t) = 0$, where $t$ is the state for which the uEVT and $\ell$EVT are calculated. \todo{does something speak against using s instead of t?}
-% With how we defined $M$, the entries $(M)_{ii}$ are nonzero if and only if $j=k=\hat{t}$. Therefore, $(M_{ii})$ is nonzero if and only if $\iota_{init}(t)>0$ and thus for the IDTMCs of our subclass $tr(M) = 0$. Furthermore, as $M\neq 0$ (trivially as we have defined for our subclass that $\iota_{init}(s)$ for at least one $s\in S_{tr}$), we can use \cref{def:nonzero_eigenvalues_of_matrix} to reason that $M$ must have at least one nonzero eigenvalue. Moreover, using \cref{def:trace_of_matrix}, we know that $\sum_i \lambda_i= tr(M) = 0$, necessarily $M$ must have a negative eigenvalue. Thus, we can reason that according to \cite{QuadraticP_Pardalos} this subclass belongs to a class of problems that is NP-hard. This would suggest that this problem is rather hard.
-
-% \todo{Könnte man hier vllt noch andeuten, dass diese quadratische Version natürlich leichter ist, als restlichen Grade (außer)}
-
-% Theorem: there exists satisfying DTMC where every state has max reach to s
-
-% \begin{theorem}
-%     For every IDTMC $\IMC$ there exists a satisfying DTMC $\MC$ under the UMC semantic, i.e., $\MC \models_U \IMC$, such that for all $t\in S_{tr}\backslash \{s\}$:
-%     \[Pr_t^\MC(\Diamond s) = sup_{\MC_i\models_U\IMC}Pr_t^{\MC_i}(\Diamond s)\]
+% \begin{theorem}[NLPs for uEVT and $\ell$EVT]\label{th:calc_uEVT_with_NLP}
+%     For any IDTMC $\IMC$, the uEVTs and lEVTs of all states $s\in S^\IMC$ can be calculated as follows
+%     \[
+%    \begin{aligned}
+%         \operatorname{opt} \quad & \iota_{init}(s) + \sum_{t\in S_{tr}} \PF^\MC(t,s)\cdot\Exp[vt_t] & & \operatorname{opt}\in\{\min,\max\}\\
+%         \text{s.t.} \quad & \sum_{s_j\in N(s)} \PF(s_i,s_j) = 1 && \forall s_i\in S_{tr} & (1)\\
+%         & \sum_{s_i\in S} \iota_{init}(s_i) = 1 && & (2)\\
+%         & \PFlower^\IMC(s_i,s_j) \leq \PF(s_i,s_j) \leq \PFupper^\IMC(s_i,s_j) && \forall s_i,s_j\in S_{tr}^\IMC & (3)\\
+%         & \Initlower^\IMC (s_i) \leq \iota_{init}(s_i) \leq \Initupper^\IMC (s_i) && \forall s_i\in S_{tr}^\IMC & (4)
+%     \end{aligned}
+%     \]
+%     Values for $S_{re}$ chosen arbitrarily but correctly (bounds)
 % \end{theorem}
 
-% For this we define the distance function $\delta_s: S \rightarrow \NN$, that outputs the minimum distance to state $s$ for any given $t\in S$. (Notice that trivially $\delta_s(t)=\infty$ for all $t\in S_{re}$, see \cref{lem:reachability_of_transient_states})
+% As the objective function is recursive, we will now briefly prove that the chain (?) is finite. For this, we will use LU-decomposition, see \cref{def:LU_decomposition}. Thus, we can rewrite
+% \[\eE = \iota_{init}+Q^\T\cdot \eE = \iota_{init}+(LU)^\T\cdot \eE\]
+% \[= \iota_{init}+U^\T\cdot L^\T\cdot \eE\]
 
-% Consider the following "policy iteration" (?).
-% We initialise the DTMC $\MC$, such that $\PF^\MC(t,s) = \PFupper^\IMC(t,s)$ for all $\delta_s(t) = 1$.
-
-% Now the policy iteration does the following. In each step the reachability probability from every transient state to s is calculated and the states are descendingly order after it. We refer to this order in the $k$-th step as $o^k_s$, where $o^k_s(t)$ with $t\in S_{tr}$ gives us the position of $t$ in the ordering.
-% Now we do the following. Starting with $o^k_s(t_{cur}) = 1$, we observe the predecessors, i.e., the states $t$ such that $t_{cur}\in N(t)$. If $j$ is the place of $t$ in the ordering, then we choose $\PF(t,t_{cur}) = \PFupper(t,t_{cur})$, if $o^k_s(t) > o^k_s(t_{cur})$.
-% After reaching some $o^k_s(t_{cur}) = n$, we stop (as examing more is not useful: loops which would only decrease the probability) and begin the next step (starting with calculating $o^{k+1}_s$)
-
-Thus after 
-
-
-% Thoughts:
-% Change of reachability prob of state t only influences its predecessors
-% --> how to deal with loops??
-
-
-% Possibly necessary lemma: auf papier geschrieben
-
-% In Folgeschritt zeigen, dass: immer Pr_t(\Diamond s) in k <= Pr_t(\Diamond s) in k+1, für alle t und k
-
-% In Folgeschritt zeigen, dass: Pr_t(\Diamond s) = Pr^{max}_t(\Diamond s) mit k --> infty
-% für alle t
-
-% Zweite Beweisidee:
-% 1. Für die reachability prob. sind nur die Kanten von t zu s relevant (--> trivial)
-% 2. Gegeben t_1 und t_2, gibt es keine Kante von einem t zu t' (auf den relevanten Pfaden), die sich unterscheidet (unterscheiden muss??)
-
-% \begin{lemma}[Intermediate sets are closed under composition]
-%     Given any DTMC $\MC$ and transient states $t,s,u,w \in S_{tr}$, if $u\in I^\MC_{ts}$ and $w\in I^\MC_{us}$, then $w\in I_{ts}\cup \{t\}$.
-% \end{lemma}
+% Using the triangular property of $U$ and $L$, we can now show, that the computation is finite.
 
 % \begin{proof}
+%     Since $L^\T$ is an upper triangular matrix, we can define $(L^\T e)_i = \sum_{i=j}^n (L^\T)_ij \cdot e_j = e_i + \sum_{j=i+1}(L^\T)_{ij} \cdot e_j$ (making use of $(L_{ii}) = 0$, as L is unitriangular). 
+%     \todo{nutze, dass $(L)_{ii} = 1$}
+    
+%     And thus since $U^\T$ is a lower triangular matrix, $e_i = \iota_{init}(s_i)+\sum_{j=1}^i (U^\T)_{ij}\cdot (L^\T e)_j = \iota_{init}(s_i)+\sum_{j=1}^i (U^\T)_{ij}\cdot (e_j + \sum_{k=j+1}^n(L^\T)_{kj} \cdot e_k)$.
+% \end{proof}
+% \todo{Assoziativtät gegeben oder iwo definieren (um U(Le) statt (UL)e)}
+% In the rest of this thesis, we will use the shorter vector notation $\Exp[vt_s] = \iota_{init}(s)+(Q)_s\cdot \eE$
+% NOTICE THAT ONLY $S_{tr}$ USED (as only those necessary for calc.) --> Others irrelevant
+
+% \todo{Show LU constructed from Q --> such that connection between LU and Q defined; not necessary because literally Q=LU}
+
+% We will now prove the optimality of these NLPs.
+% % Show that set feasible solutions of NLP is identical to set of satisfying DTMCs, i.e., there needs to exist/define some sort of bijective function that maps a solution to a satisfying DTMC 
+
+% \begin{proof}
+%     \todo{$S_{re}$ direkt in ILP schreiben um Zeitarbeit zu sparen?? Ist halt aber nicht für Berechnung notwendig}
+%     We will have a look at the calculation of the uEVTs through ILPs first.
+%     First, we will prove "correctness" (??) (Continue with optimality). For this, let $x$ be a given valid (not necessarily optimal) solution of the ILP for the uEVT of a state $s$ for a IDTMC $\IMC$ and $\MC$ a DTMC that satisfies $\IMC$, i.e. $\MC \models \IMC$, where $\PF^\MC(s,s') = q_{s,s'}$ and $\iota_{init}^\MC (s) = \iota(s)$ for all $s,s'\in S_{tr}$.
+    
+%     Thus, if $x$ is a solution, then $\sum_{\hat{s}\in N(s')} \PF(s', \hat{s}) = 1$ for all $s'\in S_{tr}$.
+    
+%     Moreover, $\PFlower^\IMC(s',\hat{s}) \leq \PF^\MC(s,s') \leq \PFupper^\IMC(s',\hat{s})$ and $\Initlower^\IMC (s') \leq \iota_{init}^\MC \leq \Initupper^\IMC (s')$ for all transitive states $s',\hat{s}\in S_{tr}$ and by definition also for all recurrent states $S_{re}$.
+
+%     \dots
     
 % \end{proof}
+
+% % \begin{definition}[Trace of a matrix]\label{def:trace_of_matrix}
+% %     For a given matrix $M$, its trace is defined as $tr(M) = \sum_i (M)_{ii} = \sum_i \lambda_i$, where $\lambda_i$ denote the eigenvalues of $M$
+% % \end{definition}
+
+% % \begin{definition}[Nonzero eigenvalues]\label{def:nonzero_eigenvalues_of_matrix}
+% %     For a given matrix $M$, if $M\neq 0$, then M has at least one nonzero eigenvalue
+% % \end{definition}
+
+
+% % As shown before, the EVTs of a DTMC $\MC$ can be characterized by $e = (I-Q^\T)^{-1}\cdot \iota_{init}$. Let us know consider the subclass of this problem, where $Q^3 = 0$ (and $\iota_{init}(s)>0$ for at least one $s\in S_{tr}$). For this subclass it is necessarily true, that $Q^k = 0$, for all $k\geq 3$. As $\lim_{k\rightarrow\infty}Q^k=0$ for all $Q$ of our problem (as $Q$ is strictly row-substochastic and trivially especially for this subclass), we know that $(I-Q^\T)^{-1} = (\sum_{k=0}^\infty Q^k)^\T$. Thus, for our subclass $(I-Q^\T)^{-1} = (I + Q + Q^2)$ and therefore, $e = (I+Q+(Q^\T)^2)\cdot \iota_{init} = (I+Q^\T+(Q^2)^\T)\cdot \iota_{init}$.\\
+% % % Intuitively, $Q^2 = 0$ means at least one path of length two in $Q$\\
+% % Thus, $e = \iota_{init}
+% % +\begin{bmatrix}
+% %     \sum_{j=0}^n q_{j1}\cdot \iota_{init}(j)\\
+% %     \vdots\\
+% %     \sum_{j=0}^n q_{jn}\cdot \iota_{init}(j)
+% % \end{bmatrix}
+% % +\begin{bmatrix}
+% %     \sum_{j=0}^n (\sum_{k=0}^n q_{jk}q_{k1})\iota_{init}(j)\\
+% %     \vdots\\
+% %     \sum_{j=0}^n (\sum_{k=0}^n q_{jk}q_{kn})\iota_{init}(j)
+% % \end{bmatrix}$. 
+
+% % Or for a single state: 
+% % \begin{equation}\label{eq:EVT_of_state_time_comp}
+% %     e_t = \iota_{init}(t)+\sum_{j=0}^n q_{j\hat{t}}\cdot \iota_{init}(j) + \sum_{j=0}^n (\sum_{k=0}^n q_{jk}q_{k\hat{t}})\iota_{init}(j)\ .
+% % \end{equation}
+% % To determine the uEVTs and lEVTs, we are trying to find the maximum and minimum for this equation, that satisfies the constraints of the IDTMC $\IMC$.
+% % \\
+% % (where $\hat{t}$ gives the index of state t in the ordering)
+% % \begin{definition}[NP-hard quadratic programming (QP)]
+% %     A quadratic programming problem with n variables and m constraints can be formulated as:
+% %     \todo{find quote}
+% %     \[\text{minimize}\ x^\T M x + c^\T x +d\]
+% %     \[\text{s.t.}\ Ax \leq b\ ,\]
+% %     where $c,x \in \RR^n$, $M \in \RR^{n\times n}$ and symmetric, $A\in \RR^{m\times n}$, $b\in \RR^m$, and $d\in \RR$.
+    
+% %     The quadratic programming problem where $M$ is not positive definite, i.e. $M$ has a negative eigenvalue \cite{QuadraticP_Pardalos}, is NP-hard
+% % \end{definition}
+
+% % Thus, we can now rewrite \cref{eq:EVT_of_state_time_comp} to fit such a quadratic programming problem. For this, we further specify our subclass to only include IDTMCs with a fixed initial distribution for the transient states, i.e. $\Initlower(s)= \iota_{init}(s)= \Initupper(s)$ for all $s\in S_{tr}$. We can then define $d=\iota_{init}(t)$ and $x = (q_{00},q_{01},\dots,q_{0n},q_{10},\dots,q_{nn})^\T$. Furthermore, we then accordingly define $M_{p,q}= \frac{1}{2}\iota_{init}(j)$, where $p=j(n+1)+k$ and $q= k(n+1)+\hat{t}$, for all $j,k\in \underline{n}$ and all other entries as zero. Lastly, we define $c_{j(n+1)+\hat{t}} = \iota_{init}(j)$ and all other entries as zero.
+
+% % We will now continue by briefly showing, that this formulation is correct, i.e. $x^\T M x + c^\T x +d = \iota_{init}(t)+\sum_{j=0}^n q_{j\hat{t}}\cdot \iota_{init}(j) + \sum_{j=0}^n (\sum_{k=0}^n q_{jk}q_{k\hat{t}})\iota_{init}(j)$. Firstly, trivially $d=\iota_{init}(t)$, (see its definition). Continuing, $c^\T x = \sum_{j=0}^n c_{j(n+1)+\hat{t}}\cdot x_{j(n+1)+\hat{t}}$, as all other entries of $c$ are defined as zero. As $c_{j(n+1)+\hat{t}} = \iota_{init}(j)$ and $x_{j(n+1)+\hat{t}} = q_{j\hat{t}}$, thus $c^\T x = \sum_{j=0}^n q_{j\hat{t}}\cdot \iota_{init}(j)$. Lastly, $x^\T M x = \sum_{pq} M_{pq} x_p x_q$. When substituing the nonzero entries of $M$, where $p=j(n+1)+k$ and $q=k(n+1)+\hat{t}$, we get $\sum_{j,k}M_{j(n+1)+k,k(n+1)+\hat{t}}\cdot x_{j(n+1)+k}\cdot x_{k(n+1)+\hat{t}} + \sum_{j,k}M_{k(n+1)+\hat{t},j(n+1)+k}\cdot x_{k(n+1)+\hat{t}}\cdot x_{j(n+1)+k}$. As $M$ is symmetrical and $M_{pq} = \iota_{init}(j)$ for these nonzero entries, we can simplify to: $\sum_{j,k}\iota_{init}(j)\cdot x_{j(n+1)+k}\cdot x_{k(n+1)+\hat{t}}$. Now, finally substituing back $x_{j(n+1)+k}=q_{jk}$ and $x_{k(n+1)+\hat{t}}=q_{k\hat{t}}$ gets us: $x^\T M x = \sum_{j,k}\iota_{init}(j)q_{jk}q_{k\hat{t}}=\sum_{j=0}^n (\sum_{k=0}^n q_{jk}q_{k\hat{t}})\iota_{init}(j)$.
+% % This objective is then, similar to \cref{th:calc_uEVT_with_NLP}, subject to the constraints $\PFlower^\IMC(s',s'') \leq q_{s's''} \leq \PFupper^\IMC(s',s'')$ for all $s',s''\in S_{tr}^\IMC$. The soundness and completeness of this QP are identical to the NLP (and will thus be omitted). Thus, this subclass of the problem is NP-hard if and only if $M$ is not positive definite. For this we will further specify our subclass to only include IDTMCs $\IMC$ with $\Initlower(t) = \Initupper(t) = 0$, where $t$ is the state for which the uEVT and $\ell$EVT are calculated. \todo{does something speak against using s instead of t?}
+% % With how we defined $M$, the entries $(M)_{ii}$ are nonzero if and only if $j=k=\hat{t}$. Therefore, $(M_{ii})$ is nonzero if and only if $\iota_{init}(t)>0$ and thus for the IDTMCs of our subclass $tr(M) = 0$. Furthermore, as $M\neq 0$ (trivially as we have defined for our subclass that $\iota_{init}(s)$ for at least one $s\in S_{tr}$), we can use \cref{def:nonzero_eigenvalues_of_matrix} to reason that $M$ must have at least one nonzero eigenvalue. Moreover, using \cref{def:trace_of_matrix}, we know that $\sum_i \lambda_i= tr(M) = 0$, necessarily $M$ must have a negative eigenvalue. Thus, we can reason that according to \cite{QuadraticP_Pardalos} this subclass belongs to a class of problems that is NP-hard. This would suggest that this problem is rather hard.
+
+% % \todo{Könnte man hier vllt noch andeuten, dass diese quadratische Version natürlich leichter ist, als restlichen Grade (außer)}
+
+% % Theorem: there exists satisfying DTMC where every state has max reach to s
+
+% % \begin{theorem}
+% %     For every IDTMC $\IMC$ there exists a satisfying DTMC $\MC$ under the UMC semantic, i.e., $\MC \models_U \IMC$, such that for all $t\in S_{tr}\backslash \{s\}$:
+% %     \[Pr_t^\MC(\lozenge s) = sup_{\MC_i\models_U\IMC}Pr_t^{\MC_i}(\lozenge s)\]
+% % \end{theorem}
+
+% % For this we define the distance function $\delta_s: S \rightarrow \NN$, that outputs the minimum distance to state $s$ for any given $t\in S$. (Notice that trivially $\delta_s(t)=\infty$ for all $t\in S_{re}$, see \cref{lem:reachability_of_transient_states})
+
+% % Consider the following "policy iteration" (?).
+% % We initialise the DTMC $\MC$, such that $\PF^\MC(t,s) = \PFupper^\IMC(t,s)$ for all $\delta_s(t) = 1$.
+
+% % Now the policy iteration does the following. In each step the reachability probability from every transient state to s is calculated and the states are descendingly order after it. We refer to this order in the $k$-th step as $o^k_s$, where $o^k_s(t)$ with $t\in S_{tr}$ gives us the position of $t$ in the ordering.
+% % Now we do the following. Starting with $o^k_s(t_{cur}) = 1$, we observe the predecessors, i.e., the states $t$ such that $t_{cur}\in N(t)$. If $j$ is the place of $t$ in the ordering, then we choose $\PF(t,t_{cur}) = \PFupper(t,t_{cur})$, if $o^k_s(t) > o^k_s(t_{cur})$.
+% % After reaching some $o^k_s(t_{cur}) = n$, we stop (as examing more is not useful: loops which would only decrease the probability) and begin the next step (starting with calculating $o^{k+1}_s$)
+
+% Thus after 
+
+
+% % Thoughts:
+% % Change of reachability prob of state t only influences its predecessors
+% % --> how to deal with loops??
+
+
+% % Possibly necessary lemma: auf papier geschrieben
+
+% % In Folgeschritt zeigen, dass: immer Pr_t(\lozenge s) in k <= Pr_t(\lozenge s) in k+1, für alle t und k
+
+% % In Folgeschritt zeigen, dass: Pr_t(\lozenge s) = Pr^{max}_t(\lozenge s) mit k --> infty
+% % für alle t
+
+% % Zweite Beweisidee:
+% % 1. Für die reachability prob. sind nur die Kanten von t zu s relevant (--> trivial)
+% % 2. Gegeben t_1 und t_2, gibt es keine Kante von einem t zu t' (auf den relevanten Pfaden), die sich unterscheidet (unterscheiden muss??)
+
+% % \begin{lemma}[Intermediate sets are closed under composition]
+% %     Given any DTMC $\MC$ and transient states $t,s,u,w \in S_{tr}$, if $u\in I^\MC_{ts}$ and $w\in I^\MC_{us}$, then $w\in I_{ts}\cup \{t\}$.
+% % \end{lemma}
+
+% % \begin{proof}
+    
+% % \end{proof}
 
 \subsection{IMDP semantic}
 In this subsection we will look at how uEVTs and lEVTs can be calculated for the IMDP semantic.
@@ -823,7 +1075,7 @@ In this subsection we will look at how uEVTs and lEVTs can be calculated for the
 %     lEVTs can be calculated by minimizing the objective
 % \end{theorem}
 
-Recall, that we concluded in \cref{sec:IMC_Quantitative_Reachability} that the uEVT and $\ell$EVT of a given IDTMC $\IMC$ can be calculated by maximizing or minimizing the term $\sum_{t\in \Strin} \frac{Pr_t(\Diamond s)}{1-Pr_s(\cCircle\Diamond s)} \cdot \iota_{init}(t)$ for all DTMCs $\MC \models \IMC$. Intuitively, we can thus find the lEVTs and uEVTs by maximizing or minimizing the reachability probability from the initial state $t$ to the given state $s$ ($Pr_t(\Diamond s)$) and from $s$ back to itself ($Pr_s(\cCircle\Diamond s)$). As shown in \cite{complexity_model_checking_interval-valued_DTMCs} the problem of finding this supremum or infimum for a given IDTMC is P-complete. Thus, we can derive the two suprema or infima belonging to (at most) two different satisfying DTMCs $\MC_{s_{in}\rightarrow s}$ and $\MC_{s\rightarrow s}$ ($\MC_{s_{in}\rightarrow s},\ \MC_{s\rightarrow s}\models_{I} \IMC$). 
+Recall, that we concluded in \cref{sec:IMC_Quantitative_Reachability} that the uEVT and $\ell$EVT of a given IDTMC $\IMC$ can be calculated by maximizing or minimizing the term $\sum_{t\in \Strin} \frac{Pr_t(\lozenge s)}{1-Pr_s(\cCircle\lozenge s)} \cdot \iota_{init}(t)$ for all DTMCs $\MC \models \IMC$. Intuitively, we can thus find the lEVTs and uEVTs by maximizing or minimizing the reachability probability from the initial state $t$ to the given state $s$ ($Pr_t(\lozenge s)$) and from $s$ back to itself ($Pr_s(\cCircle\lozenge s)$). As shown in \cite{complexity_model_checking_interval-valued_DTMCs} the problem of finding this supremum or infimum for a given IDTMC is P-complete. Thus, we can derive the two suprema or infima belonging to (at most) two different satisfying DTMCs $\MC_{s_{in}\rightarrow s}$ and $\MC_{s\rightarrow s}$ ($\MC_{s_{in}\rightarrow s},\ \MC_{s\rightarrow s}\models_{I} \IMC$). 
 \todo{based on this concept of forward/backward pass: can understand why acyclical is easy --> necessarily do not interfere; but useless info ig}
 
 As we have defined the IMDP semantic using adversarial behaviour (?), notice that we can define a policy that choses the probability distribution specified by $\MC_{s_{in}\rightarrow s}$ until state $s$ is visited for the first time and then choses the probability distribution specified by $\MC_{s\rightarrow s}$. \todo{define it with policy}
@@ -968,7 +1220,7 @@ Lastly, $\iota_{init}^{\MC_{aug}^s}(t^{(1)})=\iota_{init}^{\MC_{s_{in}\rightarro
 \node[state, fill=orange!30, right=2.5cm of s4] (s5) {$s_5$};
 
 % Initial distribution
-\draw[->] ($(s1)+(-2,0)$) -- node[edgelabel, above] {1} (s1);
+\draw[->] ($(s1)+(-1.5,0)$) -- node[edgelabel, above] {1} (s1);
 
 % Transitions
 \draw[->] (s1) -- node[edgelabel, sloped, above] {1} (s2);
@@ -1109,7 +1361,7 @@ Lastly, $\iota_{init}^{\MC_{aug}^s}(t^{(1)})=\iota_{init}^{\MC_{s_{in}\rightarro
 
 \emph{Construction.} For a given DTMC $\MC$ and a state $s\in S$, consider the DTMC $\MC_{abs} = (S^{\MC_{abs}},\PF^{\MC_{abs}},\iota_{init}^{\MC})$ with the set of states $S^{\MC_{abs}} = S^\MC_{tr} \cup \{s_{re}\}$. Moreover, the probability function $\PF_{abs}$ is identical to $\PF^\MC$, except the transitions $\PF_{abs}(s,s') = 0$ for all $s'\in S$ and $\PF_{abs}(s,s)=1$, as well as $\PF^\MC(s_1,s_2) = \PF^{\MC_{abs}}(s_1,s_{re})$, for all $s_1\in S^\MC_{tr}$, $s_2\in S^\MC_{re}$ and further $\PF^{\MC_{abs}}(s_{re},s_{re}) = 1$. In other words, $\MC_{abs}$ is modified only in such a way that $s$ is absorbing and all recurrent states are summarized into one state.
 \begin{lemma}\label{lem:reach_prob_dependency_on_s_trans}
-    The reachability probabilities $Pr^\MC(\Diamond s) = Pr^{\MC_{abs}}(\Diamond s)$ are equal.
+    The reachability probabilities $Pr^\MC(\lozenge s) = Pr^{\MC_{abs}}(\lozenge s)$ are equal.
 \end{lemma}
 
 \begin{proof}
@@ -1117,21 +1369,21 @@ Lastly, $\iota_{init}^{\MC_{aug}^s}(t^{(1)})=\iota_{init}^{\MC_{s_{in}\rightarro
 
     % For $s\not\in S_{init}$ consider the cylinder set $Cyl(\pi) = \{\pi \in Paths_{fin}^\MC \mid |\pi|=n\ \land\ \pi[n] = s\ \land \ \nexists k < n \ \land \ \pi[k]=s\}$, which contains all paths in $\MC$ that end in $s$ and visit $s$ only once.
     \todo{is this actually a legitimate cylinder set?}
-    As $Pr(\Diamond s) = Pr(S\backslash\{s\} \cup {s})$, we can reason/conclude using \cref{def:prob_space_of_DTMC} and \cref{def:constrained_reachability_probabilities} that $Pr(\Diamond s) = \iota_{init}^\MC(\pi[0]) \cdot \prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])$. As there is no factor $\PF(s,s')$ for any $s'\in S$ in this product, as well as no factor of the form $\PF(s_1,s_2)$, where $s_1 \in S^\MC_{re}$ and the probabilty functions $\PF$ and $\PF_{abs}$ are identical for all transitions except those, we can conclude that \cref{lem:reach_prob_dependency_on_s_trans} is true. 
+    As $Pr(\lozenge s) = Pr(S\backslash\{s\} \cup {s})$ (until operator), we can reason/conclude using \cref{def:prob_space_of_DTMC} and \cref{def:constrained_reachability_probabilities} that $Pr(\lozenge s) = \iota_{init}^\MC(\pi[0]) \cdot \prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])$. As there is no factor $\PF(s,s')$ for any $s'\in S$ in this product, as well as no factor of the form $\PF(s_1,s_2)$, where $s_1 \in S^\MC_{re}$ and the probabilty functions $\PF$ and $\PF_{abs}$ are identical for all transitions except those, we can conclude that \cref{lem:reach_prob_dependency_on_s_trans} is true. 
 \end{proof}
 
-Thus, we can reason that transitions from the state $s$ itself and recurrent states have no influence on the reachability probability $Pr^\MC(\Diamond s)$.
+Thus, we can reason that transitions from the state $s$ itself and recurrent states have no influence on the reachability probability $Pr^\MC(\lozenge s)$.
 
 % Prove the t --> s reach and s --> s reach for construction
 \begin{lemma}
-    Let $Pr^{max}(\Diamond s)$ and $Pr^{max}_s(\cCircle\Diamond s)$ be the maximum reachability probabilities of $\IMC$. It holds that $Pr^{D_{aug}^s}(\Diamond s) = Pr^{max}(\Diamond s)$ and $Pr^{D_{aug}^s}_s(\cCircle\Diamond s) = Pr_s^{max}(\cCircle\Diamond s)$
+    Let $Pr^{max}(\lozenge s)$ and $Pr^{max}_s(\cCircle\lozenge s)$ be the maximum reachability probabilities of $\IMC$. It holds that $Pr^{D_{aug}^s}(\lozenge s) = Pr^{max}(\lozenge s)$ and $Pr^{D_{aug}^s}_s(\cCircle\lozenge s) = Pr_s^{max}(\cCircle\lozenge s)$
 \end{lemma}
 
 \begin{proof}
-    First, we will show that $Pr^{D_{aug}^s}(\Diamond s) = Pr^{max}(\Diamond s)$.
-    Notice, that for all $s\in S_{st1}\backslash\{s\}$, the probability function $\PF^{\MC_{aug}^s}$ is identical to $\PF^\IMC$, i.e. it is identical for all transient states except $s$. Using \cref{lem:reach_prob_dependency_on_s_trans}, we can thus conclude that $Pr^{D_{aug}^s}(\Diamond s) = Pr^{max}(\Diamond s)$.
+    First, we will show that $Pr^{D_{aug}^s}(\lozenge s) = Pr^{max}(\lozenge s)$.
+    Notice, that for all $s\in S_{st1}\backslash\{s\}$, the probability function $\PF^{\MC_{aug}^s}$ is identical to $\PF^\IMC$, i.e. it is identical for all transient states except $s$. Using \cref{lem:reach_prob_dependency_on_s_trans}, we can thus conclude that $Pr^{D_{aug}^s}(\lozenge s) = Pr^{max}(\lozenge s)$.
     
-    Next, we will show that $Pr^{D_{aug}^s}_s(\cCircle\Diamond s) = Pr_s^{max}(\cCircle\Diamond s)$. Trivial because (basicaly/literaly) the same DTMC.
+    Next, we will show that $Pr^{D_{aug}^s}_s(\cCircle\lozenge s) = Pr_s^{max}(\cCircle\lozenge s)$. Trivial because (basicaly/literaly) the same DTMC.
 \end{proof}
 % Conclude that EVT is thus minimal/maximal
 
@@ -1169,11 +1421,15 @@ In \cite{AIMC_reduction_reachability}, the authors prove that the qualtitative r
 
 % Introduce concept of stationary distribution
 
-As stated in \cref{th:k-step_transition_probability} the $k$-th power of the transition matrik $\tT^k$ contains the probabilities of transitioning from any state $i$ to any other state $j$ in precisely $k$ steps. Thus, the product $\iota_{init}^\T \cdot \tT^k$ characterizes the probability distribution of the current state of the given Markov state in step $k$. We define this product as $\theta_k^\T = \iota_{init}^\T \cdot \tT^k$, where the $i$-th entry of $\theta_k$ characterizes the probability that the current state in step $k$ is $i$. We can also define $\theta_k$ iteratively through $\theta_k^\T = \theta_{k-1}^\T \cdot \tT$
+As stated in \cref{th:k-step_transition_probability} the $k$-th power of the transition matrik $\tT^k$ contains the probabilities of transitioning from any state $i$ to any other state $j$ in precisely $k$ steps. Thus, the product $\iota_{init}^\T \cdot \tT^k$ characterizes the probability distribution of the current state of the given DTMC in step $k$. We define this product as $\theta_k^\T = \iota_{init}^\T \cdot \tT^k$, where the $i$-th entry of $\theta_k$ characterizes the probability that the current state in step $k$ is $i$. We can also define $\theta_k$ iteratively through $\theta_k^\T = \theta_{k-1}^\T \cdot \tT$
 \todo{perhaps $\iota_k$ instead of $\nu_k$}
 
-\begin{definition}[Stationary Distribution]
-    A distribution $\theta_k$ is stationary if and only if $\theta_k^\T = \theta_k^\T \cdot \tT$, i.e. the probability distribution of the current state remains unchanged through future steps. We denote the stationary distribution as $\theta$, where $\theta(s)$ denotes the entry of $\theta$ which corresponds to state s.
+\begin{definition}[Stationary Distributions in DTMCs]
+    A distribution $\theta_k^\MC$ in a DTMC $\MC$ is stationary if and only if $\theta_k^\T = \theta_k^\T \cdot \tT^\MC$, i.e. the probability distribution of the current state remains unchanged through future steps. We denote the stationary distribution as $\theta^\MC$, where $\theta^\MC(s)$ denotes the entry of $\theta^\MC$ which corresponds to state $s$.
+\end{definition}
+
+\begin{definition}[Stationary Distributions in IDTMCs]
+    For a given IDTMC $\IMC$, we define $\Theta = \{\theta^\MC \mid \MC \models \IMC\}$ as the set of stationary distributions. Furthermore, for a given state $s\in S^\IMC$, we define $\Thetalower^\IMC(s)$ and $\Thetaupper^\IMC(s)$ such that $\Thetalower^\IMC(s) = \operatorname{inf}_{\MC\models\IMC}\theta^\MC(s)$ and $\Thetaupper^\IMC(s) = \operatorname{sup}_{\MC\models\IMC}\theta^\MC(s)$.
 \end{definition}
 
 In contrast to EVTs, when considering the stationary distribution of a DTMC or IDTMC, we are interested in the recurrent, not transient, states.
@@ -1182,9 +1438,9 @@ In contrast to EVTs, when considering the stationary distribution of a DTMC or I
 \end{theorem}
 We provide a short proof.
 \begin{proof}
-    Assume that some $s$ is transient and for the stationary distribution $\theta(s) > 0$. As $\theta$ is stationary, there exists some $k\in \NN$ such that $\theta_{k'}$ is stationary for $k' \geq k$. Thus, there is a nonzero probability that the current state in step $k' \geq k$ is $s$. However, as $s$ is transient it follows that $Pr_{s}(\cCircle\Diamond s) < 1$, see \cref{def:transient_and_recurrent_states}. Therefore, there must be some $k'' > k$ such that $\theta_{k''}(i) = 0$. This contradicts the stationary property of $\theta$.
+    Assume that some $s$ is transient and for the stationary distribution $\theta(s) > 0$. As $\theta$ is stationary, there exists some $k\in \NN$ such that $\theta_{k'}$ is stationary for $k' \geq k$. Thus, there is a nonzero probability that the current state in step $k' \geq k$ is $s$. However, as $s$ is transient it follows that $Pr_{s}(\cCircle\lozenge s) < 1$, see \cref{def:transient_and_recurrent_states}. Therefore, there must be some $k'' > k$ such that $\theta_{k''}(i) = 0$. This contradicts the stationary property of $\theta$.
     \todo{sufficient and understandable?}
-    Now, assume that some $s$ is recurrent and for the stationary distribution $\theta(s) = 0$. As $s$ is reachable by definition/construction, see \cref{sec:consideration_for_limiting_the_state_size}, we can conclude that $Pr(\Diamond s) > 0$. Thus, there exists some $k' \in \NN$ such that $\theta_{k'}(i) > 0$. As $s_i$ is recurrent, it follows that $Pr_{s_i}(\cCircle\Diamond s_i) = 1$, see again \cref{def:transient_and_recurrent_states}. Thus, there exist infinitely many $k'' \in \NN$ with $k'' > k'$ and $\theta_{k''}(i) > 0$. Therefore, $\theta_k$ is not stationary.
+    Now, assume that some $s$ is recurrent and for the stationary distribution $\theta(s) = 0$. As $s$ is reachable by definition/construction, see \cref{sec:consideration_for_limiting_the_state_size}, we can conclude that $Pr(\lozenge s) > 0$. Thus, there exists some $k' \in \NN$ such that $\theta_{k'}(i) > 0$. As $s_i$ is recurrent, it follows that $Pr_{s_i}(\cCircle\lozenge s_i) = 1$, see again \cref{def:transient_and_recurrent_states}. Thus, there exist infinitely many $k'' \in \NN$ with $k'' > k'$ and $\theta_{k''}(i) > 0$. Therefore, $\theta_k$ is not stationary.
     \todo{rework proof to make it prettier? "Infinitely many" does not seem like an elegant argument}
 \end{proof}
 
@@ -1200,7 +1456,7 @@ We provide a short proof.
 
 Notice, that any maximal set of connected recurrent states, i.e., every state is connected to some other state in the set, in a DTMC, is a BSCC, see \cref{def:(B)SCC}.
 \todo{explain maximal set of connected states more in detail?}
-Firstly, a set of connected recurrent states in a DTMC is strongly connected. By definition, see \cref{sec:consideration_for_limiting_the_state_size}, all of the recurrent states in the set are reachable. As the return probability $Pr_{s_{re}}(\cCircle\Diamond S_{re})$ is equal to $1$ for any recurrent state $s_re$, see \cref{def:transient_and_recurrent_states}, any state that is a successor to $s_{re}$ must also be a predecessor, i.e., every edge in this set is bidirectional (in a sense). Thus, trivially strongly connected. 
+Firstly, a set of connected recurrent states in a DTMC is strongly connected. By definition, see \cref{sec:consideration_for_limiting_the_state_size}, all of the recurrent states in the set are reachable. As the return probability $Pr_{s_{re}}(\cCircle\lozenge S_{re})$ is equal to $1$ for any recurrent state $s_re$, see \cref{def:transient_and_recurrent_states}, any state that is a successor to $s_{re}$ must also be a predecessor, i.e., every edge in this set is bidirectional (in a sense). Thus, trivially strongly connected. 
 
 $\rightarrow$ It is SCC
 
@@ -1209,11 +1465,50 @@ Clearly also BSCC
 (Bridge: recurrent groups are BSCC \& BSCC is irreducible DTMC (perhaps prove this shortly))
 We denote stationary distribution of a DTMC $\MC$ restricted to a BSCC $B$ as $\theta^{\MC|_B}$.
 
-As proven in \cite{modeling_and_analysis_stochastic_systems}, the stationary distribution $\theta^\MC$ of the recurrent states of a DTMC $\MC$ is characterized by $\theta^\MC(s) = Pr^\MC(\Diamond B) \cdot \theta^{\MC|_B}(s)$ for all $s\in S_{re}$. Moreover, in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, it is shown that the stationary distribution within a BSCC can be computed through its EVTs. For this they construct a DTMC $\mathcal{B}\!\Rsh^{\hat{v}}$ for every BSCC $B$ with any arbitrary state $v\in S^{\MC|_B}$ in which all incoming transitions of $v$ are redirected to the fresh absorbing state $\hat{v}$. 
+As proven in \cite{modeling_and_analysis_stochastic_systems}, the stationary distribution $\theta^\MC$ of the recurrent states of a DTMC $\MC$ is characterized by 
+\begin{equation}\label{eq:Stat_Distr_via_BSCC_for_DTMC} 
+    \theta^\MC(s) = Pr^\MC(\lozenge B) \cdot \theta^{\MC|_B}(s)\ ,
+\end{equation} 
+for all $s\in B$. Moreover, in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, it is shown that the stationary distribution within a BSCC can be computed through its EVTs. For this they construct a DTMC $\mathcal{B}\!\Rsh^{\hat{v}}$ for every BSCC $B$ with any arbitrary state $v\in S^{\MC|_B}$ in which all incoming transitions of $v$ are redirected to the fresh absorbing state $\hat{v}$. 
 
 \emph{Construction.} More precisely, $\mathcal{B}\!\Rsh^{\hat{v}} = (S^{\MC|_B} \cup \{\hat{v}\},\PF^{\mathcal{B}\Rsh^{\hat{v}}},\iota_{init}^{\mathcal{B}\Rsh^{\hat{v}}})$, where $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(\hat{v},\hat{v}) = 1$, $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,\hat{v}) = \PF(s,v)$ and $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,v) = 0$ for all $s\in S^{\MC|_B}$, $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,t) = \PF(s,t)$ for all $s\in S$, $t\in S\backslash\{v\}$, and $\iota_{init}^{\mathcal{B}\Rsh^{\hat{v}}}(v) = 1$. 
 
-The stationary distribution within a DTMC is then given by $\theta^{\MC|_B} = \frac{\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_s]}{\sum_{t\in S}\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_t]}$, as proven in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
+The stationary distribution within a DTMC is then given by
+\begin{equation}\label{eq:Stat_Distr_of_BSCC}
+    \theta^{\MC|_B}(s) = \frac{\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_s]}{\sum_{t\in S}\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_t]}\ ,
+\end{equation}
+as proven in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
+
+% Es gibt IDTMCs nicht unbedingte feste BSCCs, i.e. s kann in verschiedenen BSCCs sein.
+
+\begin{assumption}\label{assmp:graph_preserving}
+    In the rest of this section, we assume that all IDTMCs are graph preserving, meaning that there exist no lower transition probability function such that $\PFlower^\IMC(s,t) = 0$ for any $s,t\in S^\IMC$.
+\end{assumption}
+
+Notice, that all DTMCs $\MC_i$ (for UMC semantic) satisfying an IDTMC $\MC_i \models \IMC$ have the same edge relations, i.e., if $\PF^{\MC_j}(u,w) > 0$ for some $u,w\in S^\IMC$, then $\PF^{\MC_k}(u,w) > 0$ for all $\MC_k$. 
+(schlechte notation; auch wieder: eig u,w in $S^\MC$, bzw. die states in $\MC$, die auf gewieses u in IMC verweisen).
+
+As all IDTMCs are graph preserving, we can conclude that for a given IDTMC $\IMC$, any state $s\in S_{re}^\IMC$ and BSCC $B$, if $s\in B$ then $s\notin B'$ for all BSCC $B'\neq B$. In other words, every state $S_{re}^\IMC$ corresponds to precisely one BSCC in $\IMC$.
+
+\begin{proof}
+    Assume that for some IDTMC $\IMC$ there exists a state $s$ and two BSCCs $B^\MC, B'^{\MC'}$ with $B^\MC\neq B'^{\MC'}$ and $\MC, \MC'\models \IMC$ \todo{vllt muss ich das umschreiben, nicht die states in B von MC sondern die states zu denen die im MC korrespondieren} such that $s\in B$ and $s\in B'$. As $B\neq B'$, there exists some $t\in (B\backslash B') \cup (B'\backslash B)$, i.e., there exists some $t\in S^\IMC$ only in $B$ or $B'$. Let us assume $t\in B^\MC$. (ist das ok so, halt um triviale Fallunterscheidung zu vermeiden) Thus by definition, see \cref{def:(B)SCC}, there exists a path from $s$ to $t$ in $\MC$. However, as noted the graph relations for all satisfying DTMCs of graph preserving IDTMCs are identical. Thus, there must also exist a path from $s$ to $t$ in $\MC'$. However, $t\notin B'^{\MC'}$, which contradicts \cref{def:(B)SCC}.
+\end{proof}
+
+\todo{BSCC mit rücksicht auf IMC definieren, also dass BSSC von DTMC, die IDTMC satisfied}
+
+Thus, we can conclude that for graph preserving IDTMCs that any state $s\in S^\IMC$ belongs only to a singular BSCC, i.e., the BSCCs for all satisfying DTMCs are identical.
+
+Therefore, we can calculate the stationary distributions
+\begin{equation}
+    \Thetalower^\IMC(s) = \Prlower^\IMC(\lozenge s) \cdot \frac{\ExpLower^{\mathcal{B}\Rsh^{\hat{v}}}[vt_s]}{\sum_{t\in S}\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_t]}\ ,
+\end{equation}
+similar to \cref{eq:Stat_Distr_via_BSCC_for_DTMC} using \cref{eq:Stat_Distr_of_BSCC}.
+
+Show: when $\Exp[vt_s]$ minimal then sum of $\Exp[vt_t]$ is maximal (and other way around). Bzw die summe aller evts ist für alle satisfying DTMCs gleich (--> nicht wahr; vllt auch ein interessantes Ergebnis??)
+
+This directly concludes the optimality of the BSCC restricted stat. distribution.
+
+
 
 (Trivially then uppper bound for stationary distribution given by uEVT and lower bound given by $\ell$EVT)
 
