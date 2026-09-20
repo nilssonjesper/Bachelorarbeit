@@ -1,6 +1,75 @@
 \chapter{Introduction}
 \label{ch:Introduction}
 
+Stochastic processes are powerful Stochastic processes offer effective methods for analyzing real-world systems across fields like computer science, economics, and the social sciences \cite{GokhaleTrivedi_Intro, Biondi_Entropy_Intro, Afrinaldi_Economics_Intro, Galam_Intro}. One such widely used stochastic process are \textit{discrete-time Markov chains} (DTMCs) which were introduced by Markov in 1906 \cite{Markov_original_paper_Intro}. DTMCs consist of a set of states and a fixed transition probability function that specifies the probability of transitioning between states. They find application in a broad range of different domains, such as computer networks and software systems \cite{GokhaleTrivedi_Intro,Piraveenan_Percolation_Intro}, opinion dynamics \cite{Galam_Intro,FriedkinJohnsen_Intro}, and biology \cite{Roth_Intro}.
+
+When working with Markov Chains there exist multiple measures that are of interest, like reachability probabilities, stationary distributions, and expected rewards \cite{Katoen_Intro}. Another quantity whose importance has been recognized by many authors \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens, Caswell_Intro_EVT, Roth_Intro, Matsuno_Intro_EVT, Afrinaldi_Economics_Intro, GokhaleTrivedi_Intro,Sharma_Intro_EVT, Sharma_Trivedi_Intro_EVT, Gokhale_Intro_EVT, Meedeniya_Intro_EVT, Pietrantuono_Intro_EVT,Fiondella_Intro_EVT} are \textit{expected visiting times} (EVTs), which measure how often a given model is expected to enter each state. Similarly to reachability probabilities and expected rewards, EVTs can be computed by finding the unique solution of a linear equation system \cite{KemenySnellBook}.
+
+These EVTs are used in various areas, such as determining the expected resource demands of software systems \cite{GokhaleTrivedi_Intro,Gokhale_EVT,Sharma_Intro_EVT,Sharma_Trivedi_Intro_EVT} and provide insights for the quantitative evaluation of reliability \cite{Gokhale_Intro_EVT,Meedeniya_Intro_EVT,Pietrantuono_Intro_EVT} and security of computer systems \cite{Orojloo_Intro,Abraham_Intro}.
+
+However, a fixed probability function can not always be assumed in practice \cite{Jonsson_Larsen_Intro_IMC,Kuznetsov_Intro_MC,Walley_Intro_MC,Kozine_Intro_MC}, for example, when the probability function is estimated through statistical experiments, which only provide bounds on the transition probabilities. To capture this potential imprecision of the transition probability function, \textit{interval-valued discrete-time Markov chains} (IDTMCs) were introduce in \cite{Jonsson_Larsen_Intro_IMC,Kozine_Intro_MC}. These IDTMCs extend DTMCs by defining a range within which the transition probability function is assumed to lie. Various semantics have been proposed to resolve the uncertainty which arises from this imprecision. Two widely used semantics are the \textit{once-and-for-all semantic}, also known as the \textit{Uncertain Markov Chain (UMC) semantic}, \cite{Jonsson_Larsen_Intro_IMC,Model-Checking_presence_Uncertainties} and the \textit{IMDP semantic} \cite{Model-Checking_presence_Uncertainties}.
+\todo{Noch die semantiken stärker ausführen; kurz in einem satz erklären}
+
+% Erklären weshalb linear equation nicht möglich (cite Kemeny und vllt hannah)
+As an IDTMC characterizes a set of DTMCs, the states of an IDTMC can have multiple different EVTs belonging to the contained DTMCs. We thus focus, in this thesis, on calculating the minimum and maximum EVTs for the states of an IDTMC. If we apply the aforementioned linear equation system, that can be used to calculate EVTs in DTMCs, to IDTMCs, it thus becomes an optimization problem.
+Moreover, the linear equation system depends on the specific transition probability function of the given DTMC. 
+Therefore, when extending this linear equation system IDTMCs, we have to treat the transition probability function as variable as well, due to the imprecision of the transition probability function of IDTMCs. Thus, applying the linear equation system to IDTMCs to calculate the minimum and maximum EVTs necessitates solving nonlinear optimization problems. As many nonlinear optimization problems can only be solved in nondeterministic polynomial time (NP), we propose an alternative method to calculate the minimum and maximum EVTs for IDTMCs in this thesis. To our knowledge, this has not yet been studied in the literature.
+
+
+% 1. Research on reachability 
+% 1.1 (Zwei P-Time paper) --> erwähnen, dass auch für parametric MCs
+% 1.2 AIMC paper
+% 1.3 open interval paper
+% 2. Expected rewards --> 1. chat paper
+% 2.2 Master Thesis von Teo
+% 3. Diese entropy ding (2. chat paper)
+
+% --> Fazit ziehen: To our knowledge, no research on EVTs in IMCs
+
+
+
+% Because of the applications of EVTs, we will expand them to IDTMCs and examine how they can be calculated (for the aforementioned semantics). , not yet studied in the literature, to our knowledge.
+
+\section{Related Work}
+In this section, we elaborate on related work to position this thesis in the current research starting with the origins of EVTs. We continue by elaborating on topics such as expected rewards and reachability probabilities in IDTMCs.
+
+% 1. Origins of EVTs
+% --> Kemeny & Snell
+The concept of EVTs was introduced in 1960 by Kemeny and Snell \cite{KemenySnellBook} for \textit{absorbing DTMCs}, which consist of \textit{absorbing} and \textit{transient} states. The former describe states that cannot be left after they have been entered, i.e., these states only transition back to themselves. In contrast, the latter describe states that are eventually not entered again. The authors showed that the EVTs can be determined using the so-called \textit{fundamental matrix}. In particular, the entry in the $i$-th row and $j$-th column of the fundamental matrix equals the EVT of the transient state $s_j$ given that the unique initial state is the transient state $s_i$. Importantly, Kemeny and Snell also establish the notion of EVTs that coincide with the unique solution of a linear equation system.
+\todo{matrix inverse fundamental erwähnen --> um motivieren, dass (zu) aufwendig}
+
+% Explain why calculating all EVTs at once infeasible
+
+As aforementioned, this thesis focuses on computing the minimum and maximum EVTs for the states of IDTMCs. There are multiple measures that are related to EVTs such as \textit{expected rewards} \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens} and \textit{reachability probabilities} \cite{Baier_Relating_Reach_Prob,Computing_EVTs_Stationary_Distr_in_MCs_Mertens}. Both of these measures have been studied in IDTMCs.
+
+As shown in \cite{Semantics_Model-Checking_omega-Regular} and \cite{Model-Checking_presence_Uncertainties}, IDTMC model checking under the IMDP semantic can be reduced to model checking a Markov Decision Process (MDP). There exist many algorithms and tools to calculate expected rewards for MDPs. \todo{cite some examples}
+However, this construction results in an "exponential blowup" as \cite{Sproston_Open_IMCs_Reachability} puts it, i.e., the constructed MDP is exponential in the size of the IDTMC \cite{Semantics_Model-Checking_omega-Regular}.
+
+Moreover, as shown in \cite{reachability_in_pIMCs_using_constraints}, for every IDTMC under the UMC semantic, a parametric Markov Chain can be constructed that contains the same set of DTMCs as the corresponding IDTMC. Furthermore, expected rewards for pMCs with a fixed number of parameters is in PTIME \cite{Hutschenreiter_pMCs_Intro}, i.e., computing expected reward for pMCs is exponential in the number of parameters \cite{Jansen_pMC_Servey_Intro}.
+However, the construction shown in \cite{reachability_in_pIMCs_using_constraints} creates a parameter for each interval. As we cannot bound the number of intervals of the IDTMCs without loss of generality this approach seems to be 
+
+% Research on expected rewards (cite Hannah & was sie cited als referenz dass darüber gemacht werden kann):
+% --> MDP construction: exponential blowup (cite open interval paper for wording)
+% benutzen für IMDP semantik: 
+% 1. Formal Analysis of the Sampling Behaviour of Stochastic Event-Triggered Control (für expected rewards)
+% 2. Omega-dings & anderes paper (für model checking) 
+
+% IMDP construction (for UMC): Only for IMDP semantic type semantic (nachschauen, ob complexity constraints gibt)
+
+% final50 Datei: Present numerical methods for calculating expected total costs (for UMC semantic, they call time-homogeneous Markov chain) through LPs; However, use Fundamental matrix (--> inverse) & when using linear equation method (maybe mention this more in Intro or here in related Work) becomes non-linear objective function (unkown time complexity)
+
+% LTL paper
+
+% Entropy ding
+
+% Reden über pMC Sachen
+
+
+\section{Contribution}
+
+\section{Outline}
+----------------------------------------------------------------------------
+
 The introduction motivates the topic and provides an overview of the thesis.
 It can be seen as a longer version of the abstract that follows the hourglass 
 structure again, but with emphasis on the top part of the hourglass.

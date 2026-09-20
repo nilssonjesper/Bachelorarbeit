@@ -1,38 +1,129 @@
 \chapter{Preliminaries}
 \label{ch:preliminaries}
+In this chapter we introduce the theoretical foundations that are required and used throughout this thesis.
+We start in \Cref{sec:notation} by discussing the general notation used in this thesis.
+Rest of Overview of the sections \dots
+
 
 \section{Notation}\label{sec:notation}
-We denote the entry in the $i$-th row and $j$-th column of a matrix $\tT$, as $(\tT)_{ij}$. We will use the notation $\underline{n} = \{1, 2, \dots, n\}$ with $n\in \NN$ for sets.
-For vectors $v$, we denote the $i$-th entry as $v(i)$
-Cardinality of set $S$ as $|S|$.
-$\cCircle$
-$\Diamond$
+We denote the set of natural numbers, including zero, as $\NN$ and the set of positive natural numbers, excluding zero, as $\NNgz$. The set of real numbers is denoted as $\RR$ and the extended real numbers by $\eRR = \RR \cup \{-\infty,\infty\}$ for which we use the following conventions:
+\begin{enumerate}[label=(\roman*)]
+    \item $x + \infty = \infty + x = \infty$ for all $x \in \RR$,
+    \item $\infty + \infty = \infty$, and
+    \item $x \cdot \infty = \infty \cdot x =
+        \begin{cases}
+            \infty  & \text{if } x \in \RRgz,\\
+            0       & \text{if } x = 0,\\
+            -\infty & \text{if } x \in \RRlz.
+        \end{cases}$
+\end{enumerate}
+\todo{vllt noch $\RRgz$ und lz definieren?}
+The conventions are defined analogously for $-\infty$. Other expressions such as $\infty-\infty$ and $\frac{\infty}{\infty}$ are undefined. 
+For a given set $A$ we denote its powerset as $2^X = \{Y \mid Y \subseteq X\}$.
 
-$\exists !$ to denote: precisely one.
+Furthermore, we denote the entry in the $i$-th row and $j$-th column of a matrix $\tT$, as $(\tT)_{ij}$. We denote the $i$-th entry of a vector $v$ as $v(i)$.
+\todo{Tue ich aber nicht immer}
+For convenience, we use the notation $\underline{n} = \{1, 2, \dots, n\}$ with $n\in \NN$. \todo{vllt diese Notationsweise rausnehmen}
+Moreover, for a given set $S$ we use the notation $|S|$ to denote its cardinality.
 
-We use \textit{Iverson Brackets} $\llbracket B \rrbracket$ to denote the function that maps a Boolean expression $B$ to $1$ or $0$ such that
+Lastly, we use \textit{Iverson Brackets} $\llbracket B \rrbracket$ to denote the function that maps a Boolean expression $B$ to $1$ or $0$ such that
 \[\llbracket B\rrbracket = \begin{cases*}
     1 & if B is true,\\
     0 & otherwise.
 \end{cases*}\]
 
-%Matheteil
-\section{Matheteil}\label{sec:matheteil}
-Linear Order
-Measurable set (used in \cref{def:next_step_probability})
-\begin{definition}[Convergence of Geometric Series]
-    The geometric series $\sum_{k=0}^\infty q^k$ converges for all $q\in\RR$ with $|q|<1$, where
-    \[\sum_{k=0}^\infty q^k=\frac{1}{1-q}\ ,\ \text{ for } |q|<1\]
-\end{definition}
-%Matrix Theory
-\begin{definition}[Gershgorin circle theorem]\label{def:gershgorin_theorem}
-    Let $\tT\in \CC^{n\times n}$ be a square complex matrix, then for every eigenvalue $\lambda$ of $\tT$ it is true that 
-    \[|\lambda-(\tT)_{ii}|\leq\sum_{j=1\land i\neq j}^n|(\tT)_{ij}|\ ,\] 
-    for any $i\in \underline{n}$ and where $|\cdot|$ denotes the absolute value, i.e. magnitude.\\
-    In other words, all eigenvalues of $\tT$ lie on a disk in the complex plane centered at $(\tT)_{ii}$ with radius $\sum_{j=1\land i\neq j}^n|(\tT)_{ij}|$.
-\end{definition}
-Matrix invertible if 1 not eigenvalue
+% Matheteil
+\section{Theoretical Foundation}\label{sec:matheteil}
+In this section, we introduce basic concepts from the subjects matrix, domain, measure, and probability theory which used throughout this thesis. 
 
+%Matrix Theory
+% Domain theory
+We start by introducing notions from domain theory.
+The provided definitions are taken from \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens} whose material originates from \cite[Chapters 1]{Abramsky_Gabbay_Maibaum_Book_Matheteil}.
+
+\begin{definition}[Partial Order]
+    Let $X$ be a set with a relation $\sqsubseteq \subseteq X \times X$. The relation $\sqsubseteq$ is called a \textit{partial order} if the following holds for all $x,y,z \in X$:
+    \begin{enumerate}[label=(\roman*)]
+        \item $x \sqsubseteq x$ (reflexivity),
+        \item $x \sqsubseteq y$ and $y \sqsubseteq x$ implies $x = y$ (antisymmetry), and
+        \item $x \sqsubseteq y$ and $y \sqsubseteq z$ implies $x \sqsubseteq z$ (transitivity).
+    \end{enumerate}
+\end{definition}
+A partial order $\sqsubseteq$ on a set $X$ is said to be a \textit{linear order} if any two elements in $X$ are comparable by $\sqsubseteq$.
+
+% Measure theory
+We continue by briefly presenting some concepts from measure theory.
+
+The following contents are taken from \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens} whose material originates from \cite[Chapters 1, 4, and 5]{Ash_Book_Matheteil}.
+\begin{definition}[$\sigma$-Algebra, Measurable Space]
+    Let $\Omega$ be a non-empty set. We call $\Sigma \subseteq 2^{\Omega}$ a \textit{$\sigma$-algebra} on $\Omega$ if the following conditions are satisfied:
+    \begin{enumerate}[label=(\roman*)]
+        \item $\Omega \in \Sigma$,
+        \item $X \in \Sigma$ implies $\Omega\backslash X \in \Sigma$ for all $X \subseteq \Omega$, and
+        \item $X_1,X_2,\dots \in \Sigma$ implies $\bigcup_{i\in \NN}X_i\in \Sigma$ for all $X_1,X_2,\dots \subseteq \Omega$.
+    \end{enumerate}
+    If $\Sigma$ is a $sigma$-algebra on $\Omega$, $(\Omega,\Sigma)$ is called a \textit{measurable space}.
+\end{definition}
+
+\todo{vllt das Beispiel von Hannah mit einbauen}
+
+For the extended real numbers $\eRR$, we consider the measurable space $(\eRR,\mathcal{B}(\eRR))$, where $\mathcal{B}(\eRR)$ is the \textit{Borel $\sigma$-algebra} on the extended real numbers.
+
+\begin{definition}[Borel $\sigma$-Algebra on the Extended Real Numbers]
+    The Borel $\sigma$-algebra on $\eRR$ is defined as the smallest $\sigma$-algebra $\mathcal{B}(\eRR)$ containing all intervals $(a,b] = \{x \in \eRR \mid a < x \leq b\}$ with $a,b \in \eRR$. 
+\end{definition}
+
+For a measurable space $(\Omega, \Sigma)$, a set $A \subseteq \Omega$ is called \textit{measurable} if $A \in \Sigma$. The measurability of a function is defined as follows.
+
+\begin{definition}[(Borel) Measurable Function]
+    Let $(\Omega,\Sigma)$ and $(\Omega',\Sigma')$ be measurable spaces. A function $f: \Omega \rightarrow \Omega'$ is called \textit{measurable} relative to $\Sigma$ and $\Sigma'$ if $\{\omega\in\Omega \mid f(\omega)\in f(E)\}\in \Omega$ for all $E \in \Sigma'$.
+
+    A function $f: \Omega \rightarrow \eRR$ is called \textit{Borel measurable} (on $(\Omega,\Sigma)$) if it is measurable relative to $\Sigma$ and $\mathcal{B}(\eRR)$.
+\end{definition}
+
+Moreover, the class of Borel measurable functions is closed under addition.
+
+\begin{theorem}[Addition of Borel Measurable Functions]
+    Let $(\Omega, \Sigma)$ be a measurable space and let $f,g: \Omega \rightarrow \eRR$ be two Borel measurable functions. The function $f+g$, defined by pointwise addition, is measurable if it is well-defined, i.e., if $f(\omega) = \infty$ implies $g(\omega) \neq -\infty$ and $f(\omega) = -\infty$ implies $g(\omega) \neq \infty$ for all $\omega \in \Omega$.
+\end{theorem}
+
+Additionally, to discuss the probability of measurable sets, we introduce the notion of \textit{probability measures}.
+
+\begin{definition}[Probability Measure, Probability Space]
+    Let $(\Omega, \Sigma)$ be a measurable space. A function $\Pr : \Sigma \to [0,1]$ is a \textit{probability measure} on $(\Omega, \Sigma)$ if $\Pr(\Omega) = 1$ and for every countable collection $A_1, A_2, \ldots \in \Sigma$ of disjoint sets it holds that
+    \[
+        \Pr\left(\bigcup_{k \geq 1} A_k\right)
+        = \sum_{k \geq 1} \Pr(A_k).
+    \]
+    If $\Pr : \Sigma \to [0,1]$ is a probability measure on $(\Omega, \Sigma)$, then $(\Omega, \Sigma, \Pr)$ is called a \textit{probability space}.
+\end{definition}
+
+In a probability space $(\Omega, \Sigma, \Pr)$, the elements of $\Omega$ are called outcomes, while the measurable subsets of $\Omega$ are referred to as events. An event $E \in \Sigma$ is said to hold \textit{almost surely} if $\Pr(E) = 1$.
+
+
+\todo{Lebesgue Integral; einf. ähnlich wie Hannah oder Def. aus Ash, doleans-dade nehmen}
+% Probability Theory
+Expected Values
+\begin{definition}[Expected Values]
+    \dots
+\end{definition}
+
+\begin{definition}[Discrete Probability Distribution]\label{def:discrete_probability_distribution}
+    A function $P$ is a \textit{discrete probability distribution} with $P: X \rightarrow [0,1]$, where X is a countable set and $\sum_{x\in X}P(x) = 1$.
+\end{definition}
+
+
+\begin{definition}[Conditional Probability]
+    $Pr(A \mid B) = \frac{Pr(A\cap B)}{Pr(B)}$
+\end{definition}
+
+\begin{definition}[Law of Total Probability]\label{def:law_of_total_probability}
+    Let $B = \{B_1, B_2, \dots\}$ be a countable set of mutually exclusive and collectively exhaustive events, then for any event $A$,
+    \[Pr(A) = \sum_{i = 1}^{|B|}Pr(A \mid B_i) \cdot Pr(B_i)\]
+    \todo{(explain these two things: mut. excl. coll. exhaust. + events?)}
+\end{definition}
+
+We continue by introducing notions from matrix theory based on \cite{}.
 \begin{definition}[Row-Stochastic Matrix]\label{def:row-stoch_matrix}
     A square matrix $\tT \in \RR^{n\times n}_{\geq 0}$ is row-stochastic, if and only if $\sum_{j=0}^n(\tT)_{ij} = 1$ for all rows $i \in \underline{n}$.
 \end{definition}
@@ -43,115 +134,41 @@ When considering each row as a function $f_i(j)=(\tT)_{ij}$, these functions are
     $\tT$ is strictly row-substochastic if and only if ther exists at least one row $i'$ with $\sum_{j=0}^n(\tT)_{i'j} < 1$
 \end{definition}
 
-\begin{theorem}\label{th:row-substoch_eigenvalue_0}
-    If a matrix $\tT$ is strictly row-substochastic, then it has no eigenvalue $|\lambda| \geq 1$.
-\end{theorem}
-
-\begin{proof}
-    Let us assume that $|\lambda| > 1$ is an eigenvalue of $\tT$. As $(\tT)_{ij}\in \RR_{\geq 0}$, using \cref{def:gershgorin_theorem}
-    \[
-    |\lambda-(\tT)_{ii}| = |\lambda|-(\tT)_{ii} \leq \sum_{j=1\land j\neq i}^n|(\tT)_{ij}|\]
-    \[ \iff 1 < |\lambda| \leq (\tT)_{ii}+\sum_{j=1\land j\neq i}^n(\tT)_{ij}\ .
-    \]
-    \todo{weil $\tT$ non negative}
-    However, as $\tT$ is  strictly row-substochastic, we know that $(\tT)_{ii}+\sum_{j=1\land j\neq i}^n(\tT)_{ij} < 1 < |\lambda|$ for all $i \in \underline{n}$.
-    Thus, any strictly row-substochastic matrix $\tT$ has no eigenvalues $|\lambda| > 1$.
-\end{proof}
-
-\begin{definition}[Jordan normal form]\label{def:jordan_normal_form}
-    \todo{andere buchstaben für matrizen verwenden}
-    Every square matrix $A \in \CC^{n\times n}$ is similar to a block diagonal matrix $J \in \CC^{n\times n}$, also called the Jordan normal form of $A$, meaning $A = P J P^{-1}$ for an invertible matrix $P \in \CC^{n\times n}$. The blocks on the diagonal of the Jordan matrix are called Jordan blocks $J_i$ and have the form
-\[J_i = \begin{bmatrix}
-\lambda_i & 1 & 0 & \dots & 0 \\
-0 & \lambda_i & \ddots  & \ddots & \vdots \\
-\vdots & \ddots & \ddots & 1 & 0 \\
-0 & \ddots & 0 & \lambda_i & 1 \\
-0 & 0 & \dots & 0 & \lambda_i
-\end{bmatrix}\ , \]
-where $\lambda_i$ is the $i$-th eigenvalue of $A$. 
-\end{definition}
-
-\begin{theorem}[Convergence of strictly row-substochastic matrices]\label{th:convergence_strictly_row-substoch}
-    If a matrix $\tT$ is strictly row-substochastic, then it is convergent, i.e. $\lim_{k\rightarrow \infty}\tT^k = 0$
-\end{theorem}
-
-\begin{proof}
-    Given a strictly row-substochastic matrix $\tT$, consider its Jordan normal form $\tT = P J P^{-1}$, see \cref{def:jordan_normal_form}. Thus, $\lim_{k\rightarrow \infty} \tT^k = P\lim_{k\rightarrow \infty} J^k P^{-1}$. Because $|\lambda| < 1$ for all eigenvalues of $\tT$, $\lim_{k\rightarrow \infty} J^k = 0$ \todo{explain more in detail?}. Thus,  $\lim_{k\rightarrow \infty} \tT^k = 0$, i.e. $\tT$ is convergent.
-\end{proof}
-
 \begin{definition}[Matrix inversion by the Neumann Series]\label{def:neumann_series}
     Given a matrix $\tT\in \RR^{n\times n}$ with $\lim_{k\rightarrow \infty}\tT^k = 0$, i.e. $\tT$ is convergent, the Neumann series $\sum_{k=0}^\infty \tT^k$ converges against $(\eye - \tT)^{-1}$.
 \end{definition}
-
-\begin{definition}[Irreducible and Reducible Matrix]
-    A non-negative square matrix $\tT\in \RR_{\geq 0}^{n\times n}>0$ with $n\geq 2$ is irreducible if and only if $\sum_{k=0}^{n-1}\tT^k>0$. If $\tT$ is not irreducible, it is reducible.
-\end{definition}
-
-\begin{definition}[Permutation Matrix]
-    A binary square matrix $P\in\{0,1\}^{n\times n}$ is a permutation matrix if and only if
-    \begin{enumerate}[label=(\roman*)]
-        \item $(P)_{ij} = 1 = (P)_{i'j}$ with $i\neq i'$       \item $(P)_{ij} = 1 = (P)_{ij'}$ with $j\neq j'$
-    \end{enumerate}
-    ($P^{-1} = P^\T$)
-\end{definition}
-In other words exactly one entry of $P$ is 1 per row and column.
-
-\begin{definition}[Upper and Lower Triangular Matrix]
-    An upper/lower triangular matrix is a square matrix $\tT_{up},\tT_{lo}\in \RR^{n\times n}$, where all entries below/above the diagonal are 0.
-    \[\tT_{up}=\begin{bmatrix}
-        a_{11} & \dots & a_{1n} \\
-         & \ddots & \vdots \\
-        0 & & a_{nn}
-    \end{bmatrix}
-    \ \ 
-    \tT_{lo}=\begin{bmatrix}
-        a_{11} &  & 0\\
-        \vdots & \ddots &  \\
-        a_{n1} & \dots & a_{nn}
-    \end{bmatrix}
-    \]
-\end{definition}
-
-\begin{definition}[LU-decomposition]\label{def:LU_decomposition}
-    Let $\tT$ be a square matrix, then (and only then) there exists an upper triangular matrix $U$ and a lower triangular matrix $L$, such that
-    \[\tT = L\cdot U\ .\]
-    By convention, L is made unitriangular, meaning the entries on its diagnonal are equal to 1. 
-    L \& U invertible: all triangular matrices inv. (if all $a_{ii}\neq 0$)
-    \todo{wiki quelle}
-\end{definition}
-% \begin{definition}[Conjugation of Reducible Matrices]\label{def:conjugation_of_reducible_matrix}
-%     Let $\tT$ be a reducible matrix, then (and only then) there exists a permutation matrix $P\in \{0,1\}^{n\times n}$ such that the matrix product $P\tT P^\T$ is a block upper triangular matrix
-%     \[\tT = \begin{bmatrix}
-%         \tT_{11} & \tT_{12} & \dots & \tT_{1m}\\
-%         0 & \tT_{22} & \dots & \tT_{2m}\\
-%         \vdots & \vdots & \ddots & \vdots\\
-%         0 & 0 & \dots & \tT_{mm}
-%     \end{bmatrix}\]
-%     m submatrices
-% \end{definition}
-Blocks $\tT_{ii}$ communicating groups/classes (in graph) + $_{ij}$ communicating between groups i\&j??
 
 \begin{definition}\label{def:full_rank_of_inv_matrices}
     Invertible matrices have full rank
 \end{definition}
 
-%Probability Theory
-Expected Values
-\begin{definition}[Discrete Probability Distribution]
-    A function $P$ is a \textit{discrete probability distribution}, if $P: X \rightarrow [0,1]$ where X is a countable set and $\sum_{x\in X}P(x) = 1$.
+We will now shortly introduce linear and nonlinear programming based on \cite{Luenberger_Book_Matheteil}.
+\begin{definition}[Linear Programming]
+    A \textit{linear programming} problem with $n$ variables and $m$ constraints can be formulated as:
+    \begin{align}
+    \text{minimize} \qquad & c^\T x \notag \\
+    \text{s.t.} \qquad & Ax \leq b \notag \\
+    & x \geq 0\ ,\notag
+    \end{align}
+    
+    where $c,x \in \RR^n$, $A\in \RR^{m\times n}$, and $b\in \RR^m$.
 \end{definition}
 
-\begin{definition}[Conditional Probability]
-    $Pr(A \mid B) = \frac{Pr(A\cap B)}{Pr(B)}$
+In contrast to a linear programming, a nonlinear programming has a nonlinear objective function or nonlinear constraints.
+\begin{definition}[Nonlinear Programming]
+    A \textit{nonlinear programming} problem with $n$ variables and $m+r$ constraints can be formulated as:
+    \begin{align}
+        \text{minimize} \qquad & f(x) \notag \\
+        \text{s.t.} \qquad & g_i(x) \leq 0 \qquad & i \in \underline{m} \notag \\
+        & h_j(x) = 0 \qquad & j \in \underline{r} \notag \\
+        & x \in S\ ,\notag
+    \end{align}
+    
+    where $x \in \RR^n$ and $f,g_i,h_j: S^n \rightarrow \RR$ for all $i\in\underline{m}$, $j\in\underline{r}$. At least one of the functions $f$, $g_i$, or $h_j$ is nonlinear.
 \end{definition}
 
-\begin{definition}[Law of Total Probability]\label{def:law_of_total_probability}
-    Let $B = \{B_1, B_2, \dots\}$ be a countable set of mutually exclusive and collectively exhaustive events, then for any event $A$,
-    \[Pr(A) = \sum_{i = 1}^{|B|}Pr(A \mid B_i) \cdot Pr(B_i)\]
-    \todo{(explain these two things: mut. excl. coll. exhaust. + events?)}
-
-\end{definition}
-
-\begin{definition}[Monotone Convergence Theorem]\label{def:monotone_convergence_theorem}
-    \dots
+KURZER SATZ
+\begin{definition}[Convergence of Geometric Series]
+    The geometric series $\sum_{k=0}^\infty q^k$ converges for all $q\in\RR$ with $|q|<1$, where
+    \[\sum_{k=0}^\infty q^k=\frac{1}{1-q}\ ,\ \text{ for } |q|<1\]
 \end{definition}
