@@ -45,18 +45,29 @@ As aforementioned, this thesis focuses on computing the minimum and maximum EVTs
 As shown in \cite{Semantics_Model-Checking_omega-Regular} and \cite{Model-Checking_presence_Uncertainties}, IDTMC model checking under the IMDP semantic can be reduced to model checking a Markov Decision Process (MDP). There exist many algorithms and tools to calculate expected rewards for MDPs. \todo{cite some examples}
 However, this construction results in an "exponential blowup" as \cite{Sproston_Open_IMCs_Reachability} puts it, i.e., the constructed MDP is exponential in the size of the IDTMC \cite{Semantics_Model-Checking_omega-Regular}.
 
-Moreover, as shown in \cite{reachability_in_pIMCs_using_constraints}, for every IDTMC under the UMC semantic, a parametric Markov Chain can be constructed that contains the same set of DTMCs as the corresponding IDTMC. Furthermore, expected rewards for pMCs with a fixed number of parameters is in PTIME \cite{Hutschenreiter_pMCs_Intro}, i.e., computing expected reward for pMCs is exponential in the number of parameters \cite{Jansen_pMC_Servey_Intro}.
-However, the construction shown in \cite{reachability_in_pIMCs_using_constraints} creates a parameter for each interval. As we cannot bound the number of intervals of the IDTMCs without loss of generality this approach seems to be 
-
 % Research on expected rewards (cite Hannah & was sie cited als referenz dass darüber gemacht werden kann):
 % --> MDP construction: exponential blowup (cite open interval paper for wording)
 % benutzen für IMDP semantik: 
 % 1. Formal Analysis of the Sampling Behaviour of Stochastic Event-Triggered Control (für expected rewards)
 % 2. Omega-dings & anderes paper (für model checking) 
 
+Moreover, as shown in \cite{reachability_in_pIMCs_using_constraints}, for every IDTMC under the UMC semantic, a parametric Markov Chain can be constructed that contains the same set of DTMCs as the corresponding IDTMC. Furthermore, expected rewards for pMCs with a fixed number of parameters is in PTIME \cite{Hutschenreiter_pMCs_Intro}, i.e., computing expected reward for pMCs is exponential in the number of parameters \cite{Jansen_pMC_Servey_Intro}. \todo{überprüfen ob wirklich das in Jansen gemeint ist}
+However, the construction shown in \cite{reachability_in_pIMCs_using_constraints} creates a parameter for each interval. As we cannot bound the number of intervals of the IDTMCs without loss of generality this approach is not in PTIME.
+
 % IMDP construction (for UMC): Only for IMDP semantic type semantic (nachschauen, ob complexity constraints gibt)
 
+
+Another approach 
+
 % final50 Datei: Present numerical methods for calculating expected total costs (for UMC semantic, they call time-homogeneous Markov chain) through LPs; However, use Fundamental matrix (--> inverse) & when using linear equation method (maybe mention this more in Intro or here in related Work) becomes non-linear objective function (unkown time complexity)
+
+Nur kurz, wenn überhaupt
+
+Furthermore, calculating minimum and maximum reachability probabilities in IDTMCs is in PTIME for both the UMC and IMDP semantic. Moreover, these two semantics coincide on reachability probabilities \cite{reachability_in_pIMCs_using_constraints,complexity_model_checking_interval-valued_DTMCs}. To calculate the EVT of a state, we require two different reachabilty probabilities \cite{Baier_Relating_Reach_Prob}. However, an optimal reachability probability is satisfied in an IDTMC if the reachability probability is fulfilled in at least one satisfying DTMC. 
+\todo{konzept satisfying schon früher einführen}  
+When computing the minimum or maximum reachability probabilities for IDTMCs, we thus need to minimize or maximize these reachability probabilities
+
+\todo{vllt kurz IMRMs anschneiden; quant_analysis_semantic paper}
 
 % LTL paper
 
@@ -68,91 +79,91 @@ However, the construction shown in \cite{reachability_in_pIMCs_using_constraints
 \section{Contribution}
 
 \section{Outline}
-----------------------------------------------------------------------------
+% ----------------------------------------------------------------------------
 
-The introduction motivates the topic and provides an overview of the thesis.
-It can be seen as a longer version of the abstract that follows the hourglass 
-structure again, but with emphasis on the top part of the hourglass.
-However, you can now use citations and explain everything in more detail.
-It should be accessible to any computer scientist without prior knowledge of 
-the specific area.
+% The introduction motivates the topic and provides an overview of the thesis.
+% It can be seen as a longer version of the abstract that follows the hourglass 
+% structure again, but with emphasis on the top part of the hourglass.
+% However, you can now use citations and explain everything in more detail.
+% It should be accessible to any computer scientist without prior knowledge of 
+% the specific area.
 
-%-----------------------------------------------------------------------
-% Background and Motivation
-%-----------------------------------------------------------------------
+% %-----------------------------------------------------------------------
+% % Background and Motivation
+% %-----------------------------------------------------------------------
 
-The background and motivation part should cover the following points:
-\begin{enumerate}
-    \item Name the research area and describe informally what objects are
-          studied (e.g., markov automata, probabilistic programs, POMDPs) and
-          what property is of interest (e.g., reachability, complexity, safety).
-    \item Explain why the property matters.
-    \item Give a small, self-contained example that illustrates the problem informally.
-    \item Explain why answering the question automatically is non-trivial and
-          what makes the problem hard in general.
-\end{enumerate}
+% The background and motivation part should cover the following points:
+% \begin{enumerate}
+%     \item Name the research area and describe informally what objects are
+%           studied (e.g., markov automata, probabilistic programs, POMDPs) and
+%           what property is of interest (e.g., reachability, complexity, safety).
+%     \item Explain why the property matters.
+%     \item Give a small, self-contained example that illustrates the problem informally.
+%     \item Explain why answering the question automatically is non-trivial and
+%           what makes the problem hard in general.
+% \end{enumerate}
 
-%-----------------------------------------------------------------------
-% The Specific Open Problem
-%-----------------------------------------------------------------------
+% %-----------------------------------------------------------------------
+% % The Specific Open Problem
+% %-----------------------------------------------------------------------
 
-The open-problem part should contain:
-\begin{enumerate}
-    \item A summary of what is already known in the area (prior results,
-          existing automated techniques, tool support).
-    \item A precise identification of the gap: e.g., no automated procedure
-          exists, existing techniques are unsound or incomplete for a relevant
-          subclass, or no efficient algorithm is known.
-    \item A clear statement of what this thesis aims to achieve.
-\end{enumerate}
+% The open-problem part should contain:
+% \begin{enumerate}
+%     \item A summary of what is already known in the area (prior results,
+%           existing automated techniques, tool support).
+%     \item A precise identification of the gap: e.g., no automated procedure
+%           exists, existing techniques are unsound or incomplete for a relevant
+%           subclass, or no efficient algorithm is known.
+%     \item A clear statement of what this thesis aims to achieve.
+% \end{enumerate}
 
-%-----------------------------------------------------------------------
-% Related Work
-%-----------------------------------------------------------------------
+% %-----------------------------------------------------------------------
+% % Related Work
+% %-----------------------------------------------------------------------
 
-\subsection*{Related Work}
+% \subsection*{Related Work}
 
-Discuss the most relevant prior work (either here, or in a seperate chapter depending on the scope of existing work).
-For each cited work, address the following:
-\begin{enumerate}
-    \item What does the work do? Describe the approach in one to three
-          sentences and do not just list references.
-    \item How does it relate to this thesis? Does it solve a special case,
-          use a different technique, or target a different formalism?
-    \item What limitation motivates your own contribution?
-\end{enumerate}
+% Discuss the most relevant prior work (either here, or in a seperate chapter depending on the scope of existing work).
+% For each cited work, address the following:
+% \begin{enumerate}
+%     \item What does the work do? Describe the approach in one to three
+%           sentences and do not just list references.
+%     \item How does it relate to this thesis? Does it solve a special case,
+%           use a different technique, or target a different formalism?
+%     \item What limitation motivates your own contribution?
+% \end{enumerate}
 
-%-----------------------------------------------------------------------
-% Contributions
-%-----------------------------------------------------------------------
+% %-----------------------------------------------------------------------
+% % Contributions
+% %-----------------------------------------------------------------------
 
-\subsection*{Contribution}
+% \subsection*{Contribution}
 
-List one item per concrete contribution. 
-Each item should:
-\begin{enumerate}
-    \item Identify what is new (a technique, a criterion, a framework, an
-          implementation, or an experimental evaluation).
-    \item State the property proved, if applicable (soundness, completeness,
-          both, or a complexity bound).
-    \item Reference the theorem, or section in which the contribution appears.
-\end{enumerate}
+% List one item per concrete contribution. 
+% Each item should:
+% \begin{enumerate}
+%     \item Identify what is new (a technique, a criterion, a framework, an
+%           implementation, or an experimental evaluation).
+%     \item State the property proved, if applicable (soundness, completeness,
+%           both, or a complexity bound).
+%     \item Reference the theorem, or section in which the contribution appears.
+% \end{enumerate}
 
-%-----------------------------------------------------------------------
-% Thesis Structure
-%-----------------------------------------------------------------------
+% %-----------------------------------------------------------------------
+% % Thesis Structure
+% %-----------------------------------------------------------------------
 
-\subsection*{Structure}
+% \subsection*{Structure}
 
-End the introduction by outlining the remaining chapters.
-Give at least one sentence per chapter describing its content. 
-Do not simply write ``Chapter~X presents the main results.'' 
+% End the introduction by outlining the remaining chapters.
+% Give at least one sentence per chapter describing its content. 
+% Do not simply write ``Chapter~X presents the main results.'' 
 
-Example: ``The remainder of this thesis is organized as follows.
-\Cref{ch:preliminaries} introduces the formal background required throughout
-this thesis, including \ldots
-Then, \Cref{ch:mainmatter} presents \ldots
-\Cref{ch:evaluation} describes the implementation and the experimental
-evaluation.
-Finally, \Cref{ch:conclusion} summarizes the results and discusses directions for
-future work.''
+% Example: ``The remainder of this thesis is organized as follows.
+% \Cref{ch:preliminaries} introduces the formal background required throughout
+% this thesis, including \ldots
+% Then, \Cref{ch:mainmatter} presents \ldots
+% \Cref{ch:evaluation} describes the implementation and the experimental
+% evaluation.
+% Finally, \Cref{ch:conclusion} summarizes the results and discusses directions for
+% future work.''

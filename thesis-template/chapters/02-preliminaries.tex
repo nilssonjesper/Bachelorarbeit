@@ -100,30 +100,35 @@ Additionally, to discuss the probability of measurable sets, we introduce the no
 
 In a probability space $(\Omega, \Sigma, \Pr)$, the elements of $\Omega$ are called outcomes, while the measurable subsets of $\Omega$ are referred to as events. An event $E \in \Sigma$ is said to hold \textit{almost surely} if $\Pr(E) = 1$.
 
-
 \todo{Lebesgue Integral; einf. ähnlich wie Hannah oder Def. aus Ash, doleans-dade nehmen}
-% Probability Theory
-Expected Values
+In this thesis, we make use of the Lebesgue integral $\int_{\Omega}f(\omega)dPr(\omega)$ of a Borel measurable function $f:\Omega \rightarrow \eRR$ and a probabiltiy measure $Pr$ on a probability space $(\Omega,\Sigma)$. We presuppose that the reader is familiar with the notion of Lebesgue integration. A thorough examination can be found in \cite[Chapter 1.5]{Ash_Book_Matheteil}.
+
 \begin{definition}[Expected Values]
-    \dots
+    Let $(\Omega,\Sigma,Pr)$ be a probability space. If $f:\Omega \rightarrow \eRR$ is a Borel measurable function on $(\Omega,\Sigma,Pr)$, then the \textit{expected value} of $f$, denoted as $\Exp[f]$, is the Lebesgue integral of $f$ with respect to the probability measure $Pr$, i.e., $\Exp[f] = \int_{\Omega}f(\omega)dPr(\omega)$, provided the integral is well-defined.
 \end{definition}
 
+\todo{von Hannah: Throughout this thesis, we only consider the Lebesgue integral of non-negative Borel measurable functions, which is always well-defined and can be infinity.}
+
+A \textit{probability distribution} is a function that assigns probabilities to outcomes.
 \begin{definition}[Discrete Probability Distribution]\label{def:discrete_probability_distribution}
     A function $P$ is a \textit{discrete probability distribution} with $P: X \rightarrow [0,1]$, where X is a countable set and $\sum_{x\in X}P(x) = 1$.
 \end{definition}
 
 
-\begin{definition}[Conditional Probability]
-    $Pr(A \mid B) = \frac{Pr(A\cap B)}{Pr(B)}$
-\end{definition}
+% \begin{definition}[Conditional Probability]
+%     $Pr(A \mid B) = \frac{Pr(A\cap B)}{Pr(B)}$
+% \end{definition}
 
-\begin{definition}[Law of Total Probability]\label{def:law_of_total_probability}
-    Let $B = \{B_1, B_2, \dots\}$ be a countable set of mutually exclusive and collectively exhaustive events, then for any event $A$,
-    \[Pr(A) = \sum_{i = 1}^{|B|}Pr(A \mid B_i) \cdot Pr(B_i)\]
-    \todo{(explain these two things: mut. excl. coll. exhaust. + events?)}
-\end{definition}
+% \begin{definition}[Law of Total Probability]\label{def:law_of_total_probability}
+%     Let $B = \{B_1, B_2, \dots\}$ be a countable set of mutually exclusive and collectively exhaustive events, then for any event $A$,
+%     \[Pr(A) = \sum_{i = 1}^{|B|}Pr(A \mid B_i) \cdot Pr(B_i)\]
+%     \todo{(explain these two things: mut. excl. coll. exhaust. + events?)}
+% \end{definition}
+\todo{Brauche ich cond. prob. und law of total prob??}
 
 We continue by introducing notions from matrix theory based on \cite{}.
+
+An important notion, which we require in this thesis, are \textit{(strictly) row-stochastic matrices}.
 \begin{definition}[Row-Stochastic Matrix]\label{def:row-stoch_matrix}
     A square matrix $\tT \in \RR^{n\times n}_{\geq 0}$ is row-stochastic, if and only if $\sum_{j=0}^n(\tT)_{ij} = 1$ for all rows $i \in \underline{n}$.
 \end{definition}
@@ -134,13 +139,15 @@ When considering each row as a function $f_i(j)=(\tT)_{ij}$, these functions are
     $\tT$ is strictly row-substochastic if and only if ther exists at least one row $i'$ with $\sum_{j=0}^n(\tT)_{i'j} < 1$
 \end{definition}
 
+If a matrix $A$ converges to the null matrix, then the inverse of $(\eye - A)$, where $\eye$ is the identity matrix, is equal to the so-called Neumann series \cite{Neumann_Matheteil}.
 \begin{definition}[Matrix inversion by the Neumann Series]\label{def:neumann_series}
-    Given a matrix $\tT\in \RR^{n\times n}$ with $\lim_{k\rightarrow \infty}\tT^k = 0$, i.e. $\tT$ is convergent, the Neumann series $\sum_{k=0}^\infty \tT^k$ converges against $(\eye - \tT)^{-1}$.
+    Given a matrix $A\in \RR^{n\times n}$ with $\lim_{k\rightarrow \infty}A^k = 0$, i.e. $A$ is convergent, the Neumann series $\sum_{k=0}^\infty A^k$ converges against $(\eye - A)^{-1}$.
 \end{definition}
 
-\begin{definition}\label{def:full_rank_of_inv_matrices}
-    Invertible matrices have full rank
-\end{definition}
+% \begin{definition}\label{def:full_rank_of_inv_matrices}
+%     Invertible matrices have full rank
+% \end{definition}
+\todo{benutze ich full rank?}
 
 We will now shortly introduce linear and nonlinear programming based on \cite{Luenberger_Book_Matheteil}.
 \begin{definition}[Linear Programming]
@@ -167,8 +174,10 @@ In contrast to a linear programming, a nonlinear programming has a nonlinear obj
     where $x \in \RR^n$ and $f,g_i,h_j: S^n \rightarrow \RR$ for all $i\in\underline{m}$, $j\in\underline{r}$. At least one of the functions $f$, $g_i$, or $h_j$ is nonlinear.
 \end{definition}
 
-KURZER SATZ
+Lastly, we use the convergence of the geometric series in this thesis.
 \begin{definition}[Convergence of Geometric Series]
     The geometric series $\sum_{k=0}^\infty q^k$ converges for all $q\in\RR$ with $|q|<1$, where
     \[\sum_{k=0}^\infty q^k=\frac{1}{1-q}\ ,\ \text{ for } |q|<1\]
 \end{definition}
+
+\todo{include geo. series?; if yes cite it}

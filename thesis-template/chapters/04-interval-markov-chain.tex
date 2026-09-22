@@ -17,7 +17,7 @@ We start by introducing concepts which we will use in the following sections.
     \end{enumerate}
 \end{definition}
 \todo{for all statements in eins zusammenfassen?}
-\todo{was sind die PFs und iotas hier? Satisfying DTMC als Konzept noch nicht eingeführt}
+\todo{was sind die PFs und iotas hier? Satisfying DTMC als Konzept noch nicht eingeführt; stattdessen einfach nur PFlower <= PFupper etc.?}
 Whenever the IDTMC $\IMC$ is evident from the context, we omit the superscript $\IMC$ from $S^\IMC$, $\PF^\IMC$, and $\iota_{init}^\IMC$.
 In contrast to the precise transition probability function and initial distribution of DTMCs, Interval Markov Chains allow for uncertainty. 
 
@@ -115,16 +115,110 @@ In contrast to the precise transition probability function and initial distribut
 \todo{grafik erweitern, sodass auch init ein Intervall hat. Damit "sinnvoll" zweiten init state; muss dann auch entsprechend die Semantik Grafiken anpassen}
 \todo{sollen diese Grafiken wirklich so farbig sein?}
 
-To resolve the uncertainty of the initial distribution and transition probability function, we need to define semantics to interpret the Interval Markov Chain. In other words, we need to resolve an Interval Markov Chain to some set of Markov Chains that correspond to it. We say that all of these DTMCs $\MC$ satisfy the IDTMC $\IMC$ and denote it as $\MC \models \IMC$. We assume in this thesis that there exists at least one satisfying DTMC for every IDTMC.
-
 \begin{definition}[Path of an IDTMC]
     Similarly to DTMCs, an \textit{infinite path} in an IDTMC $\IMC = (S,)$ is a sequence $\pi = (s_0,s_1,\dots)$ of states with $s_0,s_1,\dots \in S^\IMC$, such that $\PFlower(\pi[k],\pi[k+1])>0$ for all $k\in \NN$.
 \end{definition}
+
+\emph{\textbf{Fixed-initial-state definition.}}
+In the literature, see, e.g., \cite{complexity_model_checking_interval-valued_DTMCs}, it is common to represent the initial distribution by an additional initial state rather than introducing a separate initial-distribution function. In this case, an IMC is given as a tuple $\IMC_{\mathrm{uni}} = (S,\PFlower,\PFupper,s_{\mathrm{in}}),$ where \(s_{\mathrm{in}}\) is the unique initial state. We refer to this as the \emph{fixed-initial-state definition}.
+
+More precisely, let $\IMC = (S^\IMC,\PFlower^\IMC,\PFupper^\IMC,\Initlower^\IMC,\Initupper^\IMC)$ be an IMC in our definition, and let $\iota^\IMC_{\mathrm{init}}$ denote its initial distribution. The corresponding fixed-initial-state representation is obtained by introducing a fresh state \(s_{\mathrm{in}}\) and defining $S^{\IMC_{\mathrm{uni}}} = S^\IMC\cup\{s_{\mathrm{in}}\}.$
+
+The lower and upper transition-probability functions are given by
+\[
+\PFlower^{\IMC_{\mathrm{uni}}}(s_i,s_j)
+=
+\begin{cases}
+    \PFlower^\IMC(s_i,s_j),
+        & s_i,s_j\neq s_{\mathrm{in}},\\
+    \iota^\IMC_{\mathrm{init}}(s_j),
+        & s_i=s_{\mathrm{in}},\\
+    0, & \text{otherwise},
+\end{cases}
+\]
+and
+\[
+\PFupper^{\IMC_{\mathrm{uni}}}(s_i,s_j)
+=
+\begin{cases}
+    \PFupper^\IMC(s_i,s_j),
+        & s_i,s_j\neq s_{\mathrm{in}},\\
+    \iota^\IMC_{\mathrm{init}}(s_j),
+        & s_i=s_{\mathrm{in}},\\
+    0, & \text{otherwise}.
+\end{cases}
+\]
+The same construction applies to DTMCs. Let $\MC=(S^\MC,\PF^\MC,\iota^\MC_{\mathrm{init}})$ be a DTMC. Its corresponding fixed-initial-state representation is $\MC_{\mathrm{uni}} = (S^\MC\cup\{s_{\mathrm{in}}\},\PF^{\MC_{\mathrm{uni}}},s_{\mathrm{in}}),$ where
+\[
+    \PF^{\MC_{\mathrm{uni}}}(s_i,s_j)
+    =
+    \begin{cases}
+        \PF^\MC(s_i,s_j),
+            & s_i,s_j\neq s_{\mathrm{in}},\\
+        \iota^\MC_{\mathrm{init}}(s_j),
+            & s_i=s_{\mathrm{in}},\\
+        0, & \text{otherwise}.
+    \end{cases}
+\]
+The two representations induce the same probability space up to the natural bijection between their paths. In particular, define
+\[
+    \phi: Paths_{\inf}^{\MC_{\mathrm{uni}}} \longrightarrow Paths_{\inf}^{\MC}, (s_{\mathrm{in}},s_0,s_1,\ldots) \mapsto (s_0,s_1,\ldots).
+\]
+
+\(\phi\) is a bijection, since \(s_{\mathrm{in}}\) has no incoming transitions, every infinite path of \(\MC_{\mathrm{uni}}\) starts with \(s_{\mathrm{in}}\).
+
+To see that the probability measures correspond under \(\phi\), consider a finite path $\pi_{\mathrm{uni}} = (s_{\mathrm{in}},s_0,\ldots,s_n)$ of \(\MC_{\mathrm{uni}}\), and let $\pi=(s_0,\ldots,s_n)$ be the corresponding finite path of \(\MC\). Then
+\begin{align}
+Pr^{\MC_{\mathrm{uni}}}(\pi_{\mathrm{uni}}) 
+&= \PF^{\MC_{\mathrm{uni}}}(s_{\mathrm{in}},s_0) \prod_{k=0}^{n-1} \PF^{\MC_{\mathrm{uni}}}(s_k,s_{k+1}) \notag
+&= \iota^\MC_{\mathrm{init}}(s_0) \prod_{k=0}^{n-1} \PF^\MC(s_k,s_{k+1}) \notag
+&= Pr^\MC(\pi).
+\end{align}
+Thus, corresponding cylinder sets have the same probability, and consequently the probability measures on the two path spaces coincide under the bijection \(\phi\).
+
+Hence, adding a unique initial state is merely a different representation of the initial distribution and does not change the probabilistic behaviour of the model. In particular, results formulated for the fixed-initial-state definition can be transferred to our definition by applying the above construction.
+
+To resolve the uncertainty of the initial distribution and transition probability function, we need to define semantics to interpret the Interval Markov Chain. In other words, we need to resolve an Interval Markov Chain to some set of Markov Chains that correspond to it. We say that all of these DTMCs $\MC$ satisfy the IDTMC $\IMC$ and denote it as $\MC \models \IMC$. We assume in this thesis that there exists at least one satisfying DTMC for every IDTMC.
 
 \begin{assumption}\label{assmp:finiteness_IDTMCs}
     In this thesis, we only consider finite IDTMCs, i.e., IDTMCs that have a finite state space.
     Moreover, we will only consider IDTMCs where there exists at least one satisfying DTMC $\MC \models \IMC$ for each state $s\in S^\IMC$, such that $s$ is reachable with a positive probability from an initial state in $\MC$. Because, if a given state was not reachable in any satisfying DTMC, then the EVT of this state would trivially be $0$ for all satisfying DTMCs and have no impact on the EVTs of other states.
 \end{assumption}
+
+% \emph{\textbf{Remark.} Fixed-initial-state-definition.} Often in the literature, see for example \cite{complexity_model_checking_interval-valued_DTMCs} (continue list), the authors do not define a seperate probability function for the initial distribution, as we have done, but instead only define a singular initial state $s_{in}$. In other words the initial distribution is encoded in the transition probability function using an additional state $s_{in}$. This results in the tupel $\IMC_{uni} = (S,\PFlower,\PFupper,s_{in})$.
+% Formally, if $\IMC = (S^\IMC,\PFlower^\IMC,\PFupper^\IMC,\Initlower^\IMC,\Initupper^\IMC)$ then the corresponding \textit{fixed-initial-state-definition} is defined as
+% \begin{itemize}
+%     \item $S^{\IMC_{uni}} = S^{\IMC}\cup \{s_{in}\}\ ,$
+%     \item $\PFlower^{\IMC_{uni}}(s_i,s_j) = \begin{cases*}
+%         \PFlower^{\IMC}(s_i,s_j) & if $s_i,s_j \neq s_{in}$\\
+%         \iota_{init}^\IMC(s_j) & if $s_i = s_{in}$\\
+%         0 & otherwise,
+%     \end{cases*}$
+%     \item $\PFupper^{\IMC_{uni}}(s_i,s_j) = \begin{cases*}
+%         \PFupper^{\IMC}(s_i,s_j) & if $s_i,s_j \neq s_{in}$\\
+%         \iota_{init}^\IMC(s_j) & if $s_i = s_{in}$\\
+%         0 & otherwise.
+%     \end{cases*}$
+% \end{itemize}
+
+% Notice however, that the probability measures of a given DTMC $\MC = (S^\MC,\PF^\MC,\iota^\MC_{init})$ is identical to the probability measure of the corresponding DTMC $\MC_{uni} = (S^{\MC}\cup \{s_{in}\},\PF^{\MC_{uni}},s_{in})$ under the bijection 
+% \[\phi: Paths_{inf}^{\MC_{uni}} \rightarrow Paths_{inf}^\MC, \pi = (s_{in},s_0,s_1,\dots) \mapsto (s_0,s_1,\dots)\ .\]
+%  We provide a short proof.
+
+% \begin{proof}
+%     The bijection $\phi$ is well defined, as $\MC_{uni}$ has only one initial state $s_{in}$ and $N(s_{in}) = \{s \mid \iota^\MC_{init}(s)>0\}$, i.e., for every $\pi = (s_{in},\pi[1],\pi[2],\dots) \in Paths_{inf}^{\MC_{uni}}$ there exists a $\pi' = (\pi[1],\pi[2],\dots)\in \Path$ and the other way around.
+%     \todo{Reicht das für: Thus they have the same (amount of) paths?}
+    
+%     Moreover, for a given $\pi \in Paths_{inf}^{\MC_{uni}}$, we define $\phi(\pi) = \hat{\pi}$.
+%     \begin{}
+%         Pr^{\MC_{uni}}(\pi) 
+%         & = \prod_{k=0}^{|\pi|-1}\PF^{\MC_{uni}}(\pi[k],\pi[k+1])\notag\\
+%         & = \PF^{\MC_{uni}}(\pi[0],\pi[1]) \cdot \prod_{k=1}^{|\pi|-1}\PF^{\MC_{uni}}(\pi[k],\pi[k+1]) \notag \\
+%         & = \iota^\MC_{init}(\hat{\pi}[0]) \cdot \prod_{k=0}^{|\hat{\pi}|-1}\PF^{\MC}(\hat{\pi}[k],\hat{\pi}[k+1])\notag\\
+%         & = Pr^\MC(\hat{\pi})\ .\notag
+%     \end{align}
+% \end{proof}
+% We will refer to this definition as the \textit{fixed-initial-state-definition}.
 
 \todo{Vielleich die reachability assumption noch detaillierter/formaler?}
 % \todo{Exception for infinite MCs with dependencies (probably not because still infinite calc.); Beweis, dass EVTs gleich ohne non-reachable states}
@@ -133,7 +227,7 @@ In this thesis, we will consider two popular semantics: the \textit{once-and-for
 We will first define the former, similar to \cite{Semantics_Quant-Analysis,Semantics_Model-Checking_omega-Regular,Semantics_LTL_Model_Checking}. To this end, we fix an IDTMC $\IMC = (S^\IMC,\PFlower,\PFupper,\Initlower,\Initupper)$ and a DTMC $\MC = (S^\MC,\PF,\iota_{init})$.
 
 \begin{definition}[Once-and-for-all/UMC Semantic]\label{def:once-and-for-all_semantic}
-    A DTMC $\MC$ satisfies an IDTMC $\IMC$ if and only if $\PFlower^{\IMC}(s,s')\leq\PF^{\MC}(s,s')\leq\PFupper^{\IMC}(s,s')$ and $\Initlower^{\IMC}(s)\leq\iota_{init}^{\MC}(s)\leq\Initupper^{\IMC}(s)$ for all $s,s'\in S^\IMC = S^\MC$.
+    A DTMC $\MC$ satisfies an IDTMC $\IMC$ if and only if $S^\IMC = S^\MC$, and for all $s,s'\in S^\IMC$, $\PF^{\MC}(s,s')\in[\PFlower^{\IMC}(s,s'),\PFupper^{\IMC}(s,s')]$ and $\iota_{init}^{\MC}(s)\in[\Initlower^{\IMC}(s),\Initupper^{\IMC}(s)]$.
 \end{definition}
 In other words, any DTMC whose initial distribution and transition probabilities lie in the intervals defined by the IDTMC is satisfactory. Thus, we can interpret the \textit{UMC} semantic for an IDTMC, as the initial distribution and probability function being chosen from the intervals \textit{once-and-for-all}.
 Moreover, notice that $\MC$ has the same cardinality as $\IMC$, i.e., $|S^\MC| = |S^\IMC|$.
@@ -228,20 +322,33 @@ In \cite{Badings2025} this external environment is defined as the \textit{nature
     A \textit{nature} for an IDTMC $\IMC$ is a function $\eta: Paths^\IMC_{fin} \rightarrow Steps^\IMC$ that assigns each finite path to a valid transition probability function, i.e., $\eta(\pi)\in Steps^\IMC(last(\pi))$.
 \end{definition}
 
+Notice, that we only define this external environment for the transition probability function and not the initial distribution. Recall, that results for the \textit{fixed-initial-state definition} can be applied to our definition by applying the shown construction. Thus, it suffices to define this external environment for the transition probability function.
+
 By applying a given \textit{nature} $\eta$ to $\IMC$, we resolve the uncertainty of the probability function, as $\eta$ specifies a probability function $\PF \in Steps^\IMC(s)$ for every finite path in $\IMC$.
 \todo{was ist mit der uncertainty der initial distribution?}
 Thus, $\eta$ induces a DTMC as follows. The definition is based on \cite{Bibel}.
 
 \begin{definition}[DTMC of an IDTMC Induced by a Nature]
     For an IDTMC $\IMC$ and a nature $\eta$ on $\IMC$, the induced Markov Chain $\MC_{\eta}$ is given by
-    \[\MC_{\eta} = (Paths^\IMC_{fin},\PF^{\MC_{\eta}},\iota_{init})\]
-    where for all paths $\pi,\pi'\in Paths_{fin}^\IMC$ with 
-    $\pi' = (\pi[0],\pi[1],\dots,last(\pi),s)$, $s\in S^\IMC$, and $\eta(\pi) = \PF$:
-    \[\PF^{\MC_{\eta}}(\pi,\pi') = \PF(\pi,\pi')\ .\]
+    \[\MC_{\eta} = (Paths^\IMC_{fin},\PF^{\MC_{\eta}},\iota^\IMC_{init})\ ,\]
+    where for all $\pi \in Paths_{fin}^\IMC$, $s\in S^\IMC$, and $\eta(\pi) = \PF$: 
+    \[\PF^{\MC_{\eta}}(\pi,\pi') = \begin{cases*}
+        \PF(last(\pi),s) & $\pi' = (\pi[0],\pi[1],\dots,last(\pi),s)$ \\
+        0 & otherwise.
+    \end{cases*}
+    \]
 \end{definition}
 \todo{vllt nicht notwendig; $Paths^{MDP}$ definieren?; ist in $Paths_{inf}$ alle paths drin (auch fin?)}
 
-Notice, that these induced DTMCs are infinite in size, i.e., $|\MC_{\eta}| = \infty$.
+Notice, that these induced DTMCs are infinite in size, i.e., $|\MC_{\eta}| = \infty$. To relate the states in the induced DTMCs $\MC_{\eta}$ to the states in the IDTMC $\IMC$, we define the function
+\[ \tau: Paths_{fin}^\IMC \rightarrow S^\IMC,\ (\pi[0],\dots,last(\pi)) \mapsto last(\pi)\ .\]
+In other words, the states in the induced DTMCs that correspond to paths ending in some state $s\in S^\IMC$, are mapped to $s$. Intuitively, 
+\[\tau^{-1}(s) = \{\pi \in Paths_{fin} \mid \tau(\pi) = s\}\]
+defines the set of all states in the induced DTMCs that correspond to paths ending in $s$ for all $s\in S^\IMC$.
+
+\todo{zeigen dass well-defined?; \& auch eine neue sache von mir (contribution)}
+\todo{vllt muss ich die funktionsdef. mehr hervorheben oder iwie referenzieren?}
+\todo{statt Pathsfin einfach $S^{\MC_{\eta}}$ oder nochmal anmerken zumindest}
 
 Using these notions, we can now define the \textit{IMDP semantic}.
 \begin{definition}[IMDP semantic]\label{def:IMDP_semantic}
@@ -253,9 +360,31 @@ Using these notions, we can now define the \textit{IMDP semantic}.
 \todo{Still need to define $Paths_{fin}$ for IDTMCs}
 If $\MC$ satisfies $\IMC$ under the IMDP semantic, we denote this as $\MC\models_{\text{I}}\IMC$.
 
-% In other words, for any given finite path $\pi \in Paths_{fin}^\IMC$, the \textit{nature} chooses a probability distribution from $Steps^\IMC(last(\pi))$ according to which the successor state is then sampled.
+An important type of nature, which we require in this thesis, is the \textit{stationary nature}. The following definition is based on \cite{Badings2025}.
+
+\begin{definition}[Stationary Nature]
+    A nature $\eta$ for an IDTMC $\IMC$ is \textit{stationary} if for all paths $\pi,\pi' \in Paths_{fin}^\IMC$, it holds that 
+    \[ last(\pi) = last(\pi') \implies \eta(\pi) = \eta(\pi')\ .\]
+\end{definition}
+Intuitively, this implies that $\eta$ only depends on the current state of the model, i.e., the state the model is in. Thus, stationary natures are functions of the form 
+\[\eta: S^\IMC \rightarrow Steps^\IMC \ .\]
+
+Notice that the induced DTMCs of these stationary natures are finite in size.
+
+\begin{definition}[DTMC of an IDTMC Induced by a Stationary Nature]\label{def:induced_DTMC_stat_Nature}
+    For an IDTMC $\IMC$ and a stationary nature $\eta$ on $\IMC$, the induced Markov Chain $\MC_\eta$ is given by 
+    \[ \MC_\eta = (S^\IMC, \PF^{\MC_\eta}, \iota^\IMC_{init})\ ,\]
+    where for all $s_i\in S^\IMC$ and $\eta(s_i) = \PF$:
+    \[ \PF^{\MC_\eta}(s_i,s_j) = \begin{cases*}
+        \PF(s_i,s_j) & $s_j \in N(s_i)$,\\
+        0 & otherwise.
+    \end{cases*}
+    \]
+\end{definition}
+\todo{quelle finden}
 
 The other common definition can be found in \cite{reachability_in_pIMCs_using_constraints} and \cite{Semantics_Quant-Analysis}.
+\todo{maybe remove this}
 
 % \begin{definition}[IMDP semantic old]\label{def:IMDP_semantic_old}
 %     An arbitrary DTMC $\MC=(T,\PF,\iota_{init})$ with $|T| \geq |S|$ (or $S \subseteq T$) satisfies an IDTMC $\IMC = (S,\PFlower,\PFupper,\Initlower,\Initupper)$ if and only if there exists a surjective mapping $\tau^\MC: T\rightarrow S$ such that
@@ -274,6 +403,7 @@ The other common definition can be found in \cite{reachability_in_pIMCs_using_co
 %     We will denote this as $\MC\models_{I}\IMC$ (as well).
 % \end{definition}
 
+\todo{Besseres example; vllt mittels finite memory scheduler; oder infinite induzierten DTMC von Katoen klauen}
 \begin{example}
     Consider the IDTMC $\IMC$ in \Cref{fig:IMC_for_semantic}. The DTMC $\MC_I$ depicted in \Cref{fig:IMDP_semantic} satisfies $\IMC$ under the IMDP semantic, i.e., $\MC_I \models_I \IMC$, where the transition probability function is given by
     \[
@@ -437,16 +567,16 @@ The other common definition can be found in \cite{reachability_in_pIMCs_using_co
 
 % Intuitively, the IMDP semantic allows for a probability distribution to be chosen at every step in each state within the constraints/bounds set by the IDTMC. In contrast to the UMC semantic, where each state in the satisfying DTMCs have a singular corresponding state in the IDTMC and thus a fixed probability distribution, the IMDP semantic allows for multiple states in the satisfying DTMCs with different fixed probability distributions to be mapped to the same corresponding state in the IDTMC. We can thus imagine an IDTMC under the IMDP semantic as a Markov Decision Process, see \Cref{def:MDP}.
 
-As the IMDP semantic allows for a probability distribution to be chosen in each state at every step, we can interpret an IDTMC under the IMDP semantic as a Markov Decision Process (MDP), see \Cref{def:MDP}.
+% As the IMDP semantic allows for a probability distribution to be chosen in each state at every step, we can interpret an IDTMC under the IMDP semantic as a Markov Decision Process (MDP), see \Cref{def:MDP}.
 
-The most intuitive mapping from an IDTMC $\IMC$ under the IMDP semantic to an MDP $\MDP$ is to define $S^\MDP = S^\IMC$ and an uncoutable set $\bigcup_{s\in S} A(s) = Act$ of actions where each action $\alpha \in A(s)$ corresponds to a probability distribution in $Steps^\IMC(s)$. In other words, the actions $\alpha\in A(s)$ in a given state $s\in S$ correspond to the probability distributions that can be chosen in $s$ in any given step. However, as these subsets $A(s)$ can be uncoutable, this mapping is not useful (as no algorithm like value or policy iteration would terminate).
-\todo{mapping passendes Wort?}
+% The most intuitive mapping from an IDTMC $\IMC$ under the IMDP semantic to an MDP $\MDP$ is to define $S^\MDP = S^\IMC$ and an uncoutable set $\bigcup_{s\in S} A(s) = Act$ of actions where each action $\alpha \in A(s)$ corresponds to a probability distribution in $Steps^\IMC(s)$. In other words, the actions $\alpha\in A(s)$ in a given state $s\in S$ correspond to the probability distributions that can be chosen in $s$ in any given step. However, as these subsets $A(s)$ can be uncoutable, this mapping is not useful (as no algorithm like value or policy iteration would terminate).
+% \todo{mapping passendes Wort?}
 
-FOR OPTIMAL BEHAVIOUR:
+% FOR OPTIMAL BEHAVIOUR:
 
-Instead, it is thus argued in \cite{Model-Checking_presence_Uncertainties}, \cite{Semantics_Model-Checking_omega-Regular}, and \cite{complexity_model_checking_interval-valued_DTMCs}, that the local constraints of each state of these MDPs and IDTMCs, see in \Cref{def:MDP} $(iv) - (v)$ and \Cref{def:IMC} $(ii) - (v)$, can be used to limit the amount of probability distributions that need to be mapped. In the theory of linear programming, this is called a basic feasible solution (BFS). For this reduction, the sets $A(s)$ with $s\in S^\IMC$ are exponential in the size of $|S^\IMC|$.
+% Instead, it is thus argued in \cite{Model-Checking_presence_Uncertainties}, \cite{Semantics_Model-Checking_omega-Regular}, and \cite{complexity_model_checking_interval-valued_DTMCs}, that the local constraints of each state of these MDPs and IDTMCs, see in \Cref{def:MDP} $(iv) - (v)$ and \Cref{def:IMC} $(ii) - (v)$, can be used to limit the amount of probability distributions that need to be mapped. In the theory of linear programming, this is called a basic feasible solution (BFS). For this reduction, the sets $A(s)$ with $s\in S^\IMC$ are exponential in the size of $|S^\IMC|$.
 
-GGFLS. NOCH AUSFÜHRLICHER ERLÄUTERN
+% GGFLS. NOCH AUSFÜHRLICHER ERLÄUTERN
 
 \todo{Gleiche reach. prob. für diese Konstrukion und zugehöriger IDTMC in paper gezeigt (denke ich), weil reach prob $\subset$ PCTL. Und die Konstruktion ist für PCTL?}
 
@@ -488,14 +618,15 @@ GGFLS. NOCH AUSFÜHRLICHER ERLÄUTERN
 
 If we want to emphasize that a DTMC $\MC$ satisfies the IDTMC $\IMC$ under both semantics, we write $\MC\models\IMC$. Furthermore, if two DTMCs $\MC_1$ and $\MC_2$ satisfy a given IDTMC $\IMC$, we write $\MC_1, \MC_2 \models \IMC$ for short.
 
-Lastly, we will now expand upon some of the definitions from \Cref{ch:Markov Chains} to IDTMCs.
+Lastly, we introduce some of notions of IDTMCs, which we use in the following chapter.
+\todo{cref the chapter}
 
-\todo{Erst Probability Space einführen}
-First, we construct the probability space of an IDTMC.
+\todo{Erst Probability Space einführen; Brauche das glaube ich nicht}
+% First, we construct the probability space of an IDTMC.
 
-ERKLÄREN, DASS PROB SPACE EINF SAMMLUNG VON (SATISFYING) DTMC PROB SPACES IST
+% ERKLÄREN, DASS PROB SPACE EINF SAMMLUNG VON (SATISFYING) DTMC PROB SPACES IST
 
-Next, we will introduce reachability probabilities for IDTMCs. We use the definition of the quantitative reachability property in IDTMCs provided in \cite{reachability_in_pIMCs_using_constraints}. 
+First, we introduce reachability probabilities for IDTMCs. We use the definition of the quantitative reachability property in IDTMCs provided in \cite{reachability_in_pIMCs_using_constraints}. 
 \begin{definition}[Reachability Probability in IDTMCs]\label{def:reachability_probability_IDTMCs}
     Given an IDTMC $\IMC$ and a set of states $T \subseteq S$, then a quantitative reachability property on $\IMC$ is defined as $Pr^\IMC(\lozenge T) \sim p$, where $0\leq p \leq 1$ and $\sim \in \{\leq, <, >, \geq\}$. This quantitative property is satisfied if and only if there exists at least one DTMC $\MC \models \IMC$ such that $Pr^\MC(\lozenge T) \sim p$.
 \end{definition}
@@ -533,8 +664,6 @@ Lastly, BSCCs are defined as follows.
     Let $\IMC$ be an IDTMC, then $B^\MC \subseteq S^\IMC$ is a BSSC, if $B^\MC$ is a BSCC in the DTMC $\MC$, see \Cref{def:(B)SCC}, and $\MC \models \IMC$.
 \end{definition}
 
-Often in the literature, see for example \cite{complexity_model_checking_interval-valued_DTMCs} (continue list), the authors do not define a seperate probability function for the initial distribution, as we have done, but instead only define a singular initial state $s_0$. Notice however, that our definition can easily be fitted into this definition and vice versa, by mapping our initial distribution onto the transition probability function of the state $s_0$, similarly as in \Cref{sec:MC_Quantitative_Reachability} with $\MC_{uni}$ and $s_{in}$. We will refer to this definition as the fixed-initial-state-definition.
-
 % As defined in \cite{Bibel}.
 % \begin{definition}[History-dependent Scheduler]
     
@@ -551,65 +680,87 @@ Often in the literature, see for example \cite{complexity_model_checking_interva
 % Non-reachable states --> lEVT 0 (and for recurrent uEVT 1)
 
 \subsection{Relation between the semantics}\label{sec:relation_between_the_semantics}
-Clearly, the \textit{IMDP} semantic is more expressive than the \textit{UMC} semantic \cite{Semantics_Quant-Analysis}. More specifically for any given IDTMC $\IMC$, a DTMC $\MC$ that satisfies $\IMC$ according to the UMC semantic, i.e., $\MC \models_U \IMC$, does also satisfy $\IMC$ according to the IMDP semantic, i.e., $\MC \models_I \IMC$ \cite{Semantics_Quant-Analysis}.
-\begin{theorem}
-    For any IDTMC $\IMC$, if $\MC \models_U \IMC$, then $\MC \models_I \IMC$
+Intuitively, the \textit{IMDP} semantic is more expressive than the \textit{UMC} semantic. More specifically for any given IDTMC $\IMC$, a DTMC $\MC$ that satisfies $\IMC$ according to the UMC semantic, i.e., $\MC \models_U \IMC$, does also satisfy $\IMC$ according to the IMDP semantic, i.e., $\MC \models_I \IMC$.
+\begin{theorem}\label{th:relation_of_semantics}
+    For any IDTMC $\IMC$, if $\MC \models_U \IMC$, then $\MC \models_I \IMC$.
 \end{theorem}
-As we observed before when discussing the mapping of IDTMCs under the IMDP semantic to MDPs, the UMC semantic can be obtained as the special case in which the nature $\eta$ from \Cref{def:IMDP_semantic} is a function
-\[ \eta : Paths_{fin}^{\IMC} \rightarrow Steps^\IMC \]
-such that $\eta(\pi) = \eta(\pi')$ for all paths $\pi = (\dots,s_n)$ and $\pi' = (\dots,s_n)$ ending in the same state $s_n$. That is, the choice of the step depends only on the current state $s_n$, rather than on the entire path leading to it.
 
-% \begin{proof}
-%     If $\MC \models_U \IMC$, then we define $T = S$ and $\tau(s) = s$. Then (i) of \Cref{def:IMDP_semantic} is fulfilled as $\tau$ is bijective and $\iota_{init}(s) \in [\Initlower(s),\Initupper(s)]$ for all $s\in S$, as $\MC \models_U \IMC$. Moreover, (ii) is fulfilled as $\PF(s,t)\in[\PFlower(s,t),\PFupper(s,t)]$ for all $s,t\in S$, as $\MC \models_U \IMC$. Thus, we can conclude that $\MC \models_I \IMC$.
-% \end{proof}
+We can prove this theorem using the following lemma.
 
---> einführen mit Ziel: Identisch für optimal "behaviour"/scheduler etc.
+\begin{lemma}\label{lem:relation_stat_nature_UMC}
+    Given an IDTMC $\IMC$ and stationary nature $\eta$, for every induced DTMC $\MC_{\eta}$, there exists a DTMC $\MC \models_U \IMC$, such that $\MC = \MC_{\eta}$.
+\end{lemma}
+In other words the set of induced DTMCs by stationary natures on $\IMC$ is identical to the set of DTMCs that satisfy $\IMC$ under the UMC semantic.
 
-Important for this thesis are in particular memoryless schedulers. The following definition is taken from \cite{Bibel}.
-\begin{definition}[Memoryless Scheduler]
-    Let $\MDP$ be a MDP with state space $S$. Any scheduler $\mathfrak{S}$ on $\MDP$ is \textit{memoryless} if and only if for each sequence $(s_0,s_1,\dots,s_n)$ and $(t_0,t_1,\dots,t_m)$ with $s_n = t_m$
-    \[\MC(s_0,s_1,\dots,s_n) = \MC(t_0,t_1,\dots,t_m)\ . \]
-    Thus, in this case, $\mathfrak{S}$ can be viewed as a function $\mathfrak{S}: S \rightarrow Act$.
-\end{definition}
+\begin{proof}
+    First notice, that $S^{\MC_{\eta}} = S^\IMC$ by definition, see \Cref{def:induced_DTMC_stat_Nature}.
+\end{proof}
 
-In other words, if a scheduler is memoryless, then it always selects the same action in a given state. Notice, that in regards to the MDP construction in \cite{Model-Checking_presence_Uncertainties} and \cite{Semantics_Model-Checking_omega-Regular}, where the actions represent the chosen probability distribution, this describes precisely the UMC semantic. As a memoryless scheduler chooses the same action in a given state, it chooses the same probability distribution for a given state in the MDP construction.
+As stationary natures are a specific type of nature, \Cref{th:relation_of_semantics} follows directly from \Cref{lem:relation_stat_nature_UMC}.
 
-\begin{definition}[Markov Chain of an MDP Induced by a memoryless Scheduler]
-    For an MDP $\MDP = (S,Act,A,\PF,\iota_{init})$ and a scheduler $\mathfrak{S}$ on $\MDP$, the induced Markov Chain $\MC_{\mathfrak{S}}$ is given by
-    \[\MDP_{\mathfrak{S}} = (S,\PF_{\mathfrak{S}},\iota_{init})\]
-    where for any $s_i,s_j\in S$:
-    \[\PF_{\mathfrak{S}}(s_i,s_j) = \PF(s_i,\mathfrak{S}(s_i),s_j)\ .\]
-\end{definition}
+\todo{denote in beginning of chapter or section that this (relation) is own contribution}
 
-As $\PFlower(s_i,s_j)\leq\PF(s_i,\mathfrak{S}(s_i),s_j)\leq\PFupper(s_i,s_j)$ by construction, the induced Markov Chain of a memoryless scheduler on the MDP construction satisfies all conditions of \Cref{def:once-and-for-all_semantic}.
+% As we observed before when discussing the mapping of IDTMCs under the IMDP semantic to MDPs, the UMC semantic can be obtained as the special case in which the nature $\eta$ from \Cref{def:IMDP_semantic} is a function
+% \[ \eta : Paths_{fin}^{\IMC} \rightarrow Steps^\IMC \]
+% such that $\eta(\pi) = \eta(\pi')$ for all paths $\pi = (\dots,s_n)$ and $\pi' = (\dots,s_n)$ ending in the same state $s_n$. That is, the choice of the step depends only on the current state $s_n$, rather than on the entire path leading to it.
+
+% Important for this thesis are in particular memoryless schedulers. The following definition is taken from \cite{Bibel}.
+% \begin{definition}[Memoryless Scheduler]
+%     Let $\MDP$ be a MDP with state space $S$. Any scheduler $\mathfrak{S}$ on $\MDP$ is \textit{memoryless} if and only if for each sequence $(s_0,s_1,\dots,s_n)$ and $(t_0,t_1,\dots,t_m)$ with $s_n = t_m$
+%     \[\MC(s_0,s_1,\dots,s_n) = \MC(t_0,t_1,\dots,t_m)\ . \]
+%     Thus, in this case, $\mathfrak{S}$ can be viewed as a function $\mathfrak{S}: S \rightarrow Act$.
+% \end{definition}
+
+% In other words, if a scheduler is memoryless, then it always selects the same action in a given state. Notice, that in regards to the MDP construction in \cite{Model-Checking_presence_Uncertainties} and \cite{Semantics_Model-Checking_omega-Regular}, where the actions represent the chosen probability distribution, this describes precisely the UMC semantic. As a memoryless scheduler chooses the same action in a given state, it chooses the same probability distribution for a given state in the MDP construction.
+
+% \begin{definition}[Markov Chain of an MDP Induced by a memoryless Scheduler]
+%     For an MDP $\MDP = (S,Act,A,\PF,\iota_{init})$ and a scheduler $\mathfrak{S}$ on $\MDP$, the induced Markov Chain $\MC_{\mathfrak{S}}$ is given by
+%     \[\MDP_{\mathfrak{S}} = (S,\PF_{\mathfrak{S}},\iota_{init})\]
+%     where for any $s_i,s_j\in S$:
+%     \[\PF_{\mathfrak{S}}(s_i,s_j) = \PF(s_i,\mathfrak{S}(s_i),s_j)\ .\]
+% \end{definition}
+
+% As $\PFlower(s_i,s_j)\leq\PF(s_i,\mathfrak{S}(s_i),s_j)\leq\PFupper(s_i,s_j)$ by construction, the induced Markov Chain of a memoryless scheduler on the MDP construction satisfies all conditions of \Cref{def:once-and-for-all_semantic}.
 
 Importantly, the two semantics have the same maximum and minimum reachability probability for any given (initial) state, according to \cite{reachability_in_pIMCs_using_constraints} and \cite{complexity_model_checking_interval-valued_DTMCs}.
+\dots
+% \todo{ausführen; zeigen mit formel und ausführlicher erklären; schauen dann inwiefern ich mich später wiederhole}
 
 \section{Expected Visiting Times in IDTMCs}
-We will now define \textit{expected visiting times} (EVTs) for IDTMCs. As we discussed in the previous section, IDTMCs can be seen as a set of DTMCs that satiesfy the IDTMC according to the given semantic. These different DTMCs can have varying EVTs for a given state $s$ in the IDTMC, thus we are interested in the upper and lower bound for the EVTs of $s$, i.e., in the highest and lowest EVT of $s$ among the satisfying DTMCs.
+We continue by defining \textit{expected visiting times} (EVTs) for IDTMCs. As we discussed in the previous section, IDTMCs can be seen as a set of DTMCs that satisfy the IDTMC according to the given semantic. These different DTMCs can have varying EVTs for a given state $s$ in the IDTMC, thus we are interested in the upper and lower bound for the EVTs of $s$, i.e., in the highest and lowest EVT of $s$ among the satisfying DTMCs.
 \begin{definition}[EVTs of IDTMCs]
     For a IDTMC $\IMC$, we define the \textit{upper expected visiting time} (uEVT) $\ExpUpper^\IMC[vt_s]$ and \textit{lower expected visiting time} ($\ell$EVT) $\ExpLower^\IMC[vt_s]$ for all states $s\in S^\IMC$, as follows for the UMC semantic
     \begin{enumerate}[label=(\roman*)]
-        \item $\ExpLower^\IMC[vt_s] = \operatorname{inf}_{\MC\models_U\IMC} \Exp^\MC[vt_s]$
+        \item $\ExpLower^\IMC[vt_s] = \inf_{\MC\models_U\IMC} \Exp^\MC[vt_s]$
         \item $\ExpUpper^\IMC[vt_s] = \operatorname{sup}_{\MC\models_U\IMC} \Exp^\MC[vt_s]$
     \end{enumerate}
     and the IMDP semantic
     \begin{enumerate}[label=(\roman*)]
-        \item $\ExpLower^\IMC[vt_s] = \operatorname{inf}_{\MC\models_I\IMC} \sum_{t\in T \land \tau^\MC(t) = s}\Exp^\MC[vt_t]$
-        \item $\ExpUpper^\IMC[vt_s] = \operatorname{sup}_{\MC\models_I\IMC}\sum_{t\in T \land \tau^\MC(t) = s}\Exp^\MC[vt_t]$.
+        \item $\ExpLower^\IMC[vt_s]
+        = \inf_{\MC \models_I \IMC}
+        \int_{\tau^{-1}(s)} \Exp^\MC[vt_t]$
+        \item $\ExpUpper^\IMC[vt_s]
+        = \sup_{\MC \models_I \IMC}
+        \int_{\tau^{-1}(s)} \Exp^\MC[vt_t]$
     \end{enumerate}
 \end{definition}
+
+\todo{zeigen, dass maximum/minim; wenn noch Zeit}
+\todo{nochmal kritisch testen, ob das so stimmt jetzt}
 
 % \subsection{Relating Expected Visiting Times and Expected Total Rewards}
 
 %\subsection{Relation between the UMC and IMDP semantics}
 
 \subsection{Relating Expected Visiting Times and Quantitative Reachability}\label{sec:IMC_Quantitative_Reachability}
-Similar to \Cref{sec:MC_Quantitative_Reachability}, we will now relate \textit{expected visiting times} to \textit{quantitave reachability}. Moreover, we show that for any IDTMC $\IMC$, there exists a DTMC $\MC\models \IMC$ that has the optimal, i.e., maximum or minimum, reachability probability for all transient states in $\IMC$.
+Similar to \Cref{sec:MC_Quantitative_Reachability}, we now relate \textit{expected visiting times} to \textit{quantitative reachability}. Moreover, we show that for any IDTMC $\IMC$, there exists a DTMC $\MC\models \IMC$ that has the optimal, i.e., maximum or minimum, reachability probability for all transient states in $\IMC$.
+\todo{nicht transient!!}
 
 Given the quantitative reachabilities of the DTMCs that satisfy a certain IDTMC $\IMC$, we can calculate the corresponding EVTs of a given state $s$ in $\IMC$ and thus find the lEVTs and uEVTs using the results from \Cref{sec:MC_Quantitative_Reachability}. 
 
-As we concluded in \Cref{sec:MC_Quantitative_Reachability}, we can calculate the EVT of a given state $s$ in a DTMC $\MC$ via quantitative reachability, using the corresponding DTMC $\MC_{uni}$ and the \Cref{eq:EVT_via_quant_reach_sum} $\Exp^\MC[vt_s] = \sum_{t\in\Strin} \frac{Pr^\MC_t(\lozenge s)}{1-Pr^\MC_s(\Circle\lozenge s)} \cdot\iota_{init}(t)$. Thus, the uEVT and $\ell$EVT of a given IDTMC $\IMC$ are given by the largest and smallest ratio of these quantitative reachability probabilites among the satisfying Markov Chains.
+As we concluded in \Cref{sec:MC_Quantitative_Reachability}, we can calculate the EVT for all transient states $s \in S_{tr}^\MC$ in a DTMC $\MC$ via quantitative reachability, using the corresponding DTMC $\MC_{uni}$ and the \Cref{eq:EVT_via_quant_reach_sum} $\Exp^\MC[vt_s] = \sum_{t\in\Strin} \frac{Pr^\MC_t(\lozenge s)}{1-Pr^\MC_s(\Circle\lozenge s)} \cdot\iota_{init}(t)$. As the uEVT and $\ell$EVT, under the UMC semantic, are given by the maximum and minimum EVT 
+
+Thus, the uEVT and $\ell$EVT of a given IDTMC $\IMC$ are given by the largest and smallest ratio of these quantitative reachability probabilites among the satisfying Markov Chains.
 
 \emph{\textbf{Remark.} Existence of DTMC with optimal reachability.}\label{rem:existence}
 For every transient state $t\in S_{tr}$ there exists a DTMC
@@ -625,7 +776,7 @@ $\MC\models_U\IMC$ with $Pr_t^\MC(\lozenge s) = \operatorname{sup}_{\MC_i\models
 \begin{proof}
     We will start by proving this theorem for $\MC \models_I \IMC$ and then show why $\MC \models_U\IMC$ follows from it.
     
-    As shown in \cite{Bibel} (Theorem 10.100, pg. 851), for any MDP $\MDP$ the maximum reachability probability is characterized by the equation
+    As shown in \cite[Theorem 10.100]{Bibel}, for any MDP $\MDP$ the maximum reachability probability is characterized by the equation
     \begin{equation}\label{eq:maximum_reach_prob_MDPs}
         \Prupper^\IMC_t(\lozenge s) = \max \left\{ \sum_{u\in N(t)} \PF(t,\alpha,u) \cdot \Prupper^\IMC_u(\lozenge s) \mid \alpha\in Act(t) \right\} \ .
     \end{equation}
@@ -1048,7 +1199,7 @@ Recall, that we concluded in \Cref{sec:IMC_Quantitative_Reachability} that the u
 \todo{based on this concept of forward/backward pass: can understand why acyclical is easy --> necessarily do not interfere; but useless info ig}
 
 As we have defined the IMDP semantic using adversarial behaviour (?), notice that we can define a policy that choses the probability distribution specified by $\MC_{s_{in}\rightarrow s}$ until state $s$ is visited for the first time and then choses the probability distribution specified by $\MC_{s\rightarrow s}$. \todo{define it with policy}
-This policy can be characterized as having two stages where we transition from the first to the second stage when passing through $s$ for the first time. Notice however, that the stochastic process of the Markov Chain/MDP (?) would no longer be memoryless, i.e. the Markov Property (SEE \dots) would break, as the process is not only dependent on the current state but also on what stage the policy is in.
+This policy can be characterized as having two stages where we transition from the first to the second stage when passing through $s$ for the first time. Notice however, that the stochastic process of the Markov chain/MDP (?) would no longer be memoryless, i.e. the Markov Property (SEE \dots) would break, as the process is not only dependent on the current state but also on what stage the policy is in.
 To solve this problem, we propose a remapping/reduction (state augmentation). 
 
 % --------------------------------------------------------------
