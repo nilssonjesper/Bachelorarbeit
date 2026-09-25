@@ -84,14 +84,6 @@ Additionally, we use the notation $Pr^\MC_s$ to denote the probability measure o
 
 \todo{measurable space definieren? Macht Hannah das?}
 
-\emph{\textbf{Intermediate States.}} Using the notion of finite paths, we introduce \textit{intermediate states}, which we later require in \Cref{sec:IMC_Quantitative_Reachability}.
-
-\begin{definition}[Intermediate States]\label{def:intermediate_state}
-    Given a DTMC $\MC$, a set of states $T$, and a state $s \in S$, then $u\in S$ is \textit{intermediate} if and only if there exists path $\pi \in Paths^\MC_{fin}$ with $|\pi| = n$, such  that $\pi[0]\in T$, $\pi[n] = s$, and $\pi[k] = u$ for some $k\in \underline{n}$. 
-\end{definition}
-In other words, there exists a finite path from some $t\in T$ to $s$ in $\MC$ that visits $u$.
-We denote the set of these intermediate states as $I^\MC_{T,s}$ for a set of states $T\in S$ and state $s\in S$. Moreover, if $T$ is a singleton set, i.e., $T =\{t\}$, then we simply denote the set of intermediate states as $I_{t,s}$.
-
 \emph{\textbf{Reachability probability.}} In the following, we consider events, i.e., measurable sets of infinite paths, which are relevant for the introduction of reachability probabilities in DTMCs.
 
 \todo{measurable sets in Matheteil einführen}
@@ -209,7 +201,8 @@ Using BSCCs, we can define \textit{acyclic} DTMCs.
 \begin{definition}[Recurrent and Transient States]\label{def:transient_and_recurrent_states}
     For a given DTMC $\MC$ and state $s \in S$, $s$ is called \textit{recurrent} if and only if $Pr_s(\cCircle \lozenge s)=1$. All states that are not \textit{recurrent} are called \textit{transient}.
 \end{definition}
-In other words, a state is \textit{recurrent} precisely, when we are guaranteed to reach it from all of its direct successors, meaning once we reach a \textit{recurrent} state, we are bound to return to it. Notice, that \textit{recurrent} states are precisely the states contained in a BSCC. Using this definition, we can split the states $S$ of a DTMC into two sets with $S_{tr}$ containing all of the transient states and $S_{re}$ containing all of the recurrent states. 
+In other words, a state is \textit{recurrent} precisely, when we are guaranteed to reach it from all of its direct successors, meaning once we reach a \textit{recurrent} state, we are bound to return to it. Using this definition, we can split the states $S$ of a DTMC into two sets with $S_{tr}$ containing all of the transient states and $S_{re}$ containing all of the recurrent states. 
+Notice, that \textit{recurrent} states are precisely the states contained in a BSCC.
 For convenience, we additionally define the set of \textit{initial} states $S^\MC_{in} = \{s \mid \iota^\MC_{init}(s) > 0\}$. Furthermore, we define the set of \textit{transient initial} states $\Strin \subseteq S_{in}$ with $\Strin = S_{in}\cap S_{tr}$. 
 
 Moreover, the event $\lozenge S_{re}$, i.e., to reach any recurrent state, holds \textit{almost surely} in any DTMC.
@@ -291,23 +284,51 @@ The notation and contents of this section are mostly based on \cite{Computing_EV
 Intuitively, the notion of EVTs describes how often we expect the model to be in a given state. To formally introduce EVTs, we fix a DTMC $\MC = (S,\PF,\iota_{init})$ and start by introducing \textit{visiting times} along paths.
 \begin{definition}[Visiting Times of Infinite Paths]\label{def:visiting_times_of_infinite_paths}
     The function $vt_s:\Path \rightarrow \RR$ describes the \textit{visiting time} of a state $s\in S$ along infinite paths in $\MC$, where for $\pi\in \Path$
-    \[vt_s(\pi)=\sum_{k=0}^{\infty}\llbracket \pi[k]=s \rrbracket\]
+    \[vt_s(\pi)=\sum_{k=0}^{\infty}\llbracket \pi[k]=s \rrbracket\ .\]
+    Similarly, the function $vt_T:\Path \rightarrow \RR$ descsribes the \textit{visiting time} of a set of states $T\subseteq S$ along infinite paths in $\MC$, where for $\pi \in \Path$
+    \[vt_T(\pi)=\sum_{k=0}^{\infty}\llbracket \pi[k]\in T \rrbracket\ .\]
 \end{definition}
-As proven in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, the Lebesgue integral of the non-negative function $vt_s$ is well-defined for all states $s\in S^\MC$. With this function, we can now define the EVT of a state $s$ as the expected value of $vt_s$ over all possible paths.
-\todo{Define Expected Values in Matheteil (Def 2.16 bei Hannah)}
-\todo{Lebesgue Integral in Mathteil einführen}
+As proven in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, the Lebesgue integral of the non-negative function $vt_s$ is well-defined for all states $s\in S^\MC$. Using this result, we can shortly prove the same for $vt_T$.
+\begin{proof}
+    Using \cref{def:visiting_times_of_infinite_paths},
+    \begin{align}
+        vt_T(\pi)
+        & = \sum_{k=0}^{\infty}\llbracket \pi[k]\in T \rrbracket \notag \\
+        & = \sum_{k=0}^{\infty}\sum_{t\in T}\llbracket \pi[k] = t \rrbracket \notag \\
+        & = \sum_{t\in T}vt_t(\pi)\ .\notag
+    \end{align}
+    Thus, the Lebesgue integral of the non-negative function $vt_T$ is well-defined for all sets of states $T\subseteq S$.
+\end{proof}
+\todo{vllt das lemma/whatever inkludieren, dass ich die summen swappen darf}
+
+With this function, we can now define the EVT of a state $s$ as the expected value of $vt_s$ over all possible paths.
+
 
 \begin{definition}[Expected Visiting Times in DTMCs]\label{def:EVTs_in_DTMCs}
     For a state $s\in S$, the \textit{expected visiting time} of $s$ is characterized as
     \[\Exp^{\MC}[vt_s]=\int_{\pi\in\Path}vt_s(\pi)dPr^{\MC}(\pi)\ .\]
     Additionally, we denote the \textit{expected visiting time} that is obtained by fixing a certain state $t\in S$ as the only initial state as $\Exp^\MC_t[vt_s]$. It is defined as
     \[\Exp^{\MC}_t[vt_s]=\int_{\pi\in\Path}vt_s(\pi)dPr_t^{\MC}(\pi)\ .\]
+    Lastly, for a set of states $T\subseteq S$ the \textit{expected visiting time} of $T$ is characterized as
+    \[\Exp^{\MC}[vt_T]=\sum_{t\in T}\Exp[vt_t]\ .\]
     % Moreover, \[\Exp^{\MC}[vt_s] = \]
     
     % \[ \Exp^{\MC}[vt_s]=\int_{s'\in S} \iota_{init}(s')\underbrace{\int_{\pi\in\Path\land \pi[0]=s'}vt_s(\pi)dPr^{\MC}(\pi)}_{=: \Exp_s'[vt_s]}.\]
 \end{definition}
-Because the probability measure of paths $\pi$, see definition \Cref{def:prob_space_of_DTMC}, is defined as a product containing the factor $\iota_{init}(\pi[0])$, it is nonzero only for paths that begin in a state $s$ with $\iota_{init}(s)>0$. Thus, the value $\Exp^\MC[vt_s]$ gives the number of times the state $s$ is expected to be visited from all paths in $\MC$ that start in one of the initial states.
-Whenever the DTMC $\MC$ is evident from the context, we will omit the superscript $\MC$ from $\Exp^\MC[vt_s]$ and $\Exp_t^\MC[vt_s]$.
+Because the probability measure of paths $\pi$, see definition \Cref{def:prob_space_of_DTMC}, is defined as a product containing the factor $\iota_{init}(\pi[0])$, it is nonzero only for paths that begin in a state $s$ with $\iota_{init}(s)>0$. Thus, the value $\Exp^\MC[vt_s]$ gives the number of times the state $s$ is expected to be visited from all paths in $\MC$ that start in one of the initial states. Whenever the DTMC $\MC$ is evident from the context, we will omit the superscript $\MC$ from $\Exp^\MC[vt_s]$, $\Exp_t^\MC[vt_s]$, and $\Exp^{\MC}[vt_T]$.
+
+We shortly prove the third equation of \Cref{def:EVTs_in_DTMCs}.
+\begin{proof}
+    \begin{align}
+        \Exp[vt_T] 
+        & = \int_{\pi\in\Path}vt_T(\pi)dPr^{\MC}(\pi) \notag \\
+        & = \int_{\pi\in\Path}\sum_{t\in T}vt_t(\pi)dPr^{\MC}(\pi) & \text{ (using \Cref{def:visiting_times_of_infinite_paths})} \notag \\
+        & = \sum_{t\in T}\int_{\pi\in\Path}vt_t(\pi)dPr^{\MC}(\pi) \notag \\
+        & = \sum_{t\in T}\Exp[vt_t] \ . & \text{ (using \Cref{def:EVTs_in_DTMCs})} \notag
+    \end{align}
+\end{proof}
+\todo{bisschen text hinzufügen}
+\todo{diese ganze T geschichte für EVTs natürlich auch eine eigene contribution}
 
 Using the aforementioned partition of the set of states $S$ into transient and recurrent states, see \Cref{def:transient_and_recurrent_states}, we can already give a characterization for the latter.
 
@@ -341,7 +362,7 @@ Importantly for this thesis, Kemeny and Snell show in \cite{KemenySnellBook}, th
 % \end{lemma}
 % We provide a short proof by contradiction
 % \begin{proof}
-%     Assume that a transient state $s_{tr}$ is reachable from a recurrent state $s_{re}$, i.e. $Pr_{s_{re}}(\cCircle\lozenge s_{tr}) > 0$. As $Pr_{s_{re}}(\cCircle\lozenge s_{re}) = 1$, see \Cref{def:transient_and_recurrent_states}, necessarily $s_{re}$ is reachable from $s_{tr}$ as well and crucially $Pr_{s_{tr}}(\cCircle\lozenge s_{re}) = 1$. We now view each visit of $s_{re}$ as an indepenent trial, due to the strong Markov property \Cref{def:strong_markov_property}. We can then describe the probability of not reaching $s_{tr}$ as $\lim_{N\rightarrow\infty} (1-Pr_{s_{re}}(\cCircle\lozenge s_{tr}))^N = 0$, as $s_{re}$ is visited infinitely often, see \Cref{lem:EVTs_of_recurrent_states}. Thus, we are guaranteed to visit $s_{tr}$, when starting in $s_{re}$. As $Pr_{s_{tr}}(\cCircle\lozenge s_{re}) = 1$, this process repeats each time $s_{tr}$ is visited. Therefore, $s_{tr}$ is visited infinitely often as well, i.e. $\Exp[vt_{s_{tr}}] = \infty$. This contradicts the characterization of the EVTs of transient states, proven by \cite{KemenySnellBook}.
+%     Assume that a transient state $s_{tr}$ is reachable from a recurrent state $s_{re}$, i.e. $Pr_{s_{re}}(\cCircle\lozenge s_{tr}) > 0$. As $Pr_{s_{re}}(\cCircle\lozenge s_{re}) = 1$, see \Cref{def:transient_and_recurrent_states}, necessarily $s_{re}$ is reachable from $s_{tr}$ as well and crucially $Pr_{s_{tr}}(\cCircle\lozenge s_{re}) = 1$. We now view each visit of $s_{re}$ as an trial, due to the strong Markov property \Cref{def:strong_markov_property}. We can then describe the probability of not reaching $s_{tr}$ as $\lim_{N\rightarrow\infty} (1-Pr_{s_{re}}(\cCircle\lozenge s_{tr}))^N = 0$, as $s_{re}$ is visited infinitely often, see \Cref{lem:EVTs_of_recurrent_states}. Thus, we are guaranteed to visit $s_{tr}$, when starting in $s_{re}$. As $Pr_{s_{tr}}(\cCircle\lozenge s_{re}) = 1$, this process repeats each time $s_{tr}$ is visited. Therefore, $s_{tr}$ is visited infinitely often as well, i.e. $\Exp[vt_{s_{tr}}] = \infty$. This contradicts the characterization of the EVTs of transient states, proven by \cite{KemenySnellBook}.
 %     Thus, we conclude that transient states cannot be reachable from recurrent states, i.e. can only be reached from other transient states.
 % \end{proof}
 \todo{ist der proof so sauber/schön genug + soll das ein lemma oder proof sein? + notion eines current state einführen?; falls ich das niergendswo mehr benutze, könnte ich es trotzdem als remark oder so verwenden}

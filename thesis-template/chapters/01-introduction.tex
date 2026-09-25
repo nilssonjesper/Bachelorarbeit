@@ -57,11 +57,11 @@ However, the construction shown in \cite{reachability_in_pIMCs_using_constraints
 % IMDP construction (for UMC): Only for IMDP semantic type semantic (nachschauen, ob complexity constraints gibt)
 
 
-Another approach 
+As IDTMCs are a special case of Bounded Parameter Markov Decision Processes (BMDP), a different approach is to use the results of \cite{Givan_Bounded_Parameter_MDP_discounted,Tewari_Bounded_Parameter_MDP} for calculating expected rewards. While \cite{Givan_Bounded_Parameter_MDP_discounted} show that expected discounted rewards for BMPDs can be calculated in PTIME, \cite{Tewari_Bounded_Parameter_MDP} expand this result to expected rewards. 
 
 % final50 Datei: Present numerical methods for calculating expected total costs (for UMC semantic, they call time-homogeneous Markov chain) through LPs; However, use Fundamental matrix (--> inverse) & when using linear equation method (maybe mention this more in Intro or here in related Work) becomes non-linear objective function (unkown time complexity)
 
-Nur kurz, wenn überhaupt
+In \cite{Teo_IMC_Performance_Measure_Master_Thesis} presents the calculation of expected costs, i.e., expected rewards, in IDTMCs as an optization problem. However, the objective function of this optimization problem consists of a matrix inverse. As aforementioned, the computation of an inverse becomes infeasible for large models.
 
 Furthermore, calculating minimum and maximum reachability probabilities in IDTMCs is in PTIME for both the UMC and IMDP semantic. Moreover, these two semantics coincide on reachability probabilities \cite{reachability_in_pIMCs_using_constraints,complexity_model_checking_interval-valued_DTMCs}. To calculate the EVT of a state, we require two different reachabilty probabilities \cite{Baier_Relating_Reach_Prob}. However, an optimal reachability probability is satisfied in an IDTMC if the reachability probability is fulfilled in at least one satisfying DTMC. 
 \todo{konzept satisfying schon früher einführen}  
@@ -79,6 +79,11 @@ When computing the minimum or maximum reachability probabilities for IDTMCs, we 
 \section{Contribution}
 
 \section{Outline}
+We begin with an overview of the notation and theoretical foundations in \Cref{ch:preliminaries}. We continue, by introducing Markov Chains, related notions, and EVTs as well as relating EVTS and quantitative reachability in \Cref{ch:Markov Chains}. Furthermore, we introduce the notion of Interval Markov Chains and related notions in \Cref{ch:Interval Markov Chains}. 
+
+Thereafter in \Cref{ch:EVTs_in_IDTMCs}, we define and examine EVTs in Interval Markov Chains. To this end, we start by defining EVTs for IMCs under both semantics and provide characterizations of EVTs. We then continue, by relating EVTs with quantitative reachability and showing that the two semantics coincide on EVTs in \Cref{sec:calculating_expected_visiting_times_of_IDTMCs}. Then, we show how EVTs can be calculated under both the UMC and IMDP semantic in \Cref{sec:UMC_semantic} and \Cref{sec:IMDP_semantic}. Lastly, we prove P-completeness for the decisions problem of EVTs in Interval Markov Chains in \Cref{sec:P-completeness}. 
+Moreover, we elaborate on how stationary distributions can be calculated in Interval Markov Chains in \Cref{ch:BSCCs_in_IDTMCs}.
+Finally, we summarize the thesis and present possible directions for future work in \Cref{ch:conclusion}.
 % ----------------------------------------------------------------------------
 
 % The introduction motivates the topic and provides an overview of the thesis.
