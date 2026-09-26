@@ -104,25 +104,32 @@ In other words, every state $S_{re}^\IMC$ corresponds to precisely one BSCC in $
 
 Thus, we can conclude for graph preserving IDTMCs that any state $s\in S^\IMC$ belongs only to a singular BSCC $B$, i.e., the BSCCs for all satisfying DTMCs are identical. This allows us, to optimize the reachability of $B$ ($Pr^\MC(\lozenge B)$) and the stationary distribution restricted to $B$ ($\theta^{\MC|_B}$) of \Cref{eq:Stat_Distr_via_BSCC_for_DTMC} independently as shown in the following.
 
-Therefore, we can intuitively calculate the stationary distributions for a state $s\in \IMC$ using the following theorem.
+Therefore, we can intuitively calculate the stationary distributions for a state $s\in \IMC$ by solving following NLP:
+
+\[
+   \begin{aligned}
+        \operatorname{opt} \quad & \frac{\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_s]}{\sum_{t\in S^{\mathcal{B}\Rsh^{\hat{v}}}}\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_t]} & & \operatorname{opt}\in\{\max,\min\}\\
+        \text{s.t.} \quad & \mathcal{B}\Rsh^{\hat{v}} \models_U \mathcal{I}\Rsh^{\hat{v}}\ .
+    \end{aligned}
+\]
+
 \begin{theorem}\label{th:max_min_stat_distribution}
-    Given an IDTMC $\IMC$, a state $s$, and the corresponding BSCC $B^\IMC$ with $s\in B^\IMC$, we can calculate the minimum and maximum stationary distribution using
-    \[\Thetalower^\IMC(s) = \Prlower^\IMC(\lozenge B) \cdot \frac{\ExpLower^{\mathcal{I}\Rsh^{\hat{v}}}[vt_s]}{\ExpLower^{\mathcal{I}\Rsh^{\hat{v}}}[vt_s] + \sum_{t\in S\backslash\{s\}}\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_t]}\]
+    Given an IDTMC $\IMC$, a state $s$, the corresponding BSCC $B^\IMC$ with $s\in B^\IMC$, and the corresponding $\mathcal{I}\Rsh^{\hat{v}}$, let $\overline{\theta}^{\IMC|_B}$ and $\underline{\theta}^{\IMC|_B}$ be the the solutions of the NLP for $\mathcal{I}\Rsh^{\hat{v}}$ when maximizing and minimizing, respectively.
+    We can then calculate the minimum and maximum stationary distribution using
+    \[\Thetalower^\IMC(s) = \Prlower^\IMC(\lozenge B) \cdot \underline{\theta}^{\IMC|_B}\]
     and 
-    \[\Thetaupper^\IMC(s) = \Prupper^\IMC(\lozenge B) \cdot \frac{\ExpUpper^{\mathcal{I}\Rsh^{\hat{v}}}[vt_s]}{\ExpUpper^{\mathcal{I}\Rsh^{\hat{v}}}[vt_s] + \sum_{t\in S\backslash\{s\}}\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_t]}\]
+    \[\Thetaupper^\IMC(s) = \Prupper^\IMC(\lozenge B) \cdot \overline{\theta}^{\IMC|_B}\]
     similar to \Cref{eq:Stat_Distr_via_BSCC_for_DTMC} using \Cref{eq:Stat_Distr_of_BSCC}.
 \end{theorem}
 
 We provide a short proof by contradiction of this theorem
 \begin{proof}
     Let us assume that there exists a DTMC $\MC \models_U \IMC$ such that $\Thetaupper^\IMC(s) < \theta^\MC(s)$. Using \Cref{th:max_min_stat_distribution} and \Cref{eq:Stat_Distr_via_BSCC_for_DTMC}, we can thus conclude that either
-    \[Pr^\MC(\lozenge B) > \Prupper^{\IMC}(\lozenge B) \qquad \text{or} \qquad \frac{\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_s]}{\sum_{t\in S}\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_t]} > \frac{\ExpUpper^{\mathcal{I}\Rsh^{\hat{v}}}[vt_s]}{\ExpUpper^{\mathcal{I}\Rsh^{\hat{v}}}[vt_s] + \sum_{t\in S\backslash\{s\}}\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_t]}\ .\]
-    However, as $\MC \models_U \IMC$ and $\mathcal{B}\!\Rsh^{\hat{v}} \models_U \mathcal{I}\!\Rsh^{\hat{v}}$, by the definition of $\Prupper^\IMC$ and $\ExpUpper^{\mathcal{I}\Rsh^{\hat{v}}}$ this leads to a contradiciton.
+    \[Pr^\MC(\lozenge B) > \Prupper^{\IMC}(\lozenge B) \qquad \text{or} \qquad \frac{\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_s]}{\sum_{t\in S}\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_t]} > \overline{\theta}^{\IMC|_B}\ .\]
+    However, as $\MC \models_U \IMC$ and $\mathcal{B}\!\Rsh^{\hat{v}} \models_U \mathcal{I}\!\Rsh^{\hat{v}}$, by the definition of $\Prupper^\IMC$ and the maximality of $\overline{\theta}^{\IMC|_B}$ as a solution of the NLP, this leads to a contradiciton.
+    Furthermore, as $s$ belongs to a singular BSCC $B$, every $\mathcal{B}\!\Rsh^{\hat{v}} \models_U \mathcal{I}\!\Rsh^{\hat{v}}$ is necessarily constructed from $B$. Thus, there exists a DTMC $\MC \models_U \IMC$, such that $Pr^\MC(\lozenge B) = \Prupper^\IMC(\lozenge B)$ and $\theta^{\MC|_B} = \overline{\theta}^{\IMC|_B}$.
     The proof for $\Thetalower^\IMC(s)$ follows analogously by inverting the inequalities.
 \end{proof}
- As $s$ belongs to a singular BSCC $B$, $\mathcal{B}\!\Rsh^{\hat{v}}$ is necessarily constructed from $B$.
-
-Vllt muss nochmal anders: zweiter term nicht notwendiger Weise maximal für BPfeil. Muss ein BPFeil aus für dieses summe optimieren
 
 % Show: when $\Exp[vt_s]$ minimal then sum of $\Exp[vt_t]$ is maximal (and other way around). Bzw die summe aller evts ist für alle satisfying DTMCs gleich (--> nicht wahr; vllt auch ein interessantes Ergebnis??)
 

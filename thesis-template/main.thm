@@ -6,98 +6,92 @@
 \contentsline {definition}{{Definition}{2.{6}}{Probability Measure, Probability Space}}{7}{definition.6}%
 \contentsline {definition}{{Definition}{2.{7}}{Expected Values}}{8}{definition.7}%
 \contentsline {definition}{{Definition}{2.{8}}{Discrete Probability Distribution}}{8}{definition.8}%
-\contentsline {definition}{{Definition}{2.{9}}{Row-Stochastic Matrix}}{8}{definition.9}%
-\contentsline {definition}{{Definition}{2.{10}}{(Strictly) Row-Substochastic Matrix}}{8}{definition.10}%
-\contentsline {definition}{{Definition}{2.{11}}{Matrix inversion by the Neumann Series}}{8}{definition.11}%
-\contentsline {definition}{{Definition}{2.{12}}{Linear Programming}}{8}{definition.12}%
-\contentsline {definition}{{Definition}{2.{13}}{Nonlinear Programming}}{9}{definition.13}%
-\contentsline {definition}{{Definition}{2.{14}}{Convergence of Geometric Series}}{9}{definition.14}%
-\contentsline {definition}{{Definition}{3.{1}}{DTMC}}{10}{definition.1}%
-\contentsline {definition}{{Definition}{3.{2}}{Path of a DTMC}}{11}{definition.2}%
-\contentsline {definition}{{Definition}{3.{3}}{Probability Space of a DTMC}}{11}{definition.3}%
-\contentsline {definition}{{Definition}{3.{4}}{Until Operator}}{12}{definition.4}%
-\contentsline {definition}{{Definition}{3.{5}}{Eventually Operator}}{12}{definition.5}%
-\contentsline {definition}{{Definition}{3.{6}}{Reachability Probability}}{13}{definition.6}%
-\contentsline {lemma}{{Lemma}{3.{7}}{Recursive Formula for Reachability Probability}}{13}{lemma.7}%
-\contentsline {proof}{{Proof}{1}{}}{13}{proof.1}%
-\contentsline {definition}{{Definition}{3.{8}}{Next Operator}}{14}{definition.8}%
-\contentsline {definition}{{Definition}{3.{9}}{(Bottom) Strongly Connected Component}}{14}{definition.9}%
-\contentsline {definition}{{Definition}{3.{10}}{Acyclic DTMC}}{15}{definition.10}%
-\contentsline {definition}{{Definition}{3.{11}}{Recurrent and Transient States}}{15}{definition.11}%
-\contentsline {theorem}{{Theorem}{3.{12}}{Limit Behaviour}}{15}{theorem.12}%
-\contentsline {definition}{{Definition}{3.{13}}{Absorbing state}}{15}{definition.13}%
-\contentsline {definition}{{Definition}{3.{14}}{Markov Descision Process (MDP)}}{15}{definition.14}%
-\contentsline {definition}{{Definition}{3.{15}}{Canonical Form}}{16}{definition.15}%
-\contentsline {definition}{{Definition}{3.{16}}{Visiting Times of Infinite Paths}}{16}{definition.16}%
-\contentsline {proof}{{Proof}{2}{}}{17}{proof.2}%
-\contentsline {definition}{{Definition}{3.{17}}{Expected Visiting Times in DTMCs}}{17}{definition.17}%
-\contentsline {proof}{{Proof}{3}{}}{18}{proof.3}%
-\contentsline {lemma}{{Lemma}{3.{18}}{EVTs of Recurrent States}}{18}{lemma.18}%
-\contentsline {definition}{{Definition}{3.{19}}{Fundamental Matrix}}{18}{definition.19}%
-\contentsline {theorem}{{Theorem}{3.{20}}{Linear Equation System Characterization of EVTs of Transient States}}{19}{theorem.20}%
-\contentsline {lemma}{{Lemma}{3.{21}}{}}{19}{lemma.21}%
-\contentsline {proof}{{Proof}{4}{}}{20}{proof.4}%
-\contentsline {lemma}{{Lemma}{3.{22}}{}}{20}{lemma.22}%
-\contentsline {proof}{{Proof}{5}{}}{20}{proof.5}%
-\contentsline {theorem}{{Theorem}{3.{23}}{}}{21}{theorem.23}%
-\contentsline {proof}{{Proof}{6}{}}{21}{proof.6}%
-\contentsline {definition}{{Definition}{4.{1}}{Interval Markov Chain}}{23}{definition.1}%
-\contentsline {example}{{Example}{4.{2}}{}}{23}{example.2}%
-\contentsline {definition}{{Definition}{4.{3}}{Path of an IDTMC}}{24}{definition.3}%
-\contentsline {assumption}{{Assumption}{1}{}}{26}{assumption.1}%
-\contentsline {definition}{{Definition}{4.{4}}{Once-and-for-all/UMC Semantic}}{26}{definition.4}%
-\contentsline {example}{{Example}{4.{5}}{}}{26}{example.5}%
-\contentsline {definition}{{Definition}{4.{6}}{Nature}}{27}{definition.6}%
-\contentsline {definition}{{Definition}{4.{7}}{DTMC of an IDTMC Induced by a Nature}}{27}{definition.7}%
-\contentsline {definition}{{Definition}{4.{8}}{Stationary Nature}}{28}{definition.8}%
-\contentsline {definition}{{Definition}{4.{9}}{DTMC of an IDTMC Induced by a Stationary Nature}}{29}{definition.9}%
-\contentsline {definition}{{Definition}{4.{10}}{IMDP semantic}}{29}{definition.10}%
-\contentsline {example}{{Example}{4.{11}}{}}{29}{example.11}%
-\contentsline {definition}{{Definition}{4.{12}}{Reachability Probability in IDTMCs}}{30}{definition.12}%
-\contentsline {definition}{{Definition}{4.{13}}{Maxmimum and Minimum Reachability Probability}}{30}{definition.13}%
-\contentsline {definition}{{Definition}{4.{14}}{Transient and Recurrent states in IDTMCs}}{31}{definition.14}%
-\contentsline {theorem}{{Theorem}{4.{15}}{}}{31}{theorem.15}%
-\contentsline {lemma}{{Lemma}{4.{16}}{}}{31}{lemma.16}%
-\contentsline {proof}{{Proof}{7}{}}{32}{proof.7}%
-\contentsline {definition}{{Definition}{5.{1}}{EVTs of IDTMCs}}{33}{definition.1}%
-\contentsline {theorem}{{Theorem}{5.{2}}{Upper and Lower Bounds for uEVTs and lEVTs}}{34}{theorem.2}%
-\contentsline {proof}{{Proof}{8}{}}{34}{proof.8}%
-\contentsline {example}{{Example}{5.{3}}{}}{34}{example.3}%
-\contentsline {theorem}{{Theorem}{5.{4}}{}}{35}{theorem.4}%
-\contentsline {proof}{{Proof}{9}{}}{35}{proof.9}%
-\contentsline {theorem}{{Theorem}{5.{5}}{}}{35}{theorem.5}%
-\contentsline {proof}{{Proof}{10}{}}{36}{proof.10}%
-\contentsline {example}{{Example}{5.{6}}{}}{36}{example.6}%
-\contentsline {definition}{{Definition}{5.{7}}{Intermediate States}}{37}{definition.7}%
-\contentsline {theorem}{{Theorem}{5.{8}}{}}{37}{theorem.8}%
-\contentsline {proof}{{Proof}{11}{}}{38}{proof.11}%
-\contentsline {corollary}{{Corollary}{5.{9}}{}}{38}{corollary.9}%
-\contentsline {proof}{{Proof}{12}{}}{38}{proof.12}%
-\contentsline {lemma}{{Lemma}{5.{10}}{One-state Extension}}{39}{lemma.10}%
-\contentsline {proof}{{Proof}{13}{}}{39}{proof.13}%
-\contentsline {theorem}{{Theorem}{5.{11}}{}}{40}{theorem.11}%
-\contentsline {proof}{{Proof}{14}{}}{40}{proof.14}%
-\contentsline {theorem}{{Theorem}{5.{12}}{}}{40}{theorem.12}%
-\contentsline {proof}{{Proof}{15}{}}{41}{proof.15}%
-\contentsline {example}{{Example}{5.{13}}{}}{44}{example.13}%
-\contentsline {lemma}{{Lemma}{5.{14}}{}}{44}{lemma.14}%
-\contentsline {proof}{{Proof}{16}{}}{45}{proof.16}%
-\contentsline {definition}{{Definition}{5.{15}}{Decision Problem of $\ell $EVTs and uEVTs}}{47}{definition.15}%
-\contentsline {definition}{{Definition}{5.{16}}{Decision Problem of optimal reachability probabilities}}{47}{definition.16}%
-\contentsline {theorem}{{Theorem}{5.{17}}{}}{47}{theorem.17}%
-\contentsline {theorem}{{Theorem}{5.{18}}{}}{48}{theorem.18}%
-\contentsline {lemma}{{Lemma}{5.{19}}{}}{48}{lemma.19}%
-\contentsline {proof}{{Proof}{17}{}}{48}{proof.17}%
-\contentsline {lemma}{{Lemma}{5.{20}}{}}{48}{lemma.20}%
-\contentsline {proof}{{Proof}{18}{}}{48}{proof.18}%
-\contentsline {lemma}{{Lemma}{5.{21}}{}}{49}{lemma.21}%
-\contentsline {proof}{{Proof}{19}{}}{49}{proof.19}%
-\contentsline {proof}{{Proof}{20}{}}{49}{proof.20}%
-\contentsline {definition}{{Definition}{6.{1}}{Stationary Distributions in DTMCs}}{50}{definition.1}%
-\contentsline {definition}{{Definition}{6.{2}}{Stationary Distributions in IDTMCs}}{50}{definition.2}%
-\contentsline {definition}{{Definition}{6.{3}}{BSCCs for IDTMCs}}{51}{definition.3}%
-\contentsline {assumption}{{Assumption}{2}{}}{52}{assumption.2}%
-\contentsline {theorem}{{Theorem}{6.{4}}{}}{52}{theorem.4}%
-\contentsline {proof}{{Proof}{21}{}}{52}{proof.21}%
-\contentsline {theorem}{{Theorem}{6.{5}}{}}{53}{theorem.5}%
-\contentsline {proof}{{Proof}{22}{}}{53}{proof.22}%
+\contentsline {definition}{{Definition}{2.{9}}{Row-Stochastic Matrix}}{9}{definition.9}%
+\contentsline {definition}{{Definition}{2.{10}}{(Strictly) Row-Substochastic Matrix}}{9}{definition.10}%
+\contentsline {definition}{{Definition}{2.{11}}{Matrix inversion by the Neumann Series}}{9}{definition.11}%
+\contentsline {definition}{{Definition}{2.{12}}{Linear Programming}}{9}{definition.12}%
+\contentsline {definition}{{Definition}{2.{13}}{Nonlinear Programming}}{10}{definition.13}%
+\contentsline {definition}{{Definition}{2.{14}}{Convergence of Geometric Series}}{10}{definition.14}%
+\contentsline {definition}{{Definition}{3.{1}}{DTMC}}{11}{definition.1}%
+\contentsline {definition}{{Definition}{3.{2}}{Path of a DTMC}}{12}{definition.2}%
+\contentsline {definition}{{Definition}{3.{3}}{Probability Space of a DTMC}}{13}{definition.3}%
+\contentsline {definition}{{Definition}{3.{4}}{Until Operator}}{14}{definition.4}%
+\contentsline {definition}{{Definition}{3.{5}}{Eventually Operator}}{14}{definition.5}%
+\contentsline {definition}{{Definition}{3.{6}}{Reachability Probability}}{14}{definition.6}%
+\contentsline {lemma}{{Lemma}{3.{7}}{Recursive Formula for Reachability Probability}}{15}{lemma.7}%
+\contentsline {proof}{{Proof}{1}{}}{15}{proof.1}%
+\contentsline {definition}{{Definition}{3.{8}}{Next Operator}}{16}{definition.8}%
+\contentsline {definition}{{Definition}{3.{9}}{(Bottom) Strongly Connected Component}}{16}{definition.9}%
+\contentsline {definition}{{Definition}{3.{10}}{Acyclic DTMC}}{17}{definition.10}%
+\contentsline {definition}{{Definition}{3.{11}}{Recurrent and Transient States}}{17}{definition.11}%
+\contentsline {theorem}{{Theorem}{3.{12}}{Limit Behaviour}}{17}{theorem.12}%
+\contentsline {definition}{{Definition}{3.{13}}{Absorbing state}}{17}{definition.13}%
+\contentsline {definition}{{Definition}{3.{14}}{Markov Descision Process (MDP)}}{18}{definition.14}%
+\contentsline {definition}{{Definition}{3.{15}}{Canonical Form}}{18}{definition.15}%
+\contentsline {definition}{{Definition}{3.{16}}{Visiting Times of Infinite Paths}}{19}{definition.16}%
+\contentsline {proof}{{Proof}{2}{}}{19}{proof.2}%
+\contentsline {definition}{{Definition}{3.{17}}{Expected Visiting Times in DTMCs}}{20}{definition.17}%
+\contentsline {proof}{{Proof}{3}{}}{20}{proof.3}%
+\contentsline {lemma}{{Lemma}{3.{18}}{EVTs of Recurrent States}}{21}{lemma.18}%
+\contentsline {definition}{{Definition}{3.{19}}{Fundamental Matrix}}{21}{definition.19}%
+\contentsline {theorem}{{Theorem}{3.{20}}{Linear Equation System Characterization of EVTs of Transient States}}{22}{theorem.20}%
+\contentsline {lemma}{{Lemma}{3.{21}}{}}{23}{lemma.21}%
+\contentsline {definition}{{Definition}{4.{1}}{Interval Markov Chain}}{24}{definition.1}%
+\contentsline {example}{{Example}{4.{2}}{}}{25}{example.2}%
+\contentsline {definition}{{Definition}{4.{3}}{Path of an IDTMC}}{26}{definition.3}%
+\contentsline {assumption}{{Assumption}{1}{}}{27}{assumption.1}%
+\contentsline {definition}{{Definition}{4.{4}}{Once-and-for-all/UMC Semantic}}{27}{definition.4}%
+\contentsline {example}{{Example}{4.{5}}{}}{28}{example.5}%
+\contentsline {definition}{{Definition}{4.{6}}{Nature}}{29}{definition.6}%
+\contentsline {definition}{{Definition}{4.{7}}{DTMC of an IDTMC Induced by a Nature}}{29}{definition.7}%
+\contentsline {definition}{{Definition}{4.{8}}{Stationary Nature}}{31}{definition.8}%
+\contentsline {definition}{{Definition}{4.{9}}{DTMC of an IDTMC Induced by a Stationary Nature}}{31}{definition.9}%
+\contentsline {definition}{{Definition}{4.{10}}{IMDP Semantic}}{31}{definition.10}%
+\contentsline {example}{{Example}{4.{11}}{}}{32}{example.11}%
+\contentsline {definition}{{Definition}{4.{12}}{Reachability Probability in IDTMCs}}{33}{definition.12}%
+\contentsline {definition}{{Definition}{4.{13}}{Maxmimum and Minimum Reachability Probability}}{34}{definition.13}%
+\contentsline {definition}{{Definition}{4.{14}}{Transient and Recurrent states in IDTMCs}}{34}{definition.14}%
+\contentsline {theorem}{{Theorem}{4.{15}}{}}{35}{theorem.15}%
+\contentsline {proof}{{Proof}{4}{}}{35}{proof.4}%
+\contentsline {definition}{{Definition}{5.{1}}{EVTs of IDTMCs}}{37}{definition.1}%
+\contentsline {theorem}{{Theorem}{5.{2}}{Upper and Lower Bounds for uEVTs and lEVTs}}{38}{theorem.2}%
+\contentsline {proof}{{Proof}{5}{}}{38}{proof.5}%
+\contentsline {example}{{Example}{5.{3}}{}}{39}{example.3}%
+\contentsline {theorem}{{Theorem}{5.{4}}{}}{40}{theorem.4}%
+\contentsline {proof}{{Proof}{6}{}}{40}{proof.6}%
+\contentsline {theorem}{{Theorem}{5.{5}}{}}{40}{theorem.5}%
+\contentsline {proof}{{Proof}{7}{}}{41}{proof.7}%
+\contentsline {example}{{Example}{5.{6}}{}}{41}{example.6}%
+\contentsline {definition}{{Definition}{5.{7}}{Intermediate States}}{43}{definition.7}%
+\contentsline {theorem}{{Theorem}{5.{8}}{}}{43}{theorem.8}%
+\contentsline {proof}{{Proof}{8}{}}{43}{proof.8}%
+\contentsline {corollary}{{Corollary}{5.{9}}{}}{44}{corollary.9}%
+\contentsline {proof}{{Proof}{9}{}}{44}{proof.9}%
+\contentsline {lemma}{{Lemma}{5.{10}}{One-state Extension}}{44}{lemma.10}%
+\contentsline {proof}{{Proof}{10}{}}{45}{proof.10}%
+\contentsline {theorem}{{Theorem}{5.{11}}{}}{46}{theorem.11}%
+\contentsline {proof}{{Proof}{11}{}}{46}{proof.11}%
+\contentsline {theorem}{{Theorem}{5.{12}}{}}{46}{theorem.12}%
+\contentsline {proof}{{Proof}{12}{}}{47}{proof.12}%
+\contentsline {example}{{Example}{5.{13}}{}}{52}{example.13}%
+\contentsline {lemma}{{Lemma}{5.{14}}{}}{53}{lemma.14}%
+\contentsline {proof}{{Proof}{13}{}}{53}{proof.13}%
+\contentsline {definition}{{Definition}{5.{15}}{Decision Problem of $\ell $EVTs and uEVTs}}{55}{definition.15}%
+\contentsline {definition}{{Definition}{5.{16}}{Decision Problem of optimal reachability probabilities}}{55}{definition.16}%
+\contentsline {theorem}{{Theorem}{5.{17}}{}}{56}{theorem.17}%
+\contentsline {theorem}{{Theorem}{5.{18}}{}}{56}{theorem.18}%
+\contentsline {lemma}{{Lemma}{5.{19}}{}}{57}{lemma.19}%
+\contentsline {proof}{{Proof}{14}{}}{57}{proof.14}%
+\contentsline {lemma}{{Lemma}{5.{20}}{}}{57}{lemma.20}%
+\contentsline {proof}{{Proof}{15}{}}{57}{proof.15}%
+\contentsline {lemma}{{Lemma}{5.{21}}{}}{57}{lemma.21}%
+\contentsline {proof}{{Proof}{16}{}}{57}{proof.16}%
+\contentsline {proof}{{Proof}{17}{}}{58}{proof.17}%
+\contentsline {definition}{{Definition}{6.{1}}{Stationary Distributions in DTMCs}}{59}{definition.1}%
+\contentsline {definition}{{Definition}{6.{2}}{Stationary Distributions in IDTMCs}}{60}{definition.2}%
+\contentsline {definition}{{Definition}{6.{3}}{BSCCs for IDTMCs}}{60}{definition.3}%
+\contentsline {assumption}{{Assumption}{2}{}}{61}{assumption.2}%
+\contentsline {theorem}{{Theorem}{6.{4}}{}}{61}{theorem.4}%
+\contentsline {proof}{{Proof}{18}{}}{61}{proof.18}%
+\contentsline {theorem}{{Theorem}{6.{5}}{}}{62}{theorem.5}%
+\contentsline {proof}{{Proof}{19}{}}{62}{proof.19}%

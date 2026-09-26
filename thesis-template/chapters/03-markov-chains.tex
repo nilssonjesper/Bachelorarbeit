@@ -1,12 +1,10 @@
 \chapter{Markov Chains}
 \label{ch:Markov Chains}
 
-The previous chapter provided preliminary mathematical notions, including \dots. In the following we introduce the notion of Markov Chains, which we require in (the main part of this) thesis.
+The previous chapter provided preliminary mathematical notions. In the following we introduce the notion of Markov Chains, which are central to this thesis.
 
-This chapter starts with a formal definition of Markov Chains in \Cref{sec:DTMCs}. We then continue, by elaborating on related concepts, such as the probability space, reachability probabilities, as well as recurrent and transient states. Furthermore, we describe a further important concept, the \textit{expected visiting times} of states in DTMCs, in \Cref{sec:EVTs_for_DTMCs} which were first introduced by \cite{KemenySnellBook}.
-
-Lastly, we relate these \textit{expected visiting times} to reachability probabilities in \Cref{sec:MC_Quantitative_Reachability}. (For which we provide a short proof \dots)
-\todo{Klar machen, dass es ein paar Ergebnisse von mir enthält}
+This chapter starts with a formal definition of Markov Chains in \Cref{sec:DTMCs}. We then continue, by elaborating on related concepts, such as the probability space, reachability probabilities, as well as recurrent and transient states. Moreover, we describe a further important concept, the \textit{expected visiting times} of states in DTMCs, in \Cref{sec:EVTs_for_DTMCs} which were first introduced by \cite{KemenySnellBook}.
+Lastly, we relate these \textit{expected visiting times} to reachability probabilities in \Cref{sec:MC_Quantitative_Reachability}, as done in \cite{Baier_Relating_Reach_Prob,Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
 
 \section{Discrete-Time Markov Chains}\label{sec:DTMCs}
 In this section, we will introduce definitions and theorems for Markov Chains. The notation and contents of this section are mostly based on \cite{Bibel}, \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, and \cite{Semantics_Model-Checking_omega-Regular}.
@@ -20,7 +18,7 @@ In this section, we will introduce definitions and theorems for Markov Chains. T
     \end{enumerate}
 \end{definition}
 Whenever the DTMC $\MC$ is evident from the context, we omit the superscript $\MC$ from $S^\MC$, $\PF^\MC$, and $\iota_{init}^\MC$.
-We assume in this thesis, that the DTMCs are \textit{finite}, i.e., that the set of states $S$ is \textit{finite}. We call a state $s\in S$ is called \textit{initial} if it satisfies $\iota_{init}(s) > 0$. Furthermore, we assume an arbitrary but fixed linear order $\prec$ on the set $S$, such that the states $s\in S$ can be indexed. Thus, $s_i \prec s_j$ if $s_i,s_j \in S$ and $i < j$. This allows us, for example, to denote the $i$-th entry of the initial distribution as $\iota_{init}(s_i)$, when viewing $\iota_{init}$ as a column vector.
+We assume in this thesis, that the DTMCs are \textit{finite}, i.e., that the set of states $S$ is \textit{finite}. We sometimes refer to these finite DTMCs, as \textit{finite-state DTMCs}. We call a state $s\in S$ is called \textit{initial} if it satisfies $\iota_{init}(s) > 0$. Furthermore, we assume an arbitrary but fixed linear order $\prec$ on the set $S$, such that the states $s\in S$ can be indexed. Thus, $s_i \prec s_j$ if $s_i,s_j \in S$ and $i < j$. This allows us, for example, to denote the $i$-th entry of the initial distribution as $\iota_{init}(s_i)$, when viewing $\iota_{init}$ as a column vector.
 Due to the conditions (i) and (ii) provided in \Cref{def:DTMCs}, the transition probability function $\PF$ and the initial distribution $\iota_{init}$ are discrete probability distributions, see \Cref{def:discrete_probability_distribution}.
 \todo{discrete prob. distr. comment necessary?}
 
@@ -62,7 +60,7 @@ We use the notation $\pi[k]\in S$ to denote the $k$-th element of the path $\pi$
 
 Notice, that for any path $\pi$ a given state $\pi[k]$, which is visited in step $k\in \NN$, is always followed by one of its direct succesors, i.e., $\pi[k+1]\in N(\pi[k])$.
 Furthermore, we define the length $|\pi|$ of a finite path $\pi = (s_0,\dots,s_k) \in Paths_{fin}^\MC$ to be equal to $k$, which we denote as $|\pi| = k$. As an infinite path is infinite in lenght, we define $\pi \in \Path$ to be $|\pi| = \infty$.
-We denote the last state of a finite path $\pi \in Paths^{\IMC}_{fin}$ as $last(\pi)$, i.e., if $|\pi| = n$, then $last(\pi) = \pi[n]$.
+We denote the last state of a finite path $\pi \in Paths^{\MC}_{fin}$ as $last(\pi)$, i.e., if $|\pi| = n$, then $last(\pi) = \pi[n]$.
 The sets of all infinite and finite sets are denoted as $\Path$ and $Paths_{fin}^\MC$, respectively.
 
 Further, we construct the \textit{probability space} of a DTMC as follows. The events correspond to sets of infinite paths that can be expressed as countable unions and intersections of cylinder sets, i.e., sets containing all possible continuations of finite paths in $\MC$.
@@ -408,118 +406,14 @@ For a single state $s\in S_{tr}$, we can thus calculate the respective EVT as fo
 
 % \section{Relating Expected Visiting Times and Expected Total Rewards}
 \section{Relating Expected Visiting Times and Quantitative Reachability}\label{sec:MC_Quantitative_Reachability}
-We will now relate \textit{expected visiting times} to \textit{quantitave reachability} for DTMCs.
-\begin{lemma}\label{lem:quantitative_reachability_F_ts}
-    Given a DTMC $\MC$ and its fundamental matrix $F$, we can define
-    \[(F)_{ts} = Pr_t(\lozenge s) \cdot (F)_{ss}\ ,\]
-    for all $s\neq t\in S_{tr}$, and thus
-    \begin{align}
-        \Exp[vt_s] 
-        & = Pr(\lozenge s) \cdot (F)_{ss} \\
-        & = Pr(\lozenge s) \cdot \Exp_s[vt_s]\ .
-    \end{align}
-    % \[\Exp[vt_s] = Pr(\lozenge s) \cdot (F)_{ss}\ .\]
-\end{lemma}
-\todo{define $Pr_t$}
-Trivially, all paths that reach $s$ from $t$ at least once visit $s$. Thus, intuitively, the \textit{expected visiting time} of $s$ starting in $t$ is simply the product of the probability of reaching $s$ and the \textit{expected visiting time} of $s$ starting in $s$.
-\todo{more concrete proof necessary?}
+We now relate \textit{expected visiting times} to \textit{quantitave reachability} for DTMCs. This has already been done in \cite[Lemma 3.5]{Baier_Relating_Reach_Prob} and \cite[Lemma 5.1]{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}. Thus, we present their results in this section.
 
-\begin{proof}
-    \begin{align}
-        \Exp^{\MC}[vt_s]
-        & = \int_{\pi\in\Path}vt_s(\pi)dPr^{\MC}(\pi) \notag \\
-        & = \int_{\pi\in\Path \land \exists k: \pi[k] = s}\sum_{k=0}^{\infty}\llbracket \pi[k]=s \rrbracket dPr^{\MC}(\pi) \notag \\
-        & + \underbrace{\int_{\pi\in\Path \land \nexists k: \pi[k] = s}\sum_{k=0}^{\infty}\llbracket \pi[k]=s \rrbracket dPr^{\MC}(\pi)}_{= 0}\notag \\
-        & = \int_{\pi\in\Path \land \exists k: \pi[k] = s}\sum_{k=0}^{\infty}\llbracket \pi[k]=s \rrbracket dPr^{\MC}(\pi) \notag \\
-        & = Pr(\Diamond s) \cdot \int_{\pi\in\Path}\sum_{k=0}^{\infty}\llbracket \pi[k]=s \rrbracket dPr_s^{\MC}(\pi)
-    \end{align}
-\end{proof}
-???
-
-\begin{lemma}\label{lem:quantitative_reachability_F_ss}
-    Given a DTMC $\MC$ and its fundamental matrix $F$, we can define
-    \[(F)_{ss} = \frac{1}{1-Pr_s(\cCircle\lozenge s)}\]
-    for all $s\in S_{tr}$, where $Pr_s(\cCircle\lozenge s) = \sum_{t\in N(s)} \PF(s,t)\cdot Pr_t(\lozenge s)$
-    
-    (The fraction is well-defined as $Pr_s(\cCircle\lozenge s)<1$, see \Cref{def:transient_and_recurrent_states})
-    \todo{This might be confusing because same notation used: $Pr_t$ two times with very different context/meaning}
+\begin{lemma}\label{lem:EVT_via_quant_reach}
+    Given a DTMC $\MC$ and state $s\in S^\MC_{tr}$, the EVT of $s$ is given by
+    \[ \Exp^\MC[vt_s] = \frac{Pr^{\MC}(\lozenge s)}{1-Pr^{\MC}_{s}(\cCircle\lozenge s)}\ .\]
 \end{lemma}
 
-\begin{proof}
-    \todo{use strong markov property somewhere in this proof; to justify probability statements/construction}
-    As the only initial state is $s$, it is necessarily visited at least once. After that the probability that $s$ will be visited at least one more time is $Pr_s(\cCircle\lozenge s)$ and the probability that it will not, is accordingly $(1-Pr_s(\cCircle\lozenge s))$. Moreover, the probability of visiting $s$ exactly $k$ times is precisely the probability of returning $k-1$ times and not return again afterwards. Thus, $Pr_s(N_s = k) = Pr_s(\cCircle\lozenge s)^{k-1}(1-Pr_s(\cCircle\lozenge s))$ for $k\in \NN$, where $N_s$ is a random variable representing the total number of time $s$ is visited ($Pr_s$ means starting in $s$). Intuitively,
-    \begin{align}
-        (F)_{ss}
-        & = \sum_{k=1}^\infty k\cdot Pr_s(N_s=k) &\notag\\
-        & = \sum_{k=1}^\infty k\cdot Pr_s(\cCircle\lozenge s)^{k-1}(1-Pr_s(\cCircle\lozenge s)) &\notag\\
-        & = (1-Pr_s(\cCircle\lozenge s))\sum_{k=1}^\infty k\cdot Pr_s(\cCircle\lozenge s)^{k-1} &\notag\\
-        & = (1-Pr_s(\cCircle\lozenge s))\cdot \frac{1}{(1-Pr_s(\cCircle\lozenge s))^2} = \frac{1}{1-Pr_s(\cCircle\lozenge s)} \qquad& \text{(by geometric series.)} \notag 
-    \end{align}
-    \todo{more concrete proof/definitions?? + geometric series in matheteil?}
-\end{proof}
-Finally, using \Cref{th:calc_EVTs_fund_matrix},
-% \begin{align}
-% \Exp[vt_s]
-%     &= \sum_{t\in\Strin}(F)_{ts}\cdot\iota_{init}(t)
-%     && \notag\\
-%     &= \sum_{t\in\Strin}
-%        Pr_t(\lozenge s)\cdot(F)_{ss}\cdot\iota_{init}(t)
-%     && \text{(by \Cref{lem:quantitative_reachability_F_ts})}
-%     \notag\\
-%     &= \sum_{t\in\Strin}
-%        \frac{Pr_t(\lozenge s)}
-%             {1-Pr_s(\Circle\lozenge s)}
-%        \cdot\iota_{init}(t)
-%     && \text{(by \Cref{lem:quantitative_reachability_F_ss})}
-%     \label{eq:EVT_via_quant_reach_sum}
-% \end{align}
-
-\begin{align}
-\Exp[vt_s]
-    &= Pr(\lozenge s)\cdot(F)_{ss}
-    && \text{(by \Cref{lem:quantitative_reachability_F_ts})}
-    \notag\\
-    &=  \frac{Pr(\lozenge s)}
-            {1-Pr_s(\Circle\lozenge s)}
-    && \text{(by \Cref{lem:quantitative_reachability_F_ss})}
-    \label{eq:EVT_via_quant_reach_sum}\\
-    &= \sum_{t\in\Strin}
-       \frac{Pr_t(\lozenge s)}
-            {1-Pr_s(\Circle\lozenge s)}
-       \cdot\iota_{init}(t) \notag
-\end{align}
-
-Notice, that for any given DTMC $\MC$ we can construct $\MC_{uni}^s = (S^\MC\cup\{s_{in},s_{suc}\},\PF^{\MC_{uni}^s},\iota_{init}^{\MC_{uni}^s})$, where $\PF^{\MC_{uni}^s}(s_i,s_j) = \PF{^\MC}(s_i,s_j)$, $\PF^{\MC_{uni}^s}(s,s_j) = 0$, $\PF^{\MC_{uni}^s}(s,s_{suc}) = 1$, $\PF^{\MC_{uni}^s}(s_{suc},s_j) = \PF{^\MC}(s,s_j)$, $\PF^{\MC_{uni}^s}(s_{in},s_j)=\iota_{init}^\MC(s_j)$ for all $s_i \in S^\MC\backslash \{s\}$ and $s_j\in S{^\MC}$, and $\iota_{init}^{\MC_{uni}^s}(s_{in}) = 1$. Essentially, $\MC_{uni}^s$ is a copy of $\MC$, where instead of using $\iota_{init}$ as an initial distribution, we simply have a single initial state $s_{in}$ and $s$ has only one direct successor $s_{suc}$, which has the same probability distribution as $s$ in $\MC$.
-\begin{theorem}
-    The reachability probabilities and thus also EVTs in $\MC$ and the corresponding $\MC_{uni}^s$ are identical.
-\end{theorem}
-\begin{proof}\label{pr:reach_prob_MC_uni}
-    First, we show that the reachability probabilities are equal (see \Cref{def:constrained_reachability_probabilities}) $Pr^\MC(\lozenge T) = Pr^{\MC_{uni}^s}(\lozenge T)$ for all $T\in S^\MC$.
-    \todo{$\cup$ Symbol ist überladen}
-    For this, we define the bijection $\phi: Paths_{inf}^{\MC_{uni}^s} \rightarrow Paths_{inf}^\MC, \pi = (s_{in},s_1,s_2,\dots, s_{k-1}, s_{suc}, s_k,\dots) \mapsto (s_1,s_2,\dots,s_{k-1},s_k,\dots)$, i.e., the bijection $\phi$ removes $s_{in}$ and all $s_{suc}$. This bijection is well defined, as $N(s_{in}) = \{s \mid \iota^\MC_{init}(s)>0\}$, $\PF^{\MC_{uni}^s}(s_i,s_{suc}) > 0$ only for $s_i = s$, and $\PF^{\MC_{uni}^s}(s_{suc},s_i) = \PF^{\MC}(s,s_i)$ ($\rightarrow$ thus same (amount of) paths).
-    \todo{Thus they have the same paths}
-    
-    Moreover, assume a given $\pi \in Paths_{inf}^{\MC_{uni}}$ has $\pi[k_i] = s_{suc}$ with $i \in \underline{j}$ for some $j\in \NNgz$ and $\phi(\pi) = \hat{\pi}$.
-    \begin{align}
-        Pr^{\MC_{uni}}(\pi) 
-        & = \underbrace{\iota^{\MC_{uni}}_{init}(\pi[0])}_{=1} \cdot \prod_{k=0}^{|\pi|-1}\PF^{\MC_{uni}}(\pi[k],\pi[k+1])\notag\\
-        & = \PF^{\MC_{uni}}(\pi[0],\pi[1]) \cdot \underbrace{\prod_{i=1}^{j-1}\PF^{\MC_{uni}}(\pi[\underbrace{k_i-1}_{=s}],\pi[\underbrace{k_{i}}_{=s_{suc}}])}_{=1} \cdot \prod_{k=1}^{k_1-2}\PF^{\MC_{uni}}(\pi[k],\pi[k+1]) \notag \\
-        &\ \ \  \cdot \prod_{k=k_1}^{k_2-2}\PF^{\MC_{uni}}(\pi[k],\pi[k+1]) \cdot \ldots \cdot \prod_{k_j}^{|\pi|-1}\PF^{\MC_{uni}}(\pi[k=k_j],\pi[k+1])\notag\\
-        & = \iota^\MC_{init}(\phi(\pi)[1]) \cdot \prod_{k=1}^{|\hat{\pi}|-1}\PF^{\MC}(\phi(\pi)[k],\phi(\pi)[k+1]) \qquad (\text{as, }\pi[k_i+1] = \hat{\pi}[k_i])\notag\\
-        & = \iota^\MC_{init}(\hat{\pi}[0]) \cdot \prod_{k=0}^{|\hat{\pi}|-1}\PF^{\MC}(\hat{\pi}[k],\hat{\pi}[k+1])\notag\\
-        & = Pr^\MC(\hat{\pi})\ .\notag
-    \end{align}
-    \todo{perhaps better/clearer notation needed then $\phi(\pi)$}
-    Therefore, we can conclude $Pr^{\MC_{uni}}(\lozenge T) = Pr^\MC(\lozenge T)$, as $\lozenge T \subseteq Paths_{inf}^{\MC_{uni}}$. Using \Cref{eq:EVT_via_quant_reach_sum}, we can then also conclude that the EVTs of $\MC$ and $\MC_{uni}$ must be equal.
-\end{proof}
-Thus, the reachability probabilities $Pr^{\MC_{uni}}_{s_{in}}(\lozenge s)= \sum_{t\in S_{in}}Pr^{\MC}_t(\lozenge s) = \sum_{t\in \Strin}Pr^{\MC}_t(\lozenge s)$ are equal and we can simplify the previous expression,
-\begin{equation}\label{eq:EVT_via_quant_reach}
-    \Exp^\MC[vt_s] = \frac{Pr^{\MC_{uni}}_{s_{in}}(\lozenge s)}{1-Pr^{\MC_{uni}}_{s_{suc}}(\lozenge s)}\cdot \tau_{init}(s_{in}) \left(= \frac{Pr^{\MC}(\lozenge s)}{1-Pr^{\MC}_{s}(\cCircle\lozenge s)}\cdot \tau_{init}(s_{in})\right)\ .
-\end{equation}
-\todo{maybe explain again what $tau_{init}$ is; maybe explain explicitly why $Pr_s(\cCircle\lozenge s) = Pr_{s_{suc}}(\cCircle\lozenge s)$}
-In other words, we can calculate the EVT of a DTMC $\MC$ with only two reachability probabilities using the corresponding DTMC $\MC_{uni}$.
-
-Moreover, using \Cref{lem:quantitative_reachability_F_ts} and the construction $\MC_{uni}$, we can calculate the quantitative reachability of a given state with $Pr(\lozenge s) = \frac{(F^{\MC_{uni}})_{s_{in}s}}{(F)_{ss}}$. 
+In other words, we can calculate the EVT of a DTMC $\MC$ with only two reachability probabilities. For a proof of \Cref{lem:EVT_via_quant_reach}, see \cite[Lemma 3.5]{Baier_Relating_Reach_Prob} and \cite[Lemma 5.1]{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
 % To calculate the quantitative reachability of a given state without a restriction of the initial state: $Pr_t(\lozenge s) = \frac{1}{(F)_{ss}}\cdot\sum_{t\in S_{tr}}(F)_{ts}\cdot \iota_{init}(t)$ 
 % \todo{perhaps need to change based on how \Cref{th:calc_EVTs_fund_matrix} formulated after correction/improvement}
 
