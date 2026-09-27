@@ -5,16 +5,16 @@ Stochastic processes offer effective methods for analyzing real-world systems ac
 
 When working with Markov Chains there exist multiple measures that are of interest, like reachability probabilities, stationary distributions, and expected rewards \cite{Katoen_Intro}. Another quantity whose importance has been recognized by many authors \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens, Caswell_Intro_EVT, Roth_Intro, Matsuno_Intro_EVT, Afrinaldi_Economics_Intro, GokhaleTrivedi_Intro,Sharma_Intro_EVT, Sharma_Trivedi_Intro_EVT, Gokhale_Intro_EVT, Meedeniya_Intro_EVT, Pietrantuono_Intro_EVT,Fiondella_Intro_EVT} are \textit{expected visiting times} (EVTs), which measure how often a given model is expected to enter each state. Similarly to reachability probabilities and expected rewards, EVTs can be computed by finding the unique solution of a linear equation system \cite{KemenySnellBook}.
 
-These EVTs are used in various areas, such as determining the expected resource demands of software systems \cite{GokhaleTrivedi_Intro,Gokhale_EVT,Sharma_Intro_EVT,Sharma_Trivedi_Intro_EVT}, provide insights for the quantitative evaluation of reliability \cite{Gokhale_Intro_EVT,Meedeniya_Intro_EVT,Pietrantuono_Intro_EVT}, and security of computer systems \cite{Orojloo_Intro,Abraham_Intro}.
+These EVTs are used in various areas, such as determining the expected resource demands of software systems \cite{GokhaleTrivedi_Intro,Gokhale_EVT,Sharma_Intro_EVT,Sharma_Trivedi_Intro_EVT}, and providing insights for the quantitative evaluation of reliability \cite{Gokhale_Intro_EVT,Meedeniya_Intro_EVT,Pietrantuono_Intro_EVT} and security of computer systems \cite{Orojloo_Intro,Abraham_Intro}.
 
-However, a fixed probability function can not always be assumed in practice \cite{Jonsson_Larsen_Intro_IMC,Kuznetsov_Intro_MC,Walley_Intro_MC,Kozine_Intro_MC}, for example, when the probability function is estimated through statistical experiments, which only provide bounds on the transition probabilities. To capture this imprecision of the transition probability function, \textit{interval-valued discrete-time Markov chains} (IDTMCs) were introduce in \cite{Jonsson_Larsen_Intro_IMC,Kozine_Intro_MC}. These IDTMCs extend DTMCs by defining a range within which the transition probability function is assumed to lie. Various semantics have been proposed to resolve the uncertainty which arises from this imprecision. Two widely used semantics are the \textit{once-and-for-all semantic}, also known as the \textit{Uncertain Markov Chain (UMC) semantic}, \cite{Jonsson_Larsen_Intro_IMC,Model-Checking_presence_Uncertainties} and the \textit{IMDP semantic} \cite{Model-Checking_presence_Uncertainties}.
+However, a fixed transition probability function cannot always be assumed in practice \cite{Jonsson_Larsen_Intro_IMC,Kuznetsov_Intro_MC,Walley_Intro_MC,Kozine_Intro_MC}, for example, when the probability function is estimated through statistical experiments, which only provide bounds on the transition probabilities. To capture this imprecision of the transition probability function, \textit{interval-valued discrete-time Markov chains} (IDTMCs) were introduce in \cite{Jonsson_Larsen_Intro_IMC,Kozine_Intro_MC}. These IDTMCs extend DTMCs by defining a range within which the transition probability function is assumed to lie. Various semantics have been proposed to resolve the uncertainty which arises from this imprecision. Two widely used semantics are the \textit{once-and-for-all semantic}, also known as the \textit{Uncertain Markov Chain (UMC) semantic}, \cite{Jonsson_Larsen_Intro_IMC,Model-Checking_presence_Uncertainties} and the \textit{IMDP semantic} \cite{Model-Checking_presence_Uncertainties}. The UMC semantic interprets the an IDTMC as a set of DTMCs whose transition probability function is chosen \textit{once-and-for-all} and lie in within the range defined by the IDTMC. The IMDP semantic resolves the uncertainty through non-determinism. A nature maps any finite path of the model on to a transition probability function which is then used to sample the successor state.
 \todo{Noch die semantiken stärker ausführen; kurz in einem satz erklären}
 
 % Erklären weshalb linear equation nicht möglich (cite Kemeny und vllt hannah)
 As an IDTMC characterizes a set of DTMCs, the states of an IDTMC can have multiple different EVTs belonging to the contained DTMCs. We thus focus, in this thesis, on calculating the minimum and maximum EVTs for the states of an IDTMC. If we apply the aforementioned linear equation system, that can be used to calculate EVTs in DTMCs, to IDTMCs, it thus becomes an optimization problem.
 Moreover, the linear equation system depends on the specific transition probability function of the given DTMC. 
 Therefore, when extending this linear equation system IDTMCs, we have to treat the transition probability function as variable as well, due to the imprecision of the transition probability function of IDTMCs. Thus, applying the linear equation system to IDTMCs to calculate the minimum and maximum EVTs necessitates solving nonlinear optimization problems. As many nonlinear optimization problems can only be solved in nondeterministic polynomial time (NP), we propose an alternative method to calculate the minimum and maximum EVTs for IDTMCs in this thesis. To our knowledge, this has not yet been studied in the literature.
-
+\todo{"nondeterministic \dots" gute Formulierung}
 
 % 1. Research on reachability 
 % 1.1 (Zwei P-Time paper) --> erwähnen, dass auch für parametric MCs
@@ -76,7 +76,11 @@ When computing the minimum or maximum reachability probabilities for IDTMCs, we 
 % Reden über pMC Sachen
 
 
-\section{Contribution}
+\section{Contributions}
+As stated above, the calculation of expected visiting times of states in IDTMCs has not yet been studied in the literature, to our knowledge. Thus, the goal of this thesis is to examine techniques for the computation of $\ell$EVTs and uEVTs in IDTMCs.
+
+To this end, we \ldots
+\todo{Hier nur die wichtigsten contributions?}
 
 \section{Outline}
 We begin with an overview of the notation and theoretical foundations in \Cref{ch:preliminaries}. We continue, by introducing Markov Chains, related notions, and EVTs as well as relating EVTS and quantitative reachability in \Cref{ch:Markov Chains}. Furthermore, we introduce the notion of Interval Markov Chains and related notions in \Cref{ch:Interval Markov Chains}. 

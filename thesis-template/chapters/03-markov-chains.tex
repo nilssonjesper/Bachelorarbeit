@@ -246,33 +246,73 @@ This means, once the model enters an \textit{absorbing} state, it cannot leave i
 
 % \end{definition}
 
-\begin{definition}[Markov Descision Process (MDP)]\label{def:MDP}\cite{Bibel}\todo{größtenteils übernommen}
-    A \textit{Markov Decision Process} (MDP) is a tuple $\MDP = (S,Act,A,\PF,\iota_{init})$, where
-    \begin{enumerate}[label=(\roman*)]
-        \item $S$ is a countable set of states
-        \item Act is a set of actions
-        \item $A(s)\subseteq Act$ denotes the applicable actions for all states $s\in S$ 
-        \item $\PF: S\times Act\times S \rightarrow [0,1]$ is the transition probability function such that $\sum_{s'\in S}\PF(s,\alpha, s') = 1$ for all $s\in S$ and $\alpha\in A(s)$
-        \item $\iota_{init}: S \rightarrow [0,1]$ is the initial distribution such that $\sum_{s\in S}\iota_{init}(s)=1$
-    \end{enumerate}
+\begin{definition}[Transition Probabilities of Transient States]\label{def:canonical_form}
+    For a DTMC $\MC$, the transition probability function $\PF$, and set of transient states $S_{tr}$ we define $Q = (\PF(s,t))_{s,t\in S_{tr}}$ which contains the transition probabilities between the transient states.
 \end{definition}
 
-\begin{definition}[Canonical Form]\label{def:canonical_form}
-    For a DTMC $\MC$, its transition matrix $\tT$ is said to be in canonical form if and only if
-    \[\tT = \begin{bmatrix}
-        Q & R\\
-        0 & S
-    \end{bmatrix}\]
-    where 
+\emph{\textbf{Rewards.}} DTMCs can be extended with a function that assigns rewards or costs to states that is earned, whenever a state is visited. In this thesis, we solely use non-negative reward functions. We define these functions as done in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
+
+\begin{definition}[Reward Function]
+    A \textit{reward function} for a DTMC $\MC$ is a function $rew: S\rightarrow\RR$. The value $rew(s)$, for $s\in S$, is called the \textit{reward} of state $s$.
+\end{definition}
+
+
+\emph{\textbf{Markov Decision Processes.}} Another stochastic process that can be extended with a reward functions, are \textit{Markov Decision Processes (MDPs)}. We introduce MDPs based on \cite{Bibel}.
+\begin{definition}[Markov Descision Process]\label{def:MDP}\cite{Bibel}\todo{größtenteils übernommen}
+    A \textit{Markov Decision Process} (MDP) is a tuple $\MDP = (S^\MDP,Act^\MDP,\PF^\MDP,s_0^\MDP,rew^\MDP)$, where
     \begin{enumerate}[label=(\roman*)]
-        \item $Q = (\PF(s,t))_{s,t\in S_{tr}}$ contains the transition probabilities between the transient states
-        \item $R = (\PF(s,t))_{s\in S_{tr},t\in S_{re}}$ contains the transition probabilities between transient and recurrent state pairs
-        \item $S = (\PF(s,t))_{s,t\in S_{re}}$ contains the transition probabilities between the recurrent states
+        \item $S^\MDP$ is a countable set of states,
+        \item $Act^\MDP$ is a set of actions,
+        \item $\PF^\MDP: S^\MDP\times Act^\MDP\times S^\MDP \rightarrow [0,1]$ is the transition probability function such that $\sum_{s'\in S^\MDP}\PF^\MDP(s,\alpha, s') = 1$ for all $s\in S^\MDP$ and $\alpha\in Act^\MDP$,
+        \item $s_0^\MDP$ is the fixed initial state,
+        \item $rew^\MDP: S^\MDP \rightarrow\RR$ is a reward function.
     \end{enumerate}
 \end{definition}
-For absorbing DTMCs $S = \eye$.
-As mentioned in \Cref{def:conjugation_of_reducible_matrix}, this is precisely possible for 
-\todo{remove canonical form (as I do not use it); replace it with definition of Q, if not already have that somewhere}
+Whenever the MDP $\MDP$ is evident from the context, we will omit the superscript $\MDP$. For the rest of this section, we fix an MDP $\MDP = (S^\MDP,Act^\MDP,\PF^\MDP,s_0^\MDP,rew^\MDP)$.
+
+\emph{\textbf{Paths and Probability Space of MDPs.}} We define paths and probability spaces of MDPs similarly to DTMCs.
+
+\begin{definition}[Path of an MDP]
+    An \textit{infinite path} $\pi$ in an MDP $\MDP$ is a sequence $\pi = (s_0,\alpha_0, s_1, \alpha_1 \dots$) of states with $s_0,s_1,\dots \in S$ and $\alpha_0,\alpha_1 \in Act$, such that $\PF(\pi[k],\alpha_k,\pi[k+1]) > 0$. A \textit{finite path} is a finite prefix of an \textit{infinite path}.
+\end{definition}
+
+We use the notation $\pi[k]\in S$ to denote the $k$-th state of the path $\pi$ for all $k\in \NN_0$, i.e. $\pi[k] = s_k$. Furthermore, we define the length $|\pi|$ of a finite path $\pi = (s_0,\alpha_0,\dots,\alpha_{k-1},s_k) \in Paths_{fin}^\MC$ to be equal to $k$, which we denote as $|\pi| = k$. 
+% We denote the last state of a finite path $\pi \in Paths^{\MC}_{fin}$ as $last(\pi)$, i.e., if $|\pi| = n$, then $last(\pi) = \pi[n]$.
+The sets of all infinite and finite sets are denoted as $Paths_{inf}^\MDP$ and $Paths_{fin}^\MDP$, respectively.
+
+Further, we construct the \textit{probability space} of an MDP as follows. The events correspond to sets of infinite paths that can be expressed as countable unions and intersections of cylinder sets, i.e., sets containing all possible continuations of finite paths in $\MDP$.
+
+\begin{definition}[Probability Space of an MDP]\label{def:prob_space_of_MDP}
+    The \textit{probability space} of an MDP $\MDP$ is defined as $(Paths_{inf}^\MDP, \sum_{Paths_{inf}^\MDP}, Pr^\MDP)$, where
+    \begin{itemize}
+        \item $\sum_{Paths_{inf}^\MDP}$ denotes the smallest $\sigma$-algebra containing the cylinder sets $Cyl(\pi')$ for all finite paths $\pi'\in Paths_{fin}^\MDP$ with
+        \[Cyl(\pi') = \{\pi \in Paths_{inf}^\MDP\mid\forall k\in \underline{|\pi'|}: \pi[k] = \pi'[k]\}\]
+        \item $Pr^\MDP$ is the unique probability measure on $(Paths_{inf}^\MDP, \sum_{Paths_{inf}^\MDP})$ satisfying
+        \[Pr^\MDP(Cyl(\pi')) = \llbracket \pi[0] = s_0^\MDP\rrbracket \cdot \prod_{k=0}^{|\pi'|-1}\PF^\MDP(\pi'[k],\alpha_k,\pi'[k+1])\]
+        for all finite paths $\pi'\in Paths_{fin}^\MDP$
+    \end{itemize}
+\end{definition}
+
+We can now continue by defining total rewards for both DTMCs and MDPs.
+A reward function defines the \textit{total reward} collected along a path $\pi$ in a DTMC or MDP, respectively.
+
+\begin{definition}[Total Reward of Paths]
+    The \textit{total reward} of an infinite path $\pi \in \Path$ in a reward function $rew: S\rightarrow\RR$ for a DTMC $\MC$ is specified by $tr_{rew}: \Path \rightarrow\eRR$ with
+    \[tr_{rew}(\pi) = \sum_{k=0}^\infty rew(\pi[k])\ .\]
+
+    The \textit{total reward} of an infinite path $\pi \in Paths_{inf}^\MDP$ in a reward function $rew: S\rightarrow\RR$ for an MDP $\MDP$ is specified by $tr_{rew}: Paths_{inf}^\MDP \rightarrow\eRR$ with
+    \[tr_{rew}(\pi) = \sum_{k=0}^\infty rew(\pi[k])\ .\]
+\end{definition}
+The total reward $tr_{rew}$ is a non-negative function and the Lebesgue integral of $tr_{rew}$ with respect to the probability measure $Pr^\MC$ or $Pr^\MDP$, respectively, is well-defined.
+
+\begin{definition}[Expected Total Reward]
+    For a DTMC $\MC$ the \textit{expected total reward} in $\MC$ is given by
+    \[\Exp^\MC[tr_{rew}] = \int_{\pi\in\Path}tr_{rew}(\pi)dPr^\MC(\pi)\ .\]
+
+    For an MDP $\MDP$ the \textit{expected total reward} in $\MDP$ is given by
+    \[\Exp^\MDP[tr_{rew}] = \int_{\pi\in Paths_{inf}^\MDP}tr_{rew}(\pi)dPr^\MDP(\pi)\ .\]
+\end{definition}
+Whenever the DTMC $\MC$ is evident from the context, we will omit the superscripts $\MC$ and $\MDP$ from $\Exp^\MC[tr_{rew}]$ and $\Exp^\MDP[tr_{rew}]$.
 
 \section{Expected Visiting Times for DTMCs}\label{sec:EVTs_for_DTMCs}
 In this section, we will introduce the concept of \textit{expected visiting times}, which were first introduced by Kemeny and Snell \cite{KemenySnellBook} in the context of the \textit{fundamental matrix}.
@@ -381,14 +421,13 @@ First, we define
 \[\tau_{init} = (\iota_{init}(s_1),\dots,\iota_{init}(s_n))^\T\]
 for all $s\in S_{tr}$ with which we can then introduce the following theorem taken from \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
 
-\begin{theorem}[Linear Equation System Characterization of EVTs of Transient States]
+\begin{theorem}[Linear Equation System Characterization of EVTs]
     The vector $(\Exp[vt_s])_{s\in S_{tr}}$ provides the unique solution of the following linear equation system in $\RR^{|S_{tr}|}$:
     \[(\eye - Q^T)\cdot x = \tau_{init}\ .\]
 \end{theorem}
-\todo{Für Matheteil: $\eye$ denotes identity matrix}
-For a proof of this theorem, see \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
+In other words, the solution of this linear equation system is a vector containing the EVTs of the transient states $s\in S_{tr}$. For a proof of this theorem, see \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
 
-This equation system can then be rewritten as 
+Importantly, this equation system can then be rewritten as 
 \[x = \tau_{init} + Q^\T \cdot x\ .\]
 
 For a single state $s\in S_{tr}$, we can thus calculate the respective EVT as follows,
@@ -408,7 +447,7 @@ For a single state $s\in S_{tr}$, we can thus calculate the respective EVT as fo
 \section{Relating Expected Visiting Times and Quantitative Reachability}\label{sec:MC_Quantitative_Reachability}
 We now relate \textit{expected visiting times} to \textit{quantitave reachability} for DTMCs. This has already been done in \cite[Lemma 3.5]{Baier_Relating_Reach_Prob} and \cite[Lemma 5.1]{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}. Thus, we present their results in this section.
 
-\begin{lemma}\label{lem:EVT_via_quant_reach}
+\begin{lemma}[From Reachability Probabilities to EVTs]\label{lem:EVT_via_quant_reach}
     Given a DTMC $\MC$ and state $s\in S^\MC_{tr}$, the EVT of $s$ is given by
     \[ \Exp^\MC[vt_s] = \frac{Pr^{\MC}(\lozenge s)}{1-Pr^{\MC}_{s}(\cCircle\lozenge s)}\ .\]
 \end{lemma}
@@ -418,3 +457,15 @@ In other words, we can calculate the EVT of a DTMC $\MC$ with only two reachabil
 % \todo{perhaps need to change based on how \Cref{th:calc_EVTs_fund_matrix} formulated after correction/improvement}
 
 %\section{Consideration for limiting the state size}\label{sec:consideration_for_limiting_the_state_size}
+
+\section{Relating Expected Visiting Times and Expected Total Reward}\label{sec:MC_Total_Reward}
+We continue in this section by relating \textit{expected visiting times} to \textit{expected total rewards} for DTMCs. This has already been done in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
+
+\begin{lemma}[From Expected Rewards to EVTs]\label{lem:from-expected-rewards-to-evts}
+    For a DTMC $\MC$, fixed $s\in S$, and $x\in \RR$ the reward function $rew: S \rightarrow \RR$ given by $rew(t) = x \cdot \llbracket t = s\rrbracket$ satisfies
+    \[\Exp[vt_s] = \frac{1}{x}\cdot \Exp[tr_{rew}]\ .\]
+\end{lemma}
+For a proof of this lemma, see \cite[Lemma 3.6]{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
+
+\todo{hier noch text von hannah übernehmen. erwähnen dass x = 1 dann "direkte" gleichung}
+\todo{vllt diese beiden sections zusammenfassen}
