@@ -4,71 +4,47 @@
 % --> If we view vector \pi_i as the vector of prob. distribution in step i, then stationary distribtion, is when this vector remains unchanged despite mutiplication with transition matrix
 
 % Introduce concept of stationary distribution
-In this chapter, we examine how $\ell$EVTs and uEVTs can be used to calculate stationary distributions in IDTMCs. For this we start by \dots. To this end, we fix an IDTMC $\IMC = (S^\IMC,\PFlower,\PFupper,\Initlower,\Initupper)$ and a DTMC $\MC = (S^\MC,\PF,\iota_{init})$ with $\MC \models_U \IMC$.
+In this chapter, we examine how stationary distributions in IDTMCs can be calculated using EVTs. We start by formally introducing stationary distributions for DTMCs and IDTMCs. We then continue by lifting results from \cite{modeling_and_analysis_stochastic_systems,Computing_EVTs_Stationary_Distr_in_MCs_Mertens} and extending them to IDTMCs. To this end, we fix an IDTMC $\IMC = (S^\IMC,\PFlower,\PFupper,\Initlower,\Initupper)$ and a DTMC $\MC = (S^\MC,\PF,\iota_{init})$ with $\MC \models_U \IMC$.
 \todo{fix DTMC and IDTMC}
 
-We define stationary distributions, also called long-run distributions, as done in \cite{Bibel}.
+We define \textit{stationary distributions}, also called long-run distributions, as done in \cite{Bibel}.
 \begin{definition}[Stationary Distributions in DTMCs]
-    Given a finite DTMC $\MC = (S,\PF,\iota_{init})$ be a finite Markov chain and $s\in S$. The \textit{long-run average probability} $\theta^\MC(s)$ is given by
+    Given a finite DTMC $\MC = (S,\PF,\iota_{init})$ and $s\in S$, the \textit{stationary distribution} $\theta^\MC(s)$ is given by
     \[ \theta^\MC(s) = \lim_{n\rightarrow \infty} \frac{1}{n} \cdot \sum_{i=1}^{n}Pr(\lozenge^{=k}s)\ .\]
     % The function $t \mapsto \theta(s,t)$ is the \textit{stationary distribution} for starting state $s$. The stationary distribution for $\MC$ is given by
     % \[ \Theta^\MC(t) = \sum_{s\in S} \iota_{init}(s) \cdot \theta(s,t)\ .\]
 \end{definition}
-In other words, the stationary distribution $\Theta^\MC(t)$ describes the probability that $\MC$ is in state $t$ after $k$ steps, as $k$ tends towards infinity. Whenever the DTMC $\MC$ is evident from the context, we omit the superscript $\MC$ from $\theta^\MC$.
+In other words, the stationary distribution $\theta^\MC(s)$ describes the probability that $\MC$ is in state $s$ after $k$ steps, as $k$ tends towards infinity. 
+%Whenever the DTMC $\MC$ is evident from the context, we omit the superscript $\MC$ from $\theta^\MC$.
 
-Similarly, we now define stationary distributions for IDTMCs. First, recall that the DTMCs $\MC_{\eta} \models_I \IMC$ that are induced by some nature $\eta$ can be infinite, i.e., $|\MC_{\eta}| = \infty$, see \Cref{def:DTMC_induced_by_nature}. Intuitively, as every state $s\in S^{\MC_{\eta}}$ in these DTMCs is only visited once, $\theta(s) = 0$. In other words, there exists no stationary distribution for these states. 
-\todo{noch mehr intuition mittels der T x theta = theta formel}
-Thus, we restrict this examination of BSCCs, in this thesis, to the UMC semantic.
+Similarly, we now define stationary distributions for IDTMCs. First, recall that the DTMCs $\MC_{\eta} \models_I \IMC$ that are induced by some nature $\eta$ can be infinite, i.e., $|\MC_{\eta}| = \infty$, see \Cref{def:DTMC_induced_by_nature}. Intuitively, as every state $s\in S^{\MC_{\eta}}$ in these DTMCs is only visited once, it follows that $\theta(s) = 0$. 
+Thus, we restrict this analysis of stationary distributions in this thesis to the UMC semantic.
 
 \begin{definition}[Stationary Distributions in IDTMCs]
     For a given IDTMC $\IMC$ and state $s\in S^\IMC$, we define 
-    \[\Theta(s) = \{\theta(s)^\MC \mid \MC \models_U \IMC\}\]
+    \[\Theta(s) = \{\theta^\MC(s) \mid \MC \models_U \IMC\}\]
     as the set of stationary distributions of $s$ on $\IMC$. 
     \\Furthermore, we define $\Thetalower^\IMC(s)$ and $\Thetaupper^\IMC(s)$ such that 
     \[\Thetalower^\IMC(s) = \operatorname{inf}_{\MC\models_U\IMC}\theta^\MC(s) \qquad \text{and} \qquad \Thetaupper^\IMC(s) = \operatorname{sup}_{\MC\models_U\IMC}\theta^\MC(s)\ .\]  
     %\[\]
 \end{definition}
 In other words, $\Thetalower^\IMC(s)$ and $\Thetaupper^\IMC(s)$ describe the minimum and maximum stationary distribution of $s$ among the DTMCs $\MC \models_U \IMC$ that satisfy $\IMC$ under the UMC semantic.
-Whenever the DTMC $\MC$ is evident from the context, we omit the superscript $\IMC$ from $\Thetalower^\IMC$ and $\Thetaupper^\IMC$.
-
 
 Moreover, BSCCs are defined as follows for IDTMCs.
 \begin{definition}[BSCCs for IDTMCs]
-    Let $\IMC$ be an IDTMC, then $B^\IMC \subseteq S^\IMC$ is a BSCC, if there exists at least one DTMC $\MC \models_U \IMC$ such that $B^\IMC$ is a BSCC in the DTMC $\MC$, see \Cref{def:(B)SCC}.
+    Let $\IMC$ be an IDTMC, then $B^\IMC \subseteq S^\IMC$ is a BSCC if there exists at least one DTMC $\MC \models_U \IMC$ such that $B^\IMC$ is a BSCC in the DTMC $\MC$, see \Cref{def:(B)SCC}.
 \end{definition}
 Whenever the DTMC $\MC$ is evident from the context, we omit the superscript $\IMC$ from $B^\IMC$.
 % \todo{stationary distribution gar nicht möglich für IMDPs?; weil induzierte DTMCs infinite sein können; oder gibt es dann einfach keine stationary distribution in den DTMCs}
 
-In contrast to EVTs, when considering the stationary distribution of a DTMC or IDTMC, we are interested in the recurrent, not transient, states.
-\todo{noch etwas mehr intuition geben}
-% \begin{theorem}
-%     If $\theta$ is stationary, then $\theta(i) = 0$ if the corresponding state $s_i$ is transient and $\theta(i) > 0$ if $s_i$ is recurrent.
-% \end{theorem}
-% We provide a short proof.
-% \begin{proof}
-%     Assume that some $s$ is transient and for the stationary distribution $\theta(s) > 0$. As $\theta$ is stationary, there exists some $k\in \NNgz$ such that $\theta_{k'}$ is stationary for $k' \geq k$. Thus, there is a nonzero probability that the current state in step $k' \geq k$ is $s$. However, as $s$ is transient it follows that $Pr_{s}(\cCircle\lozenge s) < 1$, see \Cref{def:transient_and_recurrent_states}. Therefore, there must be some $k'' > k$ such that $\theta_{k''}(i) = 0$. This contradicts the stationary property of $\theta$.
-%     \todo{sufficient and understandable?}
-%     Now, assume that some $s$ is recurrent and for the stationary distribution $\theta(s) = 0$. As $s$ is reachable by definition/construction, see \Cref{sec:consideration_for_limiting_the_state_size}, we can conclude that $Pr(\lozenge s) > 0$. Thus, there exists some $k' \in \NNgz$ such that $\theta_{k'}(i) > 0$. As $s_i$ is recurrent, it follows that $Pr_{s_i}(\cCircle\lozenge s_i) = 1$, see again \Cref{def:transient_and_recurrent_states}. Thus, there exist infinitely many $k'' \in \NNgz$ with $k'' > k'$ and $\theta_{k''}(i) > 0$. Therefore, $\theta_k$ is not stationary.
-%     \todo{rework proof to make it prettier? "Infinitely many" does not seem like an elegant argument}
-% \end{proof}
-
-% Zusammenfassen von Senken (recurrent state groupings) : motivieren
-% Stat. Distr. für IDTMC --> upper/lower bound für diese groupings (oder ohne Zusammenfassung halt upper/lower für jeden einzelnen in den groupings)
-
-
-
-% How to define stationary distributions for IDTMCs?
-% Obviously it needs to be some kind of interval definition again
-% --> how to do this in a meaningful way
-
-Recall, that the recurrent states of a DTMC $\MC$ are precisely the states contained in the BSCCs of $\MC$, see \Cref{def:transient_and_recurrent_states}. Thus, by collapsing each BSCCS of $\MC$ into a single state, the stationary distribution $\theta^\MC$ of the recurrent states of a DTMC $\MC$ is characterized by 
+In contrast to EVTs, we are interested in the recurrent and not the transient states when considering the stationary distribution of a DTMC or IDTMC. Recall that the recurrent states of a DTMC $\MC$ are precisely the states contained in the BSCCs of $\MC$, see \Cref{def:transient_and_recurrent_states}. Thus, by collapsing each BSCC of $\MC$ into a single state, the stationary distribution $\theta^\MC$ of the recurrent states of a DTMC $\MC$ is characterized by 
 \begin{equation}\label{eq:Stat_Distr_via_BSCC_for_DTMC} 
     \theta^\MC(s) = Pr^\MC(\lozenge B) \cdot \theta^{\MC|_B}(s)\ ,
 \end{equation} 
-for all $s\in B$, as proven in \cite{modeling_and_analysis_stochastic_systems}, where $\theta^{\MC|_B}$ denotes the stationary distribution of $\MC$ restricted to $B$. Moreover, in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, it is shown that the stationary distribution within a BSCC can be computed through its EVTs. For this they construct a DTMC $\mathcal{B}\!\Rsh^{\hat{v}}$ for every BSCC $B$ with any arbitrary state $v\in S^{\MC|_B}$ in which all incoming transitions of $v$ are redirected to the fresh absorbing state $\hat{v}$. As $v$ is arbitrary, we fix $v$ and $\hat{v}$ for the remainder of this chapter.
+for all $s\in B$, as proven in \cite{modeling_and_analysis_stochastic_systems}, where $\theta^{\MC|_B}$ denotes the stationary distribution of $\MC$ restricted to $B$. Moreover, in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, it is shown that the stationary distribution within a BSCC can be computed through its EVTs. To this end, they construct a DTMC $\mathcal{B}\!\Rsh^{\hat{v}}$ for every BSCC $B$ with any arbitrary state $v\in S^{\MC|_B}$ in which all incoming transitions of $v$ are redirected to the fresh absorbing state $\hat{v}$. As $v$ is arbitrary, we fix $v$ and $\hat{v}$ for the remainder of this chapter.
 \todo{vllt reicht das nicht: muss nochmal genauer argumentieren, weshalb auch für IDTMC $v$ arbiträr}
 
-\emph{Construction.} More precisely, $\mathcal{B}\!\Rsh^{\hat{v}} = (S^{B} \cup \{\hat{v}\},\PF^{\mathcal{B}\Rsh^{\hat{v}}},\iota_{init}^{\mathcal{B}\Rsh^{\hat{v}}})$, where $S^B$ denotes the states that are contained in $B$. Moreover, $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(\hat{v},\hat{v}) = 1$, $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,\hat{v}) = \PF^\MC(s,v)$, and $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,v) = 0$ for all $s\in S^{\MC|_B}$. Lastly, $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,t) = \PF^\MC(s,t)$ for all $s\in S$, $t\in S\backslash\{v\}$, and $\iota_{init}^{\mathcal{B}\Rsh^{\hat{v}}}(v) = 1$. 
+\emph{Construction.} Formally, $\mathcal{B}\!\Rsh^{\hat{v}} = (S^{B} \cup \{\hat{v}\},\PF^{\mathcal{B}\Rsh^{\hat{v}}},\iota_{init}^{\mathcal{B}\Rsh^{\hat{v}}})$, where $S^B$ denotes the states of $\MC$ that are contained in $B$. Moreover, $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(\hat{v},\hat{v}) = 1$, $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,\hat{v}) = \PF^\MC(s,v)$, and $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,v) = 0$ for all $s\in S^{\MC|_B}$. Lastly, $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,t) = \PF^\MC(s,t)$ for all $s\in S$, $t\in S\backslash\{v\}$, and $\iota_{init}^{\mathcal{B}\Rsh^{\hat{v}}}(v) = 1$. 
 
 The stationary distribution within a DTMC is then given by
 \begin{equation}\label{eq:Stat_Distr_of_BSCC}
@@ -80,12 +56,12 @@ Similarly to the DTMC $\mathcal{B}\!\Rsh^{\hat{v}}$, we now define the IDTMC $\m
 
 \emph{Construction.} $\mathcal{I}\!\Rsh^{\hat{v}} = (S^{B} \cup \{\hat{v}\},\PFlower^{\mathcal{B}\Rsh^{\hat{v}}},\PFupper^{\mathcal{B}\Rsh^{\hat{v}}},\Initlower^{\mathcal{B}\Rsh^{\hat{v}}},\Initupper^{\mathcal{B}\Rsh^{\hat{v}}})$, where $S^B$ denotes the states that are contained in $B$. Moreover, $\PFupper^{\mathcal{B}\Rsh^{\hat{v}}}(\hat{v},\hat{v}) = \PFlower^{\mathcal{B}\Rsh^{\hat{v}}}(\hat{v},\hat{v}) = 1$, $\PFupper^{\mathcal{B}\Rsh^{\hat{v}}}(s,\hat{v}) = \PFupper^\IMC(s,v)$, $\PFlower^{\mathcal{B}\Rsh^{\hat{v}}}(s,\hat{v}) = \PFlower^\IMC(s,v)$, and $\PFupper^{\mathcal{B}\Rsh^{\hat{v}}}(s,v) = \PFlower^{\mathcal{B}\Rsh^{\hat{v}}}(s,v) = 0$ for all $s\in S^{\MC|_B}$. Lastly, $\PF^{\mathcal{B}\Rsh^{\hat{v}}}(s,t) = \PF(s,t)$ for all $s\in S$, $t\in S\backslash\{v\}$, and $\iota_{init}^{\mathcal{B}\Rsh^{\hat{v}}}(v) = 1$. 
 
-Intuitively, as $\MC \models_U \IMC$ it follows that, by construction, $\mathcal{B}\!\Rsh^{\hat{v}} \models_U \mathcal{I}\!\Rsh^{\hat{v}}$.
+Intuitively, as $\MC \models_U \IMC$ it follows, by construction, that $\mathcal{B}\!\Rsh^{\hat{v}} \models_U \mathcal{I}\!\Rsh^{\hat{v}}$.
 
 % Es gibt IDTMCs nicht unbedingte feste BSCCs, i.e. s kann in verschiedenen BSCCs sein.
 
 \begin{assumption}\label{assmp:graph_preserving}
-    In the rest of this Chapter, we assume that all IDTMCs $\IMC$ are graph preserving, meaning that there exists no lower transition probability function such that $\PFlower^\IMC(s,t) = 0$ for any $s,t\in S^\IMC$. This implies that there exists no $\MC \models_U \IMC$ such that some $s\in S^\IMC$ is not reachable in $\MC$.
+    In the rest of this chapter, we assume that all IDTMCs $\IMC$ are graph preserving, meaning that there exists no lower transition probability function such that $\PFlower^\IMC(s,t) = 0$ for any $s,t\in S^\IMC$. This implies that there exists no $\MC \models_U \IMC$ such that some $s\in S^\IMC$ is unreachable in $\MC$.
 \end{assumption}
 
 Given this assumption, we can prove the following theorem.
@@ -97,14 +73,14 @@ In other words, every state $S_{re}^\IMC$ corresponds to precisely one BSCC in $
 \begin{proof}
     Assume that for some IDTMC $\IMC$ there exists a state $s$, two BSCCs $B^{\MC}, B'^{\MC'}$ with $B^\neq B'^{\MC'}$, and $\MC, \MC'\models \IMC$, such that $s\in B^{\MC}$ and $s\in B'^{\MC'}$. As $B^{\MC}\neq B'^{\MC'}$, there exists at least one state $t\in S^\IMC$ that is only contained in either $B^{\MC}$ or $B'^{\MC'}$, i.e., $t\in (B\backslash B') \cup (B'\backslash B)$. 
     
-    Without loss of generality, let us assume $t\in B^\MC$. Hence, by \Cref{def:(B)SCC}, there exists a path from $s$ to $t$ in $\MC$. However, as noted the graph relations for all satisfying DTMCs of graph preserving IDTMCs are identical. Thus, there must also exist a path from $s$ to $t$ in $\MC'$. However, $t\notin B'^{\MC'}$, which contradicts \Cref{def:(B)SCC}.
+    Without loss of generality, let us assume $t\in B^\MC$. Hence, by \Cref{def:(B)SCC}, there exists a path from $s$ to $t$ in $\MC$. However, as noted, the graph relations for all satisfying DTMCs of graph preserving IDTMCs are identical. Thus, there must also exist a path from $s$ to $t$ in $\MC'$. However, $t\notin B'^{\MC'}$, which contradicts \Cref{def:(B)SCC}.
 \end{proof}
 
 \todo{BSCC mit rücksicht auf IMC definieren, also dass BSSC von DTMC, die IDTMC satisfied}
 
-Thus, we can conclude for graph preserving IDTMCs that any state $s\in S^\IMC$ belongs only to a singular BSCC $B$, i.e., the BSCCs for all satisfying DTMCs are identical. This allows us, to optimize the reachability of $B$ ($Pr^\MC(\lozenge B)$) and the stationary distribution restricted to $B$ ($\theta^{\MC|_B}$) of \Cref{eq:Stat_Distr_via_BSCC_for_DTMC} independently as shown in the following.
+Thus, we can conclude for graph preserving IDTMCs that any state $s\in S^\IMC$ belongs only to a singular BSCC $B$, i.e., the BSCCs for all satisfying DTMCs are identical. This allows us to optimize the reachability of $B$ ($Pr^\MC(\lozenge B)$) and the stationary distribution restricted to $B$ ($\theta^{\MC|_B}$) of \Cref{eq:Stat_Distr_via_BSCC_for_DTMC} independently as shown in the following.
 
-Therefore, we can intuitively calculate the stationary distributions for a state $s\in \IMC$ by solving following NLP:
+Therefore, we can intuitively calculate the stationary distributions for a state $s\in \IMC$ by solving the following NLP:
 
 \[
    \begin{aligned}

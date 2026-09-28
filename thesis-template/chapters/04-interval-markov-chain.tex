@@ -1,16 +1,16 @@
 \chapter{\textit{Interval Markov Chains}}
 \label{ch:Interval Markov Chains}
 
-The focus of this thesis are expected visiting times in Interval Markov Chains (IMCs) which we will introduce in this chapter. We start by formally introducing IMCs and related notions. We then continue by elaborating on the UMC and IMDP semantic which are used most commonly for IMCs. Lastly, we show the relations between the two semantics in \Cref{sec:relation_between_the_semantics}.
+The focus of this thesis is expected visiting times in Interval Markov Chains (IMCs), which we will introduce in this chapter. We start by formally introducing IMCs and related notions. We then continue by elaborating on the UMC and IMDP semantics, which are used most commonly for IMCs. Lastly, we show the relations between the two semantics in \Cref{sec:relation_between_the_semantics}.
 \todo{Shortly motivate what an Interval Markov Chain is; use introduction and related works to do this}
 
 \emph{\textbf{Contributions}}
 \begin{itemize}
-    \item We show that the so-called \textit{fixed-initial-state definition} of IMCs induces the same probability measure as our definition of IMCs, which extends the definition of DTMCs found in \cite{Bibel},under the natural bijection between their paths
+    \item We show that the so-called \textit{fixed-initial-state definition} of IMCs induces the same probability measure as our definition of IMCs, which extends the definition of DTMCs found in \cite{Bibel}, under the natural bijection between their paths
     \item \Cref{sec:relation_between_the_semantics}: We prove that any DTMC that satisfies an IDTMC under the UMC semantic, satisfies the IDTMC under the IMDP semantic, as well.
 \end{itemize}
  
-We start by introducing IMCs by extending the defintion of DTMCs, see \Cref{def:DTMCs}, provided in \cite{Bibel}.
+We start by introducing IMCs by extending the definition of DTMCs, see \Cref{def:DTMCs}, provided in \cite{Bibel}.
 \begin{definition}[Interval Markov Chain]\label{def:IMC}
     An interval-valued discrete-time Markov chain is a tuple
     $\IMC=(S^\IMC,\PFlower^\IMC,\PFupper^\IMC,\Initlower^\IMC,\Initupper^\IMC)$, where
@@ -47,7 +47,7 @@ Whenever the IDTMC $\IMC$ is evident from the context, we omit the superscript $
             0 & 0 & 0 & 0 & 1
         \end{bmatrix}\ ,
     \]
-    and the lower and upper initial distributions
+    and the lower and upper initial distributions by
     \[\Initlower = (0,0,0,0,0)^\T \qquad \Initupper = (1,0,0,0,0)^\T \ .\]
     
     % As indicated by the edge labels, the transition probability function $\PF$ can take any values between $0.2$ and $0.8$ for the pairs $(s_2,s_4),(s_2,s_5),(s_3,s_1)$ and $(s_3,s_5)$.
@@ -113,7 +113,7 @@ Whenever the IDTMC $\IMC$ is evident from the context, we omit the superscript $
 \draw[->] (s5) edge[loop above] node[edgelabel] {[1,1]} ();
 
 \end{tikzpicture}
-\caption{This figure depicts the IDTMC $\IMC_E$, as defined in \Cref{ex:IMC_for_semantic}. Here the edge labels denote the lower and upper bounds of the transition probability function and initial distribution in form of intervals (or precise values in case the bounds coincide). Additionally, the nodes are colored to facilitate a comparison with \Cref{fig:UMC_semantic} and \Cref{fig:IMC_unfolding}.}
+\caption{This figure depicts the IDTMC $\IMC_E$, as defined in \Cref{ex:IMC_for_semantic}. Here the edge labels denote the lower and upper bounds of the transition probability function and initial distribution in the form of intervals (or precise values in case the bounds coincide). Additionally, the nodes are colored to facilitate a comparison with \Cref{fig:UMC_semantic} and \Cref{fig:IMC_unfolding}.}
 \label{fig:IMC_for_semantic}
 \end{figure}
 
@@ -125,7 +125,7 @@ The sets of all infinite and finite paths are denoted as $Paths_{inf}^\IMC$ and 
 Furthermore, we define the length $|\pi|$ of a finite path $\pi = (s_0,\dots,s_k) \in Paths_{fin}^\IMC$ to be equal to $k$, which we denote as $|\pi| = k$. As an infinite path has infinite length, we define $\pi \in Paths_{inf}^\IMC$ to be $|\pi| = \infty$. Moreover, we denote the last state of a finite path $\pi \in Paths^{\IMC}_{fin}$ as $last(\pi)$, i.e., if $|\pi| = n$, then $last(\pi) = \pi[n]$.
 
 \emph{\textbf{Fixed-initial-state definition.}}
-In the literature, see for example \cite{complexity_model_checking_interval-valued_DTMCs,Model-Checking_presence_Uncertainties,Semantics_Quant-Analysis}, it is common to represent the initial distribution by an additional initial state rather than introducing a separate initial distribution function. In this case, an IMC is given as a tuple $\IMC_{\mathrm{fix}} = (S,\PFlower,\PFupper,s_{0}),$ where \(s_{0}\) is the unique initial state. We refer to this as the \emph{fixed-initial-state definition}.
+In the literature, see for example \cite{complexity_model_checking_interval-valued_DTMCs,Model-Checking_presence_Uncertainties,Semantics_Quant-Analysis}, it is common to represent the initial distribution by an additional initial state rather than introducing a separate initial distribution function. In this case, an IMC is given as a tuple $\IMC_{\mathrm{fix}} = (S,\PFlower,\PFupper,s_{0})$, where \(s_{0}\) is the unique initial state. We refer to this as the \emph{fixed-initial-state definition}.
 
 More precisely, let $\IMC = (S^\IMC,\PFlower^\IMC,\PFupper^\IMC,\Initlower^\IMC,\Initupper^\IMC)$ be an IMC in our definition. The corresponding \textit{fixed-initial-state} representation is obtained by introducing the initial state $s_{0}$ and defining $S^{\IMC_{\mathrm{fix}}} = S^\IMC\cup\{s_{0}\}.$
 
@@ -153,7 +153,7 @@ and
     0 & otherwise.
 \end{cases*}
 \]
-The same construction applies to DTMCs. Let $\MC=(S^\MC,\PF^\MC,\iota^\MC_{\mathrm{init}})$ be a DTMC. Its corresponding \textit{fixed-initial-state} representation is $\MC_{\mathrm{fix}} = (S^\MC\cup\{s_{0}\},\PF^{\MC_{\mathrm{fix}}},s_{0}),$ where
+The same construction applies to DTMCs. Let $\MC=(S^\MC,\PF^\MC,\iota^\MC_{\mathrm{init}})$ be a DTMC. Its corresponding \textit{fixed-initial-state} representation is $\MC_{\mathrm{fix}} = (S^\MC\cup\{s_{0}\},\PF^{\MC_{\mathrm{fix}}},s_{0})$, where
 \[
     \PF^{\MC_{\mathrm{fix}}}(s_i,s_j)
     =
@@ -170,7 +170,7 @@ The two representations induce the same probability measure under the natural bi
     \phi: Paths_{fin}^{\MC_{\mathrm{fix}}} \longrightarrow Paths_{fin}^{\MC}, (s_{0},s_1,s_2,\ldots) \mapsto (s_1,s_2,\ldots)\ .
 \]
 
-Notice, that $\phi$ is a bijection, since $s_{0}$ has no incoming transitions and every infinite path of $\MC_{\mathrm{fix}}$ starts in $s_{0}$.
+Notice that $\phi$ is a bijection, since $s_{0}$ has no incoming transitions and every infinite path of $\MC_{\mathrm{fix}}$ starts in $s_{0}$.
 
 To see that the probability measures correspond under $\phi$, consider a finite path $\pi_{\mathrm{fix}} = (s_{0},s_1,\ldots,s_n)\in Paths_{fin}^{\MC_{\mathrm{fix}}}$, and let $\pi=(s_1,\ldots,s_n)$ be the corresponding finite path of $\MC$, i.e., $\phi(\pi_{\mathrm{fix}}) = \pi$. Then
 \begin{align}
@@ -179,15 +179,15 @@ Pr^{\MC_{\mathrm{fix}}}(\pi_{\mathrm{fix}})
 &= \iota^\MC_{\mathrm{init}}(s_1) \prod_{k=1}^{n-1} \PF^\MC(s_k,s_{k+1}) \notag
 &= Pr^\MC(\pi).
 \end{align}
-Thus, corresponding cylinder sets have the same probability, and consequently the probability measures coincide under the bijection $\phi$.
+Thus, corresponding cylinder sets have the same probability, and consequently, the probability measures coincide under the bijection $\phi$.
 
-Hence, adding a unique initial state is merely a different representation of the initial distribution and does not change the probabilistic behaviour of the model. In particular, results formulated for the \textit{fixed-initial-state definition} can be transferred to our definition by applying the above construction.
+Hence, adding a unique initial state is merely a different representation of the initial distribution and does not change the probabilistic behavior of the model. In particular, results formulated for the \textit{fixed-initial-state definition} can be transferred to our definition by applying the above construction.
 
 In contrast to the precise transition probability function and initial distribution of DTMCs, Interval Markov Chains allow for uncertainty. 
 To resolve the uncertainty in the initial distribution and transition probability function, we need to define semantics that specify a fixed initial distribution and transition probability function. In other words, the semantics specify a set of Markov Chains that are consistent with the given Interval Markov Chain. We say that the DTMCs $\MC$ contained in the specified set satisfy the IDTMC $\IMC$ and denote it as $\MC \models \IMC$. We assume in this thesis that there exists at least one satisfying DTMC for every IDTMC.
 
 \begin{assumption}\label{assmp:finiteness_IDTMCs}
-    In this thesis, we solely consider finite IDTMCs $\IMC$, i.e., $S^\IMC$ is finite. We sometimes refer to these finite IDTMCs, as \textit{finite-state IDTMCs}.
+    In this thesis, we solely consider finite IDTMCs $\IMC$, i.e., $S^\IMC$ is finite. We sometimes refer to these finite IDTMCs as \textit{finite-state IDTMCs}.
     Moreover, we restrict our consideration to IDTMCs $\IMC$ for which, for every state $s\in S^\IMC$, there exists at least one satisfying DTMC $\MC \models \IMC$, such that $s$ is reachable with a positive probability from an initial state in $\MC$, i.e., $Pr^\MC(\lozenge s) > 0$. If a given state were unreachable in every satisfying DTMC, then its EVT would trivially be $0$ for all satisfying DTMCs and, consequently, could not contribute to the EVTs of other states.
 \end{assumption}
 
@@ -276,11 +276,11 @@ As $\MC\models_{\mathrm{U}}\IMC$ implies $S^\MC=S^\IMC$, we use the same symbol 
 \draw[->] (s5) edge[loop above] node[edgelabel] {1} ();
 
 \end{tikzpicture}
-\caption{This figure depicts the DTMC $\MC_U$, as defined in \Cref{ex:UMC_semantic_figure}. Here the edge labels denote the value of the transition probability function and initial distribution for the given states. Additionally, the nodes are colored to facilitate  a comparison with \Cref{fig:IMC_for_semantic} and \Cref{fig:IMC_unfolding}.}
+\caption{This figure depicts the DTMC $\MC_U$, as defined in \Cref{ex:UMC_semantic_figure}. Here the edge labels denote the value of the transition probability function and initial distribution for the given states. Additionally, the nodes are colored to facilitate a comparison with \Cref{fig:IMC_for_semantic} and \Cref{fig:IMC_unfolding}.}
 \label{fig:UMC_semantic}
 \end{figure}
 
-The second semantic which we will define, is the \textit{IMDP semantic}. There are two common definitions for this semantic. In this thesis, we will use the definition found in \cite{Model-Checking_presence_Uncertainties} and \cite{Semantics_Model-Checking_omega-Regular}.
+The second semantic, which we will define, is the \textit{IMDP semantic}. There are two common definitions for this semantic. In this thesis, we will use the definition found in \cite{Model-Checking_presence_Uncertainties} and \cite{Semantics_Model-Checking_omega-Regular}.
 \todo{Hannah: add intuitive explanation; reicht das was jetzt habe?}
 
 While the \textit{UMC} semantic selects a particular probability function \textit{once-and-for-all}, the \textit{IMDP} semantic allows for a probability function to be picked from the set of valid probability functions before every transition.
@@ -316,7 +316,7 @@ This definition is based on \cite{Bibel}. Notice that these induced DTMCs are in
 
 To relate the states in the induced DTMC $\MC_{\eta}$ to the states in the IDTMC $\IMC$, we define the function
 \[ \tau: Paths_{fin}^\IMC \rightarrow S^\IMC,\ (\pi[0],\dots,last(\pi)) \mapsto last(\pi)\ .\]
-In other words, the states in the induced DTMC that correspond to finite paths in $\IMC$ ending in some state $s\in S^\IMC$, are mapped to $s$. Intuitively, 
+In other words, the states in the induced DTMC that correspond to finite paths in $\IMC$ ending in some state $s\in S^\IMC$ are mapped to $s$. Intuitively, 
 \[\tau^{-1}(s) = \{\pi \in Paths_{fin}^\IMC \mid \tau(\pi) = s\}\]
 \todo{tau ist genau last; umändern: wahrscheinlich tau zu last machen}
 defines the set of all states in the induced DTMC that correspond to finite paths in $\IMC$ ending in $s$ for all $s\in S^\IMC$. 
@@ -347,13 +347,11 @@ Notice that the induced DTMCs of these stationary natures are finite in size.
 \end{definition}
 \todo{quelle finden}
 Crucially, a stationary nature can thus be represented by a DTMC of the form \Cref{def:induced_DTMC_stat_Nature} as well as \Cref{def:DTMC_induced_by_nature}.
-However, as only some natures can be represented by finite-state DTMCs of the form \Cref{def:induced_DTMC_stat_Nature}, we base all defintions for IDTMCs under the IMDP semantic in this thesis on \Cref{def:DTMC_induced_by_nature}.
+However, as only some natures can be represented by finite-state DTMCs of the form \Cref{def:induced_DTMC_stat_Nature}, we base all definitions for IDTMCs under the IMDP semantic in this thesis on \Cref{def:DTMC_induced_by_nature}.
 
 Using these notions, we can now define the \textit{IMDP semantic}.
 \begin{definition}[IMDP Semantic]\label{def:IMDP_semantic}
     A DTMC $\MC$ satisfies an IDTMC $\IMC$ under the IMDP semantic if and only if there exists a nature $\eta$ on $\IMC$ that induces a DTMC $\MC_{\eta}$ with $\MC = \MC_{\eta}$.
-
-    % The choice of a transition function is made by \textit{nature}. A \textit{nature} for an IDTMC $\IMC$ is a function $\eta: Paths^\IMC_{fin} \rightarrow Steps^\IMC$ that assigns each finite path to a valid transition probability function, i.e., $\eta(\pi)\in Steps^\IMC(last(\pi))$.
 \end{definition}
 If $\MC$ satisfies $\IMC$ under the IMDP semantic, we denote this as $\MC\models_{\text{I}}\IMC$.
 The other common definition can be found in \cite{reachability_in_pIMCs_using_constraints} and \cite{Semantics_Quant-Analysis}.
@@ -389,7 +387,7 @@ The other common definition can be found in \cite{reachability_in_pIMCs_using_co
     0 & \text{otherwise}.
     \end{cases}
     \]
-    Here we use the notation $\pi' = \pi \cdot s$, to denote $\pi' = (\pi[0],\pi[1],\dots,last(\pi),s)$ for all $s\in S^\IMC$.
+    Here we use the notation $\pi' = \pi \cdot s$ to denote $\pi' = (\pi[0],\pi[1],\dots,last(\pi),s)$ for all $s\in S^\IMC$.
 \end{example}
 
 % DTMC for IMDP semantic 
@@ -613,7 +611,7 @@ The other common definition can be found in \cite{reachability_in_pIMCs_using_co
     (s125) -- node[edgelabel, below] {$1$} (s1255);
 
 \end{tikzpicture}
-\caption{This figure depicts a finite fragment of the infinite-state DTMC $\MC_{\eta_E}$, as defined in \Cref{ex:IMDP-semantic}. Each state represents a finite path in the corresponding IDTMC $\IMC_E$. This fragment shows all states that correspond to paths in $\IMC_E$ that have length four or less. Here the edge labels denotes the value of the transition probability function and initial distribution for the given states. Additionally, the nodes are colored to facilitate a comparison with \Cref{fig:IMC_for_semantic} and \Cref{fig:UMC_semantic}. Here, the color of a node respresenting a path $\pi$ corresponds to the color assigned to $last(\pi)$ in \Cref{fig:IMC_for_semantic}.}
+\caption{This figure depicts a finite fragment of the infinite-state DTMC $\MC_{\eta_E}$, as defined in \Cref{ex:IMDP-semantic}. Each state represents a finite path in the corresponding IDTMC $\IMC_E$. This fragment shows all states that correspond to paths in $\IMC_E$ that have length four or less. Here the edge labels denote the value of the transition probability function and initial distribution for the given states. Additionally, the nodes are colored to facilitate a comparison with \Cref{fig:IMC_for_semantic} and \Cref{fig:UMC_semantic}. Here, the color of a node representing a path $\pi$ corresponds to the color assigned to $last(\pi)$ in \Cref{fig:IMC_for_semantic}.}
 \label{fig:IMC_unfolding}
 \end{figure}
  
@@ -645,7 +643,7 @@ In this thesis, we are particularly interested in the optimal reachability proba
 
 \end{definition}
 To shorten the notation, we denote the maximum reachability as $\Prupper^\IMC(\lozenge s)$ and the minimum reachability as $\Prlower^\IMC(\lozenge s)$.
-Moreover, we use the notation $\Prupper^\IMC_s(\lozenge T)$ and $\Prlower^\IMC_s(\lozenge T)$ to denote the maximum and minimum reachability probabilities, when fixing $s\in S^\IMC$ as the unique initial state.
+Moreover, we use the notation $\Prupper^\IMC_s(\lozenge T)$ and $\Prlower^\IMC_s(\lozenge T)$ to denote the maximum and minimum reachability probabilities when fixing $s\in S^\IMC$ as the unique initial state.
 
 Furthermore, we define transient and recurrent states. As we observed for the infinite-state DTMCs $\MC_\eta$ defined in \Cref{def:DTMC_induced_by_nature}, every state $s\in S^{\MC_\eta}$ is visited only once. Thus, intuitively, $Pr_\pi(\cCircle\lozenge \pi) = 0$ for all $\pi\in S^{\MC_\eta}$, meaning $S^{\MC_\eta}$ contains no recurrent states. Consequently, we define transient and recurrent states exclusively for the UMC semantic.
 \begin{definition}[Transient and Recurrent states in IDTMCs]\label{def:transient_recurrent_states_IDTMC}
@@ -658,7 +656,7 @@ Furthermore, we define transient and recurrent states. As we observed for the in
 In other words, a state $s\in S^\IMC$ is recurrent or transient if and only if there exists a DTMC $\MC \models_U \IMC$ in which the corresponding $s\in S^\MC$ is recurrent or transient, respectively.
 We denote the set of recurrent states as $S^\IMC_{re}$ and the set of transient states as $S^\IMC_{tr}$.
 
-Notice, that in contrast to DTMCs, there exist IDTMCs with $S_{tr}^\IMC \cap S_{re}^\IMC \neq \emptyset$. To observe this, consider state $s_4$ of \Cref{ex:IMC_for_semantic}. Let $\MC_{tr} \models_U \IMC_E$ with $\PF^{\MC_{tr}}(s_4,s_3) = 0$. Therefore, $s_4\in S_{tr}^{\MC_{tr}}$ and consequently $s_4 \in S_{tr}^{\IMC_E}$. Now, let $\MC_{re} \models_U \IMC_E$ with $\PF^{\MC_{re}}(s_4,s_4) = 1$. Then, $s_4\in S^{D_{re}}_{re}$ and thus $s_4 \in S^{\IMC_E}_{re}$. Thus, $s_4 \in S^{\IMC_E}_{re} \cap S^{\IMC_E}_{tr}$. The unspecified probability distributions of $\MC_{tr}$ and $\MC_{re}$ are mapped on to arbitrary valid distributions.
+Notice that in contrast to DTMCs, there exist IDTMCs with $S_{tr}^\IMC \cap S_{re}^\IMC \neq \emptyset$. To observe this, consider state $s_4$ of \Cref{ex:IMC_for_semantic}. Let $\MC_{tr} \models_U \IMC_E$ with $\PF^{\MC_{tr}}(s_4,s_3) = 0$. Therefore, $s_4\in S_{tr}^{\MC_{tr}}$ and consequently $s_4 \in S_{tr}^{\IMC_E}$. Now, let $\MC_{re} \models_U \IMC_E$ with $\PF^{\MC_{re}}(s_4,s_4) = 1$. Then, $s_4\in S^{D_{re}}_{re}$ and thus $s_4 \in S^{\IMC_E}_{re}$. Thus, $s_4 \in S^{\IMC_E}_{re} \cap S^{\IMC_E}_{tr}$. The unspecified probability distributions of $\MC_{tr}$ and $\MC_{re}$ are mapped on to arbitrary valid distributions.
 \todo{vllt abbildung/Beispiel duplizieren und hier nochmal zeigen}
 
 Due to this, we additionally define the sets 
@@ -668,7 +666,7 @@ and
 Intuitively, these are the sets that contain all states that are reachable and either recurrent or transient, respectively, in all DTMCs $\MC \models_U \IMC$ that satisfy $\IMC$ under the UMC semantic.
 
 \section{Relation between the semantics}\label{sec:relation_between_the_semantics}
-In this section, we show some relations between the UMC and IMDP semantic that are relevant for the rest of this thesis.
+In this section, we show some relations between the UMC and IMDP semantics that are relevant for the rest of this thesis.
 
 Intuitively, the IMDP semantic is more expressive than the UMC semantic. More specifically for any given IDTMC $\IMC$, a DTMC $\MC$ that satisfies $\IMC$ under the UMC semantic, i.e., $\MC \models_U \IMC$, does also satisfy $\IMC$ under the IMDP semantic, i.e., $\MC \models_I \IMC$.
 \begin{theorem}\label{th:relation_of_semantics}
@@ -679,7 +677,7 @@ In other words, if a DTMC $\MC\models_U\IMC$ satisfies $\IMC$ under the UMC sema
 We shortly prove this theorem for our definition of the IMDP semantic.
 
 \begin{proof}
-    Given an IDTMC $\IMC$ and a DTMC $\MC \models_U \IMC$, there exists at least one stationary nature $\eta_{st}$ and corresponding induced DTMC $\MC_{\eta_{st}}$ of the form \Cref{def:induced_DTMC_stat_Nature}, such that $\MC = \MC_{\eta_{st}}$.
+    Given an IDTMC $\IMC$ and a DTMC $\MC \models_U \IMC$, there exists at least one stationary nature $\eta_{st}$ and corresponding induced DTMC $\MC_{\eta_{st}}$ of the form \Cref{def:induced_DTMC_stat_Nature} such that $\MC = \MC_{\eta_{st}}$.
     In other words, the set of induced DTMCs by stationary natures on $\IMC$ of the form \Cref{def:induced_DTMC_stat_Nature} is identical to the set of DTMCs that satisfy $\IMC$ under the UMC semantic.
 
     To show this, we first define $\eta_{st}(s) \coloneq \PF^\MC(s)$ for all $s \in S^\IMC = S^\MC$, where $\PF^\MC(s)$ denotes the probability distribution of $\PF^\MC$ on $s$. Thus, 
@@ -687,11 +685,11 @@ We shortly prove this theorem for our definition of the IMDP semantic.
     for all $s_i,s_j\in S^\IMC$. In other words, $\MC_{\eta_{st}}$ and $\MC$ have the identical probability distribution function.
     Moreover, $S^{\MC_{\eta_{st}}} = S^\IMC = S^\MC$ by definition, see \Cref{def:once-and-for-all_semantic} and \Cref{def:induced_DTMC_stat_Nature}.
     % Thus, $\sum_{t\in S^{\MC_{\eta_{st}}}}\PF^{\MC_{\eta_{st}}}(s,t) = 1$, i.e., $\PF^{\MC_{\eta_{st}}}$ is well-defined, and $\PF^{\MC_{\eta_{st}}}(s,t) \in [\PFlower^\IMC(s,t),\PFupper^\IMC(s,t)]$ for all $s,t\in S^\IMC$, as $\MC \models_U \IMC$. 
-    It suffices to show that the transition probability functions are identical, as we can apply results for the \textit{fixed-intial-state definition} to our own definition. Hence, $\MC_{\eta_{st}} = \MC$ and as $\MC_{\eta_{st}} \models_I \IMC$, see \Cref{def:IMDP_semantic}, we can conclude that $\MC \models_I \IMC$.
+    It suffices to show that the transition probability functions are identical, as we can apply results for the fixed-initial-state definition to our own definition. Hence, $\MC_{\eta_{st}} = \MC$ and as $\MC_{\eta_{st}} \models_I \IMC$, see \Cref{def:IMDP_semantic}, we can conclude that $\MC \models_I \IMC$.
     % Hence, $\MC_{\eta}$ satisfies all conditions of the UMC semantic, see \Cref{def:once-and-for-all_semantic}, and therefore, $\MC_\eta \models_U \IMC$. 
 \end{proof}
 
 \todo{Kurz zusammenfassen, was die relation der zwei Semantiken für ne folge hat}
 
-Another important relation between the two semantics, that we use in this thesis, is that the semantics coincide on the maximum and minimum reachability probability, see \cite{reachability_in_pIMCs_using_constraints,complexity_model_checking_interval-valued_DTMCs}.
+Another important relation between the two semantics that we use in this thesis is that the semantics coincide on the maximum and minimum reachability probability, see \cite{reachability_in_pIMCs_using_constraints,complexity_model_checking_interval-valued_DTMCs}.
 \todo{vllt nocht bisschen mehr text hierzu, weiß aber nicht was; und benutze ich es wirklich?}
