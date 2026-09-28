@@ -126,7 +126,7 @@ We provide a short proof by contradiction of this theorem
 \begin{proof}
     Let us assume that there exists a DTMC $\MC \models_U \IMC$ such that $\Thetaupper^\IMC(s) < \theta^\MC(s)$. Using \Cref{th:max_min_stat_distribution} and \Cref{eq:Stat_Distr_via_BSCC_for_DTMC}, we can thus conclude that either
     \[Pr^\MC(\lozenge B) > \Prupper^{\IMC}(\lozenge B) \qquad \text{or} \qquad \frac{\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_s]}{\sum_{t\in S}\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_t]} > \overline{\theta}^{\IMC|_B}\ .\]
-    However, as $\MC \models_U \IMC$ and $\mathcal{B}\!\Rsh^{\hat{v}} \models_U \mathcal{I}\!\Rsh^{\hat{v}}$, by the definition of $\Prupper^\IMC$ and the maximality of $\overline{\theta}^{\IMC|_B}$ as a solution of the NLP, this leads to a contradiciton.
+    However, as $\MC \models_U \IMC$ and $\mathcal{B}\!\Rsh^{\hat{v}} \models_U \mathcal{I}\!\Rsh^{\hat{v}}$, by the definition of $\Prupper^\IMC$ and the optimality of $\overline{\theta}^{\IMC|_B}$ as a maximal solution of the NLP, this leads to a contradiciton.
     Furthermore, as $s$ belongs to a singular BSCC $B$, every $\mathcal{B}\!\Rsh^{\hat{v}} \models_U \mathcal{I}\!\Rsh^{\hat{v}}$ is necessarily constructed from $B$. Thus, there exists a DTMC $\MC \models_U \IMC$, such that $Pr^\MC(\lozenge B) = \Prupper^\IMC(\lozenge B)$ and $\theta^{\MC|_B} = \overline{\theta}^{\IMC|_B}$.
     The proof for $\Thetalower^\IMC(s)$ follows analogously by inverting the inequalities.
 \end{proof}

@@ -6,7 +6,7 @@ We then continue by introducing the theoretical foundation which is required for
 
 
 \section{Notation}\label{sec:notation}
-We denote the set of natural numbers, including zero, as $\NN$ and the set of positive natural numbers, excluding zero, as $\NNgz$. The set of real numbers is denoted as $\RR$ and the extended real numbers by $\eRR = \RR \cup \{-\infty,\infty\}$ for which we use the following conventions:
+We denote the set of natural numbers, including zero, as $\NN$ and the set of positive natural numbers, excluding zero, as $\NNgz$. The set of real numbers is denoted as $\RR$ and the set of extended real numbers by $\eRR = \RR \cup \{-\infty,\infty\}$, for which we use the following conventions:
 \begin{enumerate}[label=(\roman*)]
     \item $x + \infty = \infty + x = \infty$ for all $x \in \RR$,
     \item $\infty + \infty = \infty$, and
@@ -14,15 +14,15 @@ We denote the set of natural numbers, including zero, as $\NN$ and the set of po
         \begin{cases}
             \infty  & \text{if } x \in \RRgz,\\
             0       & \text{if } x = 0,\\
-            -\infty & \text{if } x \in \RRlz.
+            -\infty & \text{if } x \in \RRlz,
         \end{cases}$
 \end{enumerate}
-\todo{vllt noch $\RRgz$ und lz definieren?}
+where $\RRgz$ denotes set of positive and $\RRlz$ the set of negative real numbers.
 The conventions are defined analogously for $-\infty$. Other expressions such as $\infty-\infty$ and $\frac{\infty}{\infty}$ are undefined. 
-For a given set $A$ we denote its powerset as $2^X = \{Y \mid Y \subseteq X\}$.
+For a given set $A$ we denote its powerset as $2^X = \{Y \mid Y \subseteq X\}$. We denote identity matrix as $\eye$.
 
-Furthermore, we denote the entry in the $i$-th row and $j$-th column of a matrix $\tT$, as $(\tT)_{ij}$. We denote the $i$-th entry of a vector $v$ as $v(i)$.
-\todo{Tue ich aber nicht immer}
+Furthermore, we denote the entry in the $i$-th row and $j$-th column of a matrix $A$, as $(A)_{ij}$. We denote the $i$-th entry of a vector $v$ as $v(i)$.
+\todo{Tue ich aber nicht immer; vllt einfach für jedes wo ich es tue, einmal einführen}
 For convenience, we use the notation $\underline{n} = \{0, 1, 2, \dots, n\}$ with $n\in \NN$. \todo{vllt diese Notationsweise rausnehmen; und schauen ob erweiterung mit 0 passt auf alles, wo benutzt}
 Moreover, for a given set $S$ we use the notation $|S|$ to denote its cardinality.
 
@@ -34,9 +34,8 @@ Lastly, we use \textit{Iverson Brackets} $\llbracket B \rrbracket$ to denote the
 
 % Matheteil
 \section{Theoretical Foundation}\label{sec:matheteil}
-In this section, we introduce basic concepts from the subjects matrix, domain, measure, and probability theory which used throughout this thesis. 
+In this section, we introduce basic concepts from domain, measure, probability, and matrix theory, as well as other concepts used throughout this thesis.
 
-%Matrix Theory
 % Domain theory
 We start by introducing notions from domain theory.
 The provided definitions are taken from \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens} whose material originates from \cite[Chapters 1]{Abramsky_Gabbay_Maibaum_Book_Matheteil}.
@@ -52,8 +51,7 @@ The provided definitions are taken from \cite{Computing_EVTs_Stationary_Distr_in
 A partial order $\sqsubseteq$ on a set $X$ is said to be a \textit{linear order} if any two elements in $X$ are comparable by $\sqsubseteq$.
 
 % Measure theory
-We continue by briefly presenting some concepts from measure theory.
-
+We continue by briefly presenting some concepts from measure and probability theory.
 The following contents are taken from \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens} whose material originates from \cite[Chapters 1, 4, and 5]{Ash_Book_Matheteil}.
 \begin{definition}[$\sigma$-Algebra, Measurable Space]
     Let $\Omega$ be a non-empty set. We call $\Sigma \subseteq 2^{\Omega}$ a \textit{$\sigma$-algebra} on $\Omega$ if the following conditions are satisfied:
@@ -62,7 +60,7 @@ The following contents are taken from \cite{Computing_EVTs_Stationary_Distr_in_M
         \item $X \in \Sigma$ implies $\Omega\backslash X \in \Sigma$ for all $X \subseteq \Omega$, and
         \item $X_1,X_2,\dots \in \Sigma$ implies $\bigcup_{i\in \NN}X_i\in \Sigma$ for all $X_1,X_2,\dots \subseteq \Omega$.
     \end{enumerate}
-    If $\Sigma$ is a $sigma$-algebra on $\Omega$, $(\Omega,\Sigma)$ is called a \textit{measurable space}.
+    If $\Sigma$ is a $\sigma$-algebra on $\Omega$, $(\Omega,\Sigma)$ is called a \textit{measurable space}.
 \end{definition}
 
 \todo{vllt das Beispiel von Hannah mit einbauen}
@@ -126,17 +124,17 @@ A \textit{probability distribution} is a function that assigns probabilities to 
 % \end{definition}
 \todo{Brauche ich cond. prob. und law of total prob??}
 
-We continue by introducing notions from matrix theory based on \cite{}.
+We continue by introducing notions from matrix theory.
 
 An important notion, which we require in this thesis, are \textit{(strictly) row-stochastic matrices}.
 \begin{definition}[Row-Stochastic Matrix]\label{def:row-stoch_matrix}
-    A square matrix $\tT \in \RR^{n\times n}_{\geq 0}$ is row-stochastic, if and only if $\sum_{j=0}^n(\tT)_{ij} = 1$ for all rows $i \in \underline{n}$.
+    A square matrix $A \in \RR^{n\times n}_{\geq 0}$ is row-stochastic, if and only if $\sum_{j=0}^n(A)_{ij} = 1$ for all rows $i \in \underline{n}$.
 \end{definition}
-When considering each row as a function $f_i(j)=(\tT)_{ij}$, these functions are discrete probability distributions.
+Notice, that if we consider each row $i$ of a row-stochastic Matrix $A$, as a function $f_i(j)=(A)_{ij}$, then these functions are discrete probability distributions.
 
 \begin{definition}[(Strictly) Row-Substochastic Matrix]\label{def:row-substoch_matrix}
-    A square matrix $\tT \in \RR^{n\times n}_{\geq 0}$ is row-substochastic, if and only if $\sum_{j=0}^n(\tT)_{ij} \leq 1$ for all rows $i \in \underline{n}$.\\
-    $\tT$ is strictly row-substochastic if and only if ther exists at least one row $i'$ with $\sum_{j=0}^n(\tT)_{i'j} < 1$
+    A square matrix $A \in \RR^{n\times n}_{\geq 0}$ is row-substochastic, if and only if $\sum_{j=0}^n(A)_{ij} \leq 1$ for all rows $i \in \underline{n}$.\\
+    $A$ is strictly row-substochastic if and only if ther exists at least one row $i'$ with $\sum_{j=0}^n(A)_{i'j} < 1$
 \end{definition}
 
 If a matrix $A$ converges to the null matrix, then the inverse of $(\eye - A)$, where $\eye$ is the identity matrix, is equal to the so-called Neumann series \cite{Neumann_Matheteil}.
@@ -144,12 +142,7 @@ If a matrix $A$ converges to the null matrix, then the inverse of $(\eye - A)$, 
     Given a matrix $A\in \RR^{n\times n}$ with $\lim_{k\rightarrow \infty}A^k = 0$, i.e. $A$ is convergent, the Neumann series $\sum_{k=0}^\infty A^k$ converges against $(\eye - A)^{-1}$.
 \end{definition}
 
-% \begin{definition}\label{def:full_rank_of_inv_matrices}
-%     Invertible matrices have full rank
-% \end{definition}
-\todo{benutze ich full rank?}
-
-We will now shortly introduce linear and nonlinear programming based on \cite{Luenberger_Book_Matheteil}.
+We continue by introducing linear and nonlinear programming based on \cite{Luenberger_Book_Matheteil}.
 \begin{definition}[Linear Programming]
     A \textit{linear programming} problem with $n$ variables and $m$ constraints can be formulated as:
     \begin{align}

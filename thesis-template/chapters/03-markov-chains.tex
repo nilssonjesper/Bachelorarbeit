@@ -1,36 +1,36 @@
 \chapter{Markov Chains}
 \label{ch:Markov Chains}
 
-The previous chapter provided preliminary mathematical notions. In the following we introduce the notion of Markov Chains, which are central to this thesis.
+The previous chapter provided preliminary mathematical notions. In the following we introduce the notion of Markov chains, which are central to this thesis.
 
-This chapter starts with a formal definition of Markov Chains in \Cref{sec:DTMCs}. We then continue, by elaborating on related concepts, such as the probability space, reachability probabilities, as well as recurrent and transient states. Moreover, we describe a further important concept, the \textit{expected visiting times} of states in DTMCs, in \Cref{sec:EVTs_for_DTMCs} which were first introduced by \cite{KemenySnellBook}.
+This chapter starts with a formal definition of Markov chains in \Cref{sec:DTMCs}. We then continue, by elaborating on related concepts, such as the probability space, reachability probabilities, as well as recurrent and transient states. Moreover, we describe a further important concept, the \textit{expected visiting times} of states in DTMCs, in \Cref{sec:EVTs_for_DTMCs} which were first introduced by \cite{KemenySnellBook}.
 Lastly, we relate these \textit{expected visiting times} to reachability probabilities in \Cref{sec:MC_Quantitative_Reachability}, as done in \cite{Baier_Relating_Reach_Prob,Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
 
+\emph{\textbf{Contributions}}
+\begin{itemize}
+    \item \Cref{sec:DTMCs}: We provide a recursive characterization for \textit{reachability probabilities} given a fixed initial state.
+    \item \Cref{sec:EVTs_for_DTMCs}: We extend the definition of \textit{(expected) visiting times} provided in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens} to sets of states.
+\end{itemize}
+
 \section{Discrete-Time Markov Chains}\label{sec:DTMCs}
-In this section, we will introduce definitions and theorems for Markov Chains. The notation and contents of this section are mostly based on \cite{Bibel}, \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, and \cite{Semantics_Model-Checking_omega-Regular}.
+In this section, we will introduce definitions and theorems for Markov chains. The notation and contents of this section are based on \cite{Bibel}, \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, and \cite{Semantics_Model-Checking_omega-Regular}, unless stated otherwise.
 
 \begin{definition}[DTMC]\label{def:DTMCs}
     A discrete-time Markov chain (DTMC) is a tuple $\MC = (S^\MC, \PF^\MC,\iota_{init}^\MC)$, where
     \begin{enumerate}[label=(\roman*)]
-        \item $S$ is a countable, nonempty set of states,
-        \item $\PF: S \times S \rightarrow [0,1]$ is the \textit{transition probability function}, with $\sum_{s'\in S}\PF(s,s') = 1$ for all states $s \in S$, and
-        \item $\iota_{init}: S \rightarrow [0,1]$ is the \textit{initial distribution}, such that $\sum_{s\in S}\iota_{init}(s)=1$.
+        \item $S^\MC$ is a countable, nonempty set of states,
+        \item $\PF^\MC: S^\MC \times S^\MC \rightarrow [0,1]$ is the \textit{transition probability function}, with 
+        \[\sum_{s'\in S^\MC}\PF^\MC(s,s') = 1\]
+        for all states $s \in S^\MC$, and
+        \item $\iota_{init}^\MC: S^\MC \rightarrow [0,1]$ is the \textit{initial distribution}, such that $\sum_{s\in S^\MC}\iota_{init}^\MC(s)=1$.
     \end{enumerate}
 \end{definition}
 Whenever the DTMC $\MC$ is evident from the context, we omit the superscript $\MC$ from $S^\MC$, $\PF^\MC$, and $\iota_{init}^\MC$.
-We assume in this thesis, that the DTMCs are \textit{finite}, i.e., that the set of states $S$ is \textit{finite}. We sometimes refer to these finite DTMCs, as \textit{finite-state DTMCs}. We call a state $s\in S$ is called \textit{initial} if it satisfies $\iota_{init}(s) > 0$. Furthermore, we assume an arbitrary but fixed linear order $\prec$ on the set $S$, such that the states $s\in S$ can be indexed. Thus, $s_i \prec s_j$ if $s_i,s_j \in S$ and $i < j$. This allows us, for example, to denote the $i$-th entry of the initial distribution as $\iota_{init}(s_i)$, when viewing $\iota_{init}$ as a column vector.
-Due to the conditions (i) and (ii) provided in \Cref{def:DTMCs}, the transition probability function $\PF$ and the initial distribution $\iota_{init}$ are discrete probability distributions, see \Cref{def:discrete_probability_distribution}.
-\todo{discrete prob. distr. comment necessary?}
+We assume in this thesis, that the DTMCs are \textit{finite}, i.e., that the set of states $S$ is \textit{finite}. We sometimes refer to these finite DTMCs, as \textit{finite-state DTMCs}. We call a state $s\in S$ \textit{initial}, if it satisfies $\iota_{init}(s) > 0$. Furthermore, we assume an arbitrary but fixed linear order $\prec$ on the set $S$, such that the states $s\in S$ can be indexed. Thus, $s_i \prec s_j$ if $s_i,s_j \in S$ and $i < j$. This allows us, for example, to denote the $i$-th entry of the initial distribution as $\iota_{init}(s_i)$, when viewing $\iota_{init}$ as a column vector.
+Due to the conditions for (i) and (ii) of \Cref{def:DTMCs}, the transition probability function $\PF$ and the initial distribution $\iota_{init}$ are discrete probability distributions, see \Cref{def:discrete_probability_distribution}.
 
-\todo{introduce concept of a fixed linear order in Matheteil, probablby can just copy Hannah}
-\todo{??(notion of a current state)}
+Moreover, if the probability to transition from a state $s_i$ to $s_j$, for two given states $s_i,s_j \in S$, is greater than zero, i.e., $\PF(s_i,s_j)>0$, then we refer to $s_j$ as a direct successor of $s_i$. Conversely, we refer to $s_i$ as a direct predecessor of $s_j$. Additionally, we define neighbour sets $N(s)$, with $s_j \in N(s_i)$, if and only if $s_j$ is a direct successor of $s_i$.
 
-Moreover, if the probability to transition from a state $s_i$ to $s_j$, for two given states $s_i,s_j \in S$, is greater than zero, i.e., $\PF(s_i,s_j)>0$, then we refer to $s_j$ as a direct successor of $s_i$. Conversely, we refer to $s_i$ as a direct predecessor of $s_j$. Additionally, we define a neighbour set $N$, with $s_j \in N(s_i)$, if and only if $s_j$ is a direct successor of $s_i$.
-
-% \begin{definition}[Transition Matrix]\label{def:transition_matrix}
-%     The transition matrix $\tT^{\MC}$ of a DTMC $\MC$ is a square matrix with size $|S| \times |S|$ \todo{gemeintes S klar?}, such that $(\tT^{\MC})_{ij} = \PF(s_i,s_j)$.
-% \end{definition}
-% Notice that due to the condition, given in (ii) of \Cref{def:DTMCs}, that $\sum_{s_j\in S}\PF(s_i,s_j) = 1$ for all states $s \in S$ and thus by defintion $\sum_{j=0}^{|S|}(\tT)_{ij} = 1$ for all rows $i \in \underline{n}$. In other words, the transition matrix $\tT$ of a DTMC $\MC$ is row-stochastic, see \Cref{def:row-stoch_matrix}. 
 
 % \begin{theorem}[k-step Transition Probability]\label{th:k-step_transition_probability}
 %     The $k$-th power of the transition matrix $(\tT^k)_{ij}$ characterizes the probability of transitioning from state $i$ to $j$ in precisely $k$ steps, i.e., $Pr(\pi[k] = s_j \mid \pi[0] = s_i)$.
@@ -38,57 +38,47 @@ Moreover, if the probability to transition from a state $s_i$ to $s_j$, for two 
 
 % We prove this theorem after introducing further concepts/definitions in \Cref{pr:k-step_transition_probability}.
 
-% \begin{definition}[Induced weighted graph]
-%     Every DTMC $\MC$ induces a directed weigthed graph $\gG^{\MC} = (V,E,f)$, with the nodes $V = S^{\MC}$, the edges $(s,s')\in E$ if and only if $\PF(s,s')>0$, and the weight function $f(s,s') = \PF(s,s')$\todo{simply use $\PF$ instead of f?}
-% \end{definition}
-% If $\tT^{\MC}$ is reducible, then $\gG^{\MC}$ is not strongly connected.
-% \begin{proof}
-%     In the other direction, if $(A^{k+1})_{ij}>0$, then there must be at least one $l\in \underline{n}$, such that $(A^k)_{il}\cdot (A)_{lj} >0$. Thus, using the induction hypothesis, there must exist a path of length $k$ from $i$ to $l$ and $(l,j)\in E(\gG)$. Therefore, there exists a path of length $k+1$ from $i$ to $j$ over $l$.
-%     It trivially suffices to ensure this property for $k<n$, as if a path of length $k \geq n$ exists, then at least $n + 1$ nodes are visited, i.e., at least one node is visited multiple times.
-% \end{proof}
-
-\emph{\textbf{Paths and Probability Space.}}
-To reason about the probabilistic behavior of a DTMC $\MC$, we define its probability space, in which the outcomes correspond to the infinite paths of $\MC$.
-
-To this end, we fix a DTMC $\MC = (S,\PF,\iota_{init})$ for the rest of this section.
+\emph{\textbf{Paths and Probability Spaces.}}
+To reason about the probabilistic behavior of a DTMC $\MC$, we define its probability space, in which the outcomes correspond to the infinite paths of $\MC$. To this end, we fix a DTMC $\MC = (S,\PF,\iota_{init})$ for the rest of this section.
 
 \begin{definition}[Path of a DTMC]
-    An \textit{infinite path} $\pi$ in a DTMC $\MC$ is a sequence $\pi = (s_0, s_1, \dots$) of states with $s_0,s_1,\dots \in S$, such that $\PF(\pi[k],\pi[k+1]) > 0$. A \textit{finite path} is a finite prefix of an \textit{infinite path}.
+    An \textit{infinite path} $\pi$ in a DTMC $\MC$ is a sequence $\pi = (s_0, s_1, \ldots$) of states with $s_0,s_1,\ldots \in S$, such that $\PF(\pi[k],\pi[k+1]) > 0$. A \textit{finite path} is a finite prefix of an \textit{infinite path}.
 \end{definition}
 
-We use the notation $\pi[k]\in S$ to denote the $k$-th element of the path $\pi$ for all $k\in \NN_0$, i.e. $\pi[k] = s_k$.
+We use the notation $\pi[k]\in S$ to denote the $k$-th element of the path $\pi$ for all $k\in \NN$, i.e., $\pi[k] = s_k$.
 
-Notice, that for any path $\pi$ a given state $\pi[k]$, which is visited in step $k\in \NN$, is always followed by one of its direct succesors, i.e., $\pi[k+1]\in N(\pi[k])$.
-Furthermore, we define the length $|\pi|$ of a finite path $\pi = (s_0,\dots,s_k) \in Paths_{fin}^\MC$ to be equal to $k$, which we denote as $|\pi| = k$. As an infinite path is infinite in lenght, we define $\pi \in \Path$ to be $|\pi| = \infty$.
+The sets of all infinite and finite paths are denoted as $\Path$ and $Paths_{fin}^\MC$, respectively.
+Notice that for any path $\pi$, a given state $\pi[k]$, which is visited in step $k\in \NN$, is always followed by one of its direct successors, i.e., $\pi[k+1]\in N(\pi[k])$.
+Furthermore, we define the length $|\pi|$ of a finite path $\pi = (s_0,\dots,s_k) \in Paths_{fin}^\MC$ to be equal to $k$, which we denote as $|\pi| = k$. As an infinite path is infinite in length, we define $\pi \in \Path$ to be $|\pi| = \infty$.
 We denote the last state of a finite path $\pi \in Paths^{\MC}_{fin}$ as $last(\pi)$, i.e., if $|\pi| = n$, then $last(\pi) = \pi[n]$.
-The sets of all infinite and finite sets are denoted as $\Path$ and $Paths_{fin}^\MC$, respectively.
 
 Further, we construct the \textit{probability space} of a DTMC as follows. The events correspond to sets of infinite paths that can be expressed as countable unions and intersections of cylinder sets, i.e., sets containing all possible continuations of finite paths in $\MC$.
-\todo{cylinder set sachen, die hannah reingepackt hat bei sich?; cylinder sets in matheteil einführen}
 \begin{definition}[Probability Space of a DTMC]\label{def:prob_space_of_DTMC}
     The \textit{probability space} of a DTMC $\MC$ is defined as $(Paths_{inf}^\MC, \sum_{Paths_{inf}^\MC}, Pr^\MC)$, where
     \begin{itemize}
         \item $\sum_{Paths_{inf}^\MC}$ denotes the smallest $\sigma$-algebra containing the cylinder sets $Cyl(\pi')$ for all finite paths $\pi'\in Paths_{fin}^\MC$ with
-        \[Cyl(\pi') = \{\pi \in Paths_{inf}^\MC\mid\forall k\in \underline{|\pi'|}: \pi[k] = \pi'[k]\}\]\todo{Define $\sigma$-algebra, bei Hannah Def. 2.12 ff}
+        \[Cyl(\pi') = \{\pi \in Paths_{inf}^\MC\mid\forall k\in \underline{|\pi'|}: \pi[k] = \pi'[k]\}\ .\]
         \item $Pr^\MC$ is the unique probability measure on $(Paths_{inf}^\MC, \sum_{Paths_{inf}^\MC})$ satisfying
         \[Pr^\MC(Cyl(\pi')) = \iota^\MC_{init}(\pi'[0])\cdot \prod_{k=0}^{|\pi'|-1}\PF^\MC(\pi'[k],\pi'[k+1])\]
-        for all finite paths $\pi'\in Paths_{fin}^\MC$
+        for all finite paths $\pi'\in Paths_{fin}^\MC$.
     \end{itemize}
 \end{definition}
 
-\todo{define $\sigma$-algebra in Matheteil}
-
 Additionally, we use the notation $Pr^\MC_s$ to denote the probability measure on the measurable space induced by fixing $s\in S$ as the unique initial state. Whenever the DTMC $\MC$ is evident from the context, we omit the superscript $\MC$ from $Pr^\MC$ and $Pr_s^\MC$.
 
-\todo{measurable space definieren? Macht Hannah das?}
+\emph{\textbf{Intermediate States.}} Using the notion of finite paths, we introduce \textit{intermediate states}.
+
+\begin{definition}[Intermediate States]\label{def:intermediate_state}
+    Given a DTMC $\MC$, a set of states $T\subseteq S$, and a state $s \in S$, then $u\in S$ is \textit{intermediate} if and only if there exists a path $\pi \in Paths^\MC_{fin}$, such  that $\pi[0]\in T$, $last(\pi) = s$, and $\pi[k] = u$ for some $k\in \underline{|\pi|}$. 
+\end{definition}
+In other words, there exists a finite path from some $t\in T$ to $s$ in $\MC$ that visits $u$.
+We denote the set of these intermediate states as $I^\MC_{T,s}$ for a set of states $T\subseteq S$ and state $s\in S$ in $\MC$. Moreover, if $T$ is a singleton set, i.e., $T =\{t\}$, then we simply denote the set of intermediate states as $I^\MC_{t,s}$.
 
 \emph{\textbf{Reachability probability.}} In the following, we consider events, i.e., measurable sets of infinite paths, which are relevant for the introduction of reachability probabilities in DTMCs.
 
-\todo{measurable sets in Matheteil einführen}
-
 First, we define the \textit{until} operator ($\until$), see \cite{Bibel}.
 \begin{definition}[Until Operator]\label{def:constrained_reachability_probabilities}
-    Let $R,T \subseteq S^{\MC}$ be two sets of states of a DTMC $\MC$. For these two sets, we define the \textit{until} operator as
+    Let $R,T \subseteq S$ be two sets of states of a DTMC $\MC$. For these two sets, we define the \textit{until} operator as
     \[R\until T = \{\pi \in \Path\mid\exists k\in \NN: \pi[k]\in T\land \forall i <k: \pi [i]\in R\} \ .\]
 
     Futhermore, the \textit{step-bounded until} operator is defined as
@@ -100,7 +90,7 @@ Intuitively, the set $R\until T$ contains all paths that only visit states in $R
 Using the \textit{until} operator, we can introduce the \textit{eventually} operator ($\lozenge$).
 
 \begin{definition}[Eventually Operator]
-    Let $T\subseteq S$ be a set of states of a DTMC $\MC$. Then we define the \textit{eventually} operator as $\lozenge T = S \until T$.
+    Let $T\subseteq S$ be a set of states of a DTMC $\MC$. Then, we define the \textit{eventually} operator as $\lozenge T = S \until T$.
     
     Consequently, we define the \textit{step-bounded eventually} operator as $\lozenge^{=k} T = S \until^{=k} T$.
 \end{definition}
@@ -110,24 +100,19 @@ With the \textit{eventually} operator, we can define the \textit{reachability pr
 \begin{definition}[Reachability Probability]
     The reachability probability of a set $T \subseteq S^{\MC}$ in a DTMC $\MC$ is given by $Pr(\lozenge T)$.
 \end{definition}
-\todo{eigener Definitionsblock hierfür?}
-Thus, the reachability probability describes the probability of visiting a set of states in a DTMC $\MC$. Intuitively, if $Pr(\lozenge T) >0$ at least one state $t\in T$ is reachable in $\MC$, i.e., there exists at least one $\pi \in Paths^\MC_{fin}$, such that $\pi[0]$ is an initial state of $\MC$ and $\pi$ visits $t$. 
+Thus, the reachability probability describes the probability of visiting at least one state $t\in T$ in a set of states $T$ at some step $k$. Intuitively, if $Pr(\lozenge T) >0$ at least one state $t\in T$ is reachable in $\MC$, i.e., there exists at least one $\pi \in Paths^\MC_{fin}$, such that $\pi[0]$ is an initial state of $\MC$ and $\pi$ visits $t$. Moreover, notice that $Pr_s(\lozenge s) = 1$ for all $s\in S$, as $s$ is the fixed initial state.
 % Furthermore, notice that every $\pi' \in \lozenge T$ is a path fragment of a path in $\MC$.
 %\todo{how to define/denote initial state. Unterscheiden, wenn t initial oder nicht} 
-In case $T = \{t\}$ is a singleton set, we omit the braces and denote $\lozenge t$ instead of $\lozenge \{t\}$ (and $S \cup t$ instead of $S\cup T$). Lastly, we denote $\lozenge_t T = \{\pi\in \lozenge T \mid \pi[0] = t\}$.
+In case $T = \{t\}$ is a singleton set, we omit the braces and denote $\lozenge t$ instead of $\lozenge \{t\}$. Lastly, we denote $\lozenge_t T = \{\pi\in \lozenge T \mid \pi[0] = t\}$.
 
-% \begin{definition}[Characterizing Reachability Probability for Path Fragments]\label{def:characterizing_reachability_probability_for_path_fragments}
-%     For some set of paths $\lozenge S$ and an intial state $t$.
-%     \[Pr_t^\MC(\lozenge S) = \sum_{\pi\in \lozenge_t S}\prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])\]
-%     % \[Pr_t^\MC(\lozenge S) = \frac{\sum_{\pi\in \Diamond_t S}\prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])}{|\lozenge S|}\]
-% \end{definition}
-To calculate the reachability probability in this thesis, we often use the recursive formula, found in the following lemma.
+To calculate the reachability probability, we often use the recursive formula, found in the following lemma.
 \begin{lemma}[Recursive Formula for Reachability Probability]\label{lem:recursive_formula_for_reachability_prob}
-    For states $t \in S$ and $T\subseteq S$:
-    \[Pr_t(\lozenge T) = \sum_{u\in N(t)\cap I_{tT}}\PF(t,u) \cdot Pr_u(\lozenge T)\]
+    Given a DTMC $\MC$, a state $t \in S$, and $T\subseteq S$:
+    \[Pr_t(\lozenge T) = \sum_{u\in N(t)\cap I_{t,T}}\PF(t,u) \cdot Pr_u(\lozenge T)\]
 
     with $Pr_t(\lozenge T) = 1$ for all $t\in T$.
 \end{lemma}
+\todo{extend from fixed to general initial to better fit P-completeness}
 
 We will provide a short proof for this lemma.
 \begin{proof}
@@ -135,21 +120,18 @@ We will provide a short proof for this lemma.
     \begin{align}
         Pr_t^\MC(\lozenge T)
         & = \int_{\pi \in \lozenge T} \iota_{init}^\MC(\pi[0])\cdot \prod_{k=0}^{|\pi|-1} \PF^\MC(\pi[k],\pi[k+1]) \notag \\
-        & = \int_{\pi \in \lozenge_t T} \prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1]) \qquad & (\text{as t is the unique initial} \notag \\[-3ex]
+        & = \int_{\pi \in \lozenge_t T} \prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1]) & (\text{as t is the unique initial} \notag \\[-3ex]
         & &  \text{state, i.e., } \iota_{init}(t) = 1.) \notag\\
-        & = \sum_{u\in N(t)} \int_{\pi \in \lozenge_t T \land \pi[1] = u} \prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1]) \qquad & (\text{as } t \text{ can only be succeded}\notag \\[-3ex]
+        & = \sum_{u\in N(t)} \int_{\pi \in \lozenge_t T \land \pi[1] = u} \prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1]) & (\text{as } t \text{ can only be succeded}\notag \\[-3ex]
         & &  \text{by } u\in N(t)) \notag\\
         % & = \sum_{u\in N(t)} \PF(\pi[0],\pi[1])\int_{\pi \in \lozenge_t S \land \pi[1] = u} \prod_{k=0}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1])
-        & = \sum_{u\in N(t)} \PF(t,u)\int_{\pi \in \lozenge_t T \land \pi[1] = u} \prod_{k=1}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1]) \qquad & (\text{with } \pi[0] = t, \pi[1] = u) \notag\\[1ex]
-        \intertext{For $\pi\in\lozenge_t T$ with $\pi[1]=u$, define $\pi'=(\pi[1],\dots,last(\pi))$. As $\pi'[0] = u$ and $last(\pi') = s$, $\pi'\in \lozenge_u T$. Conversely, for $\pi'\in \lozenge_u T$, define $\pi = (t,\pi'[0],\dots,last(\pi'))$, then $\pi\in\lozenge_t T$. Thus,}
+        & = \sum_{u\in N(t)} \PF^\MC(t,u)\int_{\pi \in \lozenge_t T \land \pi[1] = u} \prod_{k=1}^{|\pi|-1}\PF^\MC(\pi[k],\pi[k+1]) & (\text{with } \pi[0] = t, \pi[1] = u) \notag\\[1ex]
+        \intertext{For $\pi\in\lozenge_t T$ with $\pi[1]=u$, define $\pi'=(\pi[1],\pi[2],\dots,last(\pi))$. As $\pi'[0] = u$ and $last(\pi')\in T$, it follows that $\pi'\in \lozenge_u T$. Conversely, for $\pi'\in \lozenge_u T$, define $\pi = (t,\pi'[0],\dots,last(\pi'))$, then $\pi\in\lozenge_t T$. Thus,}
         & = \sum_{u\in N(t)}\PF^\MC(t,u) \cdot Pr^\MC_u(\lozenge T) \notag \\
-        & = \sum_{u\in N(t)\cap I_{tT}}\PF^\MC(t,u) \cdot Pr^\MC_u(\lozenge T) \qquad & (\text{as, if } u\notin I_{tT} \text{, then } \notag \\[-3ex]
-        & & Pr_u(\lozenge T) = 0 \text{, see \Cref{def:intermediate_state}}.)
+        & = \sum_{u\in N(t)\cap I_{t,T}}\PF^\MC(t,u) \cdot Pr^\MC_u(\lozenge T)\ , \notag
     \end{align}
-    \todo{maybe to much explanation \& reicht das so?}
-    \todo{doppel pi sehr hässlich, aber für last(pi) die dots notation nicht genauso klar}
+    as, if $u\notin I_{t,T}$, then $Pr^\MC_u(\lozenge T) = 0$, as there exists no path from $u$ to $T$ in $\MC$, see \Cref{def:intermediate_state}.
 \end{proof}
-
 
 Lastly, we use the \textit{next} operator ($\cCircle$), which is defined as follows. 
 \begin{definition}[Next Operator]\label{def:next_step_probability}
@@ -157,11 +139,13 @@ Lastly, we use the \textit{next} operator ($\cCircle$), which is defined as foll
     We now define the \textit{next} operator, as
     \[\cCircle E = \{\pi\in\Path \mid (\pi[1],\pi[2],\dots)\in E\} \ ,\]
 \end{definition}
-\todo{define measurable sets}
-\todo{mention, that operators in LTL-style notation?}
-In other words, a path $\pi \in \Path$ is contained in $\cCircle E$ if and only if $\pi' = (\pi[1],\pi[2],\dots)$ is contained in $E$. Moreover, the next step probability is defined as $Pr(\cCircle E) = \sum_{s' \in N(s)}\PF(s,s')\cdot Pr_{s'}(E)$.
 
-In this thesis, we use the \textit{next} operator ($\cCircle$) in combination with the \textit{eventually} operator ($\lozenge$). Specifically, we use them to denote the \textit{recurrence probability} $Pr_s(\cCircle\lozenge s)$, i.e., the probability to reach $s$ from all of its successors.
+\todo{mention, that operators in LTL-style notation?}
+In other words, a path $\pi \in \Path$ is contained in $\cCircle E$ if and only if $\pi' = (\pi[1],\pi[2],\dots)$ is contained in $E$. Moreover, the next step probability is defined as 
+\[Pr(\cCircle E) = \sum_{s\in S}\iota_{init}(s) \cdot \sum_{t \in S}\PF(s,t)\cdot Pr_{t}(E)\ .\]
+\todo{brauch ich das?}
+
+In this thesis, we exclusively use the \textit{next} operator ($\cCircle$) in combination with the \textit{eventually} operator ($\lozenge$). Specifically, we use them to denote the \textit{recurrence probability} $Pr_s(\cCircle\lozenge s)$, i.e., the probability to reach $s$ from all of its direct successors.
 
 
 % Now that we have defined the probability space for DTMCs, we can prove \Cref{th:k-step_transition_probability}.
@@ -180,16 +164,15 @@ In this thesis, we use the \textit{next} operator ($\cCircle$) in combination wi
 \emph{\textbf{Strongly Connected Components.}} We can partition the state set of a DTMC as shown in the following definition.
 
 \begin{definition}[(Bottom) Strongly Connected Component]\label{def:(B)SCC}
-    A non-empty set of states $C \subseteq S^{\MC}$ of a DTMC $\MC$ is \textit{strongly connected} if and only if for every pair of states $s,t\in S$, there exists a path $\pi \in \Path$, such that $\pi[0]=s$ and $\pi[k]$ for some $k\in \NN$.
-    If $C$ is strongly connected and no proper subset of $C$, i.e. $C' \subset C$, is strongly connected, then $C$ is called a \textit{strongly connected component} (SCC).
+    A non-empty set of states $C \subseteq S$ of a DTMC $\MC$ is \textit{strongly connected} if and only if for every pair of states $s,t\in S$, there exists a path $\pi \in \Path$, such that $\pi[0]=s$ and $\pi[k] = t$ for some $k\in \NN$.
+    If $C$ is strongly connected and no proper subset of $C$, i.e., $C' \subset C$, is strongly connected, then $C$ is called a \textit{strongly connected component} (SCC).
     
-    Furthermore, an SCC $C$ is called a \textit{bottom strongly connected component} (BSCC) if there exists no $k\in \NN$ and no path $(\pi[0], \dots, \pi[k],\dots) \in \Path$ such that $\pi[0]\in C$ and $\pi[k] \notin C$.
+    Furthermore, an SCC $C$ is called a \textit{bottom strongly connected component} (BSCC) if there exists no $k\in \NN$ and no path $(\pi[0], \dots, \pi[k],\dots) \in \Path$, such that $\pi[0]\in C$ and $\pi[k] \notin C$.
 \end{definition}
 In other words, once a state of a BSCC $C$ is entered, $C$ cannot be left again. % Notice, that any grouping 
-
 Using BSCCs, we can define \textit{acyclic} DTMCs.
 \begin{definition}[Acyclic DTMC]\label{def:acyclic_DTMC}
-    A DTMC $\MC$ is called \textit{acyclic} if and only if each SCC is either a BSSC or a singleton set $\{s\}$ with $\PF(s,s) = 0$
+    A DTMC $\MC$ is called \textit{acyclic} if and only if each SCC is either a BSCC or a singleton set $\{s\}$ with $\PF(s,s) = 0$
 \end{definition}
 
 % SCC (minimal amount of states of set such that still strongly connec)
@@ -197,86 +180,58 @@ Using BSCCs, we can define \textit{acyclic} DTMCs.
 \emph{\textbf{Recurrent and Transient States.}} Using the \textit{recurrence probability} $Pr_s^\MC(\cCircle\lozenge s)$, we can partition the state set into \textit{recurrent} and \textit{transient} states.
 
 \begin{definition}[Recurrent and Transient States]\label{def:transient_and_recurrent_states}
-    For a given DTMC $\MC$ and state $s \in S$, $s$ is called \textit{recurrent} if and only if $Pr_s(\cCircle \lozenge s)=1$. All states that are not \textit{recurrent} are called \textit{transient}.
+    For a given DTMC $\MC$ the state $s\in S$ is called \textit{recurrent} if $Pr_s(\cCircle \lozenge s)=1$. All states that are not \textit{recurrent} are called \textit{transient}.
 \end{definition}
-In other words, a state is \textit{recurrent} precisely, when we are guaranteed to reach it from all of its direct successors, meaning once we reach a \textit{recurrent} state, we are bound to return to it. Using this definition, we can split the states $S$ of a DTMC into two sets with $S_{tr}$ containing all of the transient states and $S_{re}$ containing all of the recurrent states. 
-Notice, that \textit{recurrent} states are precisely the states contained in a BSCC.
+In other words, a state is recurrent precisely, when we are guaranteed to reach it from all of its direct successors. Meaning, once we reach a recurrent state, we are bound to return to it. Using this definition, we can split the set of states $S$ into two sets $S_{tr}$ and $S_{re}$, where $S_{tr}$ contains all of the transient states and $S_{re}$ contains all of the recurrent states. 
+Notice that recurrent states are precisely the states contained in a BSCC.
 For convenience, we additionally define the set of \textit{initial} states $S^\MC_{in} = \{s \mid \iota^\MC_{init}(s) > 0\}$. Furthermore, we define the set of \textit{transient initial} states $\Strin \subseteq S_{in}$ with $\Strin = S_{in}\cap S_{tr}$. 
+\todo{benutze ich Strin überhaupt noch; glaube nämlich nicht}
 
 Moreover, the event $\lozenge S_{re}$, i.e., to reach any recurrent state, holds \textit{almost surely} in any DTMC.
-\todo{Explain almost surely}
+
 \begin{theorem}[Limit Behaviour]
-    For any DTMC $\MC$, set of recurrent states $S_{re}$, and any state $s\in S$, it holds that $\lim_{k\rightarrow\infty}Pr_s(\lozenge^{=k} S_{re})=1$.
+    For any DTMC $\MC$, the set of recurrent states $S_{re}$, and any state $s\in S$, it holds that $\lim_{k\rightarrow\infty}Pr_s(\lozenge^{=k} S_{re})=1$.
 \end{theorem}
 Intuitively, the probability of reaching a recurrent state after $k$ steps, starting in $s$, tends towards 1 as $k$ tends towards infinity.
 
 Lastly, we define \textit{absorbing} states.
 \begin{definition}[Absorbing state]
-    A states $s$ of a DTMC $\MC$ is refered to as an \textit{absorbing state} if and only if $\PF^{\MC}(s,s) = 1$.
+    Given a DTMC $\MC$ and a state $s\in S$, then $s$ is refered to as an \textit{absorbing state} if and only if $\PF(s,s) = 1$.
 \end{definition}
-This means, once the model enters an \textit{absorbing} state, it cannot leave it. Notice, that \textit{absorbing} states are a special type of \textit{recurrent} states, as the only direct successor of an \textit{absorbing} state $s\in S$ is $s$ itself and therefore trivially $Pr_s(\lozenge s)=1$. Thus, we are guaranteed to return to a given \textit{absorbing} state after one step.
-
-% \begin{definition}[Regular DTMC]
-%     (?)
-% \end{definition}
-
-% \begin{definition}[Reducible DTMC]
-%     A DTMC $\MC$ is called reducible if and only if its transition matrix $\tT$ is reducible.
-% \end{definition}
-
-% As aforementioned, the induced graph of a DTMC with a reducible transition matrix is not strongly connected
-% Reachability in graph (not strongly connected describes precisely markov chain that can be split in non empty recurrent and transient sets)
-% $\tT$ reducible --> upper triangle \Cref{def:conjugation_of_reducible_matrix} (--> proof for canonical form)
-
-% \begin{definition}[Stopping Time]
-%     A random variable $T:\Path\rightarrow \NN\cup\{\infty\}$ is called a \textit{stopping time} if, for every $n\in\NN$ and all paths $\pi,\pi'\in\Path$ with
-%     \[
-%     \pi[k]=\pi'[k] \qquad \text{for all } 0\leq k\leq n,
-%     \]
-%     it holds that
-%     \[
-%     T(\pi)\leq n \iff T(\pi')\leq n.
-%     \]
-%     That is, whether the stopping time has occurred by step $n$ can be determined solely from the path up to step $n$.
-% \end{definition}
-% A common example is the \textit{stopping time} $T(\pi) = \inf_{n\geq 1}\pi[n] = s$ for some $\pi \in \Path$ and $s\in S$, i.e., the first step in which the path enters state $s$.
-
-
-% \begin{definition}[Strong Markov Property]\label{def:strong_markov_property}
-
-% \end{definition}
+This means, once the model enters an \textit{absorbing} state, it cannot leave it. Notice that \textit{absorbing} states are a special type of \textit{recurrent} states, as the only direct successor of an \textit{absorbing} state $s\in S$ is $s$ itself and therefore trivially $Pr_s(\cCircle\lozenge s)=1$. Thus, we are guaranteed to return to a given \textit{absorbing} state after one step.
 
 \begin{definition}[Transition Probabilities of Transient States]\label{def:canonical_form}
-    For a DTMC $\MC$, the transition probability function $\PF$, and set of transient states $S_{tr}$ we define $Q = (\PF(s,t))_{s,t\in S_{tr}}$ which contains the transition probabilities between the transient states.
+    For a DTMC $\MC$, the transition probability function $\PF$, and set of transient states $S_{tr}$, we define $Q^\MC = (\PF(s,t))_{s,t\in S_{tr}}$ which contains the transition probabilities between the transient states.
 \end{definition}
+The entries of $Q^\MC$ are in the arbitrary but fixed linear order $\prec$. 
 
-\emph{\textbf{Rewards.}} DTMCs can be extended with a function that assigns rewards or costs to states that is earned, whenever a state is visited. In this thesis, we solely use non-negative reward functions. We define these functions as done in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
+\emph{\textbf{Rewards.}} DTMCs can be extended by a function that assigns rewards or costs to states that are earned, whenever a state is visited. In this thesis, we solely use non-negative reward functions. We define these functions as done in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
 
 \begin{definition}[Reward Function]
-    A \textit{reward function} for a DTMC $\MC$ is a function $rew: S\rightarrow\RR$. The value $rew(s)$, for $s\in S$, is called the \textit{reward} of state $s$.
+    A \textit{reward function} for a DTMC $\MC$ is a function $rew: S\rightarrow\RR_{\geq 0}$. The value $rew(s)$, for $s\in S$, is called the \textit{reward} of state $s$.
 \end{definition}
+\todo{define RR größer gleich 0 explizit in matheteil?}
 
-
-\emph{\textbf{Markov Decision Processes.}} Another stochastic process that can be extended with a reward functions, are \textit{Markov Decision Processes (MDPs)}. We introduce MDPs based on \cite{Bibel}.
-\begin{definition}[Markov Descision Process]\label{def:MDP}\cite{Bibel}\todo{größtenteils übernommen}
+\emph{\textbf{Markov Decision Processes.}} Another stochastic process that can be extended by reward functions, are \textit{Markov Decision Processes (MDPs)}. We introduce MDPs based on \cite{Bibel}.
+\begin{definition}[Markov Descision Process]\label{def:MDP}
     A \textit{Markov Decision Process} (MDP) is a tuple $\MDP = (S^\MDP,Act^\MDP,\PF^\MDP,s_0^\MDP,rew^\MDP)$, where
     \begin{enumerate}[label=(\roman*)]
         \item $S^\MDP$ is a countable set of states,
         \item $Act^\MDP$ is a set of actions,
-        \item $\PF^\MDP: S^\MDP\times Act^\MDP\times S^\MDP \rightarrow [0,1]$ is the transition probability function such that $\sum_{s'\in S^\MDP}\PF^\MDP(s,\alpha, s') = 1$ for all $s\in S^\MDP$ and $\alpha\in Act^\MDP$,
+        \item $\PF^\MDP: S^\MDP\times Act^\MDP\times S^\MDP \rightarrow [0,1]$ is the transition probability function, such that $\sum_{t\in S^\MDP}\PF^\MDP(s,\alpha, t) = 1$ for all $s,t\in S^\MDP$ and $\alpha\in Act^\MDP$,
         \item $s_0^\MDP$ is the fixed initial state,
         \item $rew^\MDP: S^\MDP \rightarrow\RR$ is a reward function.
     \end{enumerate}
 \end{definition}
 Whenever the MDP $\MDP$ is evident from the context, we will omit the superscript $\MDP$. For the rest of this section, we fix an MDP $\MDP = (S^\MDP,Act^\MDP,\PF^\MDP,s_0^\MDP,rew^\MDP)$.
 
-\emph{\textbf{Paths and Probability Space of MDPs.}} We define paths and probability spaces of MDPs similarly to DTMCs.
+\emph{\textbf{Paths and Probability Spaces of MDPs.}} We define paths and probability spaces of MDPs similarly to DTMCs.
 
 \begin{definition}[Path of an MDP]
-    An \textit{infinite path} $\pi$ in an MDP $\MDP$ is a sequence $\pi = (s_0,\alpha_0, s_1, \alpha_1 \dots$) of states with $s_0,s_1,\dots \in S$ and $\alpha_0,\alpha_1 \in Act$, such that $\PF(\pi[k],\alpha_k,\pi[k+1]) > 0$. A \textit{finite path} is a finite prefix of an \textit{infinite path}.
+    An \textit{infinite path} $\pi$ in an MDP $\MDP$ is a sequence $\pi = (s_0,\alpha_1, s_1, \alpha_2 \ldots$) of states and actions with $s_0,s_1,\ldots \in S$ and $\alpha_1,\alpha_2,\ldots \in Act$, such that $\PF(\pi[k],\alpha_{k+1},\pi[k+1]) > 0$. A \textit{finite path} is a finite prefix of an \textit{infinite path}.
 \end{definition}
 
-We use the notation $\pi[k]\in S$ to denote the $k$-th state of the path $\pi$ for all $k\in \NN_0$, i.e. $\pi[k] = s_k$. Furthermore, we define the length $|\pi|$ of a finite path $\pi = (s_0,\alpha_0,\dots,\alpha_{k-1},s_k) \in Paths_{fin}^\MC$ to be equal to $k$, which we denote as $|\pi| = k$. 
+We use the notation $\pi[k]\in S$ to denote the $k$-th state of the path $\pi$ for all $k\in \NN$, i.e. $\pi[k] = s_k$. Furthermore, we define the length $|\pi|$ of a finite path $\pi = (s_0,\alpha_1,\dots,\alpha_{k},s_k) \in Paths_{fin}^\MC$ to be equal to $k$, which we denote as $|\pi| = k$. 
 % We denote the last state of a finite path $\pi \in Paths^{\MC}_{fin}$ as $last(\pi)$, i.e., if $|\pi| = n$, then $last(\pi) = \pi[n]$.
 The sets of all infinite and finite sets are denoted as $Paths_{inf}^\MDP$ and $Paths_{fin}^\MDP$, respectively.
 
@@ -288,7 +243,7 @@ Further, we construct the \textit{probability space} of an MDP as follows. The e
         \item $\sum_{Paths_{inf}^\MDP}$ denotes the smallest $\sigma$-algebra containing the cylinder sets $Cyl(\pi')$ for all finite paths $\pi'\in Paths_{fin}^\MDP$ with
         \[Cyl(\pi') = \{\pi \in Paths_{inf}^\MDP\mid\forall k\in \underline{|\pi'|}: \pi[k] = \pi'[k]\}\]
         \item $Pr^\MDP$ is the unique probability measure on $(Paths_{inf}^\MDP, \sum_{Paths_{inf}^\MDP})$ satisfying
-        \[Pr^\MDP(Cyl(\pi')) = \llbracket \pi[0] = s_0^\MDP\rrbracket \cdot \prod_{k=0}^{|\pi'|-1}\PF^\MDP(\pi'[k],\alpha_k,\pi'[k+1])\]
+        \[Pr^\MDP(Cyl(\pi')) = \llbracket \pi[0] = s_0^\MDP\rrbracket \cdot \prod_{k=0}^{|\pi'|-1}\PF^\MDP(\pi'[k],\alpha_{k+1},\pi'[k+1])\]
         for all finite paths $\pi'\in Paths_{fin}^\MDP$
     \end{itemize}
 \end{definition}
@@ -297,10 +252,10 @@ We can now continue by defining total rewards for both DTMCs and MDPs.
 A reward function defines the \textit{total reward} collected along a path $\pi$ in a DTMC or MDP, respectively.
 
 \begin{definition}[Total Reward of Paths]
-    The \textit{total reward} of an infinite path $\pi \in \Path$ in a reward function $rew: S\rightarrow\RR$ for a DTMC $\MC$ is specified by $tr_{rew}: \Path \rightarrow\eRR$ with
+    The \textit{total reward} of an infinite path $\pi \in \Path$ and a DTMC $\MC$ reward function $rew: S\rightarrow\RR_{\geq 0}$ is specified by $tr_{rew}: \Path \rightarrow\eRR$ with
     \[tr_{rew}(\pi) = \sum_{k=0}^\infty rew(\pi[k])\ .\]
 
-    The \textit{total reward} of an infinite path $\pi \in Paths_{inf}^\MDP$ in a reward function $rew: S\rightarrow\RR$ for an MDP $\MDP$ is specified by $tr_{rew}: Paths_{inf}^\MDP \rightarrow\eRR$ with
+    The \textit{total reward} of an infinite path $\pi \in Paths_{inf}^\MDP$ and an MDP $\MDP$ reward function $rew: S\rightarrow\RR_{\geq 0}$ is specified by $tr_{rew}: Paths_{inf}^\MDP \rightarrow\eRR$ with
     \[tr_{rew}(\pi) = \sum_{k=0}^\infty rew(\pi[k])\ .\]
 \end{definition}
 The total reward $tr_{rew}$ is a non-negative function and the Lebesgue integral of $tr_{rew}$ with respect to the probability measure $Pr^\MC$ or $Pr^\MDP$, respectively, is well-defined.
@@ -315,20 +270,20 @@ The total reward $tr_{rew}$ is a non-negative function and the Lebesgue integral
 Whenever the DTMC $\MC$ is evident from the context, we will omit the superscripts $\MC$ and $\MDP$ from $\Exp^\MC[tr_{rew}]$ and $\Exp^\MDP[tr_{rew}]$.
 
 \section{Expected Visiting Times for DTMCs}\label{sec:EVTs_for_DTMCs}
-In this section, we will introduce the concept of \textit{expected visiting times}, which were first introduced by Kemeny and Snell \cite{KemenySnellBook} in the context of the \textit{fundamental matrix}.
-\todo{vllt noch mehr zu was vorgestellt; wie bei Hannah: fundamental aufwendig weil \dots, deshalb \dots}
-The notation and contents of this section are mostly based on \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens} and \cite{KemenySnellBook}.
+In this section, we will introduce the concept of \textit{expected visiting times}, which were first introduced by Kemeny and Snell \cite{KemenySnellBook} in the context of the \textit{fundamental matrix}. We start by giving a formal definition of EVTs in DTMCs. We then continue by elaborating on the fundamental matrix and show that the EVTs of a DTMC equal to the unique solution of a linear equation system.
+The notation and contents of this section are based on \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens} and \cite{KemenySnellBook}, unless states otherwise.
+\todo{vllt noch mehr vor allem intuition/background text zu EVTs; wenn ja kann bestimmt einiges aus Intro kopieren}
 
-Intuitively, the notion of EVTs describes how often we expect the model to be in a given state. To formally introduce EVTs, we fix a DTMC $\MC = (S,\PF,\iota_{init})$ and start by introducing \textit{visiting times} along paths.
+Intuitively, the notion of EVTs for a DTMC describes how often we expect the model to be in a given state. To formally introduce EVTs, we fix a DTMC $\MC = (S,\PF,\iota_{init})$ and start by introducing \textit{visiting times} along paths.
 \begin{definition}[Visiting Times of Infinite Paths]\label{def:visiting_times_of_infinite_paths}
-    The function $vt_s:\Path \rightarrow \RR$ describes the \textit{visiting time} of a state $s\in S$ along infinite paths in $\MC$, where for $\pi\in \Path$
+    The function $vt_s:\Path \rightarrow \eRR$ describes the \textit{visiting time} of a state $s\in S$ along infinite paths in $\MC$, where for $\pi\in \Path$:
     \[vt_s(\pi)=\sum_{k=0}^{\infty}\llbracket \pi[k]=s \rrbracket\ .\]
-    Similarly, the function $vt_T:\Path \rightarrow \RR$ descsribes the \textit{visiting time} of a set of states $T\subseteq S$ along infinite paths in $\MC$, where for $\pi \in \Path$
+    Similarly, the function $vt_T:\Path \rightarrow \eRR$ descsribes the \textit{visiting time} of a set of states $T\subseteq S$ along infinite paths in $\MC$, where for $\pi \in \Path$:
     \[vt_T(\pi)=\sum_{k=0}^{\infty}\llbracket \pi[k]\in T \rrbracket\ .\]
 \end{definition}
-As proven in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, the Lebesgue integral of the non-negative function $vt_s$ is well-defined for all states $s\in S^\MC$. Using this result, we can shortly prove the same for $vt_T$.
+As proven in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, the Lebesgue integral of the non-negative function $vt_s$ is well-defined for all states $s\in S$. Using this result, we can shortly prove the same for $vt_T$.
 \begin{proof}
-    Using \cref{def:visiting_times_of_infinite_paths},
+    Using \Cref{def:visiting_times_of_infinite_paths},
     \begin{align}
         vt_T(\pi)
         & = \sum_{k=0}^{\infty}\llbracket \pi[k]\in T \rrbracket \notag \\
@@ -339,24 +294,21 @@ As proven in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}, the Lebesgue
 \end{proof}
 \todo{vllt das lemma/whatever inkludieren, dass ich die summen swappen darf}
 
-With this function, we can now define the EVT of a state $s$ as the expected value of $vt_s$ over all possible paths.
-
+With this function, we can now define the EVT of a state $s$ as the expected value of $vt_s$.
 
 \begin{definition}[Expected Visiting Times in DTMCs]\label{def:EVTs_in_DTMCs}
-    For a state $s\in S$, the \textit{expected visiting time} of $s$ is characterized as
+    For a state $s\in S$, the \textit{expected visiting time} (EVT) of $s$ is given by:
     \[\Exp^{\MC}[vt_s]=\int_{\pi\in\Path}vt_s(\pi)dPr^{\MC}(\pi)\ .\]
     Additionally, we denote the \textit{expected visiting time} that is obtained by fixing a certain state $t\in S$ as the only initial state as $\Exp^\MC_t[vt_s]$. It is defined as
     \[\Exp^{\MC}_t[vt_s]=\int_{\pi\in\Path}vt_s(\pi)dPr_t^{\MC}(\pi)\ .\]
-    Lastly, for a set of states $T\subseteq S$ the \textit{expected visiting time} of $T$ is characterized as
-    \[\Exp^{\MC}[vt_T]=\sum_{t\in T}\Exp[vt_t]\ .\]
-    % Moreover, \[\Exp^{\MC}[vt_s] = \]
-    
-    % \[ \Exp^{\MC}[vt_s]=\int_{s'\in S} \iota_{init}(s')\underbrace{\int_{\pi\in\Path\land \pi[0]=s'}vt_s(\pi)dPr^{\MC}(\pi)}_{=: \Exp_s'[vt_s]}.\]
+    Lastly, for a set of states $T\subseteq S$ the \textit{expected visiting time} of $T$ is given by:
+    \[\Exp^{\MC}[vt_T] = \int_{\pi\in\Path}vt_T(\pi)dPr^{\MC}(\pi) = \sum_{t\in T}\Exp^\MC[vt_t]\ .\]
 \end{definition}
-Because the probability measure of paths $\pi$, see definition \Cref{def:prob_space_of_DTMC}, is defined as a product containing the factor $\iota_{init}(\pi[0])$, it is nonzero only for paths that begin in a state $s$ with $\iota_{init}(s)>0$. Thus, the value $\Exp^\MC[vt_s]$ gives the number of times the state $s$ is expected to be visited from all paths in $\MC$ that start in one of the initial states. Whenever the DTMC $\MC$ is evident from the context, we will omit the superscript $\MC$ from $\Exp^\MC[vt_s]$, $\Exp_t^\MC[vt_s]$, and $\Exp^{\MC}[vt_T]$.
+Because the probability measure of paths $\pi$ is defined as a product containing the factor $\iota_{init}(\pi[0])$, see definition \Cref{def:prob_space_of_DTMC}, it is non-zero only for paths that begin in an initial state $s$, i.e., $\iota_{init}(s)>0$. Thus, the values $\Exp^\MC[vt_s]$ and $\Exp^\MC[vt_T]$ give the number of times the state $s$ or states $t \in T$, respectively, are expected to be visited from all paths in $\MC$ that start in one of the initial states. Whenever the DTMC $\MC$ is evident from the context, we will omit the superscript $\MC$ from $\Exp^\MC[vt_s]$, $\Exp^\MC_t[vt_s]$, and $\Exp^{\MC}[vt_T]$.
 
 We shortly prove the third equation of \Cref{def:EVTs_in_DTMCs}.
 \begin{proof}
+    Given a DTMC $\MC$ and a set of states $T \subseteq S$, then
     \begin{align}
         \Exp[vt_T] 
         & = \int_{\pi\in\Path}vt_T(\pi)dPr^{\MC}(\pi) \notag \\
@@ -365,12 +317,10 @@ We shortly prove the third equation of \Cref{def:EVTs_in_DTMCs}.
         & = \sum_{t\in T}\Exp[vt_t] \ . & \text{ (using \Cref{def:EVTs_in_DTMCs})} \notag
     \end{align}
 \end{proof}
-\todo{bisschen text hinzufügen}
-\todo{diese ganze T geschichte für EVTs natürlich auch eine eigene contribution}
 
 Using the aforementioned partition of the set of states $S$ into transient and recurrent states, see \Cref{def:transient_and_recurrent_states}, we can already give a characterization for the latter.
 
-\begin{lemma}[EVTs of Recurrent States]\label{lem:EVTs_of_recurrent_states}
+\begin{lemma}[Characterization of EVTs of Recurrent States]\label{lem:EVTs_of_recurrent_states}
     For all recurrent states $s\in S_{re}$, it holds that
     \[\Exp[vt_s] = 
     \begin{cases*}
@@ -385,15 +335,13 @@ Thus, we will focus on finding the non-trivial EVTs of the transient states.
 For this, we will first define the \textit{fundamental matrix} which was introduced by Kemeny and Snell \cite{KemenySnellBook}.
 
 \begin{definition}[Fundamental Matrix]\label{def:fundamental_matrix}
-    For a DTMC $\MC$ with the matrix $Q = (\PF^\MC(s,t))_{s,t\in S_{tr}}$ containing the transition probabilities between the transient states (defined in \Cref{def:canonical_form}), the \textit{fundamental matrix} $F$ is defined as,
-    \[F = (I - Q)^{-1}\ .\]
+    For a DTMC $\MC$ with the matrix $Q^\MC = (\PF^\MC(s,t))_{s,t\in S_{tr}}$ containing the transition probabilities between the transient states (defined in \Cref{def:canonical_form}), the \textit{fundamental matrix} $F^\MC$ is defined as:
+    \[F^\MC = (\eye - Q^\MC)^{-1}\ .\]
 \end{definition}
-Kemeny and Snell show in \cite{KemenySnellBook} that $Q$ converges to the null matrix. Therefore, the Neumann series of $Q$ converges with $\sum^\infty_{k=0}Q^k = (\eye - Q)^{-1}$, see \Cref{def:neumann_series}, i.e., the fundamental matrix is well-defined.
+Kemeny and Snell show in \cite{KemenySnellBook} that $Q^\MC$ converges to the null matrix. Therefore, the Neumann series of $Q^\MC$ converges with $\sum^\infty_{k=0}(Q^\MC)^k = (\eye - Q^\MC)^{-1}$, see \Cref{def:neumann_series}, i.e., the fundamental matrix is well-defined.
 
-Importantly for this thesis, Kemeny and Snell show in \cite{KemenySnellBook}, that the fundamental matrix gives for any two transient states $s,t\in S_{tr}$ the expected number of times $s$ is visited, when starting in $t$. To be more precise, $\Exp_t[vt_s] = (F)_{ts}$. From this equation, it intuitively follows that transient states are only visited a finite amount of times.
-\todo{for this equation to hold, F needs to be ordered. Just mention this shortly}
+Importantly for this thesis, Kemeny and Snell show in \cite{KemenySnellBook}, that the fundamental matrix gives the expected number of times $s$ is visited, when starting in $t$ for any two transient states $s,t\in S_{tr}$. To be more precise, $\Exp_t[vt_s] = (F)_{ts}$. From this equation, it intuitively follows that transient states are only visited a finite amount of times.
 
-\todo{make reach of tran states into remark? --> if yes: rework the proof}
 % With this characterization of EVTs for transient states, we can prove the following lemma.
 % \begin{lemma}[Reachability of Transient States]\label{lem:reachability_of_transient_states}
 %     Transient states are reachable only from other transient states. Moreover, it follows from this that if a state is reachable from a recurrent state, it must also be recurrent
@@ -403,7 +351,7 @@ Importantly for this thesis, Kemeny and Snell show in \cite{KemenySnellBook}, th
 %     Assume that a transient state $s_{tr}$ is reachable from a recurrent state $s_{re}$, i.e. $Pr_{s_{re}}(\cCircle\lozenge s_{tr}) > 0$. As $Pr_{s_{re}}(\cCircle\lozenge s_{re}) = 1$, see \Cref{def:transient_and_recurrent_states}, necessarily $s_{re}$ is reachable from $s_{tr}$ as well and crucially $Pr_{s_{tr}}(\cCircle\lozenge s_{re}) = 1$. We now view each visit of $s_{re}$ as an trial, due to the strong Markov property \Cref{def:strong_markov_property}. We can then describe the probability of not reaching $s_{tr}$ as $\lim_{N\rightarrow\infty} (1-Pr_{s_{re}}(\cCircle\lozenge s_{tr}))^N = 0$, as $s_{re}$ is visited infinitely often, see \Cref{lem:EVTs_of_recurrent_states}. Thus, we are guaranteed to visit $s_{tr}$, when starting in $s_{re}$. As $Pr_{s_{tr}}(\cCircle\lozenge s_{re}) = 1$, this process repeats each time $s_{tr}$ is visited. Therefore, $s_{tr}$ is visited infinitely often as well, i.e. $\Exp[vt_{s_{tr}}] = \infty$. This contradicts the characterization of the EVTs of transient states, proven by \cite{KemenySnellBook}.
 %     Thus, we conclude that transient states cannot be reachable from recurrent states, i.e. can only be reached from other transient states.
 % \end{proof}
-\todo{ist der proof so sauber/schön genug + soll das ein lemma oder proof sein? + notion eines current state einführen?; falls ich das niergendswo mehr benutze, könnte ich es trotzdem als remark oder so verwenden}
+% \todo{ist der proof so sauber/schön genug + soll das ein lemma oder proof sein? + notion eines current state einführen?; falls ich das niergendswo mehr benutze, könnte ich es trotzdem als remark oder so verwenden}
 
 % Moreover, we can use this result to define a general characterization for the EVTs of transient states using the initial distribution.
 % \begin{theorem}[Calculating EVTs using the Fundamental Matrix]\label{th:calc_EVTs_fund_matrix}
@@ -414,12 +362,11 @@ Importantly for this thesis, Kemeny and Snell show in \cite{KemenySnellBook}, th
 %     \todo{does this definition work?; bec. my Ax definition from seminar is wrong (should be xA, i.e. $\iota F$)}
 % \end{theorem}
 
-Thus, we can use the fundamental matrix to characterize the EVTs for transient states. However, as the calculation of the inverse of a high-dimensional matrix becomes infeasible for large models, we will take a look at how the EVTs can be calculated using linear equation systems, as shown in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
-\todo{zweiter satz fast eins zu eins von Hannah übernommen; vllt noch abändern}
+Thus, we can use the fundamental matrix to characterize the EVTs of transient states. However, as the calculation of the inverse of a high-dimensional matrix becomes infeasible for large models, we will take a look at how the EVTs can be calculated using linear equation systems, as shown in \cite{KemenySnellBook,Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
 
 First, we define 
-\[\tau_{init} = (\iota_{init}(s_1),\dots,\iota_{init}(s_n))^\T\]
-for all $s\in S_{tr}$ with which we can then introduce the following theorem taken from \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
+\[\tau_{init} = (\iota_{init}(s_1),\dots,\iota_{init}(s_k))^\T\]
+for all $s_1,\ldots, s_k\in S_{tr}$ with which we can then introduce the following theorem taken from \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
 
 \begin{theorem}[Linear Equation System Characterization of EVTs]
     The vector $(\Exp[vt_s])_{s\in S_{tr}}$ provides the unique solution of the following linear equation system in $\RR^{|S_{tr}|}$:
@@ -427,10 +374,10 @@ for all $s\in S_{tr}$ with which we can then introduce the following theorem tak
 \end{theorem}
 In other words, the solution of this linear equation system is a vector containing the EVTs of the transient states $s\in S_{tr}$. For a proof of this theorem, see \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
 
-Importantly, this equation system can then be rewritten as 
+Importantly, this linear equation system can then be rewritten as 
 \[x = \tau_{init} + Q^\T \cdot x\ .\]
 
-For a single state $s\in S_{tr}$, we can thus calculate the respective EVT as follows,
+For a single state $s\in S_{tr}$, we can thus calculate the EVT of $s$ as follows:
 \begin{equation}\label{eq:EVT_DTMC_iterative_characterization}
     \Exp[vt_s] = \iota_{init}(s)+\sum_{t\in S_{tr}}\PF(t,s)\cdot \Exp[vt_t]\ .  
 \end{equation}
@@ -445,14 +392,14 @@ For a single state $s\in S_{tr}$, we can thus calculate the respective EVT as fo
 
 % \section{Relating Expected Visiting Times and Expected Total Rewards}
 \section{Relating Expected Visiting Times and Quantitative Reachability}\label{sec:MC_Quantitative_Reachability}
-We now relate \textit{expected visiting times} to \textit{quantitave reachability} for DTMCs. This has already been done in \cite[Lemma 3.5]{Baier_Relating_Reach_Prob} and \cite[Lemma 5.1]{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}. Thus, we present their results in this section.
+We now relate \textit{expected visiting times} to \textit{quantitave reachabilities} for DTMCs. This has already been done in \cite[Lemma 3.5]{Baier_Relating_Reach_Prob} and \cite[Lemma 5.1]{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}. Thus, we present their results in this section.
 
 \begin{lemma}[From Reachability Probabilities to EVTs]\label{lem:EVT_via_quant_reach}
-    Given a DTMC $\MC$ and state $s\in S^\MC_{tr}$, the EVT of $s$ is given by
+    Given a DTMC $\MC$ and state $s\in S^\MC_{tr}$, the EVT of $s$ is given by:
     \[ \Exp^\MC[vt_s] = \frac{Pr^{\MC}(\lozenge s)}{1-Pr^{\MC}_{s}(\cCircle\lozenge s)}\ .\]
 \end{lemma}
 
-In other words, we can calculate the EVT of a DTMC $\MC$ with only two reachability probabilities. For a proof of \Cref{lem:EVT_via_quant_reach}, see \cite[Lemma 3.5]{Baier_Relating_Reach_Prob} and \cite[Lemma 5.1]{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
+In other words, we can calculate the EVT of a DTMC $\MC$ with only two reachability probabilities. For a proof of this lemma, see \cite[Lemma 3.5]{Baier_Relating_Reach_Prob} and \cite[Lemma 5.1]{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
 % To calculate the quantitative reachability of a given state without a restriction of the initial state: $Pr_t(\lozenge s) = \frac{1}{(F)_{ss}}\cdot\sum_{t\in S_{tr}}(F)_{ts}\cdot \iota_{init}(t)$ 
 % \todo{perhaps need to change based on how \Cref{th:calc_EVTs_fund_matrix} formulated after correction/improvement}
 
@@ -462,10 +409,10 @@ In other words, we can calculate the EVT of a DTMC $\MC$ with only two reachabil
 We continue in this section by relating \textit{expected visiting times} to \textit{expected total rewards} for DTMCs. This has already been done in \cite{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
 
 \begin{lemma}[From Expected Rewards to EVTs]\label{lem:from-expected-rewards-to-evts}
-    For a DTMC $\MC$, fixed $s\in S$, and $x\in \RR$ the reward function $rew: S \rightarrow \RR$ given by $rew(t) = x \cdot \llbracket t = s\rrbracket$ satisfies
+    For a DTMC $\MC$, a fixed state $s\in S$, and $x\in \RR_{\geq 0}$ the reward function \\$rew: S \rightarrow \RR_{\geq 0}$ given by $rew(t) = x \cdot \llbracket t = s\rrbracket$ satisfies
     \[\Exp[vt_s] = \frac{1}{x}\cdot \Exp[tr_{rew}]\ .\]
 \end{lemma}
 For a proof of this lemma, see \cite[Lemma 3.6]{Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
+Notice that, when the reward is set to $x = 1$, the equation simplifies to $\Exp[vt_s] = \Exp[tr_{rew}]$.
 
-\todo{hier noch text von hannah übernehmen. erwähnen dass x = 1 dann "direkte" gleichung}
 \todo{vllt diese beiden sections zusammenfassen}

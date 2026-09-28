@@ -1,5 +1,26 @@
 \chapter{Conclusion}
 \label{ch:conclusion}
+This thesis examined EVTs in IDTMCs and introduced different techniques for the calculation of uEVTs and $\ell$EVTs. We started by formally introducing the notions of DTMCs and EVTs based on \cite{Bibel,Computing_EVTs_Stationary_Distr_in_MCs_Mertens,KemenySnellBook} in \Cref{ch:Markov Chains}. Moreover, we related EVTs in DTMCs to both quantitative reachabilities and expected total rewards, by lifting results from \cite{Baier_Relating_Reach_Prob,Computing_EVTs_Stationary_Distr_in_MCs_Mertens}.
+
+Then, in \Cref{ch:Interval Markov Chains} we introduce the notion of IDTMCs formally and elaborated on two commonly used semantics, called the UMC and IMDP semantic. Furthermore, we showed that the IMDP semantic is an extension of the UMC semantic and thus more expressive in \Cref{sec:relation_between_the_semantics}.
+
+The main contribution of this thesis are the characterizations and techniques for the calculation of uEVTs and $\ell$EVTs presented in \Cref{ch:EVTs_in_IDTMCs}. We started by formally introducing uEVTs and $\ell$EVTs of IDTMCs for both semantics. In \Cref{sec:calculating_expected_visiting_times_of_IDTMCs}, we then provided loose bounds on uEVTs and $\ell$EVTs in \Cref{th:loose_bounds_for_evts} and precise characterizations under the UMC semantic in \Cref{th:Expupper_ExpLower_infty} and \Cref{th:Characterization_Explower_0}. We later extended the results to the IMDP semantic in \Cref{sec:IMC_Quantitative_Reachability}. Further, we showed that not all EVTs in the interval defined by the uEVTs and $\ell$EVTs are obtainable under the UMC semantic in \Cref{ex:loose-bounds}. 
+
+We then continued in \Cref{sec:IMC_Quantitative_Reachability}, by showing that there exist DTMCs under the UMC semantic for any given IDTMC and state $s$ that have either the optimal reachability probability for all states $t$ to $s$ in \Cref{th:existence_of_dtmc_with_universal_max_reach}. We concluded from this result that these DTMCs can be used to calculate the uEVTs and $\ell$EVTs of all states in the IDTMC under the UMC semantic in \Cref{th:u/lEVTs_via_reach_and_semantics_coincide}. Moreover, we proved that the uEVTs and $\ell$EVTs coincide under the two semantics in \Cref{th:u/lEVTs_via_reach_and_semantics_coincide}, meaning that the choice of a semantic has no impact on the value of the uEVTs and $\ell$EVTs. In \Cref{sec:UMC_semantic}, we then showed the uEVTs and $\ell$EVTs can be calculated in PTIME using reachability probabilities and the DTMCs which we constructed in \Cref{th:existence_of_dtmc_with_universal_max_reach}. In \Cref{sec:IMDP_semantic}, we then elaborated on a different approach of calculating uEVTs and $\ell$EVTs via reachability probabilities.
+
+Furthermore, in \Cref{sec:computing-evts-using-expected-total-rewards}, we showed how uEVTs and $\ell$EVTs can be calculated using expected total rewards in BMDPs. To this end, we detailed how for any given IDTMC, a BMDP can be constructed, such that the probability measures of the MDPs which satisfy the BMDP and the DTMCS which satisfy the IDTMC under the UMC semantic correspond, see \Cref{lem:correspondance-between-satisfying-dtmcs-and-mdps}.
+
+Moreover, we showed in \Cref{sec:P-completeness of the Decision Problem} that the decision problem of uEVTs and $\ell$EVTs is P-complete. We accomplished this, by reducing this decision problem to the decision problem of optimal reachability probabilities.
+
+Lastly, in \Cref{ch:BSCCs_in_IDTMCs}, we elaborated on how stationary distributions can be calculated in IDTMCs using EVTs, see \Cref{th:max_min_stat_distribution}.
+
+Still, various interesting directions for future work remain open, which we will shortly expand on.
+
+While we constrained ourselves to the UMC and IDMP semantic in this thesis, there exist other semantics for which EVTs could be examined. One commonly used semantic in the literature, is the so-called \textit{at-every-step semantic}, see for example \cite{Semantics_Quant-Analysis,reachability_in_pIMCs_using_constraints}. As the maximum and minimum reachability probabilities coincide for the UMC, IMDP, and at-every-step semantic, we suspect that the uEVTs and $\ell$EVTs could coincide under all three semantics.
+
+Moreover, as mentioned in the related work section (see \Cref{sec:related-work}) we can construct a pMC for every IDTMC, that contains the same set of DTMCs as the IDTMC under the UMC semantic, as shown in \cite{reachability_in_pIMCs_using_constraints}. Furthermore, \cite{Hutschenreiter_pMCs_Intro} prove that expected rewards in pMCs with a fixed number of parameters can be computed in PTIME, i.e., computing the expected rewards of pMCs is exponential in the number of parameters \cite{Jansen_pMC_Servey_Intro}. As the construction shown in \cite{reachability_in_pIMCs_using_constraints} creates a parameter for each for each interval, we cannot compute the expected total rewards of the corresponding IDTMC in PTIME without bounding the number of intervals. However, it could be interesting to examine what constraints would be necessary for the IDTMC, such that the expected total rewards could be calculated in PTIME.
+
+
 
 % The conclusion summarizes the thesis and discusses future work.
 % Do not introduce any new material here.
