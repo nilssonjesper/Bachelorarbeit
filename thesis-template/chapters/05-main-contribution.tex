@@ -110,14 +110,15 @@ Intuitively, this lemma states that using two DTMCs $\MC_T$ and $\MC_t$ which ha
     %Recall, that $Pr^{\MC_{cmb}}_{}(\lozenge s) = \sum_{u\in N(t)\cap I^{\MC_{cmb}}_{t,s}}\PF^{\MC_{cmb}}(t,u)\cdot Pr_u^{\MC_{cmb}}(\lozenge s)$, see \Cref{lem:recursive_formula_for_reachability_prob}. 
     As $\PF^{\MC_{cmb}}(w,v) = \PF^{\MC_{T}}(w,v)$ for all $w \in I^{\MC_T}_{T,s}$, we can conclude that $Pr^{\MC_{cmb}}_u(\lozenge s) = Pr^{\MC_{T}}_u(\lozenge s)$ for all $u\in T$, as \Cref{lem:recursive_formula_for_reachability_prob} implies that the reachability probability from $u$ to $s$ only depends on the intermediate states of $T$ and $s$. Thus, $\Prupper^{\IMC}_{u}(\lozenge s) = Pr^{\MC_{cmb}}_u(\lozenge s)$ for all $u\in T$, by definition of $\MC_{T}$.
 
-    Thus, it remains to show that $Pr^{\MC_{cmb}}_t(\lozenge s) = \Prupper^{\IMC}_{t}(\lozenge s)$. As we know that by definition $Pr^{\MC_{t}}_t(\lozenge s) = \Prupper^{\IMC}_{t}(\lozenge s)$, it suffices to prove that $Pr^{\MC_{cmb}}_t(\lozenge s) = Pr^{\MC_{t}}_t(\lozenge s)$.
+    Thus, it remains to show that $Pr^{\MC_{cmb}}_t(\lozenge s) = \Prupper^{\IMC}_{t}(\lozenge s)$. As we know that $Pr^{\MC_{t}}_t(\lozenge s) = \Prupper^{\IMC}_{t}(\lozenge s)$ by definition, it suffices to prove that $Pr^{\MC_{cmb}}_t(\lozenge s) = Pr^{\MC_{t}}_t(\lozenge s)$.
     % Notice, that if $I^{\MC_t}_{t,s} \cap I^{\MC_T}_{T,s} = \emptyset$, then the proof concludes using the same argument as for $u\in T$. Furthermore, if $I^{\MC_t}_{t,s}\subseteq I^{\MC_T}_{T,s}$, then the proof concludes directly using \Cref{th:max_reach_prob_for_intermediate_states}.
     % \todo{sollen diese extra anmerkungen drin bleiben?}
 
-    Using \Cref{lem:recursive_formula_for_reachability_prob}, it follows that $Pr^{\MC_{cmb}}_{t}(\lozenge s) = \sum_{u\in N(t)\cap I^{\MC_{cmb}}_{t,s}}\PF^{\MC_{cmb}}(t,u) Pr_u^{\MC_{cmb}}(\lozenge s)$.
-    For all $u\in I^{\MC_t}_{t,s}\backslash I^{\MC_T}_{T,s}$, $\PF^{\MC_{cmb}}(u,w) = \PF^{\MC_{t}}(u,w)$ and for all $u\in I^{\MC_T}_{T,s} \cap I^{\MC_t}_{t,s}$, it holds that $Pr^{\MC_{cmb}}_u(\lozenge s) = Pr^{\MC_t}_u(\lozenge s)$, see \Cref{th:two_DTMCs_compatible_for_max_reach}. From this, we can conclude that $Pr^{\MC_{t}}_{t}(\lozenge s) = Pr^{\MC_{cmb}}_{t}(\lozenge s)$.
+    Using \Cref{lem:recursive_formula_for_reachability_prob}, it follows that 
+    \[Pr^{\MC_{cmb}}_{t}(\lozenge s) = \sum_{u\in N(t)\cap I^{\MC_{cmb}}_{t,s}}\PF^{\MC_{cmb}}(t,u) Pr_u^{\MC_{cmb}}(\lozenge s)\ .\]
+    For all $u\in I^{\MC_t}_{t,s}\backslash I^{\MC_T}_{T,s}$, $\PF^{\MC_{cmb}}(u,w) = \PF^{\MC_{t}}(u,w)$ and for all $u\in I^{\MC_T}_{T,s} \cap I^{\MC_t}_{t,s}$, it holds that $Pr^{\MC_{T}}_u(\lozenge s) = Pr^{\MC_t}_u(\lozenge s)$, see \Cref{th:two_DTMCs_compatible_for_max_reach}, which implies $Pr^{\MC_{cmb}}_u(\lozenge s) = Pr^{\MC_t}_u(\lozenge s)$. From this, we can conclude that $Pr^{\MC_{t}}_{t}(\lozenge s) = Pr^{\MC_{cmb}}_{t}(\lozenge s)$.
     \todo{vllt das hier irgendwie noch weiter ausführen}
-    Thus, we have shown that $Pr_u^{\MC_{cmb}}(\lozenge s) = \Prupper_u^{\MC_{cmb}}(\lozenge s)$ for all $u\in T \cup \{t\}$.
+    Thus, we have shown that $Pr_u^{\MC_{cmb}}(\lozenge s) = \Prupper_u^{\IMC}(\lozenge s)$ for all $u\in T \cup \{t\}$.
 
     Conversely, the same holds for minimum reachability probabilities, given that $Pr_u^{\MC_T}(\lozenge s) = \Prlower_u^\IMC(\lozenge s)$ for all $u\in T$ and $Pr_t^{\MC_t}(\lozenge s) = \Prlower_t^\IMC(\lozenge s)$.
 \end{proof}
@@ -132,7 +133,7 @@ Crucially, \Cref{lem:one-state_extension} can be extended to all states $s\in S^
 \begin{proof}
     Consider any given enumeration $t_1, t_2, \dots$ of $S^\IMC$. Clearly, this enumeration is finite, since $S^\IMC$ is finite, see \Cref{assmp:finiteness_IDTMCs}.
     
-    \emph{Construction.} Now, let $\MC_{max}^{(1)}\models_U \IMC$ with $Pr_{t_1}^{\MC_{max}^{(1)}}(\lozenge s) = \Prupper^\IMC_{t_1}$ and $T_1 \coloneq I^{\MC_{max}^{(1)}}_{t_1,s}$. By \Cref{th:max_reach_prob_for_intermediate_states}, $Pr_u(\lozenge s) = \Prupper_u(\lozenge s)$ for all $u\in I^{\MC_{max}^{(1)}}_{t_1,s}$.
+    \emph{Construction.} Now, let $\MC_{max}^{(1)}\models_U \IMC$ with $Pr_{t_1}^{\MC_{max}^{(1)}}(\lozenge s) = \Prupper^\IMC_{t_1}(\lozenge s)$ and $T_1 \coloneq I^{\MC_{max}^{(1)}}_{t_1,s}$. By \Cref{th:max_reach_prob_for_intermediate_states}, $Pr_u(\lozenge s) = \Prupper_u(\lozenge s)$ for all $u\in I^{\MC_{max}^{(1)}}_{t_1,s}$.
 
     Inductively, $\MC_{max}^{(n)} \models_U \IMC$ and $s\in T_n = I^{\MC_{max}^{(n)}}_{t_n,s}$, see \Cref{def:intermediate_state}.
     If $t_{n+1}\in T_n$, then we define $\MC_{max}^{(n+1)} \coloneq \MC_{max}^{(n)}$ and $T_{n+1} \coloneq T_n$. If not, we use \Cref{lem:one-state_extension} with 
@@ -140,7 +141,7 @@ Crucially, \Cref{lem:one-state_extension} can be extended to all states $s\in S^
         \item $T = T_n$,
         \item $\MC_T = \MC_{max}^{(n)}$,
         \item $t = t_{n+1}$, and
-        \item $\MC_t = \MC$ for some $\MC \models_U \IMC$ with $Pr^\MC_t(\lozenge s) = \Prupper_t^\IMC(\lozenge s)$
+        \item $\MC_t = \MC$ for some $\MC \models_U \IMC$ with $Pr^\MC_{t+1}(\lozenge s) = \Prupper_{t+1}^\IMC(\lozenge s)$
     \end{itemize}
     to obtain $\MC_{max}^{(n+1)} \coloneq \MC_{cmb}$ with $\MC_{max}^{(n+1)}\models_U \IMC$. We set $T_{n+1} = T_n \cup I^{\MC_{max}^{(n+1)}}_{t_{n+1},s}$ and thus, $Pr_{u}^{\MC_{max}^{(n+1)}}(\lozenge s) = \Prupper_{u}^\IMC(\lozenge s)$ for all $u \in T_n\cup\{t_{n+1}\}$, by \Cref{lem:one-state_extension}, as $\MC_{max}^{(n+1)} = \MC_{cmb}$, and $Pr_{u}^{\MC_{max}^{(n+1)}}(\lozenge s) = \Prupper_{u}^\IMC(\lozenge s)$ for all $u\in I^{\MC_{max}^{(n+1)}}_{t_{n+1},s}$ see \Cref{th:max_reach_prob_for_intermediate_states}. Therefore, $Pr_{t_i}^{\MC_{max}^{(n+1)}}(\lozenge s) = \Prupper_{t_i}^\IMC(\lozenge s)$ for all $t_i \in T_{n+1}$. Hence, $\MC_{max} \coloneq \MC_{max}^{(|S^\IMC|)}$ has maximum reachability to $s$ for all states $t\in S^\IMC$.
 
@@ -390,7 +391,7 @@ Lastly, we show that the UMC and IMDP semantic coincide on the $\ell$EVTs and uE
 %We start by showing how the $\ell$EVTs and uEVTs can be calculated using quantitative reachabilities under the UMC semantic.
 As we concluded in \Cref{sec:MC_Quantitative_Reachability}, we can calculate the EVT for all transient states $s \in S_{tr}^\MC$ in a DTMC $\MC$ using quantitative reachabilities, see \Cref{lem:EVT_via_quant_reach}: $\Exp^\MC[vt_s] = \frac{Pr^\MC(\lozenge s)}{1-Pr^\MC_s(\Circle\lozenge s)}$. As defined in \Cref{def:EVTs_of_IDTMCs}, the $\ell$EVT and uEVT of $\IMC$, under the UMC semantic, are equal to the largest and smallest EVT  amongst the satisfying DTMCs $\MC \models_U \IMC$. Thus, the $\ell$EVT and uEVT of $\IMC$ are given by the smallest and largest ratio of these quantitative reachability probabilites, see \Cref{lem:EVT_via_quant_reach}, among the satisfying Markov Chains, as those optimal ratios define the smallest and largest EVT. 
 \todo{ich denke das kein noch etwas mehr ausgeführt werden}
-Thus, we can conclude the following from the existence of DTMCs $\MC_{max}$ and $\MC_{min}$ which we defined in \Cref{th:existence_of_dtmc_with_universal_max_reach}.
+Thus, we can conclude the following from the existence of the DTMCs $\MC_{max}$ and $\MC_{min}$ which we defined in \Cref{th:existence_of_dtmc_with_universal_max_reach}.
 \begin{theorem}\label{th:u/lEVTs_via_reach_and_semantics_coincide}
     Given an IDTMC $\IMC$, state $s\in S^\IMC$, and the corresponding DTMCs $\MC_{max},\MC_{min}\models_U \IMC$:
     \begin{enumerate}[label=(\roman*)]
@@ -425,11 +426,11 @@ Thus, we can conclude the following from the existence of DTMCs $\MC_{max}$ and 
     \begin{enumerate}
         \item If $s \in S^\IMC_{\forall re}$, then $\Prupper^\IMC_s(\cCircle\lozenge s) = \Prlower^\IMC_s(\cCircle\lozenge s) = 1$, by definition of $S^\IMC_{\forall re}$, and thus \Cref{lem:EVT_via_quant_reach} is undefined for $\MC_{max}$ and $\MC_{min}$, as $Pr^{\MC_{max}}_s(\cCircle\lozenge s) = Pr^{\MC_{min}}_s(\cCircle\lozenge s) = 1$. 
 
-        However, using \Cref{th:Expupper_ExpLower_infty} we can conclude that $\ExpUpper[vt_s] = \ExpLower[vt_s] = \infty$. Using \Cref{eq:Pr_of_max_equals_Prupper} and \Cref{eq:Pr_of_min_equals_Prlower}, we can deduce that $s$ is reachable and recurrent in both $\MC_{max}$ and $\MC_{min}$. Thus, using \Cref{lem:EVTs_of_recurrent_states}, we can conclude that $\Exp^{\MC_{max}}[vt_s] = \ExpUpper[vt_s] = \infty$ and $\Exp^{\MC_{min}}[vt_s] = \ExpLower[vt_s] = \infty$.
+        However, using \Cref{th:Expupper_ExpLower_infty} we can conclude that $\ExpUpper[vt_s] = \ExpLower[vt_s] = \infty$. By the definition of $S^\IMC_{\forall re}$, we can deduce that $s$ is reachable and recurrent in both $\MC_{max}$ and $\MC_{min}$. Thus, using \Cref{lem:EVTs_of_recurrent_states}, we can conclude that $\Exp^{\MC_{max}}[vt_s] = \ExpUpper[vt_s] = \infty$ and $\Exp^{\MC_{min}}[vt_s] = \ExpLower[vt_s] = \infty$.
 
-        \item If $s\in S^\IMC_{re}$, then $\Prupper^\IMC_s(\cCircle\lozenge s) = 1$, by definiton of $S_{re}^\IMC$ see \Cref{def:transient_recurrent_states_IDTMC}, and thus \Cref{lem:EVT_via_quant_reach} is undefined for $\MC_{max}$, as $Pr^{\MC_{max}}_s(\cCircle\lozenge s) = 1$. However, using \Cref{th:Expupper_ExpLower_infty} we can conclude that $\ExpUpper[vt_s] = \infty$. Analogously to case (1), using \Cref{eq:Pr_of_max_equals_Prupper} and \Cref{lem:EVTs_of_recurrent_states} it follows that $\Exp^{\MC_{max}}[vt_s] = \ExpUpper[vt_s] = \infty$. For the calculation of $\ExpLower[vt_s]$, see case (3).
+        \item If $s\in S^\IMC_{re}$, then $\Prupper^\IMC_s(\cCircle\lozenge s) = 1$, by definiton of $S_{re}^\IMC$ see \Cref{def:transient_recurrent_states_IDTMC}, and thus \Cref{lem:EVT_via_quant_reach} is undefined for $\MC_{max}$, as $Pr^{\MC_{max}}_s(\cCircle\lozenge s) = 1$. However, using \Cref{th:Expupper_ExpLower_infty} we can conclude that $\ExpUpper[vt_s] = \infty$. Using \Cref{eq:Pr_of_max_equals_Prupper} and \Cref{assmp:finiteness_IDTMCs} which defines that $s$ is reachable in $\IMC$, we can deduce that $s$ is reachable and recurrent in $\MC_{max}$. Thus, using \Cref{lem:EVTs_of_recurrent_states}, it follows that $\Exp^{\MC_{max}}[vt_s] = \ExpUpper[vt_s] = \infty$. For the calculation of $\ExpLower[vt_s]$, see the equations in case (3) using that $s\notin S^\IMC_{\forall re}$ (see case 1) and thus there exists a DTMC $\MC \models_U$ with $Pr^\MC_s(\cCircle\lozenge s) < 1$, i.e., $Pr^{\MC_{min}}_s(\cCircle\lozenge s) = \Prlower^{\IMC}_s(\cCircle\lozenge s) < 1$. Hence, the equations in (3) are well-defined for $\ExpLower[vt_s]$ and $s\in S^\IMC_{re}$.
         
-        \item In all remaining cases, we can calculate the $\ell$EVT and uEVT using \Cref{lem:EVT_via_quant_reach}
+        \item In all remaining cases, we can calculate the $\ell$EVT and uEVT using \Cref{lem:EVT_via_quant_reach}:
         \[ \ExpLower[vt_s] = \frac{\Prlower^\IMC(\lozenge s)}{1-\Prlower^\IMC_s(\cCircle\lozenge s)} = \frac{Pr^{\MC_{min}}(\lozenge s)}{1-Pr^{\MC_{min}}_s(\cCircle\lozenge s)} = \Exp^{\MC_{min}}[vt_s]\]
         and
         \[ \ExpUpper[vt_s] = \frac{\Prupper^\IMC(\lozenge s)}{1-\Prupper^\IMC_s(\cCircle\lozenge s)} = \frac{Pr^{\MC_{max}}(\lozenge s)}{1-Pr^{\MC_{max}}_s(\cCircle\lozenge s)} = \Exp^{\MC_{max}}[vt_s]\ .\]
@@ -464,7 +465,7 @@ Thus, we can conclude the following from the existence of DTMCs $\MC_{max}$ and 
         \ExpUpper^\IMC[vt_s] 
         & = \sup_{\MC \models_I \IMC} \Exp^\MC[vt_T] \qquad & \text{for } T = \tau^{-1}(s) \text{ (see \Cref{def:EVTs_of_IDTMCs})}\notag \\
         & = \sup_{\MC \models_I \IMC} \sum_{t\in \tau^{-1}(s)}\Exp^\MC[vt_t] \qquad & \text{(see \Cref{def:EVTs_in_DTMCs})} \notag \\
-        & = \sup_{\MC \models_I \IMC} \sum_{t\in \tau^{-1}(s)}\Pr^\MC[vt_t] \qquad & \text{(as the $\MC$ is acyclical, see \Cref{eq:evts-of-acyclical-representations})} \notag \\
+        & = \sup_{\MC \models_I \IMC} \sum_{t\in \tau^{-1}(s)}Pr^\MC[vt_t] \qquad & \text{(as $\MC$ is acyclical, see \Cref{eq:evts-of-acyclical-representations})} \notag \\
         & = \sum_{t\in \tau^{-1}(s)}Pr^{\MC_{\eta_{max}}}[vt_t] \qquad & \text{(see \Cref{eq:sum_of_reach_maximal})} \notag \\
         & = \Exp^{\MC_{max}}[vt_s] \qquad & \text{(as $\MC_{max}$ and $\MC_{\eta_{max}}$ are both} \notag \\[-1ex]
         & \qquad & \text{representations of $\eta_{max}$)} \notag
@@ -481,16 +482,18 @@ Thus, we can conclude the following from the existence of DTMCs $\MC_{max}$ and 
 \end{proof}
 \todo{das alles hier auf jeden fall nochmal tiefgründig überprüfen}
 
+Thus, to summarize claim (i), as we can calculate $\Exp^{\MC_{max}}[vt_s]$ using two reachability probabilities, see \Cref{lem:EVT_via_quant_reach}, and $\ExpUpper^\IMC[vt_s] = \Exp^{\MC_{max}}[vt_s]$ under the UMC semantic for all $s\in S^\IMC$, we can calculate $\ExpUpper^\IMC[vt_s]$ under the UMC semantic using the reachability probabilities in \Cref{eq:Pr_of_max_equals_Prupper}.
+The same holds for $\ExpLower^\IMC[vt_s]$ using the reachability probabilities in \Cref{eq:Pr_of_min_equals_Prlower}.
+
 Furthermore, claim (ii) of \Cref{th:u/lEVTs_via_reach_and_semantics_coincide} implies, that we can extend all of our results for $\ell$EVTs and uEVTs under the UMC semantic to the IMDP semantic. Specifically, claim (i) of \Cref{th:u/lEVTs_via_reach_and_semantics_coincide}, \Cref{th:Expupper_ExpLower_infty}, \Cref{th:Characterization_Explower_0}, and the loose bounds provided in \Cref{th:loose_bounds_for_evts}.
 
 \subsection{UMC semantic}\label{sec:UMC_semantic}
-In this section we examine how the precise values of the $\ell$EVTs and uEVTs can be calculated for IDTMCs under the UMC semantic.
+In this section we examine how the precise values of the $\ell$EVTs and uEVTs can be calculated in PTIME.
 
-As defined, there can be multiple DTMCs $\MC$ that satisfy an IDTMC $\IMC$ with differing transition probability functions $\PF^{\MC}$ and initial distributions $\iota_{init}^{\MC}$. To determine the uEVT and $\ell$EVT for a given state $s\in S^\IMC$, we thus have to find the satisfying DTMCs that maximize and minimze \Cref{eq:EVT_DTMC_iterative_characterization}, respectively.
-In other words, we need to solve the equations
-\[\Exp[vt_s] = \operatorname{opt}_{\MC\models\IMC} \left(\iota_{init}(s) + \sum_{t\in S_{tr}}\PF^\MC(t,s)\cdot\Exp[vt_t]\right), \qquad \operatorname{opt}\in\{\min,\max\}. \]
-
-% As we concluded, the $\ell$EVT and uEVT of a given state $s$ in an IDTMC, can be calculated by computing the reachability probabilities $\Prupper^\IMC(\lozenge s)$ and $\Prupper^\IMC(\cCircle \lozenge s)$ or $\Prlower^\IMC(\lozenge s)$ and $\Prlower^\IMC(\cCircle \lozenge s)$. 
+% As defined, there can be multiple DTMCs $\MC$ that satisfy an IDTMC $\IMC$ with differing transition probability functions $\PF^{\MC}$ and initial distributions $\iota_{init}^{\MC}$. To determine the uEVT and $\ell$EVT for a given state $s\in S^\IMC$, we thus have to find the satisfying DTMCs that maximize and minimze \Cref{eq:EVT_DTMC_iterative_characterization}, respectively.
+% In other words, we need to solve the equations
+% \[\Exp[vt_s] = \operatorname{opt}_{\MC\models\IMC} \left(\iota_{init}(s) + \sum_{t\in S_{tr}}\PF^\MC(t,s)\cdot\Exp[vt_t]\right), \qquad \operatorname{opt}\in\{\min,\max\}. \]
+As we concluded, the $\ell$EVT and uEVT of a given state $s$ in an IDTMC, can be calculated by computing the reachability probabilities $\Prupper^\IMC(\lozenge s)$ and $\Prupper^\IMC(\cCircle \lozenge s)$ or $\Prlower^\IMC(\lozenge s)$ and $\Prlower^\IMC(\cCircle \lozenge s)$. 
 In \cite{complexity_model_checking_interval-valued_DTMCs}, the authors construct the following LP (which we have rewritten slightly) to compute any maximum or minimum reachability, respectively, for a set of nodes $T\subseteq S$, using the fixed-initial-state-definition:
 
 \[
@@ -505,21 +508,20 @@ In \cite{complexity_model_checking_interval-valued_DTMCs}, the authors construct
 \]
 where $(\operatorname{opt},\sim) \in \{(\max,\leq),(\min,\geq)\}$.
 
-Notice, that $Steps^\IMC(s_i)$ can be infinte for a given $s_i \in S^\IMC$. However, as described in \cite{complexity_model_checking_interval-valued_DTMCs} and \cite{Model-Checking_presence_Uncertainties}, $Steps\IMC(s_i)$ can be restricted by introducing the notion of \textit{basic feasible solutions}. Using this notion, we can obtain an upper bound on the size of $Steps^\IMC(s_i)$ in terms of the number of states $|S^\IMC|$. Specifically, 
+Notice that $Steps^\IMC(s_i)$ can be infinite for a given $s_i \in S^\IMC$. However, as described in \cite{complexity_model_checking_interval-valued_DTMCs} and \cite{Model-Checking_presence_Uncertainties}, $Steps^\IMC(s_i)$ can be restricted by introducing the notion of \textit{basic feasible solutions}. Using this notion, we can obtain an upper bound on the size of $Steps^\IMC(s_i)$ in terms of the number of states $|S^\IMC|$. Specifically, 
 \[|Steps^\IMC(s_i)| = \mathcal{O}(|S^\IMC|2^{|S^\IMC|-1})\ ,\]
 see \cite[Lemma 6]{Model-Checking_presence_Uncertainties} which implies that the LP has an exponential number of constraints.
 \todo{vllt big O in matheteil einführen}
 
 As shown in \cite{complexity_model_checking_interval-valued_DTMCs}, this exponential number of constraints can be handled by showing that a polynomial-time separation oracle exists. Thus, \cite{complexity_model_checking_interval-valued_DTMCs} show that, given an IDTMC $\IMC$ and a state $s\in S^\IMC$, the maximum or minimum reachability probabilities $\Prupper^\IMC(\lozenge s)$ and $\Prupper^\IMC(\cCircle \lozenge s)$ as well as $\Prlower^\IMC(\lozenge s)$ and $\Prlower^\IMC(\cCircle \lozenge s)$ can be computed in PTIME.
 
-Recall, that under the UMC semantic, the $\ell$EVT and uEVT of $s$ can be expressed as a rationaly function of the reachability probabilities $\Prupper^\IMC(\lozenge s)$ and $\Prupper^\IMC(\cCircle \lozenge s)$, or $\Prlower^\IMC(\lozenge s)$ and $\Prlower^\IMC(\cCircle \lozenge s)$, respectively, see \Cref{th:u/lEVTs_via_reach_and_semantics_coincide}. Thus, since these reachability probabilities can be computed in PTIME, the $\ell$EVT and uEVT of $s$ can also be computed in PTIME under the UMC semantic.
+As the $\ell$EVT and uEVT of $s$ can be expressed as a rational function of these reachability probabilities, see \Cref{th:u/lEVTs_via_reach_and_semantics_coincide} it thus follows, that since these reachability probabilities can be computed in PTIME, the $\ell$EVT and uEVT of $s$ can also be computed in PTIME.
 
-As the $\ell$ EVTs and uEVTs of all states $s\in S^\IMC$ are identical under both semantics, see claim (ii) of \Cref{th:u/lEVTs_via_reach_and_semantics_coincide}, the $\ell$EVT and uEVT of $s$ can therefore also be computed in PTIME under the IMDP semantic.
-\todo{vllt das hier noch weiter ausführen \& als theorem?}
+% As the $\ell$ EVTs and uEVTs of all states $s\in S^\IMC$ are identical under both semantics, see claim (ii) of \Cref{th:u/lEVTs_via_reach_and_semantics_coincide}, the $\ell$EVT and uEVT of $s$ can therefore also be computed in PTIME under the IMDP semantic.
+% \todo{vllt das hier noch weiter ausführen \& als theorem?}
 
 \subsection{IMDP semantic}\label{sec:IMDP_semantic}
-In this subsection we look at how $\ell$EVTs and uEVTs can be calculated for the IMDP semantic.
-By combining our conclusion that the $\ell$EVT and uEVT of a given state $s\in S^\IMC$ under the UMC semantic can be calculated in PTIME and claim (ii) of \Cref{th:u/lEVTs_via_reach_and_semantics_coincide}, we can intuitively conclude that the $\ell$EVT and uEVT of $s$ under the IMDP semantic can be calculated in PTIME as well.
+In the previous two 
 In the following, we present a different approach, to the one provided in \Cref{sec:UMC_semantic}, to prove this result. By showing this approach both the relation between the reachability probabilities and expected visiting times, as well as the differences between the UMC and IMDP semantic become more apparent. Moreover, this approach allows us to infer some additional results for the IMDP semantic.
 
 %\todo{based on this concept of forward/backward pass: can understand why acyclical is easy --> necessarily do not interfere; but useless info ig}
@@ -572,7 +574,7 @@ for all $t^{(1)}\in S_{st1} = S^{\MC_{s_{in}\rightarrow s}}$. All other states a
 
 To illustrate this construction of $\MC_{aug}^s$, we provide the following example.
 \begin{example}
-    Recall the IDTMC $\IMC_E$ in \Cref{fig:IMC_for_semantic}, displayed again in \Cref{fig:IMC_aug_mapping}. The \Cref{fig:MC_aug_mapping} shows $\MC_{aug}^{s_4}$, i.e., the construction of the maximizing DTMC for the uEVT of $s_4$ in $\IMC$.
+    Recall the IDTMC $\IMC_E$ defined in \Cref{ex:IMC_for_semantic}, displayed again in \Cref{fig:IMC_aug_mapping}. The \Cref{fig:MC_aug_mapping} shows $\MC_{aug}^{s_4}$, i.e., the construction of the maximizing DTMC for the uEVT of $s_4$ in $\IMC$.
 \end{example}
 % \begin{figure}[h]
 % \centering
@@ -864,7 +866,7 @@ Conversely, if we define
 \[Pr^{\MC_{s_{in}\rightarrow s}}(\lozenge s) = \Prlower^\IMC(\lozenge s) \qquad \text{and} \qquad Pr^{\MC_{s\rightarrow s}}_s(\cCircle\lozenge s) = \Prlower^\IMC_s(\cCircle\lozenge s)\]
 and construct $\eta_{aug}$ and $\MC_{aug}^s$, as described in this section, then $\Exp^{\MC_{aug}^s}[vt_s] = \ExpLower^\IMC[vt_s]$ using the same reasoning.
 
-Intuitively, $\eta_{aug}$ is not a stationary nature, as $\eta_{aug}: Paths_{fin}^\IMC \rightarrow Steps^\IMC$ does not depend exclusively on the current state of the model. Thus, we can conclude that there exists a nature $\eta_{aug}$ which is not stationary for every state $s\in S^\IMC$, that induces a DTMC $\MC_{aug}^s$, such that the EVT of $s$ in $\MC_{aug}^s$ is equal to either the $\ell$EVT or uEVT, of $s$. In other words, the DTMCs $\MC_{max}$ and $\MC_{min}$ which we constructed in \Cref{sec:IMC_Quantitative_Reachability} are not exclusively optimal for the $\ell$EVT and uEVT of a given state $s$ in the corresponding IDTMC $\IMC$. 
+Intuitively, $\eta_{aug}$ is not a stationary nature, as $\eta_{aug}: Paths_{fin}^\IMC \rightarrow Steps^\IMC$ does not depend exclusively on the current state of the model. Thus, we can conclude that there exists a nature $\eta_{aug}$ which is not stationary for every state $s\in S^\IMC$, that induces a DTMC $\MC_{aug}^s$, such that the EVT of $s$ in $\MC_{aug}^s$ is equal to either the $\ell$EVT or uEVT, of $s$. In other words, the DTMCs $\MC_{max}$ and $\MC_{min}$ which we constructed in \Cref{sec:relating-reach-and-EVTs} are not exclusively optimal for the $\ell$EVT and uEVT of a given state $s$ in the corresponding IDTMC $\IMC$. 
 
 % Thus, we can reason that transitions from the state $s$ itself and recurrent states have no influence on the reachability probability $Pr^\MC(\lozenge s)$.
 % CASE UNTERSCHEIDUNG: WENN $s\in S_re^{s --> s}$ und s reachable in $s_{in} --> s$. Dann unendlich. (similarily to \Cref{sec:IMC_Quantitative_Reachability}).
@@ -984,7 +986,7 @@ Pr^\MDP(Cyl(\hat{\pi}))=\llbracket \pi[0] = s_0^\MDP\rrbracket \cdot\prod_{k=0}^
 By construction, $s_0^\MC = s_0^\MDP$ and $\PF^\MC(s_i,s_j)=\PF^\MDP(s_i,\alpha,s_j)$. Consequently, it follows that $\Pr^\MC(\pi)=\Pr^\MDP(\hat{\pi})$ for every finite path $\pi\in Paths^\MC_{fin}$ and $\hat{\pi}\in Paths^\MDP_{fin}$. Hence, the corresponding cylinder sets have the same probability, and thus the probability measures induced by $\MC$ and $\MDP$ correspond under the above bijection.
 \end{proof}
 
-Notice, that the reward function $rew^\MDP$ of all MDPs $\MDP \models \BMDP_{s}$ is precisely the reward function defined in \Cref{lem:from-expected-rewards-to-evts} with $x = 1$. Moreover, we can conclude from \Cref{lem:correspondance-between-satisfying-dtmcs-and-mdps} that there exists a corresponding DTMC $\MC \models \IMC$ for each $\MDP$, such that $\Exp^\MC[tr_{rew}] = \Exp^\MDP[tr_{rew}]$, as their probability measures coincide. Thus, using \Cref{lem:from-expected-rewards-to-evts} it follows that
+Notice that the reward function $rew^\MDP$ of all MDPs $\MDP \models \BMDP_{s}$ is precisely the reward function defined in \Cref{lem:from-expected-rewards-to-evts} with $x = 1$. Moreover, we can conclude from \Cref{lem:correspondance-between-satisfying-dtmcs-and-mdps} that there exists a corresponding DTMC $\MC \models_U \IMC$ for each $\MDP$, such that $\Exp^\MC[tr_{rew}] = \Exp^\MDP[tr_{rew}]$, as their probability measures coincide. Thus, using \Cref{lem:from-expected-rewards-to-evts} it follows that
 \begin{equation}\label{eq:visiting-time-equals-exp-rewards}
     \Exp^\MC[vt_s] = \Exp^\MDP[tr_{rew}]\ .
 \end{equation}
@@ -1054,7 +1056,7 @@ In other words, this IDTMC $\IMC_{red}$ is identical to $\IMC$, except that all 
 
     Conversely, $\ExpLower^{\IMC_{red}}[vt_s] = \Prlower^{\IMC}(\lozenge T)$ if $\Exp^{\MC_{red}}[vt_s] = \ExpLower^{\IMC_{red}}[vt_s]$ and $Pr^{\MC_{min}}(\lozenge T) = \Prlower^\IMC(\lozenge T)$ for a DTMC $\MC_{min} \models_U \IMC$.
 \end{theorem}
-Notice, that these optima exist, see the first remark in \Cref{sec:IMC_Quantitative_Reachability} and \Cref{def:EVTs_of_IDTMCs}.
+Notice, that these optima exist, see the first remark in \Cref{sec:relating-reach-and-EVTs} and \Cref{def:EVTs_of_IDTMCs}.
 \todo{remarks zu environment machen; oder einfach das theorem der all reach construction referenzieren}
 
 In other words, the optimal EVT for $s$ in $\IMC_{red}$ is equal to the optimal reachability probability of $T$ in $\IMC$.
@@ -1092,6 +1094,7 @@ In other words, the reachability probability of $T$ is identical in $\MC_{red}$ 
 \begin{proof}
     Firstly, as $\Exp^{\MC_{red}}[vt_s] = \ExpUpper^{\IMC_{red}}[vt_s]$ by definition, it follows that $Pr^{\MC_{red}}(\lozenge s) = \Prupper^{\IMC_{red}}(\lozenge s)$, see \Cref{lem:EVT_equal_to_reach_prob_for_reduction}. Moreover, using \Cref{lem:equal_reach_prob_for_state_extension}, we can then conclude that $Pr^{\MC_{red}}(\lozenge T) = \Prupper^{\IMC_{red}}(\lozenge T)$.
 
+    \todo{für das untere: einfach das mit lemma 3.8 zeigen indem für jedes Pr-t für t is initial oder so, also t in S-in. Und dann folgern, dass es für gesamt gilt}
     The reachability probabilities $Pr^{\MC_{red}}(\lozenge T)$ and $Pr^{\MC_{max}}(\lozenge T)$ are only dependent on $\PF^{\MC_{red}}(s_i,s_j)$ and $\PF^{\MC}(s_i,s_j)$ with $s_i\in S^\IMC\backslash T$, respectively, see \Cref{lem:recursive_formula_for_reachability_prob}, and $\PFupper^{\IMC_{red}}(s_i,s_j) = \PFupper^\IMC(s_i,s_j)$ as well as $\PFlower^{\IMC_{red}}(s_i,s_j) = \PFlower^\IMC(s_i,s_j)$ for all $s_i\in S^\IMC \backslash T$ and $s_j\in S^\IMC$. We can thus conclude that $\Prupper^\IMC(\lozenge T) = \Prupper^{\IMC_{red}}(\lozenge T)$.
     By the definition of $\MC_{max}$ and $\MC_{red}$, $Pr^{\MC_{max}}(\lozenge T) = \Prupper^\IMC(\lozenge T)$ and $Pr^{\MC_{red}}(\lozenge T) = \Prupper^{\IMC_{red}}(\lozenge T)$. Hence, $Pr^{\MC_{max}}(\lozenge T) = Pr^{\MC_{red}}(\lozenge T)$ which concludes the proof.
 \end{proof}

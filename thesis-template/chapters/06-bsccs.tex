@@ -16,7 +16,7 @@ We define stationary distributions, also called long-run distributions, as done 
 \end{definition}
 In other words, the stationary distribution $\Theta^\MC(t)$ describes the probability that $\MC$ is in state $t$ after $k$ steps, as $k$ tends towards infinity. Whenever the DTMC $\MC$ is evident from the context, we omit the superscript $\MC$ from $\theta^\MC$.
 
-Similarly, we now define stationary distributions for IDTMCs. First, recall that the DTMCs $\MC_{\eta} \models_I \IMC$ that are induced by some nature $\eta$ can be infinite, i.e., $|\MC_{\eta}| = \infty$, see \Cref{def:DTMC_induced_by_nature}. Intuitively, as every state $s\in S^{\MC_{eta}}$ in these DTMCs is only visited once, $\theta(s) = 0$. In other words, there exists no stationary distribution for these states. 
+Similarly, we now define stationary distributions for IDTMCs. First, recall that the DTMCs $\MC_{\eta} \models_I \IMC$ that are induced by some nature $\eta$ can be infinite, i.e., $|\MC_{\eta}| = \infty$, see \Cref{def:DTMC_induced_by_nature}. Intuitively, as every state $s\in S^{\MC_{\eta}}$ in these DTMCs is only visited once, $\theta(s) = 0$. In other words, there exists no stationary distribution for these states. 
 \todo{noch mehr intuition mittels der T x theta = theta formel}
 Thus, we restrict this examination of BSCCs, in this thesis, to the UMC semantic.
 
@@ -61,7 +61,7 @@ In contrast to EVTs, when considering the stationary distribution of a DTMC or I
 % Obviously it needs to be some kind of interval definition again
 % --> how to do this in a meaningful way
 
-Recall, that the recurrent states of a DTMC $\MC$ are precisely the states contained in the BSCCs of $\MC$, see \Cref{sec:DTMCs}. Thus, by collapsing each BSCCS of $\MC$ into a single state, the stationary distribution $\theta^\MC$ of the recurrent states of a DTMC $\MC$ is characterized by 
+Recall, that the recurrent states of a DTMC $\MC$ are precisely the states contained in the BSCCs of $\MC$, see \Cref{def:transient_and_recurrent_states}. Thus, by collapsing each BSCCS of $\MC$ into a single state, the stationary distribution $\theta^\MC$ of the recurrent states of a DTMC $\MC$ is characterized by 
 \begin{equation}\label{eq:Stat_Distr_via_BSCC_for_DTMC} 
     \theta^\MC(s) = Pr^\MC(\lozenge B) \cdot \theta^{\MC|_B}(s)\ ,
 \end{equation} 
@@ -119,12 +119,12 @@ Therefore, we can intuitively calculate the stationary distributions for a state
     \[\Thetalower^\IMC(s) = \Prlower^\IMC(\lozenge B) \cdot \underline{\theta}^{\IMC|_B}\]
     and 
     \[\Thetaupper^\IMC(s) = \Prupper^\IMC(\lozenge B) \cdot \overline{\theta}^{\IMC|_B}\]
-    similar to \Cref{eq:Stat_Distr_via_BSCC_for_DTMC} using \Cref{eq:Stat_Distr_of_BSCC}.
+    similar to \Cref{eq:Stat_Distr_via_BSCC_for_DTMC}.
 \end{theorem}
 
 We provide a short proof by contradiction of this theorem
 \begin{proof}
-    Let us assume that there exists a DTMC $\MC \models_U \IMC$ such that $\Thetaupper^\IMC(s) < \theta^\MC(s)$. Using \Cref{th:max_min_stat_distribution} and \Cref{eq:Stat_Distr_via_BSCC_for_DTMC}, we can thus conclude that either
+    Let us assume that there exists a DTMC $\MC \models_U \IMC$ such that $\Thetaupper^\IMC(s) < \theta^\MC(s)$. Using \Cref{th:max_min_stat_distribution}, \Cref{eq:Stat_Distr_via_BSCC_for_DTMC}, and \Cref{eq:Stat_Distr_of_BSCC}, we can thus conclude that either
     \[Pr^\MC(\lozenge B) > \Prupper^{\IMC}(\lozenge B) \qquad \text{or} \qquad \frac{\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_s]}{\sum_{t\in S}\Exp^{\mathcal{B}\Rsh^{\hat{v}}}[vt_t]} > \overline{\theta}^{\IMC|_B}\ .\]
     However, as $\MC \models_U \IMC$ and $\mathcal{B}\!\Rsh^{\hat{v}} \models_U \mathcal{I}\!\Rsh^{\hat{v}}$, by the definition of $\Prupper^\IMC$ and the optimality of $\overline{\theta}^{\IMC|_B}$ as a maximal solution of the NLP, this leads to a contradiciton.
     Furthermore, as $s$ belongs to a singular BSCC $B$, every $\mathcal{B}\!\Rsh^{\hat{v}} \models_U \mathcal{I}\!\Rsh^{\hat{v}}$ is necessarily constructed from $B$. Thus, there exists a DTMC $\MC \models_U \IMC$, such that $Pr^\MC(\lozenge B) = \Prupper^\IMC(\lozenge B)$ and $\theta^{\MC|_B} = \overline{\theta}^{\IMC|_B}$.
